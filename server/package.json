@@ -21,6 +21,7 @@
     "apollo-server-express": "^3.6.3",
     "await-to-js": "^3.0.0",
     "chalk": "4.1.2",
+    "express": "^4.17.3",
     "graphql": "^16.3.0",
     "nexus": "^1.2.0",
     "nexus-prisma": "^0.35.0",
