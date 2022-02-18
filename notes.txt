@@ -1,0 +1,6 @@
+the x-coordinates go from -250 to 250 (every 1/10 of a foot) and the y-coordinates go from -50 to 940 (also every 1/10 of a foot)
+shot types ['LongMidRange' 'AtRim' 'ShortMidRange' 'Corner3' 'Arc3']
+
+TODO
+
+Not resimulating possession after offensive rebound
