@@ -1,6 +1,20 @@
 the x-coordinates go from -250 to 250 (every 1/10 of a foot) and the y-coordinates go from -50 to 940 (also every 1/10 of a foot)
 shot types ['LongMidRange' 'AtRim' 'ShortMidRange' 'Corner3' 'Arc3']
 
+count_as_possession - returns True if event is possession changing event
+        that should count as a real possession, False otherwise.
+        In order to not include possessions which a very low probability of scoring in possession counts,
+        possession won't be counted as a possession if it starts with <= 2 seconds left
+        and no points are scored before period ends
+
+To activate python virtual environment:
+ source venv/bin/activate
+
+To install packages:
+ pip3 install -r requirements.txt
+
+
 TODO
 
 Not resimulating possession after offensive rebound
+

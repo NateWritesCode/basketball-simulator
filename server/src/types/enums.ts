@@ -10,10 +10,16 @@ export const ShotTypes = z.enum([
 export type ShotTypes = z.infer<typeof ShotTypes>;
 
 export const TurnoverTypes = z.enum([
-  "OFFENSIVE_FOUL",
-  "PASS_OUT_OF_BOUNDS",
-  "OUT_OF_BOUNDS",
-  "THREE_SECONDS",
+  "BAD_PASS", //STEAL
+  "BAD_PASS_OUT_OF_BOUNDS",
+  "KICKED_BALL",
+  "LANE_VIOLATION",
+  "LOST_BALL", //STEAL
+  "LOST_BALL_OUT_OF_BOUNDS",
+  "OFFENSIVE_GOALTENDING",
+  "SHOT_CLOCK_VIOLATION",
+  "STEP_OUT_OF_BOUNDS",
+  "THREE_SECONDS_VIOLATION",
   "TRAVEL",
 ]);
 
@@ -50,6 +56,7 @@ export const GameEventPossessionEventOutcomes = z.enum([
   "JUMP_BALL",
   "SHOT",
   "TURNOVER",
+  "VIOLATION",
 ]);
 
 export type GameEventEnum = z.infer<typeof GameEventEnum>;

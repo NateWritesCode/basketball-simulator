@@ -5,29 +5,34 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^17.0.14",
-    "prisma": "^3.9.2",
+    "prisma": "3.9.2",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.5.5"
   },
   "scripts": {
-    "dev": "npx prisma db push --force-reset && npx prisma db seed && ts-node-dev --no-notify --respawn --transpile-only --quiet src/index"
+    "dev": "ts-node-dev --no-notify --respawn --transpile-only --quiet src/index",
+    "dev:prisma": "prisma db push --force-reset && prisma db seed && ts-node-dev --no-notify --respawn --transpile-only --quiet src/index"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@lvksh/logger": "^1.6.2",
-    "@prisma/client": "^3.9.2",
+    "@prisma/client": "3.9.2",
     "apollo-server-express": "^3.6.3",
     "await-to-js": "^3.0.0",
     "chalk": "4.1.2",
+    "cors": "^2.8.5",
+    "data-forge": "^1.9.2",
     "express": "^4.17.3",
     "graphql": "^16.3.0",
+    "http": "^0.0.1-security",
     "nexus": "^1.2.0",
     "nexus-prisma": "^0.35.0",
     "ordinal": "^1.0.3",
     "random": "^3.0.6",
     "simple-statistics": "^7.7.3",
+    "socket.io": "^4.4.1",
     "zod": "^3.11.6"
   }
 }

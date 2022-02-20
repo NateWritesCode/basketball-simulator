@@ -13,7 +13,17 @@ datasource db {
 
 model Player {
   familyName String @map("family_name")
-  id         Int    @id
   givenName  String @map("given_name")
+  jumping    Int
+  height     Int
+  id         Int    @id @default(autoincrement())
+  team       Team   @relation(fields: [teamId], references: [id])
+  teamId     Int
+}
 
+model Team {
+  homeName String   @map("home_name")
+  id       Int      @id @default(autoincrement())
+  nickname String
+  Player   Player[]
 }

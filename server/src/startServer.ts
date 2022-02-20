@@ -4,16 +4,36 @@ import { GraphQLSchema } from "graphql";
 import { schema } from "./schema";
 import { log } from "./utils";
 import express from "express";
+import * as http from "http";
+import { Server } from "socket.io";
+import Socket from "./Socket";
+import { Context } from "./types";
+import cors from "cors";
 
 const prisma = new PrismaClient();
 
 export default async () => {
   log.info("Starting server");
+  const app = express();
+  const httpServer = http.createServer(app);
+  const socket = new Socket(httpServer);
+
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+
+  const corsOptions = {
+    origin: "http://localhost:3000",
+  };
+
+  app.use(cors(corsOptions));
+
+  const context = {
+    prisma,
+    socket,
+  };
 
   const apolloServerOptions: ApolloServerExpressConfig = {
-    context: {
-      prisma,
-    },
+    context,
     debug: true,
     introspection: true,
     schema: schema as unknown as GraphQLSchema,
@@ -22,15 +42,19 @@ export default async () => {
   const apolloServer = new ApolloServer(apolloServerOptions);
   await apolloServer.start();
 
-  const app = express();
-
   apolloServer.applyMiddleware({
     app,
   });
 
-  const port = 4000;
+  const port = 8080;
 
-  await new Promise((resolve: any) => app.listen({ port }, resolve));
-
-  log.info(`Server is ready at http://localhost:${port}`);
+  httpServer.listen(
+    {
+      port,
+    },
+    () =>
+      log.info(
+        `Server is ready at http://localhost:${port}${apolloServer.graphqlPath}`
+      )
+  );
 };

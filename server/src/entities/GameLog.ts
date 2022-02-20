@@ -25,11 +25,12 @@ import {
 import { log } from "../utils";
 import ordinal from "ordinal";
 import fs from "fs";
+import Socket from "../Socket";
 
 class GameLog implements IObserver {
   gameLog: string[][];
 
-  constructor() {
+  constructor(socket: Socket) {
     this.gameLog = [];
   }
 

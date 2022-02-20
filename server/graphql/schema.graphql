@@ -26,6 +26,7 @@ scalar Json @specifiedBy(url: "http://www.ecma-international.org/publications/fi
 
 type Mutation {
   createOneTest: Boolean
+  startGameSim: Boolean
 }
 
 type Player {

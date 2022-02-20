@@ -1,2 +1,7 @@
 .env
 node_modules
+output
+response_data
+venv
+__pycache__
+game_id_errors.txt

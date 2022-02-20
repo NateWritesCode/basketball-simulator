@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { GamePlayerState, GameTeamState, Player, Team } from "../entities";
+import Socket from "../Socket";
 import {
   GameTotalTimeEnum,
   GameTypeEnum,
@@ -61,6 +62,7 @@ export const GameSimInit = z.object({
   neutralFloor: z.boolean().optional(),
   possessionTossupMethod: PossessionTossupMethodEnum,
   shotClock: ShotClockLengthEnum.optional(),
+  socket: z.instanceof(Socket),
   teams: z.tuple([z.instanceof(Team), z.instanceof(Team)]),
   timeouts: z.number().positive(),
 });

@@ -104,6 +104,7 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 export interface NexusGenFieldTypes {
   Mutation: { // field return type
     createOneTest: boolean | null; // Boolean
+    startGameSim: boolean | null; // Boolean
   }
   Player: { // field return type
     familyName: string; // String!
@@ -118,6 +119,7 @@ export interface NexusGenFieldTypes {
 export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     createOneTest: 'Boolean'
+    startGameSim: 'Boolean'
   }
   Player: { // field return type name
     familyName: 'String'

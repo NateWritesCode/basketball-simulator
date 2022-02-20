@@ -31,6 +31,7 @@ import {
   getShotXByShotType,
   getShotYByShotType,
 } from "../utils/probabilities";
+import Socket from "../Socket";
 
 class GameSim {
   private d: TeamIndex;
@@ -48,6 +49,7 @@ class GameSim {
   private possessionArrow: TeamIndex;
   private possessionTossupMethod: PossessionTossupMethodEnum;
   private playerStates: GameSimPlayerStat;
+  private socket: Socket;
   private teams: GameSimTeams;
   private teamStates: GameSimTeamStat;
   private timeSegmentIndex: number | undefined;
@@ -59,6 +61,7 @@ class GameSim {
     id,
     neutralFloor = false,
     possessionTossupMethod,
+    socket,
     teams,
     timeouts,
   }: GameSimInit) {
@@ -79,7 +82,7 @@ class GameSim {
     this.gameType = gameType;
     this.teamStates = {};
     this.playerStates = {};
-
+    this.socket = socket;
     this.teams.forEach((team, teamIndex) => {
       const teamState = new GameTeamState(team.id, timeouts);
       this.teamStates[team.id] = teamState;
@@ -95,7 +98,7 @@ class GameSim {
     });
 
     // INIT OTHER OBSERVERS
-    this.observers.push(new GameLog());
+    this.observers.push(new GameLog(socket));
 
     //START MANIPULATING GAME STATE
 
@@ -321,6 +324,9 @@ class GameSim {
       });
       playerTotals.push(total);
     });
+
+    console.log("playerTotals", playerTotals);
+    console.log("this", this);
 
     const max = playerTotals.reduce((m, n) => Math.max(m, n));
     const maxIndexes = [...playerTotals.keys()].filter(
@@ -747,6 +753,8 @@ class GameSim {
         }
         break;
       }
+      case "VIOLATION": {
+      }
       default:
         const exhaustiveCheck: never = outcome;
         throw new Error(exhaustiveCheck);
@@ -788,7 +796,7 @@ class GameSim {
     console.log("Simming shootout");
   };
 
-  start = () => {
+  start = (): Promise<void> => {
     this.notifyObservers("GAME_START");
 
     let simPossessionIsOver = false;
@@ -810,6 +818,10 @@ class GameSim {
     }
 
     this.notifyObservers("GAME_END");
+
+    console.log("Reacted the end");
+
+    return Promise.resolve();
   };
 }
 
