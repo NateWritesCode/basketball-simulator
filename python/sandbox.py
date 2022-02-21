@@ -9,13 +9,16 @@ rebound_df = pd.DataFrame(pd.read_pickle("./output/rebound.pkl"))
 substitution_df = pd.DataFrame(pd.read_pickle("./output/substitution.pkl"))
 turnover_df = pd.DataFrame(pd.read_pickle("./output/turnover.pkl"))
 violation_df = pd.DataFrame(pd.read_pickle("./output/violation.pkl"))
+players_df = pd.DataFrame(pd.read_pickle("./output/players.pkl"))
 
+players_df = players_df.set_index(['PERSON_ID'])
+players_df.to_json("../server/src/data/nba-api/players.json", orient="index")
 
-one_game_df = violation_df[
-    (violation_df["pbp_id"].str.contains("0022000567"))
-]
+# one_game_df = violation_df[
+#     (violation_df["pbp_id"].str.contains("0022000567"))
+# ]
 
-one_game_df.to_json("../server/src/pbp/violation.json", orient="index")
+# one_game_df.to_json("../server/src/pbp/violation.json", orient="index")
 
 # SHOT TYPE PROBABILITY AND X, Y LOCATION PROBABILITY
 # Shot types ['LongMidRange' 'AtRim' 'ShortMidRange' 'Corner3' 'Arc3']
