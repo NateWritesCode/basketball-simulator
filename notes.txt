@@ -1,6 +1,5 @@
 the x-coordinates go from -250 to 250 (every 1/10 of a foot) and the y-coordinates go from -50 to 940 (also every 1/10 of a foot)
 shot types ['LongMidRange' 'AtRim' 'ShortMidRange' 'Corner3' 'Arc3']
-
 count_as_possession - returns True if event is possession changing event
         that should count as a real possession, False otherwise.
         In order to not include possessions which a very low probability of scoring in possession counts,
@@ -17,4 +16,8 @@ To install packages:
 TODO
 
 Not resimulating possession after offensive rebound
+
+
+PBP PARSE NOTES
+pbp-parse.py fails on is_heave sometimes '>' not supported between instances of 'NoneType' and 'int'. Because I think shot distance is not there
 

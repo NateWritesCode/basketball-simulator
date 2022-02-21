@@ -49,5 +49,5 @@ export const startTeamDetailsParse = () => {
   });
 
   fs.writeFileSync("./src/data/teams.json", JSON.stringify(teams));
-  console.log("Finished writing file");
+  console.log(`Finished writing teams file`);
 };

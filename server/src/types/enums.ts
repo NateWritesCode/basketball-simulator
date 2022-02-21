@@ -23,6 +23,15 @@ export const TurnoverTypes = z.enum([
   "TRAVEL",
 ]);
 
+export const ViolationTypes = z.enum([
+  "DOUBLE_LANE_VIOLATION",
+  "DELAY_OF_GAME",
+  "GOALTEND_VIOLATION",
+  "JUMPBALL_VIOLATION",
+  "KICKED_BALL_VILATION",
+  "LANE_VIOLATION"
+])
+
 export const GameEventEnum = z.enum([
   "2FG_ATTEMPT",
   "2FG_BLOCK",
@@ -56,7 +65,6 @@ export const GameEventPossessionEventOutcomes = z.enum([
   "JUMP_BALL",
   "SHOT",
   "TURNOVER",
-  "VIOLATION",
 ]);
 
 export type GameEventEnum = z.infer<typeof GameEventEnum>;

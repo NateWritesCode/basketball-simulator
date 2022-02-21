@@ -12,13 +12,43 @@ datasource db {
 }
 
 model Player {
-  familyName String @map("family_name")
-  givenName  String @map("given_name")
-  jumping    Int
-  height     Int
-  id         Int    @id
-  team       Team   @relation(fields: [teamId], references: [id])
-  teamId     Int
+  active            Boolean
+  arc3              Int       @default(50)
+  atRim             Int       @default(50) @map("at_rim")
+  birthdate         DateTime
+  blocking          Int       @default(50)
+  corner3           Int       @default(50)
+  country           String?
+  draftNumber       Int?      @map("draft_number")
+  draftRound        Int?      @map("draft_round")
+  draftYear         DateTime? @map("draft_year")
+  familyName        String    @map("family_name")
+  freeThrow         Int       @default(50) @map("free_throw")
+  fromYear          DateTime? @map("from_year")
+  givenName         String    @map("given_name")
+  greatest75        Boolean   @map("greatest_75")
+  hasPlayedDLeague  Boolean   @map("has_played_d_league")
+  hasPlayedGames    Boolean   @map("has_played_games")
+  hasPlayedNba      Boolean   @map("has_played_nba")
+  height            Int
+  id                Int       @id
+  irritability      Int       @default(50)
+  jerseyNumber      Int?      @map("jersey_number")
+  jumping           Int       @default(50)
+  midRangeLong      Int       @default(50)
+  midRangeShort     Int       @default(50)
+  playerCode        String?   @map("player_code")
+  position          String?
+  rebounding        Int       @default(50)
+  school            String?
+  seasonsExperience Int
+  slug              String
+  stealing          Int       @default(50)
+  team              Team      @relation(fields: [teamId], references: [id])
+  teamId            Int
+  toYear            DateTime? @map("to_year")
+  turnoverProne     Int       @default(50) @map("turnover_prone")
+  weight            Int
 }
 
 model Team {

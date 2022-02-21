@@ -17,6 +17,7 @@ from pbpstats.resources.enhanced_pbp.violation import Violation
 import numpy as np
 from os import listdir
 import pandas as pd
+import traceback
 np.random.seed(123)
 
 
@@ -41,7 +42,7 @@ seconds_overtime = 300.0
 
 
 game_ids = list(map(get_game_id, listdir("./response_data/pbp")))
-# game_ids = game_ids[0:1]
+# game_ids = game_ids[1438:1441]
 
 
 pbp_ref = {
@@ -513,12 +514,12 @@ for game_id in game_ids:
                         team_2 = str(team_ids[1])
 
                         update_row(pbp_ref, poss_general_data,
-                                   "offense_team_id", (possession_event.get_offense_team_id()))
+                                   "offense_team_id", team_1 if possession_event.get_offense_team_id() == team_2 else team_1)
                         update_row(pbp_ref, poss_general_data,
                                    "defense_team_id", team_1 if possession_event.get_offense_team_id() == team_1 else team_2)
 
                     except Exception as e:
-                        e
+                        print("Top innie: ", e)
 
                     if hasattr(possession_event, 'player1_id') and possession_event.player1_id != "0":
                         update_row(pbp_ref, poss_general_data,
@@ -814,7 +815,9 @@ for game_id in game_ids:
                             "Woah! This play is not an instance of a determined type")
 
                 except Exception as e:
-                    print(e)
+                    print("Innie: ", e, possession_event)
+                    print(traceback.format_exc())
+
 
                 update_row(pbp_ref, poss_general_data, "event_num",
                            possession_event.event_num)
@@ -835,7 +838,8 @@ for game_id in game_ids:
 
                 pbp_data.append(poss_general_data)
         except Exception as e:
-            print(e)
+            print(traceback.format_exc())
+            print("Outie: ", e, possession, ch)
 
 
 pbp_df = pd.DataFrame(pbp_data, columns=pbp_ref.keys())

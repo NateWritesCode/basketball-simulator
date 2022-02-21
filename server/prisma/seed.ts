@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
+import players from "../src/data/players.json";
 import teams from "../src/data/teams.json";
-import bulls from "../src/data/bulls.json";
-import knicks from "../src/data/knicks.json";
 
 const prisma = new PrismaClient();
 
@@ -11,7 +10,7 @@ async function main() {
   });
 
   await prisma.player.createMany({
-    data: [...bulls, ...knicks],
+    data: players,
   });
 }
 

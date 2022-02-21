@@ -1,4 +1,6 @@
 import { mutationField } from "nexus";
+import random from "random";
+import { sample } from "simple-statistics";
 import { GameSim, Player, Team } from "../../entities";
 import {
   OvertimeLength,
@@ -11,11 +13,17 @@ export const startGameSim = mutationField("startGameSim", {
   type: "Boolean",
   async resolve(_parent, _args, { prisma, socket }) {
     try {
-      const playersFetch = await prisma.player.findMany();
-      const teamsFetch = await prisma.team.findMany();
+      const teamsFetch = await prisma.team.findMany({});
+      const [team0, team1] = sample(teamsFetch, 2, () => random.float(0, 1));
+      const playersFetch = await prisma.player.findMany({
+        where: {
+          OR: [{ teamId: team0.id }, { teamId: team1.id }],
+        },
+      });
 
       const players = playersFetch.map((player) => new Player(player));
-      const teams = teamsFetch.map(
+
+      const teams = [team0, team1].map(
         (team) =>
           new Team({
             ...team,

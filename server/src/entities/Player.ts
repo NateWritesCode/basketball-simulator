@@ -1,36 +1,63 @@
-type PlayerInit = {
-  familyName: string;
-  givenName: string;
-  height: number;
-  jumping: number;
-  id: number;
-  teamId: number;
-};
+import { Player as DbPlayer } from "@prisma/client";
 
 class Player {
+  arc3: number;
+  atRim: number;
+  blocking: number;
+  corner3: number;
   familyName: string;
+  freeThrow: number;
   givenName: string;
   height: number;
-  id: number;
   irritability: number;
   jumping: number;
+  id: number;
+  midRangeLong: number;
+  midRangeShort: number;
+  rebounding: number;
+  stealing: number;
   teamId: number;
+  turnoverProne: number;
+  weight: number;
 
   constructor({
+    arc3,
+    atRim,
+    blocking,
+    corner3,
     familyName,
+    freeThrow,
     givenName,
     height,
     id,
+    irritability,
     jumping,
+    midRangeLong,
+    midRangeShort,
+    rebounding,
+    stealing,
     teamId,
-  }: PlayerInit) {
+    turnoverProne,
+    weight,
+  }: DbPlayer) {
+    this.arc3 = arc3;
+    this.atRim = atRim;
+    this.blocking = blocking;
+    this.corner3 = corner3;
     this.familyName = familyName;
+    this.freeThrow = freeThrow;
     this.givenName = givenName;
     this.height = height;
     this.id = id;
-    this.irritability = 0;
+    this.irritability = irritability;
     this.jumping = jumping;
+    this.midRangeLong = midRangeLong;
+    this.midRangeShort = midRangeShort;
+    this.rebounding = rebounding;
+    this.stealing = stealing;
     this.teamId = teamId;
+    this.turnoverProne = turnoverProne;
+    this.weight = weight;
   }
 
   calculateNormalizedData = ({

@@ -753,8 +753,6 @@ class GameSim {
         }
         break;
       }
-      case "VIOLATION": {
-      }
       default:
         const exhaustiveCheck: never = outcome;
         throw new Error(exhaustiveCheck);
@@ -818,8 +816,6 @@ class GameSim {
     }
 
     this.notifyObservers("GAME_END");
-
-    console.log("Reacted the end");
 
     return Promise.resolve();
   };

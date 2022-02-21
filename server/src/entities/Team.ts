@@ -1,7 +1,9 @@
 import Player from "./Player";
 import random from "random";
 import { sample } from "simple-statistics";
-import { TeamInit } from "../types";
+import { Team as DbTeam } from "@prisma/client";
+
+type TeamInit = DbTeam & { players: Player[] };
 
 class Team {
   homeName: string;
