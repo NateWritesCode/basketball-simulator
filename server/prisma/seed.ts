@@ -1,13 +1,11 @@
 import { PrismaClient } from "@prisma/client";
+import teams from "../src/data/teams.json";
 
 const prisma = new PrismaClient();
 
 async function main() {
   await prisma.team.createMany({
-    data: [
-      { id: 1, homeName: "Chicago", nickname: "Bulls" },
-      { id: 2, homeName: "New York", nickname: "Knicks" },
-    ],
+    data: teams,
   });
 
   await prisma.player.createMany({

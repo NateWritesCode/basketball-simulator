@@ -16,14 +16,21 @@ model Player {
   givenName  String @map("given_name")
   jumping    Int
   height     Int
-  id         Int    @id @default(autoincrement())
+  id         Int    @id
   team       Team   @relation(fields: [teamId], references: [id])
   teamId     Int
 }
 
 model Team {
-  homeName String   @map("home_name")
-  id       Int      @id @default(autoincrement())
-  nickname String
-  Player   Player[]
+  abbrev        String
+  facebook      String
+  homeName      String   @map("home_name")
+  id            Int      @id
+  instagram     String
+  nickname      String
+  players       Player[]
+  twitter       String
+  venue         String
+  venueCapacity Int      @map("venue_capacity")
+  yearFounded   DateTime @map("year_founded")
 }

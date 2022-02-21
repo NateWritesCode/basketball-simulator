@@ -24,3 +24,4 @@ for player in all_players:
 
 players_df.to_pickle("./output/players.pkl")
 players_df.to_csv("./output/players.csv", index=False)
+players_df.to_json("../server/src/data/players.json", index=False)

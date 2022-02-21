@@ -1,0 +1,6453 @@
+[
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612737,
+        "ABBREVIATION": "ATL",
+        "NICKNAME": "Hawks",
+        "YEARFOUNDED": 1949,
+        "CITY": "Atlanta",
+        "ARENA": "State Farm Arena",
+        "ARENACAPACITY": "18729",
+        "OWNER": "Tony Ressler",
+        "GENERALMANAGER": "Travis Schlenk",
+        "HEADCOACH": "Nate McMillan",
+        "DLEAGUEAFFILIATION": "Erie Bayhawks"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612737,
+        "CITY": "Atlanta",
+        "NICKNAME": "Hawks",
+        "YEARFOUNDED": 1968,
+        "YEARACTIVETILL": 2019
+      },
+      {
+        "TEAM_ID": 1610612737,
+        "CITY": "St. Louis",
+        "NICKNAME": "Hawks",
+        "YEARFOUNDED": 1955,
+        "YEARACTIVETILL": 1967
+      },
+      {
+        "TEAM_ID": 1610612737,
+        "CITY": "Milwaukee",
+        "NICKNAME": "Hawks",
+        "YEARFOUNDED": 1951,
+        "YEARACTIVETILL": 1954
+      },
+      {
+        "TEAM_ID": 1610612737,
+        "CITY": "Tri-Cities",
+        "NICKNAME": "Blackhawks",
+        "YEARFOUNDED": 1949,
+        "YEARACTIVETILL": 1950
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/hawks"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/atlhawks"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/ATLHawks"
+      }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 1958, "OPPOSITETEAM": "Boston Celtics" }
+    ],
+    "TeamAwardsConf": [],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1957, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1958, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1959, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1960, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1961, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1970, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1980, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1987, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1994, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2015, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2021, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 76442,
+        "PLAYER": "Chuck Cooper",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1955-1956",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 77626,
+        "PLAYER": "Sidney Moncrief",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1991",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 76385,
+        "PLAYER": "Maurice Cheeks",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1991-1992",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 1503,
+        "PLAYER": "Tracy McGrady",
+        "POSITION": "G-F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2011-2012",
+        "YEAR": 2017
+      },
+      {
+        "PLAYERID": 76133,
+        "PLAYER": "Zelmo Beaty",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1963-1968",
+        "YEAR": 2016
+      },
+      {
+        "PLAYERID": 87,
+        "PLAYER": "Dikembe Mutombo",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1997-2001",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": 76902,
+        "PLAYER": "Richie Guerin",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1964-1970",
+        "YEAR": 2013
+      },
+      {
+        "PLAYERID": 1122,
+        "PLAYER": "Dominique Wilkins",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1983-1994",
+        "YEAR": 2006
+      },
+      {
+        "PLAYERID": 77449,
+        "PLAYER": "Moses Malone",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1989-1991",
+        "YEAR": 2001
+      },
+      {
+        "PLAYERID": 76144,
+        "PLAYER": "Walt Bellamy",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1970-1974",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 76972,
+        "PLAYER": "Connie Hawkins",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1976",
+        "YEAR": 1992
+      },
+      {
+        "PLAYERID": 78530,
+        "PLAYER": "Lenny Wilkens",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1961-1968",
+        "YEAR": 1989
+      },
+      {
+        "PLAYERID": 77414,
+        "PLAYER": "Clyde Lovellette",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1959-1962",
+        "YEAR": 1988
+      },
+      {
+        "PLAYERID": 77062,
+        "PLAYER": "Bob Houbregs",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1954",
+        "YEAR": 1987
+      },
+      {
+        "PLAYERID": 77459,
+        "PLAYER": "Pete Maravich",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1971-1974",
+        "YEAR": 1987
+      },
+      {
+        "PLAYERID": 77480,
+        "PLAYER": "Slater Martin",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1957-1960",
+        "YEAR": 1982
+      },
+      {
+        "PLAYERID": 76912,
+        "PLAYER": "Cliff Hagan",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1957-1966",
+        "YEAR": 1978
+      },
+      {
+        "PLAYERID": 77847,
+        "PLAYER": "Bob Pettit",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1955-1965",
+        "YEAR": 1971
+      },
+      {
+        "PLAYERID": 77429,
+        "PLAYER": "Ed Macauley",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1957-1959",
+        "YEAR": 1960
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 77459,
+        "PLAYER": "Pete Maravich",
+        "POSITION": "G",
+        "JERSEY": "44",
+        "SEASONSWITHTEAM": "1971-1974",
+        "YEAR": 2017
+      },
+      {
+        "PLAYERID": 87,
+        "PLAYER": "Dikembe Mutombo",
+        "POSITION": "C",
+        "JERSEY": "55",
+        "SEASONSWITHTEAM": "1997-2001",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": 2044,
+        "PLAYER": "Jason Collier",
+        "POSITION": "C",
+        "JERSEY": "40",
+        "SEASONSWITHTEAM": "2003-2005",
+        "YEAR": 2005
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Ted Turner",
+        "POSITION": "Owner",
+        "JERSEY": "17",
+        "SEASONSWITHTEAM": "1977-2001",
+        "YEAR": 2004
+      },
+      {
+        "PLAYERID": 1122,
+        "PLAYER": "Dominique Wilkins",
+        "POSITION": "F",
+        "JERSEY": "21",
+        "SEASONSWITHTEAM": "1983-1994",
+        "YEAR": 2001
+      },
+      {
+        "PLAYERID": 77074,
+        "PLAYER": "Lou Hudson",
+        "POSITION": "F/G",
+        "JERSEY": "23",
+        "SEASONSWITHTEAM": "1968-1977",
+        "YEAR": 1977
+      },
+      {
+        "PLAYERID": 77847,
+        "PLAYER": "Bob Pettit",
+        "POSITION": "F",
+        "JERSEY": "9",
+        "SEASONSWITHTEAM": "1955-1965",
+        "YEAR": null
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612738,
+        "ABBREVIATION": "BOS",
+        "NICKNAME": "Celtics",
+        "YEARFOUNDED": 1946,
+        "CITY": "Boston",
+        "ARENA": "TD Garden",
+        "ARENACAPACITY": "18624",
+        "OWNER": "Wyc Grousbeck",
+        "GENERALMANAGER": "Brad Stevens",
+        "HEADCOACH": "Ime Udoka",
+        "DLEAGUEAFFILIATION": "Maine Red Claws"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612738,
+        "CITY": "Boston",
+        "NICKNAME": "Celtics",
+        "YEARFOUNDED": 1946,
+        "YEARACTIVETILL": 2019
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/bostonceltics"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/celtics"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/celtics"
+      }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 1957, "OPPOSITETEAM": "St. Louis Hawks" },
+      { "YEARAWARDED": 1959, "OPPOSITETEAM": "Minneapolis Lakers" },
+      { "YEARAWARDED": 1960, "OPPOSITETEAM": "St. Louis Hawks" },
+      { "YEARAWARDED": 1961, "OPPOSITETEAM": "St. Louis Hawks" },
+      { "YEARAWARDED": 1962, "OPPOSITETEAM": "Los Angeles Lakers" },
+      { "YEARAWARDED": 1963, "OPPOSITETEAM": "Los Angeles Lakers" },
+      { "YEARAWARDED": 1964, "OPPOSITETEAM": "San Francisco Warriors" },
+      { "YEARAWARDED": 1965, "OPPOSITETEAM": "Los Angeles Lakers" },
+      { "YEARAWARDED": 1966, "OPPOSITETEAM": "Los Angeles Lakers" },
+      { "YEARAWARDED": 1968, "OPPOSITETEAM": "Los Angeles Lakers" },
+      { "YEARAWARDED": 1969, "OPPOSITETEAM": "Los Angeles Lakers" },
+      { "YEARAWARDED": 1974, "OPPOSITETEAM": "Milwaukee Bucks" },
+      { "YEARAWARDED": 1976, "OPPOSITETEAM": "Phoenix Suns" },
+      { "YEARAWARDED": 1981, "OPPOSITETEAM": "Houston Rockets" },
+      { "YEARAWARDED": 1984, "OPPOSITETEAM": "Los Angeles Lakers" },
+      { "YEARAWARDED": 1986, "OPPOSITETEAM": "Houston Rockets" },
+      { "YEARAWARDED": 2008, "OPPOSITETEAM": "Los Angeles Lakers" }
+    ],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 1974, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1976, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1981, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1984, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1985, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1986, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1987, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2008, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2010, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1957, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1958, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1959, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1960, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1961, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1962, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1963, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1964, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1965, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1972, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1973, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1974, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1975, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1976, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1980, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1981, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1982, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1984, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1985, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1986, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1987, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1988, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1991, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1992, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2005, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2008, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2009, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2010, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2011, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2012, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2017, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 708,
+        "PLAYER": "Kevin Garnett",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2008-2013",
+        "YEAR": 2020
+      },
+      {
+        "PLAYERID": 76442,
+        "PLAYER": "Chuck Cooper",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1951-1954",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 78500,
+        "PLAYER": "Paul Westphal",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1973-1975",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 78097,
+        "PLAYER": "Charlie Scott",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1975-1978",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 129,
+        "PLAYER": "Dino Radja",
+        "POSITION": "F-C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1993-1997",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 951,
+        "PLAYER": "Ray Allen",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2007-2012",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 406,
+        "PLAYER": "Shaquille O'Neal",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2011",
+        "YEAR": 2016
+      },
+      {
+        "PLAYERID": 78510,
+        "PLAYER": "Jo Jo White",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1970-1979",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": 56,
+        "PLAYER": "Gary Payton",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2005",
+        "YEAR": 2013
+      },
+      {
+        "PLAYERID": 600014,
+        "PLAYER": "Artis Gilmore",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1988",
+        "YEAR": 2011
+      },
+      {
+        "PLAYERID": 77141,
+        "PLAYER": "Dennis Johnson",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1984-1990",
+        "YEAR": 2010
+      },
+      {
+        "PLAYERID": 1122,
+        "PLAYER": "Dominique Wilkins",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1995",
+        "YEAR": 2006
+      },
+      {
+        "PLAYERID": 305,
+        "PLAYER": "Robert Parish",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1981-1994",
+        "YEAR": 2003
+      },
+      {
+        "PLAYERID": 77498,
+        "PLAYER": "Bob McAdoo",
+        "POSITION": "C/F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1979",
+        "YEAR": 2000
+      },
+      {
+        "PLAYERID": 1450,
+        "PLAYER": "Kevin McHale",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1981-1993",
+        "YEAR": 1999
+      },
+      {
+        "PLAYERID": 77967,
+        "PLAYER": "Arnie Risen",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1956-1958",
+        "YEAR": 1998
+      },
+      {
+        "PLAYERID": 1449,
+        "PLAYER": "Larry Bird",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1980-1992",
+        "YEAR": 1998
+      },
+      {
+        "PLAYERID": 77070,
+        "PLAYER": "Bailey Howell",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1967-1970",
+        "YEAR": 1997
+      },
+      {
+        "PLAYERID": 78450,
+        "PLAYER": "Bill Walton",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1986-1987",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 76462,
+        "PLAYER": "Dave Cowens",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1971-1980",
+        "YEAR": 1991
+      },
+      {
+        "PLAYERID": 76054,
+        "PLAYER": "Tiny Archibald",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1979-1983",
+        "YEAR": 1991
+      },
+      {
+        "PLAYERID": 76166,
+        "PLAYER": "Dave Bing",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1978",
+        "YEAR": 1990
+      },
+      {
+        "PLAYERID": 77188,
+        "PLAYER": "K.C. Jones",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1959-1967",
+        "YEAR": 1989
+      },
+      {
+        "PLAYERID": 77414,
+        "PLAYER": "Clyde Lovellette",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1963-1964",
+        "YEAR": 1988
+      },
+      {
+        "PLAYERID": 77062,
+        "PLAYER": "Bob Houbregs",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1955",
+        "YEAR": 1987
+      },
+      {
+        "PLAYERID": 77459,
+        "PLAYER": "Pete Maravich",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1980",
+        "YEAR": 1987
+      },
+      {
+        "PLAYERID": 76988,
+        "PLAYER": "Tom Heinsohn",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1957-1965",
+        "YEAR": 1986
+      },
+      {
+        "PLAYERID": 76970,
+        "PLAYER": "John Havlicek",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1963-1978",
+        "YEAR": 1984
+      },
+      {
+        "PLAYERID": 77196,
+        "PLAYER": "Sam Jones",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1958-1969",
+        "YEAR": 1984
+      },
+      {
+        "PLAYERID": 77907,
+        "PLAYER": "Frank Ramsey",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1955-1964",
+        "YEAR": 1982
+      },
+      {
+        "PLAYERID": 78126,
+        "PLAYER": "Bill Sharman",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1952-1961",
+        "YEAR": 1976
+      },
+      {
+        "PLAYERID": 78049,
+        "PLAYER": "Bill Russell",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1957-1969",
+        "YEAR": 1975
+      },
+      {
+        "PLAYERID": 600003,
+        "PLAYER": "Bob Cousy",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1951-1963",
+        "YEAR": 1971
+      },
+      {
+        "PLAYERID": 77853,
+        "PLAYER": "Andy Phillip",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1957-1958",
+        "YEAR": 1961
+      },
+      {
+        "PLAYERID": 77429,
+        "PLAYER": "Ed Macauley",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1951-1956",
+        "YEAR": 1960
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 77487,
+        "PLAYER": "Cedric Maxwell",
+        "POSITION": "F",
+        "JERSEY": "31",
+        "SEASONSWITHTEAM": "1978-1985",
+        "YEAR": 2003
+      },
+      {
+        "PLAYERID": 305,
+        "PLAYER": "Robert Parish",
+        "POSITION": "C",
+        "JERSEY": "00",
+        "SEASONSWITHTEAM": "1981-1994",
+        "YEAR": 1998
+      },
+      {
+        "PLAYERID": 1450,
+        "PLAYER": "Kevin McHale",
+        "POSITION": "F",
+        "JERSEY": "32",
+        "SEASONSWITHTEAM": "1981-1993",
+        "YEAR": 1994
+      },
+      {
+        "PLAYERID": 1449,
+        "PLAYER": "Larry Bird",
+        "POSITION": "F",
+        "JERSEY": "33",
+        "SEASONSWITHTEAM": "1980-1992",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 77141,
+        "PLAYER": "Dennis Johnson",
+        "POSITION": "G",
+        "JERSEY": "3",
+        "SEASONSWITHTEAM": "1984-1990",
+        "YEAR": 1991
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Johnny Most",
+        "POSITION": "Broadcaster",
+        "JERSEY": "",
+        "SEASONSWITHTEAM": "1953-1990",
+        "YEAR": 1990
+      },
+      {
+        "PLAYERID": 77384,
+        "PLAYER": "Reggie Lewis",
+        "POSITION": "F",
+        "JERSEY": "35",
+        "SEASONSWITHTEAM": "1988-1993",
+        "YEAR": 1990
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Red Auerbach",
+        "POSITION": "Head Coach, Executive",
+        "JERSEY": "2",
+        "SEASONSWITHTEAM": "1950-2006",
+        "YEAR": 1985
+      },
+      {
+        "PLAYERID": 78510,
+        "PLAYER": "Jo Jo White",
+        "POSITION": "G",
+        "JERSEY": "10",
+        "SEASONSWITHTEAM": "1969-1979",
+        "YEAR": 1982
+      },
+      {
+        "PLAYERID": 76462,
+        "PLAYER": "Dave Cowens",
+        "POSITION": "C",
+        "JERSEY": "18",
+        "SEASONSWITHTEAM": "1971-1980",
+        "YEAR": 1981
+      },
+      {
+        "PLAYERID": 77700,
+        "PLAYER": "Don Nelson",
+        "POSITION": "F",
+        "JERSEY": "19",
+        "SEASONSWITHTEAM": "1966-1976",
+        "YEAR": 1978
+      },
+      {
+        "PLAYERID": 76970,
+        "PLAYER": "John Havlicek",
+        "POSITION": "F",
+        "JERSEY": "17",
+        "SEASONSWITHTEAM": "1963-1978",
+        "YEAR": 1978
+      },
+      {
+        "PLAYERID": 78060,
+        "PLAYER": "Satch Sanders",
+        "POSITION": "F",
+        "JERSEY": "16",
+        "SEASONSWITHTEAM": "1961-1973",
+        "YEAR": 1973
+      },
+      {
+        "PLAYERID": 78049,
+        "PLAYER": "Bill Russell",
+        "POSITION": "C",
+        "JERSEY": "6",
+        "SEASONSWITHTEAM": "1956-1969",
+        "YEAR": 1972
+      },
+      {
+        "PLAYERID": 77196,
+        "PLAYER": "Sam Jones",
+        "POSITION": "G",
+        "JERSEY": "24",
+        "SEASONSWITHTEAM": "1958-1969",
+        "YEAR": 1969
+      },
+      {
+        "PLAYERID": 77188,
+        "PLAYER": "K.C. Jones",
+        "POSITION": "G",
+        "JERSEY": "25",
+        "SEASONSWITHTEAM": "1959-1967",
+        "YEAR": 1967
+      },
+      {
+        "PLAYERID": 78126,
+        "PLAYER": "Bill Sharman",
+        "POSITION": "G",
+        "JERSEY": "21",
+        "SEASONSWITHTEAM": "1952-1961",
+        "YEAR": 1966
+      },
+      {
+        "PLAYERID": 76988,
+        "PLAYER": "Tom Heinsohn",
+        "POSITION": "F",
+        "JERSEY": "15",
+        "SEASONSWITHTEAM": "1957-1965",
+        "YEAR": 1966
+      },
+      {
+        "PLAYERID": 77907,
+        "PLAYER": "Frank Ramsey",
+        "POSITION": "F",
+        "JERSEY": "23",
+        "SEASONSWITHTEAM": "1955-1964",
+        "YEAR": 1964
+      },
+      {
+        "PLAYERID": 77409,
+        "PLAYER": "Jim \"Loscy\" Loscutoff",
+        "POSITION": "F",
+        "JERSEY": "LOSCY",
+        "SEASONSWITHTEAM": "1956-1964",
+        "YEAR": 1964
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Walter Brown",
+        "POSITION": "Owner",
+        "JERSEY": "1",
+        "SEASONSWITHTEAM": "1946-1964",
+        "YEAR": 1964
+      },
+      {
+        "PLAYERID": 600003,
+        "PLAYER": "Bob Cousy",
+        "POSITION": "G",
+        "JERSEY": "14",
+        "SEASONSWITHTEAM": "1951-1963",
+        "YEAR": 1963
+      },
+      {
+        "PLAYERID": 77429,
+        "PLAYER": "Ed Macauley",
+        "POSITION": "C",
+        "JERSEY": "22",
+        "SEASONSWITHTEAM": "1951-1956",
+        "YEAR": 1963
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612739,
+        "ABBREVIATION": "CLE",
+        "NICKNAME": "Cavaliers",
+        "YEARFOUNDED": 1970,
+        "CITY": "Cleveland",
+        "ARENA": "Rocket Mortgage FieldHouse",
+        "ARENACAPACITY": "20562",
+        "OWNER": "Dan Gilbert",
+        "GENERALMANAGER": "Koby Altman",
+        "HEADCOACH": "JB Bickerstaff",
+        "DLEAGUEAFFILIATION": "Canton Charge"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612739,
+        "CITY": "Cleveland",
+        "NICKNAME": "Cavaliers",
+        "YEARFOUNDED": 1970,
+        "YEARACTIVETILL": 2019
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/Cavs"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/cavs"
+      },
+      { "ACCOUNTTYPE": "Twitter", "WEBSITE_LINK": "https://twitter.com/cavs" }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 2016, "OPPOSITETEAM": "Golden State Warriors" }
+    ],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 2007, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2015, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2016, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2017, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2018, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1976, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2009, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2010, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2015, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2016, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2017, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2018, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 406,
+        "PLAYER": "Shaquille O'Neal",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2010",
+        "YEAR": 2016
+      },
+      {
+        "PLAYERID": 78530,
+        "PLAYER": "Lenny Wilkens",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1973-1974",
+        "YEAR": 1989
+      },
+      {
+        "PLAYERID": 76750,
+        "PLAYER": "Walt Frazier",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1978-1980",
+        "YEAR": 1987
+      },
+      {
+        "PLAYERID": 600001,
+        "PLAYER": "Nate Thurmond",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1976-1977",
+        "YEAR": 1985
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 980,
+        "PLAYER": "Zydrunas Ilgauskas",
+        "POSITION": "C",
+        "JERSEY": "11",
+        "SEASONSWITHTEAM": "1997-2010",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 899,
+        "PLAYER": "Mark Price",
+        "POSITION": "G",
+        "JERSEY": "25",
+        "SEASONSWITHTEAM": "1987-1995",
+        "YEAR": 1999
+      },
+      {
+        "PLAYERID": 921,
+        "PLAYER": "Brad Daugherty",
+        "POSITION": "C",
+        "JERSEY": "43",
+        "SEASONSWITHTEAM": "1987-1994",
+        "YEAR": 1997
+      },
+      {
+        "PLAYERID": 77685,
+        "PLAYER": "Larry Nance",
+        "POSITION": "F",
+        "JERSEY": "22",
+        "SEASONSWITHTEAM": "1989-1994",
+        "YEAR": 1995
+      },
+      {
+        "PLAYERID": 76348,
+        "PLAYER": "Austin Carr",
+        "POSITION": "G",
+        "JERSEY": "34",
+        "SEASONSWITHTEAM": "1972-1980",
+        "YEAR": 1981
+      },
+      {
+        "PLAYERID": 78202,
+        "PLAYER": "Bingo Smith",
+        "POSITION": "F",
+        "JERSEY": "7",
+        "SEASONSWITHTEAM": "1971-1979",
+        "YEAR": 1979
+      },
+      {
+        "PLAYERID": 600001,
+        "PLAYER": "Nate Thurmond",
+        "POSITION": "C",
+        "JERSEY": "42",
+        "SEASONSWITHTEAM": "1976-1977",
+        "YEAR": 1977
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612740,
+        "ABBREVIATION": "NOP",
+        "NICKNAME": "Pelicans",
+        "YEARFOUNDED": 2002,
+        "CITY": "New Orleans",
+        "ARENA": "Smoothie King Center",
+        "ARENACAPACITY": null,
+        "OWNER": "Tom Benson",
+        "GENERALMANAGER": "Trajan Langdon",
+        "HEADCOACH": "Willie Green",
+        "DLEAGUEAFFILIATION": "No Affiliate"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612740,
+        "CITY": "New Orleans",
+        "NICKNAME": "Pelicans",
+        "YEARFOUNDED": 2013,
+        "YEARACTIVETILL": 2019
+      },
+      {
+        "TEAM_ID": 1610612740,
+        "CITY": "New Orleans",
+        "NICKNAME": "Hornets",
+        "YEARFOUNDED": 2007,
+        "YEARACTIVETILL": 2012
+      },
+      {
+        "TEAM_ID": 1610612740,
+        "CITY": "New Orleans/Oklahoma City",
+        "NICKNAME": "Hornets",
+        "YEARFOUNDED": 2005,
+        "YEARACTIVETILL": 2006
+      },
+      {
+        "TEAM_ID": 1610612740,
+        "CITY": "New Orleans",
+        "NICKNAME": "Hornets",
+        "YEARFOUNDED": 2002,
+        "YEARACTIVETILL": 2004
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/PelicansNBA"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/pelicansnba"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/PelicansNBA"
+      }
+    ],
+    "TeamAwardsChampionships": [],
+    "TeamAwardsConf": [],
+    "TeamAwardsDiv": [{ "YEARAWARDED": 2008, "OPPOSITETEAM": null }],
+    "TeamHof": [
+      {
+        "PLAYERID": 76981,
+        "PLAYER": "Spencer Haywood",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1979",
+        "YEAR": 2015
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 77459,
+        "PLAYER": "Pete Maravich",
+        "POSITION": "G",
+        "JERSEY": "7",
+        "SEASONSWITHTEAM": null,
+        "YEAR": 2002
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612741,
+        "ABBREVIATION": "CHI",
+        "NICKNAME": "Bulls",
+        "YEARFOUNDED": 1966,
+        "CITY": "Chicago",
+        "ARENA": "United Center",
+        "ARENACAPACITY": "21711",
+        "OWNER": "Jerry Reinsdorf",
+        "GENERALMANAGER": "Arturas Karnisovas",
+        "HEADCOACH": "Billy Donovan",
+        "DLEAGUEAFFILIATION": "Windy City Bulls"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612741,
+        "CITY": "Chicago",
+        "NICKNAME": "Bulls",
+        "YEARFOUNDED": 1966,
+        "YEARACTIVETILL": 2019
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/chicagobulls"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/chicagobulls"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/chicagobulls"
+      }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 1991, "OPPOSITETEAM": "Los Angeles Lakers" },
+      { "YEARAWARDED": 1992, "OPPOSITETEAM": "Portland Trail Blazers" },
+      { "YEARAWARDED": 1993, "OPPOSITETEAM": "Phoenix Suns" },
+      { "YEARAWARDED": 1996, "OPPOSITETEAM": "Seattle SuperSonics" },
+      { "YEARAWARDED": 1997, "OPPOSITETEAM": "Utah Jazz" },
+      { "YEARAWARDED": 1998, "OPPOSITETEAM": "Utah Jazz" }
+    ],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 1991, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1992, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1993, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1996, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1997, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1998, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1975, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1991, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1992, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1993, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1996, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1997, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1998, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2011, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2012, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 77371,
+        "PLAYER": "Bobby \"Slick\" Leonard",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1962",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 78003,
+        "PLAYER": "Guy Rodgers",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1967-1968",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 78435,
+        "PLAYER": "Chet Walker",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1970-1975",
+        "YEAR": 2012
+      },
+      {
+        "PLAYERID": 600014,
+        "PLAYER": "Artis Gilmore",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1977-1982, 1988",
+        "YEAR": 2011
+      },
+      {
+        "PLAYERID": 23,
+        "PLAYER": "Dennis Rodman",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1996-1998",
+        "YEAR": 2011
+      },
+      {
+        "PLAYERID": 937,
+        "PLAYER": "Scottie Pippen",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1988-1998, 2004",
+        "YEAR": 2010
+      },
+      {
+        "PLAYERID": 893,
+        "PLAYER": "Michael Jordan",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1985-1993, 1995-1998",
+        "YEAR": 2009
+      },
+      {
+        "PLAYERID": 305,
+        "PLAYER": "Robert Parish",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1997",
+        "YEAR": 2003
+      },
+      {
+        "PLAYERID": 76804,
+        "PLAYER": "George Gervin",
+        "POSITION": "G/F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1986",
+        "YEAR": 1996
+      },
+      {
+        "PLAYERID": 600001,
+        "PLAYER": "Nate Thurmond",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1975-1976",
+        "YEAR": 1985
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": null,
+        "PLAYER": "Johnny Kerr",
+        "POSITION": "Coach, Business Manager, Broadcaster",
+        "JERSEY": "",
+        "SEASONSWITHTEAM": "1966-2009",
+        "YEAR": 2009
+      },
+      {
+        "PLAYERID": 937,
+        "PLAYER": "Scottie Pippen",
+        "POSITION": "F",
+        "JERSEY": "33",
+        "SEASONSWITHTEAM": "1988-1998, 2004",
+        "YEAR": 2005
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Jerry Krause",
+        "POSITION": "General Manager",
+        "JERSEY": "",
+        "SEASONSWITHTEAM": "1985-2003",
+        "YEAR": 2003
+      },
+      {
+        "PLAYERID": 77106,
+        "PLAYER": "Phil Jackson",
+        "POSITION": "Coach",
+        "JERSEY": "",
+        "SEASONSWITHTEAM": "1988-1998",
+        "YEAR": 1999
+      },
+      {
+        "PLAYERID": 77412,
+        "PLAYER": "Bob Love",
+        "POSITION": "F",
+        "JERSEY": "10",
+        "SEASONSWITHTEAM": "1969-1977",
+        "YEAR": 1994
+      },
+      {
+        "PLAYERID": 893,
+        "PLAYER": "Michael Jordan",
+        "POSITION": "G",
+        "JERSEY": "23",
+        "SEASONSWITHTEAM": "1985-1993, 1995-1998",
+        "YEAR": 1994
+      },
+      {
+        "PLAYERID": 78173,
+        "PLAYER": "Jerry Sloan",
+        "POSITION": "G",
+        "JERSEY": "4",
+        "SEASONSWITHTEAM": "1967-1976",
+        "YEAR": 1978
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612742,
+        "ABBREVIATION": "DAL",
+        "NICKNAME": "Mavericks",
+        "YEARFOUNDED": 1980,
+        "CITY": "Dallas",
+        "ARENA": "American Airlines Center",
+        "ARENACAPACITY": "19200",
+        "OWNER": "Mark Cuban",
+        "GENERALMANAGER": "",
+        "HEADCOACH": "Jason Kidd",
+        "DLEAGUEAFFILIATION": "Texas Legends"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612742,
+        "CITY": "Dallas",
+        "NICKNAME": "Mavericks",
+        "YEARFOUNDED": 1980,
+        "YEARACTIVETILL": 2019
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/dallasmavs"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/dallasmavs"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/dallasmavs"
+      }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 2011, "OPPOSITETEAM": "Miami Heat" }
+    ],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 2006, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2011, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1987, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2007, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2010, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2021, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 467,
+        "PLAYER": "Jason Kidd",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1994-1997, 2007-2012",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 959,
+        "PLAYER": "Steve Nash",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1998-2004",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 23,
+        "PLAYER": "Dennis Rodman",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2000",
+        "YEAR": 2011
+      },
+      {
+        "PLAYERID": 76504,
+        "PLAYER": "Adrian Dantley",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1989-1990",
+        "YEAR": 2008
+      },
+      {
+        "PLAYERID": 76673,
+        "PLAYER": "Alex English",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1991",
+        "YEAR": 1997
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 157,
+        "PLAYER": "Derek Harper",
+        "POSITION": "G",
+        "JERSEY": "12",
+        "SEASONSWITHTEAM": "1983-1994, 1996-1997",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 76176,
+        "PLAYER": "Rolando Blackman",
+        "POSITION": "G",
+        "JERSEY": "22",
+        "SEASONSWITHTEAM": "1982-1992",
+        "YEAR": 1999
+      },
+      {
+        "PLAYERID": 76516,
+        "PLAYER": "Brad Davis",
+        "POSITION": "G",
+        "JERSEY": "15",
+        "SEASONSWITHTEAM": "1981-1992",
+        "YEAR": 1992
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612743,
+        "ABBREVIATION": "DEN",
+        "NICKNAME": "Nuggets",
+        "YEARFOUNDED": 1976,
+        "CITY": "Denver",
+        "ARENA": "Ball Arena",
+        "ARENACAPACITY": null,
+        "OWNER": "Stan Kroenke",
+        "GENERALMANAGER": "Tim Connelly",
+        "HEADCOACH": "Michael Malone",
+        "DLEAGUEAFFILIATION": "No Affiliate"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612743,
+        "CITY": "Denver",
+        "NICKNAME": "Nuggets",
+        "YEARFOUNDED": 1976,
+        "YEARACTIVETILL": 2019
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/DenverNuggets"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/nuggets"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/nuggets"
+      }
+    ],
+    "TeamAwardsChampionships": [],
+    "TeamAwardsConf": [],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1977, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1978, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1985, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1988, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2006, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2009, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2010, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2019, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2020, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 77193,
+        "PLAYER": "Bobby Jones",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1975-1978",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 78097,
+        "PLAYER": "Charlie Scott",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1978-1980",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 77532,
+        "PLAYER": "George McGinnis",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1978-1980",
+        "YEAR": 2017
+      },
+      {
+        "PLAYERID": 947,
+        "PLAYER": "Allen Iverson",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2007-2009",
+        "YEAR": 2016
+      },
+      {
+        "PLAYERID": 87,
+        "PLAYER": "Dikembe Mutombo",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1992-1996",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": 76981,
+        "PLAYER": "Spencer Haywood",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1970",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": 36,
+        "PLAYER": "Sarunas Marciulionis",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1997",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 76673,
+        "PLAYER": "Alex English",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1980-1990",
+        "YEAR": 1997
+      },
+      {
+        "PLAYERID": 78326,
+        "PLAYER": "David Thompson",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1976-1982",
+        "YEAR": 1996
+      },
+      {
+        "PLAYERID": 77097,
+        "PLAYER": "Dan Issel",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1976-1985",
+        "YEAR": 1993
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 77376,
+        "PLAYER": "Fat Lever",
+        "POSITION": "G",
+        "JERSEY": "12",
+        "SEASONSWITHTEAM": "1984-1990",
+        "YEAR": 2017
+      },
+      {
+        "PLAYERID": 87,
+        "PLAYER": "Dikembe Mutombo",
+        "POSITION": "C",
+        "JERSEY": "55",
+        "SEASONSWITHTEAM": "1992-1996",
+        "YEAR": 2016
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Doug Moe",
+        "POSITION": "Coach",
+        "JERSEY": "432",
+        "SEASONSWITHTEAM": "1981-1990",
+        "YEAR": 2002
+      },
+      {
+        "PLAYERID": 76673,
+        "PLAYER": "Alex English",
+        "POSITION": "F",
+        "JERSEY": "2",
+        "SEASONSWITHTEAM": "1980-1990",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 78326,
+        "PLAYER": "David Thompson",
+        "POSITION": "F/G",
+        "JERSEY": "33",
+        "SEASONSWITHTEAM": "1976-1982",
+        "YEAR": 1992
+      },
+      {
+        "PLAYERID": 77097,
+        "PLAYER": "Dan Issel",
+        "POSITION": "C/F",
+        "JERSEY": "44",
+        "SEASONSWITHTEAM": "1976-1985",
+        "YEAR": 1985
+      },
+      {
+        "PLAYERID": 76134,
+        "PLAYER": "Byron Beck",
+        "POSITION": "F/C",
+        "JERSEY": "40",
+        "SEASONSWITHTEAM": "1968-1977",
+        "YEAR": 1977
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612744,
+        "ABBREVIATION": "GSW",
+        "NICKNAME": "Warriors",
+        "YEARFOUNDED": 1946,
+        "CITY": "Golden State",
+        "ARENA": "Chase Center",
+        "ARENACAPACITY": null,
+        "OWNER": "Joe Lacob",
+        "GENERALMANAGER": "Bob Myers",
+        "HEADCOACH": "Steve Kerr",
+        "DLEAGUEAFFILIATION": "Santa Cruz Warriors"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612744,
+        "CITY": "Golden State",
+        "NICKNAME": "Warriors",
+        "YEARFOUNDED": 1971,
+        "YEARACTIVETILL": 2019
+      },
+      {
+        "TEAM_ID": 1610612744,
+        "CITY": "San Francisco",
+        "NICKNAME": "Warriors",
+        "YEARFOUNDED": 1962,
+        "YEARACTIVETILL": 1970
+      },
+      {
+        "TEAM_ID": 1610612744,
+        "CITY": "Philadelphia",
+        "NICKNAME": "Warriors",
+        "YEARFOUNDED": 1946,
+        "YEARACTIVETILL": 1961
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/warriors"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/warriors"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/warriors"
+      }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 1947, "OPPOSITETEAM": "Chicago Stags" },
+      { "YEARAWARDED": 1956, "OPPOSITETEAM": "Fort Wayne Pistons" },
+      { "YEARAWARDED": 1975, "OPPOSITETEAM": "Washington Bullets" },
+      { "YEARAWARDED": 2015, "OPPOSITETEAM": "Cleveland Cavaliers" },
+      { "YEARAWARDED": 2017, "OPPOSITETEAM": "Cleveland Cavaliers" },
+      { "YEARAWARDED": 2018, "OPPOSITETEAM": "Cleveland Cavaliers" }
+    ],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 1975, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2015, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2016, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2017, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2018, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2019, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1948, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1951, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1956, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1964, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1967, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1968, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1975, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1976, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2015, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2016, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2017, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2018, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2019, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 78510,
+        "PLAYER": "Jo Jo White",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1979-1980",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": 78003,
+        "PLAYER": "Guy Rodgers",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1959-1966",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 782,
+        "PLAYER": "Mitch Richmond",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1989-1991",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 36,
+        "PLAYER": "Sarunas Marciulionis",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1990-1993",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 77264,
+        "PLAYER": "Bernard King",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1981-1982",
+        "YEAR": 2013
+      },
+      {
+        "PLAYERID": 78532,
+        "PLAYER": "Jamaal Wilkes",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1975-1977",
+        "YEAR": 2012
+      },
+      {
+        "PLAYERID": 78055,
+        "PLAYER": "Ralph Sampson",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1988-1989",
+        "YEAR": 2012
+      },
+      {
+        "PLAYERID": 904,
+        "PLAYER": "Chris Mullin",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1986-1997, 2001",
+        "YEAR": 2011
+      },
+      {
+        "PLAYERID": 305,
+        "PLAYER": "Robert Parish",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1977-1980",
+        "YEAR": 2003
+      },
+      {
+        "PLAYERID": 77169,
+        "PLAYER": "Neil Johnston",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1952-1959",
+        "YEAR": 1990
+      },
+      {
+        "PLAYERID": 600013,
+        "PLAYER": "Rick Barry",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1966-1967, 1973-1978",
+        "YEAR": 1987
+      },
+      {
+        "PLAYERID": 600001,
+        "PLAYER": "Nate Thurmond",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1964-1974",
+        "YEAR": 1985
+      },
+      {
+        "PLAYERID": 77418,
+        "PLAYER": "Jerry Lucas",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1970-1971",
+        "YEAR": 1980
+      },
+      {
+        "PLAYERID": 76375,
+        "PLAYER": "Wilt Chamberlain",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1960-1965",
+        "YEAR": 1979
+      },
+      {
+        "PLAYERID": 76764,
+        "PLAYER": "Joe Fulks",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1947-1954",
+        "YEAR": 1978
+      },
+      {
+        "PLAYERID": 76056,
+        "PLAYER": "Paul Arizin",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1951-1952, 1955-1962",
+        "YEAR": 1978
+      },
+      {
+        "PLAYERID": 76828,
+        "PLAYER": "Tom Gola",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1956, 1958-1963",
+        "YEAR": 1976
+      },
+      {
+        "PLAYERID": 77853,
+        "PLAYER": "Andy Phillip",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1951-1953",
+        "YEAR": 1961
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 904,
+        "PLAYER": "Chris Mullin",
+        "POSITION": "G/F",
+        "JERSEY": "17",
+        "SEASONSWITHTEAM": "1986-1997, 2001",
+        "YEAR": 2012
+      },
+      {
+        "PLAYERID": 76375,
+        "PLAYER": "Wilt Chamberlain",
+        "POSITION": "C",
+        "JERSEY": "13",
+        "SEASONSWITHTEAM": "1960-1965",
+        "YEAR": 1999
+      },
+      {
+        "PLAYERID": 600013,
+        "PLAYER": "Rick Barry",
+        "POSITION": "F",
+        "JERSEY": "24",
+        "SEASONSWITHTEAM": "1966-1967, 1973-1978",
+        "YEAR": 1988
+      },
+      {
+        "PLAYERID": 600001,
+        "PLAYER": "Nate Thurmond",
+        "POSITION": "C",
+        "JERSEY": "42",
+        "SEASONSWITHTEAM": "1964-1974",
+        "YEAR": 1978
+      },
+      {
+        "PLAYERID": 76070,
+        "PLAYER": "Alvin Attles",
+        "POSITION": "G",
+        "JERSEY": "16",
+        "SEASONSWITHTEAM": "1961-1971",
+        "YEAR": 1977
+      },
+      {
+        "PLAYERID": 77584,
+        "PLAYER": "Tom Meschery",
+        "POSITION": "F",
+        "JERSEY": "14",
+        "SEASONSWITHTEAM": "1962-1971",
+        "YEAR": 1967
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612745,
+        "ABBREVIATION": "HOU",
+        "NICKNAME": "Rockets",
+        "YEARFOUNDED": 1967,
+        "CITY": "Houston",
+        "ARENA": "Toyota Center",
+        "ARENACAPACITY": "18104",
+        "OWNER": "Tilman Fertitta",
+        "GENERALMANAGER": "Rafael Stone",
+        "HEADCOACH": "Stephen Silas",
+        "DLEAGUEAFFILIATION": "Rio Grande Valley Vipers"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612745,
+        "CITY": "Houston",
+        "NICKNAME": "Rockets",
+        "YEARFOUNDED": 1971,
+        "YEARACTIVETILL": 2019
+      },
+      {
+        "TEAM_ID": 1610612745,
+        "CITY": "San Diego",
+        "NICKNAME": "Rockets",
+        "YEARFOUNDED": 1967,
+        "YEARACTIVETILL": 1970
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/houstonrockets"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/houstonrockets"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/HoustonRockets"
+      }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 1994, "OPPOSITETEAM": "New York Knicks" },
+      { "YEARAWARDED": 1995, "OPPOSITETEAM": "Orlando Magic" }
+    ],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 1981, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1986, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1994, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1995, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1977, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1986, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1993, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1994, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2015, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2018, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2019, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2020, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 1503,
+        "PLAYER": "Tracy McGrady",
+        "POSITION": "G-F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2004-2010",
+        "YEAR": 2017
+      },
+      {
+        "PLAYERID": 2397,
+        "PLAYER": "Yao Ming",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2002-2011",
+        "YEAR": 2016
+      },
+      {
+        "PLAYERID": 87,
+        "PLAYER": "Dikembe Mutombo",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2005-2009",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": 78055,
+        "PLAYER": "Ralph Sampson",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1984-1988",
+        "YEAR": 2012
+      },
+      {
+        "PLAYERID": 937,
+        "PLAYER": "Scottie Pippen",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1999",
+        "YEAR": 2010
+      },
+      {
+        "PLAYERID": 165,
+        "PLAYER": "Hakeem Olajuwon",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1985-2001",
+        "YEAR": 2008
+      },
+      {
+        "PLAYERID": 787,
+        "PLAYER": "Charles Barkley",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1997-2000",
+        "YEAR": 2006
+      },
+      {
+        "PLAYERID": 17,
+        "PLAYER": "Clyde Drexler",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1995-1998",
+        "YEAR": 2004
+      },
+      {
+        "PLAYERID": 77449,
+        "PLAYER": "Moses Malone",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1977-1982",
+        "YEAR": 2001
+      },
+      {
+        "PLAYERID": 77669,
+        "PLAYER": "Calvin Murphy",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1971-1983",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 76979,
+        "PLAYER": "Elvin Hayes",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1969-1972, 1982-1984",
+        "YEAR": 1990
+      },
+      {
+        "PLAYERID": 600013,
+        "PLAYER": "Rick Barry",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1979-1980",
+        "YEAR": 1987
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 2397,
+        "PLAYER": "Yao Ming",
+        "POSITION": "C",
+        "JERSEY": "11",
+        "SEASONSWITHTEAM": "2003-2011",
+        "YEAR": 2017
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Carroll Dawson",
+        "POSITION": "Assistant Coach, General Manager",
+        "JERSEY": "",
+        "SEASONSWITHTEAM": "1980-2007",
+        "YEAR": 2007
+      },
+      {
+        "PLAYERID": 165,
+        "PLAYER": "Hakeem Olajuwon",
+        "POSITION": "C",
+        "JERSEY": "34",
+        "SEASONSWITHTEAM": "1985-2001",
+        "YEAR": 2002
+      },
+      {
+        "PLAYERID": 17,
+        "PLAYER": "Clyde Drexler",
+        "POSITION": "G",
+        "JERSEY": "22",
+        "SEASONSWITHTEAM": "1995-1998",
+        "YEAR": 2000
+      },
+      {
+        "PLAYERID": 77449,
+        "PLAYER": "Moses Malone",
+        "POSITION": "C",
+        "JERSEY": "24",
+        "SEASONSWITHTEAM": "1977-1982",
+        "YEAR": 1998
+      },
+      {
+        "PLAYERID": 77669,
+        "PLAYER": "Calvin Murphy",
+        "POSITION": "G",
+        "JERSEY": "23",
+        "SEASONSWITHTEAM": "1971-1983",
+        "YEAR": 1984
+      },
+      {
+        "PLAYERID": 78350,
+        "PLAYER": "Rudy Tomjanovich",
+        "POSITION": "F",
+        "JERSEY": "45",
+        "SEASONSWITHTEAM": "1971-1981",
+        "YEAR": 1982
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612746,
+        "ABBREVIATION": "LAC",
+        "NICKNAME": "Clippers",
+        "YEARFOUNDED": 1970,
+        "CITY": "Los Angeles",
+        "ARENA": "Crypto.com Arena",
+        "ARENACAPACITY": "19060",
+        "OWNER": "Steve Ballmer",
+        "GENERALMANAGER": "Michael Winger",
+        "HEADCOACH": "Tyronn Lue",
+        "DLEAGUEAFFILIATION": "Agua Caliente Clippers of Ontario"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612746,
+        "CITY": "Los Angeles",
+        "NICKNAME": "Clippers",
+        "YEARFOUNDED": 1984,
+        "YEARACTIVETILL": 2019
+      },
+      {
+        "TEAM_ID": 1610612746,
+        "CITY": "San Diego",
+        "NICKNAME": "Clippers",
+        "YEARFOUNDED": 1978,
+        "YEARACTIVETILL": 1983
+      },
+      {
+        "TEAM_ID": 1610612746,
+        "CITY": "Buffalo",
+        "NICKNAME": "Braves",
+        "YEARFOUNDED": 1970,
+        "YEARACTIVETILL": 1977
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/LAClippers"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/laclippers"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/LAClippers"
+      }
+    ],
+    "TeamAwardsChampionships": [],
+    "TeamAwardsConf": [],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 2013, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2014, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 255,
+        "PLAYER": "Grant Hill",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2012-2013",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 78532,
+        "PLAYER": "Jamaal Wilkes",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1986",
+        "YEAR": 2012
+      },
+      {
+        "PLAYERID": 76504,
+        "PLAYER": "Adrian Dantley",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1977",
+        "YEAR": 2008
+      },
+      {
+        "PLAYERID": 1122,
+        "PLAYER": "Dominique Wilkins",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1994",
+        "YEAR": 2006
+      },
+      {
+        "PLAYERID": 77449,
+        "PLAYER": "Moses Malone",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1977",
+        "YEAR": 2001
+      },
+      {
+        "PLAYERID": 77498,
+        "PLAYER": "Bob McAdoo",
+        "POSITION": "C/F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1973-1977",
+        "YEAR": 2000
+      },
+      {
+        "PLAYERID": 78450,
+        "PLAYER": "Bill Walton",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1980-1985",
+        "YEAR": 1993
+      }
+    ],
+    "TeamRetired": []
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612747,
+        "ABBREVIATION": "LAL",
+        "NICKNAME": "Lakers",
+        "YEARFOUNDED": 1948,
+        "CITY": "Los Angeles",
+        "ARENA": "Crypto.com Arena",
+        "ARENACAPACITY": "19060",
+        "OWNER": "Jerry Buss Family Trust",
+        "GENERALMANAGER": "Rob Pelinka",
+        "HEADCOACH": "Frank Vogel",
+        "DLEAGUEAFFILIATION": "South Bay Lakers"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612747,
+        "CITY": "Los Angeles",
+        "NICKNAME": "Lakers",
+        "YEARFOUNDED": 1960,
+        "YEARACTIVETILL": 2019
+      },
+      {
+        "TEAM_ID": 1610612747,
+        "CITY": "Minneapolis",
+        "NICKNAME": "Lakers",
+        "YEARFOUNDED": 1948,
+        "YEARACTIVETILL": 1959
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/losangeleslakers"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/lakers"
+      },
+      { "ACCOUNTTYPE": "Twitter", "WEBSITE_LINK": "https://twitter.com/Lakers" }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 1949, "OPPOSITETEAM": "Washington Capitols" },
+      { "YEARAWARDED": 1950, "OPPOSITETEAM": "Syracuse Nationals (76ers)" },
+      { "YEARAWARDED": 1952, "OPPOSITETEAM": "New York Knicks" },
+      { "YEARAWARDED": 1953, "OPPOSITETEAM": "New York Knicks" },
+      { "YEARAWARDED": 1954, "OPPOSITETEAM": "Syracuse Nationals (76ers)" },
+      { "YEARAWARDED": 1972, "OPPOSITETEAM": "New York Knicks" },
+      { "YEARAWARDED": 1980, "OPPOSITETEAM": "Philadelphia 76ers" },
+      { "YEARAWARDED": 1982, "OPPOSITETEAM": "Philadelphia 76ers" },
+      { "YEARAWARDED": 1985, "OPPOSITETEAM": "Boston Celtics" },
+      { "YEARAWARDED": 1987, "OPPOSITETEAM": "Boston Celtics" },
+      { "YEARAWARDED": 1988, "OPPOSITETEAM": "Detroit Pistons" },
+      { "YEARAWARDED": 2000, "OPPOSITETEAM": "Indiana Pacers" },
+      { "YEARAWARDED": 2001, "OPPOSITETEAM": "Philadelphia 76ers" },
+      { "YEARAWARDED": 2002, "OPPOSITETEAM": "New Jersey Nets" },
+      { "YEARAWARDED": 2009, "OPPOSITETEAM": "Orlando Magic" },
+      { "YEARAWARDED": 2010, "OPPOSITETEAM": "Boston Celtics" },
+      { "YEARAWARDED": 2020, "OPPOSITETEAM": "Miami Heat" }
+    ],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 1972, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1973, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1980, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1982, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1983, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1984, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1985, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1987, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1988, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1989, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1991, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2000, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2001, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2002, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2004, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2008, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2009, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2010, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2020, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1950, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1951, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1953, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1954, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1962, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1963, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1965, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1966, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1969, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1971, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1972, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1973, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1974, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1977, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1980, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1982, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1983, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1984, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1985, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1986, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1987, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1988, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1989, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1990, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2000, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2001, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2004, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2008, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2009, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2010, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2011, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2012, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2020, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 977,
+        "PLAYER": "Kobe Bryant",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1997-2016",
+        "YEAR": 2020
+      },
+      {
+        "PLAYERID": 124,
+        "PLAYER": "Vlade Divac",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1990-1996, 2005",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 78097,
+        "PLAYER": "Charlie Scott",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1977-1978",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 959,
+        "PLAYER": "Steve Nash",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2012-2014",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 406,
+        "PLAYER": "Shaquille O'Neal",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1997-2004",
+        "YEAR": 2016
+      },
+      {
+        "PLAYERID": 76133,
+        "PLAYER": "Zelmo Beaty",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1975",
+        "YEAR": 2016
+      },
+      {
+        "PLAYERID": 76981,
+        "PLAYER": "Spencer Haywood",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1980",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": 77371,
+        "PLAYER": "Bobby \"Slick\" Leonard",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1957-1961",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 782,
+        "PLAYER": "Mitch Richmond",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2002",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 56,
+        "PLAYER": "Gary Payton",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2004",
+        "YEAR": 2013
+      },
+      {
+        "PLAYERID": 78532,
+        "PLAYER": "Jamaal Wilkes",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1978-1985",
+        "YEAR": 2012
+      },
+      {
+        "PLAYERID": 23,
+        "PLAYER": "Dennis Rodman",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1999",
+        "YEAR": 2011
+      },
+      {
+        "PLAYERID": 252,
+        "PLAYER": "Karl Malone",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2004",
+        "YEAR": 2010
+      },
+      {
+        "PLAYERID": 76504,
+        "PLAYER": "Adrian Dantley",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1978-1979",
+        "YEAR": 2008
+      },
+      {
+        "PLAYERID": 1460,
+        "PLAYER": "James Worthy",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1983-1994",
+        "YEAR": 2003
+      },
+      {
+        "PLAYERID": 77142,
+        "PLAYER": "Magic Johnson",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1980-1991, 1996",
+        "YEAR": 2002
+      },
+      {
+        "PLAYERID": 77498,
+        "PLAYER": "Bob McAdoo",
+        "POSITION": "C/F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1982-1985",
+        "YEAR": 2000
+      },
+      {
+        "PLAYERID": 76832,
+        "PLAYER": "Gail Goodrich",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1966-1968, 1971-1976",
+        "YEAR": 1996
+      },
+      {
+        "PLAYERID": 76003,
+        "PLAYER": "Kareem Abdul-Jabbar",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1976-1989",
+        "YEAR": 1995
+      },
+      {
+        "PLAYERID": 77593,
+        "PLAYER": "Vern Mikkelsen",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1950-1959",
+        "YEAR": 1995
+      },
+      {
+        "PLAYERID": 76972,
+        "PLAYER": "Connie Hawkins",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1974-1975",
+        "YEAR": 1992
+      },
+      {
+        "PLAYERID": 77414,
+        "PLAYER": "Clyde Lovellette",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1954-1957",
+        "YEAR": 1988
+      },
+      {
+        "PLAYERID": 77480,
+        "PLAYER": "Slater Martin",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1950-1956",
+        "YEAR": 1982
+      },
+      {
+        "PLAYERID": 78497,
+        "PLAYER": "Jerry West",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1961-1974",
+        "YEAR": 1980
+      },
+      {
+        "PLAYERID": 76375,
+        "PLAYER": "Wilt Chamberlain",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1969-1973",
+        "YEAR": 1979
+      },
+      {
+        "PLAYERID": 77867,
+        "PLAYER": "Jim Pollard",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1949-1955",
+        "YEAR": 1978
+      },
+      {
+        "PLAYERID": 76127,
+        "PLAYER": "Elgin Baylor",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1959-1972",
+        "YEAR": 1977
+      },
+      {
+        "PLAYERID": 600012,
+        "PLAYER": "George Mikan",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1949-1956",
+        "YEAR": 1959
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 977,
+        "PLAYER": "Kobe Bryant",
+        "POSITION": "F/G",
+        "JERSEY": "8,24",
+        "SEASONSWITHTEAM": "1996-2016",
+        "YEAR": 2017
+      },
+      {
+        "PLAYERID": 406,
+        "PLAYER": "Shaquille O'Neal",
+        "POSITION": "C",
+        "JERSEY": "34",
+        "SEASONSWITHTEAM": "1997-2004",
+        "YEAR": 2013
+      },
+      {
+        "PLAYERID": 78532,
+        "PLAYER": "Jamaal Wilkes",
+        "POSITION": "F",
+        "JERSEY": "52",
+        "SEASONSWITHTEAM": "1978-1985",
+        "YEAR": 2012
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Chick Hearn",
+        "POSITION": "Broadcaster",
+        "JERSEY": "",
+        "SEASONSWITHTEAM": "1962-2002",
+        "YEAR": 2002
+      },
+      {
+        "PLAYERID": 76832,
+        "PLAYER": "Gail Goodrich",
+        "POSITION": "G",
+        "JERSEY": "25",
+        "SEASONSWITHTEAM": "1966-1968, 1971-1976",
+        "YEAR": 1996
+      },
+      {
+        "PLAYERID": 1460,
+        "PLAYER": "James Worthy",
+        "POSITION": "F",
+        "JERSEY": "42",
+        "SEASONSWITHTEAM": "1983-1994",
+        "YEAR": 1995
+      },
+      {
+        "PLAYERID": 77142,
+        "PLAYER": "Earvin \"Magic\" Johnson",
+        "POSITION": "G",
+        "JERSEY": "32",
+        "SEASONSWITHTEAM": "1980-1991, 1996",
+        "YEAR": 1992
+      },
+      {
+        "PLAYERID": 76003,
+        "PLAYER": "Kareem Abdul-Jabbar",
+        "POSITION": "C",
+        "JERSEY": "33",
+        "SEASONSWITHTEAM": "1976-1989",
+        "YEAR": 1989
+      },
+      {
+        "PLAYERID": 76127,
+        "PLAYER": "Elgin Baylor",
+        "POSITION": "F",
+        "JERSEY": "22",
+        "SEASONSWITHTEAM": "1959-1972",
+        "YEAR": 1983
+      },
+      {
+        "PLAYERID": 78497,
+        "PLAYER": "Jerry West",
+        "POSITION": "G",
+        "JERSEY": "44",
+        "SEASONSWITHTEAM": "1961-1974",
+        "YEAR": 1983
+      },
+      {
+        "PLAYERID": 76375,
+        "PLAYER": "Wilt Chamberlain",
+        "POSITION": "C",
+        "JERSEY": "13",
+        "SEASONSWITHTEAM": "1969-1973",
+        "YEAR": 1983
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612748,
+        "ABBREVIATION": "MIA",
+        "NICKNAME": "Heat",
+        "YEARFOUNDED": 1988,
+        "CITY": "Miami",
+        "ARENA": "FTX Arena",
+        "ARENACAPACITY": "19600",
+        "OWNER": "Micky Arison",
+        "GENERALMANAGER": "Pat Riley",
+        "HEADCOACH": "Erik Spoelstra",
+        "DLEAGUEAFFILIATION": "Sioux Falls Skyforce"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612748,
+        "CITY": "Miami",
+        "NICKNAME": "Heat",
+        "YEARFOUNDED": 1988,
+        "YEARACTIVETILL": 2019
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/MiamiHeat"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/miamiheat"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/MiamiHEAT"
+      }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 2006, "OPPOSITETEAM": "Dallas Mavericks" },
+      { "YEARAWARDED": 2012, "OPPOSITETEAM": "Oklahoma City Thunder" },
+      { "YEARAWARDED": 2013, "OPPOSITETEAM": "San Antonio Spurs" }
+    ],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 2006, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2011, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2012, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2013, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2014, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2020, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1997, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1998, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1999, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2000, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2005, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2006, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2007, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2011, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2012, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2013, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2014, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2016, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2018, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2020, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 951,
+        "PLAYER": "Ray Allen",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2012-2014",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 406,
+        "PLAYER": "Shaquille O'Neal",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2005-2008",
+        "YEAR": 2016
+      },
+      {
+        "PLAYERID": 297,
+        "PLAYER": "Alonzo Mourning",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1996-2007, 2008",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 56,
+        "PLAYER": "Gary Payton",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2006-2007",
+        "YEAR": 2013
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 2547,
+        "PLAYER": "Chris Bosh",
+        "POSITION": "F",
+        "JERSEY": "1",
+        "SEASONSWITHTEAM": "2010-2016",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 406,
+        "PLAYER": "Shaquille O'Neal",
+        "POSITION": "C",
+        "JERSEY": "32",
+        "SEASONSWITHTEAM": "2005-2008",
+        "YEAR": 2016
+      },
+      {
+        "PLAYERID": 297,
+        "PLAYER": "Alonzo Mourning",
+        "POSITION": "C",
+        "JERSEY": "33",
+        "SEASONSWITHTEAM": "1996-2002, 2006-2008",
+        "YEAR": 2009
+      },
+      {
+        "PLAYERID": 896,
+        "PLAYER": "Tim Hardaway",
+        "POSITION": "G",
+        "JERSEY": "10",
+        "SEASONSWITHTEAM": "1997-2001",
+        "YEAR": 2009
+      },
+      {
+        "PLAYERID": 893,
+        "PLAYER": "Michael Jordan",
+        "POSITION": "G",
+        "JERSEY": "23",
+        "SEASONSWITHTEAM": null,
+        "YEAR": 2005
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612749,
+        "ABBREVIATION": "MIL",
+        "NICKNAME": "Bucks",
+        "YEARFOUNDED": 1968,
+        "CITY": "Milwaukee",
+        "ARENA": "Fiserv Forum",
+        "ARENACAPACITY": "17500",
+        "OWNER": "Wesley Edens &\u00a0Marc Lasry",
+        "GENERALMANAGER": "Jon Horst",
+        "HEADCOACH": "Mike Budenholzer",
+        "DLEAGUEAFFILIATION": "Wisconsin Herd"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612749,
+        "CITY": "Milwaukee",
+        "NICKNAME": "Bucks",
+        "YEARFOUNDED": 1968,
+        "YEARACTIVETILL": 2019
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/milwaukeebucks"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/bucks"
+      },
+      { "ACCOUNTTYPE": "Twitter", "WEBSITE_LINK": "https://twitter.com/Bucks" }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 1971, "OPPOSITETEAM": "Baltimore Bullets" },
+      { "YEARAWARDED": 2021, "OPPOSITETEAM": "Phoenix Suns" }
+    ],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 1971, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1974, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2021, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1971, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1972, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1973, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1974, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1976, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1980, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1981, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1982, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1983, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1984, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1985, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1986, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2001, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2019, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2020, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2021, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 78149,
+        "PLAYER": "Jack Sikma",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1987-1991",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 77626,
+        "PLAYER": "Sidney Moncrief",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1980-1989",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 951,
+        "PLAYER": "Ray Allen",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1996-2003",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 78003,
+        "PLAYER": "Guy Rodgers",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1969-1970",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 56,
+        "PLAYER": "Gary Payton",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2003",
+        "YEAR": 2013
+      },
+      {
+        "PLAYERID": 76504,
+        "PLAYER": "Adrian Dantley",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1991",
+        "YEAR": 2008
+      },
+      {
+        "PLAYERID": 77449,
+        "PLAYER": "Moses Malone",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1992-1993",
+        "YEAR": 2001
+      },
+      {
+        "PLAYERID": 76673,
+        "PLAYER": "Alex English",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1977-1978",
+        "YEAR": 1997
+      },
+      {
+        "PLAYERID": 76003,
+        "PLAYER": "Kareem Abdul-Jabbar",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1970-1975",
+        "YEAR": 1995
+      },
+      {
+        "PLAYERID": 600005,
+        "PLAYER": "Bob Lanier",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1980-1984",
+        "YEAR": 1992
+      },
+      {
+        "PLAYERID": 76462,
+        "PLAYER": "Dave Cowens",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1983",
+        "YEAR": 1991
+      },
+      {
+        "PLAYERID": 76054,
+        "PLAYER": "Tiny Archibald",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1984",
+        "YEAR": 1991
+      },
+      {
+        "PLAYERID": 600015,
+        "PLAYER": "Oscar Robertson",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1971-1974",
+        "YEAR": 1980
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 77160,
+        "PLAYER": "Marques Johnson",
+        "POSITION": "F",
+        "JERSEY": "8",
+        "SEASONSWITHTEAM": "1977-1984",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 76500,
+        "PLAYER": "Bob Dandridge",
+        "POSITION": "F",
+        "JERSEY": "10",
+        "SEASONSWITHTEAM": "1970-1982",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": 76003,
+        "PLAYER": "Kareem Abdul-Jabbar",
+        "POSITION": "C",
+        "JERSEY": "33",
+        "SEASONSWITHTEAM": "1970-1975",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 77626,
+        "PLAYER": "Sidney Moncrief",
+        "POSITION": "G",
+        "JERSEY": "4",
+        "SEASONSWITHTEAM": "1980-1989",
+        "YEAR": 1990
+      },
+      {
+        "PLAYERID": 76252,
+        "PLAYER": "Junior Bridgeman",
+        "POSITION": "F",
+        "JERSEY": "2",
+        "SEASONSWITHTEAM": "1976-1984, 1987",
+        "YEAR": 1988
+      },
+      {
+        "PLAYERID": 600005,
+        "PLAYER": "Bob Lanier",
+        "POSITION": "C",
+        "JERSEY": "16",
+        "SEASONSWITHTEAM": "1980-1984",
+        "YEAR": 1984
+      },
+      {
+        "PLAYERID": 78600,
+        "PLAYER": "Brian Winters",
+        "POSITION": "G",
+        "JERSEY": "32",
+        "SEASONSWITHTEAM": "1976-1983",
+        "YEAR": 1983
+      },
+      {
+        "PLAYERID": 77533,
+        "PLAYER": "Jon McGlocklin",
+        "POSITION": "G",
+        "JERSEY": "14",
+        "SEASONSWITHTEAM": "1969-1976",
+        "YEAR": 1976
+      },
+      {
+        "PLAYERID": 600015,
+        "PLAYER": "Oscar Robertson",
+        "POSITION": "G",
+        "JERSEY": "1",
+        "SEASONSWITHTEAM": "1971-1974",
+        "YEAR": 1974
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612750,
+        "ABBREVIATION": "MIN",
+        "NICKNAME": "Timberwolves",
+        "YEARFOUNDED": 1989,
+        "CITY": "Minnesota",
+        "ARENA": "Target Center",
+        "ARENACAPACITY": "19356",
+        "OWNER": "Glen Taylor",
+        "GENERALMANAGER": "",
+        "HEADCOACH": "Chris Finch",
+        "DLEAGUEAFFILIATION": "Iowa Wolves"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612750,
+        "CITY": "Minnesota",
+        "NICKNAME": "Timberwolves",
+        "YEARFOUNDED": 1989,
+        "YEARACTIVETILL": 2019
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/MNTimberwolves"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/timberwolves"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/Timberwolves"
+      }
+    ],
+    "TeamAwardsChampionships": [],
+    "TeamAwardsConf": [],
+    "TeamAwardsDiv": [{ "YEARAWARDED": 2004, "OPPOSITETEAM": null }],
+    "TeamHof": [
+      {
+        "PLAYERID": 708,
+        "PLAYER": "Kevin Garnett",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1996-2007, 2015-2016",
+        "YEAR": 2020
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 907,
+        "PLAYER": "Malik Sealy",
+        "POSITION": "F",
+        "JERSEY": "2",
+        "SEASONSWITHTEAM": "2000",
+        "YEAR": 2000
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612751,
+        "ABBREVIATION": "BKN",
+        "NICKNAME": "Nets",
+        "YEARFOUNDED": 1976,
+        "CITY": "Brooklyn",
+        "ARENA": "Barclays Center",
+        "ARENACAPACITY": null,
+        "OWNER": "Joe Tsai",
+        "GENERALMANAGER": "Sean Marks",
+        "HEADCOACH": "Steve Nash",
+        "DLEAGUEAFFILIATION": "Long Island Nets"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612751,
+        "CITY": "Brooklyn",
+        "NICKNAME": "Nets",
+        "YEARFOUNDED": 2012,
+        "YEARACTIVETILL": 2019
+      },
+      {
+        "TEAM_ID": 1610612751,
+        "CITY": "New Jersey",
+        "NICKNAME": "Nets",
+        "YEARFOUNDED": 1977,
+        "YEARACTIVETILL": 2011
+      },
+      {
+        "TEAM_ID": 1610612751,
+        "CITY": "New York",
+        "NICKNAME": "Nets",
+        "YEARFOUNDED": 1976,
+        "YEARACTIVETILL": 1976
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/BrooklynNets"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/brooklynnets"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/BrooklynNets"
+      }
+    ],
+    "TeamAwardsChampionships": [],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 2002, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2003, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 2002, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2003, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2004, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2006, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 708,
+        "PLAYER": "Kevin Garnett",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2014-2015",
+        "YEAR": 2020
+      },
+      {
+        "PLAYERID": 467,
+        "PLAYER": "Jason Kidd",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2001-2008",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 76385,
+        "PLAYER": "Maurice Cheeks",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1992-1993",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 87,
+        "PLAYER": "Dikembe Mutombo",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2003",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": 297,
+        "PLAYER": "Alonzo Mourning",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2004-2005",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 77264,
+        "PLAYER": "Bernard King",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1978-1979, 1993",
+        "YEAR": 2013
+      },
+      {
+        "PLAYERID": 76502,
+        "PLAYER": "Mel Daniels",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1977",
+        "YEAR": 2012
+      },
+      {
+        "PLAYERID": 77845,
+        "PLAYER": "Drazen Petrovic",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1991-1993",
+        "YEAR": 2002
+      },
+      {
+        "PLAYERID": 77498,
+        "PLAYER": "Bob McAdoo",
+        "POSITION": "C/F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1981",
+        "YEAR": 2000
+      },
+      {
+        "PLAYERID": 76681,
+        "PLAYER": "Julius Erving",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1974-1976",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 76054,
+        "PLAYER": "Tiny Archibald",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1977",
+        "YEAR": 1991
+      },
+      {
+        "PLAYERID": 600013,
+        "PLAYER": "Rick Barry",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1971-1972",
+        "YEAR": 1987
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 433,
+        "PLAYER": "Buck Williams",
+        "POSITION": "F",
+        "JERSEY": "52",
+        "SEASONSWITHTEAM": "1982-1989",
+        "YEAR": 1999
+      },
+      {
+        "PLAYERID": 77845,
+        "PLAYER": "Drazen Petrovic",
+        "POSITION": "G",
+        "JERSEY": "3",
+        "SEASONSWITHTEAM": "1991-1993",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 78575,
+        "PLAYER": "John Williamson",
+        "POSITION": "G",
+        "JERSEY": "23",
+        "SEASONSWITHTEAM": "1974-1980",
+        "YEAR": 1990
+      },
+      {
+        "PLAYERID": 76681,
+        "PLAYER": "Julius Erving",
+        "POSITION": "F",
+        "JERSEY": "32",
+        "SEASONSWITHTEAM": "1974-1976",
+        "YEAR": 1987
+      },
+      {
+        "PLAYERID": 77576,
+        "PLAYER": "Bill Melchionni",
+        "POSITION": "G",
+        "JERSEY": "25",
+        "SEASONSWITHTEAM": "1970-1976",
+        "YEAR": 1976
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Wendell Ladner",
+        "POSITION": "F",
+        "JERSEY": "4",
+        "SEASONSWITHTEAM": "1975",
+        "YEAR": 1975
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612752,
+        "ABBREVIATION": "NYK",
+        "NICKNAME": "Knicks",
+        "YEARFOUNDED": 1946,
+        "CITY": "New York",
+        "ARENA": "Madison Square Garden",
+        "ARENACAPACITY": "19763",
+        "OWNER": "Cablevision (James Dolan)",
+        "GENERALMANAGER": "Leon Rose",
+        "HEADCOACH": "Tom Thibodeau",
+        "DLEAGUEAFFILIATION": "Westchester Knicks"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612752,
+        "CITY": "New York",
+        "NICKNAME": "Knicks",
+        "YEARFOUNDED": 1946,
+        "YEARACTIVETILL": 2019
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/NYKnicks"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/nyknicks"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/nyknicks"
+      }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 1970, "OPPOSITETEAM": "Los Angeles Lakers" },
+      { "YEARAWARDED": 1973, "OPPOSITETEAM": "Los Angeles Lakers" }
+    ],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 1972, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1973, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1994, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1999, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1953, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1954, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1970, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1971, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1989, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1993, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1994, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2013, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 78500,
+        "PLAYER": "Paul Westphal",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1982-1983",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 467,
+        "PLAYER": "Jason Kidd",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2012-2013",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 76385,
+        "PLAYER": "Maurice Cheeks",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1989-1991",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 1503,
+        "PLAYER": "Tracy McGrady",
+        "POSITION": "G-F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2009-2010",
+        "YEAR": 2017
+      },
+      {
+        "PLAYERID": 87,
+        "PLAYER": "Dikembe Mutombo",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2004",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": 76981,
+        "PLAYER": "Spencer Haywood",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1976-1979",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": 76404,
+        "PLAYER": "Nat Clifton",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1952-1957",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 77264,
+        "PLAYER": "Bernard King",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1983-1987",
+        "YEAR": 2013
+      },
+      {
+        "PLAYERID": 76902,
+        "PLAYER": "Richie Guerin",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1957-1964",
+        "YEAR": 2013
+      },
+      {
+        "PLAYERID": 121,
+        "PLAYER": "Patrick Ewing",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1986-2000",
+        "YEAR": 2008
+      },
+      {
+        "PLAYERID": 77498,
+        "PLAYER": "Bob McAdoo",
+        "POSITION": "C/F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1977-1979",
+        "YEAR": 2000
+      },
+      {
+        "PLAYERID": 77537,
+        "PLAYER": "Dick McGuire",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1950-1957",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 76144,
+        "PLAYER": "Walt Bellamy",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1966-1969",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 76773,
+        "PLAYER": "Harry Gallatin",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1949-1957",
+        "YEAR": 1991
+      },
+      {
+        "PLAYERID": 600006,
+        "PLAYER": "Earl Monroe",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1972-1980",
+        "YEAR": 1990
+      },
+      {
+        "PLAYERID": 76750,
+        "PLAYER": "Walt Frazier",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1968-1977",
+        "YEAR": 1987
+      },
+      {
+        "PLAYERID": 76233,
+        "PLAYER": "Bill Bradley",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1968-1977",
+        "YEAR": 1983
+      },
+      {
+        "PLAYERID": 76545,
+        "PLAYER": "Dave DeBusschere",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1969-1974",
+        "YEAR": 1983
+      },
+      {
+        "PLAYERID": 77480,
+        "PLAYER": "Slater Martin",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1957",
+        "YEAR": 1982
+      },
+      {
+        "PLAYERID": 77929,
+        "PLAYER": "Willis Reed",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1965-1974",
+        "YEAR": 1982
+      },
+      {
+        "PLAYERID": 77418,
+        "PLAYER": "Jerry Lucas",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1972-1974",
+        "YEAR": 1980
+      },
+      {
+        "PLAYERID": 76828,
+        "PLAYER": "Tom Gola",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1963-1966",
+        "YEAR": 1976
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 121,
+        "PLAYER": "Patrick Ewing",
+        "POSITION": "C",
+        "JERSEY": "33",
+        "SEASONSWITHTEAM": "1986-2000",
+        "YEAR": 2003
+      },
+      {
+        "PLAYERID": 77537,
+        "PLAYER": "Dick McGuire",
+        "POSITION": "G",
+        "JERSEY": "15",
+        "SEASONSWITHTEAM": "1950-1957",
+        "YEAR": 1992
+      },
+      {
+        "PLAYERID": 76107,
+        "PLAYER": "Dick Barnett",
+        "POSITION": "G",
+        "JERSEY": "12",
+        "SEASONSWITHTEAM": "1966-1974",
+        "YEAR": 1990
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Red Holtzman",
+        "POSITION": "Coach",
+        "JERSEY": "613",
+        "SEASONSWITHTEAM": "1968-1977, 1979-1982",
+        "YEAR": 1990
+      },
+      {
+        "PLAYERID": 600006,
+        "PLAYER": "Earl Monroe",
+        "POSITION": "G",
+        "JERSEY": "15",
+        "SEASONSWITHTEAM": "1972-1980",
+        "YEAR": 1986
+      },
+      {
+        "PLAYERID": 76233,
+        "PLAYER": "Bill Bradley",
+        "POSITION": "F",
+        "JERSEY": "24",
+        "SEASONSWITHTEAM": "1968-1977",
+        "YEAR": 1984
+      },
+      {
+        "PLAYERID": 76545,
+        "PLAYER": "Dave DeBusschere",
+        "POSITION": "F",
+        "JERSEY": "22",
+        "SEASONSWITHTEAM": "1969-1974",
+        "YEAR": 1981
+      },
+      {
+        "PLAYERID": 76750,
+        "PLAYER": "Walt Frazier",
+        "POSITION": "G",
+        "JERSEY": "10",
+        "SEASONSWITHTEAM": "1968-1977",
+        "YEAR": 1979
+      },
+      {
+        "PLAYERID": 77929,
+        "PLAYER": "Willis Reed",
+        "POSITION": "C",
+        "JERSEY": "19",
+        "SEASONSWITHTEAM": "1965-1974",
+        "YEAR": 1976
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612753,
+        "ABBREVIATION": "ORL",
+        "NICKNAME": "Magic",
+        "YEARFOUNDED": 1989,
+        "CITY": "Orlando",
+        "ARENA": "Amway Center",
+        "ARENACAPACITY": "0",
+        "OWNER": "Rick DeVos",
+        "GENERALMANAGER": "John Hammond",
+        "HEADCOACH": "Jamahl Mosley",
+        "DLEAGUEAFFILIATION": "Lakeland Magic"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612753,
+        "CITY": "Orlando",
+        "NICKNAME": "Magic",
+        "YEARFOUNDED": 1989,
+        "YEARACTIVETILL": 2019
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/OrlandoMagic"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/orlandomagic"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/OrlandoMagic"
+      }
+    ],
+    "TeamAwardsChampionships": [],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 1995, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2009, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1995, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1996, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2008, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2009, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2010, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2019, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 255,
+        "PLAYER": "Grant Hill",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2000-2007",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 1503,
+        "PLAYER": "Tracy McGrady",
+        "POSITION": "G-F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2000-2004",
+        "YEAR": 2017
+      },
+      {
+        "PLAYERID": 406,
+        "PLAYER": "Shaquille O'Neal",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1993-1996",
+        "YEAR": 2016
+      },
+      {
+        "PLAYERID": 121,
+        "PLAYER": "Patrick Ewing",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2002",
+        "YEAR": 2008
+      },
+      {
+        "PLAYERID": 1122,
+        "PLAYER": "Dominique Wilkins",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1999",
+        "YEAR": 2006
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": null,
+        "PLAYER": "Sixth Man",
+        "POSITION": null,
+        "JERSEY": "6",
+        "SEASONSWITHTEAM": null,
+        "YEAR": 2000
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612754,
+        "ABBREVIATION": "IND",
+        "NICKNAME": "Pacers",
+        "YEARFOUNDED": 1976,
+        "CITY": "Indiana",
+        "ARENA": "Gainbridge Fieldhouse ",
+        "ARENACAPACITY": "18345",
+        "OWNER": "Herb Simon",
+        "GENERALMANAGER": "Kevin Pritchard",
+        "HEADCOACH": "Rick Carlisle",
+        "DLEAGUEAFFILIATION": "Fort Wayne Mad Ants"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612754,
+        "CITY": "Indiana",
+        "NICKNAME": "Pacers",
+        "YEARFOUNDED": 1976,
+        "YEARACTIVETILL": 2019
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/pacers"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/pacers"
+      },
+      { "ACCOUNTTYPE": "Twitter", "WEBSITE_LINK": "https://twitter.com/Pacers" }
+    ],
+    "TeamAwardsChampionships": [],
+    "TeamAwardsConf": [{ "YEARAWARDED": 2000, "OPPOSITETEAM": null }],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1995, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1999, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2000, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2004, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2013, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2014, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 77532,
+        "PLAYER": "George McGinnis",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1979-1982",
+        "YEAR": 2017
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Bobby \"Slick\" Leonard",
+        "POSITION": "Coach",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1969-1980",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 76286,
+        "PLAYER": "Roger Brown",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1968-1974, 1976",
+        "YEAR": 2013
+      },
+      {
+        "PLAYERID": 76502,
+        "PLAYER": "Mel Daniels",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1969-1974",
+        "YEAR": 2012
+      },
+      {
+        "PLAYERID": 397,
+        "PLAYER": "Reggie Miller",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1988-2005",
+        "YEAR": 2012
+      },
+      {
+        "PLAYERID": 904,
+        "PLAYER": "Chris Mullin",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1998-2000",
+        "YEAR": 2011
+      },
+      {
+        "PLAYERID": 77150,
+        "PLAYER": "Gus Johnson",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1973",
+        "YEAR": 2010
+      },
+      {
+        "PLAYERID": 76504,
+        "PLAYER": "Adrian Dantley",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1978",
+        "YEAR": 2008
+      },
+      {
+        "PLAYERID": 76673,
+        "PLAYER": "Alex English",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1979-1980",
+        "YEAR": 1997
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": null,
+        "PLAYER": "Melvin Simon",
+        "POSITION": "Owner",
+        "JERSEY": "",
+        "SEASONSWITHTEAM": "1983-2009",
+        "YEAR": 2009
+      },
+      {
+        "PLAYERID": 397,
+        "PLAYER": "Reggie Miller",
+        "POSITION": "G",
+        "JERSEY": "31",
+        "SEASONSWITHTEAM": "1988-2005",
+        "YEAR": 2005
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Bobby \"Slick\" Leonard",
+        "POSITION": "Coach",
+        "JERSEY": "529",
+        "SEASONSWITHTEAM": "1969-1980",
+        "YEAR": 1996
+      },
+      {
+        "PLAYERID": 77532,
+        "PLAYER": "George McGinnis",
+        "POSITION": "F",
+        "JERSEY": "30",
+        "SEASONSWITHTEAM": "1972-1975, 1981-1982",
+        "YEAR": 1985
+      },
+      {
+        "PLAYERID": 76502,
+        "PLAYER": "Mel Daniels",
+        "POSITION": "C",
+        "JERSEY": "34",
+        "SEASONSWITHTEAM": "1969-1974",
+        "YEAR": 1985
+      },
+      {
+        "PLAYERID": 76286,
+        "PLAYER": "Roger Brown",
+        "POSITION": "F",
+        "JERSEY": "35",
+        "SEASONSWITHTEAM": "1968-1974, 1976",
+        "YEAR": 1985
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612755,
+        "ABBREVIATION": "PHI",
+        "NICKNAME": "76ers",
+        "YEARFOUNDED": 1949,
+        "CITY": "Philadelphia",
+        "ARENA": "Wells Fargo Center",
+        "ARENACAPACITY": null,
+        "OWNER": "Joshua Harris",
+        "GENERALMANAGER": "Elton Brand",
+        "HEADCOACH": "Doc Rivers",
+        "DLEAGUEAFFILIATION": "Delaware Blue Coats"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612755,
+        "CITY": "Philadelphia",
+        "NICKNAME": "76ers",
+        "YEARFOUNDED": 1963,
+        "YEARACTIVETILL": 2019
+      },
+      {
+        "TEAM_ID": 1610612755,
+        "CITY": "Syracuse",
+        "NICKNAME": "Nationals",
+        "YEARFOUNDED": 1949,
+        "YEARACTIVETILL": 1962
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/Sixers"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/sixers"
+      },
+      { "ACCOUNTTYPE": "Twitter", "WEBSITE_LINK": "https://twitter.com/Sixers" }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 1955, "OPPOSITETEAM": "Fort Wayne Pistons" },
+      { "YEARAWARDED": 1967, "OPPOSITETEAM": "San Francisco Warriors" },
+      { "YEARAWARDED": 1983, "OPPOSITETEAM": "Los Angeles Lakers" }
+    ],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 1977, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1980, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1982, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1983, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2001, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1950, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1952, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1955, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1966, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1967, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1968, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1977, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1978, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1983, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1990, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2001, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2021, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 77193,
+        "PLAYER": "Bobby Jones",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1979-1986",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 76385,
+        "PLAYER": "Maurice Cheeks",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1978-1989",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 77532,
+        "PLAYER": "George McGinnis",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1975-1978",
+        "YEAR": 2017
+      },
+      {
+        "PLAYERID": 947,
+        "PLAYER": "Allen Iverson",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1997-2007, 2010",
+        "YEAR": 2016
+      },
+      {
+        "PLAYERID": 87,
+        "PLAYER": "Dikembe Mutombo",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2001-2002",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": 78435,
+        "PLAYER": "Chet Walker",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1963-1969",
+        "YEAR": 2012
+      },
+      {
+        "PLAYERID": 787,
+        "PLAYER": "Charles Barkley",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1985-1992",
+        "YEAR": 2006
+      },
+      {
+        "PLAYERID": 77449,
+        "PLAYER": "Moses Malone",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1983-1986, 1994",
+        "YEAR": 2001
+      },
+      {
+        "PLAYERID": 77498,
+        "PLAYER": "Bob McAdoo",
+        "POSITION": "C/F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1986",
+        "YEAR": 2000
+      },
+      {
+        "PLAYERID": 77070,
+        "PLAYER": "Bailey Howell",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1971",
+        "YEAR": 1997
+      },
+      {
+        "PLAYERID": 78628,
+        "PLAYER": "George Yardley",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1960",
+        "YEAR": 1996
+      },
+      {
+        "PLAYERID": 76681,
+        "PLAYER": "Julius Erving",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1977-1987",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 76487,
+        "PLAYER": "Billy Cunningham",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1966-1972, 1975-1976",
+        "YEAR": 1986
+      },
+      {
+        "PLAYERID": 76373,
+        "PLAYER": "Al Cervi",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1950-1953",
+        "YEAR": 1985
+      },
+      {
+        "PLAYERID": 76882,
+        "PLAYER": "Hal Greer",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1959-1973",
+        "YEAR": 1982
+      },
+      {
+        "PLAYERID": 76375,
+        "PLAYER": "Wilt Chamberlain",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1965-1968",
+        "YEAR": 1979
+      },
+      {
+        "PLAYERID": 78076,
+        "PLAYER": "Dolph Schayes",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1950-1964",
+        "YEAR": 1973
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 77449,
+        "PLAYER": "Moses Malone",
+        "POSITION": "C",
+        "JERSEY": "2",
+        "SEASONSWITHTEAM": "1983-1986, 1994",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 947,
+        "PLAYER": "Allen Iverson",
+        "POSITION": "G",
+        "JERSEY": "3",
+        "SEASONSWITHTEAM": "1997-2007, 2010",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 787,
+        "PLAYER": "Charles Barkley",
+        "POSITION": "F",
+        "JERSEY": "34",
+        "SEASONSWITHTEAM": "1985-1992",
+        "YEAR": 2001
+      },
+      {
+        "PLAYERID": 76385,
+        "PLAYER": "Maurice Cheeks",
+        "POSITION": "G",
+        "JERSEY": "10",
+        "SEASONSWITHTEAM": "1979-1989",
+        "YEAR": 1995
+      },
+      {
+        "PLAYERID": 76375,
+        "PLAYER": "Wilt Chamberlain",
+        "POSITION": "C",
+        "JERSEY": "13",
+        "SEASONSWITHTEAM": "1965-1968",
+        "YEAR": 1991
+      },
+      {
+        "PLAYERID": 76681,
+        "PLAYER": "Julius Erving",
+        "POSITION": "F",
+        "JERSEY": "6",
+        "SEASONSWITHTEAM": "1977-1987",
+        "YEAR": 1988
+      },
+      {
+        "PLAYERID": 77193,
+        "PLAYER": "Bobby Jones",
+        "POSITION": "F",
+        "JERSEY": "24",
+        "SEASONSWITHTEAM": "1979-1986",
+        "YEAR": 1986
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Dave Zinkoff",
+        "POSITION": "Broadcaster",
+        "JERSEY": "",
+        "SEASONSWITHTEAM": "1963-1985",
+        "YEAR": 1986
+      },
+      {
+        "PLAYERID": 76487,
+        "PLAYER": "Billy Cunningham",
+        "POSITION": "F",
+        "JERSEY": "32",
+        "SEASONSWITHTEAM": "1966-1972, 1975-1976",
+        "YEAR": 1976
+      },
+      {
+        "PLAYERID": 76882,
+        "PLAYER": "Hal Greer",
+        "POSITION": "G",
+        "JERSEY": "15",
+        "SEASONSWITHTEAM": "1959-1973",
+        "YEAR": 1976
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612756,
+        "ABBREVIATION": "PHX",
+        "NICKNAME": "Suns",
+        "YEARFOUNDED": 1968,
+        "CITY": "Phoenix",
+        "ARENA": "Footprint Center",
+        "ARENACAPACITY": null,
+        "OWNER": "Robert Sarver",
+        "GENERALMANAGER": "James Jones",
+        "HEADCOACH": "Monty Williams",
+        "DLEAGUEAFFILIATION": "Northern Arizona Suns"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612756,
+        "CITY": "Phoenix",
+        "NICKNAME": "Suns",
+        "YEARFOUNDED": 1968,
+        "YEARACTIVETILL": 2019
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/suns"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/suns"
+      },
+      { "ACCOUNTTYPE": "Twitter", "WEBSITE_LINK": "https://twitter.com/Suns" }
+    ],
+    "TeamAwardsChampionships": [],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 1976, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1993, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2021, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1981, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1993, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1995, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2005, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2006, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2007, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2021, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 78500,
+        "PLAYER": "Paul Westphal",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1976-1980, 1984",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 78097,
+        "PLAYER": "Charlie Scott",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1971-1975",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 255,
+        "PLAYER": "Grant Hill",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2007-2012",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 467,
+        "PLAYER": "Jason Kidd",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1996-2001",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 959,
+        "PLAYER": "Steve Nash",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1996-1998, 2004-2012",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 406,
+        "PLAYER": "Shaquille O'Neal",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2008-2009",
+        "YEAR": 2016
+      },
+      {
+        "PLAYERID": 77141,
+        "PLAYER": "Dennis Johnson",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1981-1983",
+        "YEAR": 2010
+      },
+      {
+        "PLAYERID": 77150,
+        "PLAYER": "Gus Johnson",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1973",
+        "YEAR": 2010
+      },
+      {
+        "PLAYERID": 787,
+        "PLAYER": "Charles Barkley",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1993-1996",
+        "YEAR": 2006
+      },
+      {
+        "PLAYERID": 76832,
+        "PLAYER": "Gail Goodrich",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1969-1970",
+        "YEAR": 1996
+      },
+      {
+        "PLAYERID": 76972,
+        "PLAYER": "Connie Hawkins",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1970-1974",
+        "YEAR": 1992
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 959,
+        "PLAYER": "Steve Nash",
+        "POSITION": "G",
+        "JERSEY": "13",
+        "SEASONSWITHTEAM": "2005-2012",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Jerry Colangelo",
+        "POSITION": "General Manager",
+        "JERSEY": "",
+        "SEASONSWITHTEAM": "1968-2012",
+        "YEAR": 2007
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Cotton Fitzsimmons",
+        "POSITION": "Coach",
+        "JERSEY": "832",
+        "SEASONSWITHTEAM": "1970-1972, 1989-1992, 199",
+        "YEAR": 2005
+      },
+      {
+        "PLAYERID": 787,
+        "PLAYER": "Charles Barkley",
+        "POSITION": "F",
+        "JERSEY": "34",
+        "SEASONSWITHTEAM": "1993-1996",
+        "YEAR": 2004
+      },
+      {
+        "PLAYERID": 105,
+        "PLAYER": "Dan Majerle",
+        "POSITION": "F",
+        "JERSEY": "9",
+        "SEASONSWITHTEAM": "1989-1995, 2002",
+        "YEAR": 2003
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Joe Proski",
+        "POSITION": "Trainer",
+        "JERSEY": "",
+        "SEASONSWITHTEAM": "1968-2000",
+        "YEAR": 2001
+      },
+      {
+        "PLAYERID": 134,
+        "PLAYER": "Kevin Johnson",
+        "POSITION": "G",
+        "JERSEY": "7",
+        "SEASONSWITHTEAM": "1989-1998, 2000",
+        "YEAR": 2001
+      },
+      {
+        "PLAYERID": 1472,
+        "PLAYER": "Tom Chambers",
+        "POSITION": "F",
+        "JERSEY": "24",
+        "SEASONSWITHTEAM": "1989-1993",
+        "YEAR": 1999
+      },
+      {
+        "PLAYERID": 1453,
+        "PLAYER": "Walter Davis",
+        "POSITION": "G",
+        "JERSEY": "6",
+        "SEASONSWITHTEAM": "1978-1988",
+        "YEAR": 1994
+      },
+      {
+        "PLAYERID": 78500,
+        "PLAYER": "Paul Westphal",
+        "POSITION": "G",
+        "JERSEY": "44",
+        "SEASONSWITHTEAM": "1976-1980, 1984",
+        "YEAR": 1989
+      },
+      {
+        "PLAYERID": 76011,
+        "PLAYER": "Alvan Adams",
+        "POSITION": "C",
+        "JERSEY": "33",
+        "SEASONSWITHTEAM": "1976-1988",
+        "YEAR": 1988
+      },
+      {
+        "PLAYERID": 78398,
+        "PLAYER": "Dick Van Arsdale",
+        "POSITION": "G",
+        "JERSEY": "5",
+        "SEASONSWITHTEAM": "1969-1977",
+        "YEAR": 1978
+      },
+      {
+        "PLAYERID": 76972,
+        "PLAYER": "Connie Hawkins",
+        "POSITION": "F",
+        "JERSEY": "42",
+        "SEASONSWITHTEAM": "1970-1974",
+        "YEAR": 1976
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612757,
+        "ABBREVIATION": "POR",
+        "NICKNAME": "Trail Blazers",
+        "YEARFOUNDED": 1970,
+        "CITY": "Portland",
+        "ARENA": "Moda Center",
+        "ARENACAPACITY": "19980",
+        "OWNER": "Paul Allen",
+        "GENERALMANAGER": "Neil Olshey",
+        "HEADCOACH": "Chauncey Billups",
+        "DLEAGUEAFFILIATION": "No Affiliate"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612757,
+        "CITY": "Portland",
+        "NICKNAME": "Trail Blazers",
+        "YEARFOUNDED": 1970,
+        "YEARACTIVETILL": 2019
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/trailblazers"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/trailblazers"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/trailblazers"
+      }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 1977, "OPPOSITETEAM": "Philadelphia 76ers" }
+    ],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 1977, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1990, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1992, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1978, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1991, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1992, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2015, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2018, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 717,
+        "PLAYER": "Arvydas Sabonis",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1996-2003",
+        "YEAR": 2011
+      },
+      {
+        "PLAYERID": 937,
+        "PLAYER": "Scottie Pippen",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2000-2003",
+        "YEAR": 2010
+      },
+      {
+        "PLAYERID": 17,
+        "PLAYER": "Clyde Drexler",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1984-1995",
+        "YEAR": 2004
+      },
+      {
+        "PLAYERID": 77845,
+        "PLAYER": "Drazen Petrovic",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1990-1991",
+        "YEAR": 2002
+      },
+      {
+        "PLAYERID": 78450,
+        "PLAYER": "Bill Walton",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1975-1978",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 78530,
+        "PLAYER": "Lenny Wilkens",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1975",
+        "YEAR": 1989
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 76895,
+        "PLAYER": "Bob Gross",
+        "POSITION": "F",
+        "JERSEY": "30",
+        "SEASONSWITHTEAM": "1976-1982",
+        "YEAR": 2008
+      },
+      {
+        "PLAYERID": 345,
+        "PLAYER": "Terry Porter",
+        "POSITION": "G",
+        "JERSEY": "30",
+        "SEASONSWITHTEAM": "1986-1995",
+        "YEAR": 2008
+      },
+      {
+        "PLAYERID": 77043,
+        "PLAYER": "Lionel Hollins",
+        "POSITION": "G",
+        "JERSEY": "14",
+        "SEASONSWITHTEAM": "1976-1980",
+        "YEAR": 2007
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Bill Schonely",
+        "POSITION": "Broadcaster",
+        "JERSEY": "",
+        "SEASONSWITHTEAM": "1970-1998",
+        "YEAR": 2003
+      },
+      {
+        "PLAYERID": 17,
+        "PLAYER": "Clyde Drexler",
+        "POSITION": "G",
+        "JERSEY": "22",
+        "SEASONSWITHTEAM": "1984-1995",
+        "YEAR": 2001
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Jack Ramsay",
+        "POSITION": "Coach",
+        "JERSEY": "77",
+        "SEASONSWITHTEAM": "1977-1986",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Larry Weinberg",
+        "POSITION": "Owner",
+        "JERSEY": "1",
+        "SEASONSWITHTEAM": "1970-1988",
+        "YEAR": 1992
+      },
+      {
+        "PLAYERID": 78450,
+        "PLAYER": "Bill Walton",
+        "POSITION": "C",
+        "JERSEY": "32",
+        "SEASONSWITHTEAM": "1975-1978",
+        "YEAR": 1989
+      },
+      {
+        "PLAYERID": 77420,
+        "PLAYER": "Maurice Lucas",
+        "POSITION": "F",
+        "JERSEY": "20",
+        "SEASONSWITHTEAM": "1977-1980, 1988",
+        "YEAR": 1987
+      },
+      {
+        "PLAYERID": 78387,
+        "PLAYER": "Dave Twardzik",
+        "POSITION": "G",
+        "JERSEY": "13",
+        "SEASONSWITHTEAM": "1977-1980",
+        "YEAR": 1981
+      },
+      {
+        "PLAYERID": 77844,
+        "PLAYER": "Geoff Petrie",
+        "POSITION": "G/F",
+        "JERSEY": "45",
+        "SEASONSWITHTEAM": "1971-1976",
+        "YEAR": 1981
+      },
+      {
+        "PLAYERID": 78245,
+        "PLAYER": "Larry Steele",
+        "POSITION": "G",
+        "JERSEY": "15",
+        "SEASONSWITHTEAM": "1972-1980",
+        "YEAR": 1981
+      },
+      {
+        "PLAYERID": 77696,
+        "PLAYER": "Lloyd Neal",
+        "POSITION": "F/C",
+        "JERSEY": "36",
+        "SEASONSWITHTEAM": "1973-1979",
+        "YEAR": 1979
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612758,
+        "ABBREVIATION": "SAC",
+        "NICKNAME": "Kings",
+        "YEARFOUNDED": 1948,
+        "CITY": "Sacramento",
+        "ARENA": "Golden 1 Center",
+        "ARENACAPACITY": "17500",
+        "OWNER": "Vivek Ranadive",
+        "GENERALMANAGER": "Monte McNair",
+        "HEADCOACH": "Alvin Gentry",
+        "DLEAGUEAFFILIATION": "Stockton Kings"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612758,
+        "CITY": "Sacramento",
+        "NICKNAME": "Kings",
+        "YEARFOUNDED": 1985,
+        "YEARACTIVETILL": 2019
+      },
+      {
+        "TEAM_ID": 1610612758,
+        "CITY": "Kansas City",
+        "NICKNAME": "Kings",
+        "YEARFOUNDED": 1975,
+        "YEARACTIVETILL": 1984
+      },
+      {
+        "TEAM_ID": 1610612758,
+        "CITY": "Kansas City-Omaha",
+        "NICKNAME": "Kings",
+        "YEARFOUNDED": 1972,
+        "YEARACTIVETILL": 1974
+      },
+      {
+        "TEAM_ID": 1610612758,
+        "CITY": "Cincinnati",
+        "NICKNAME": "Royals",
+        "YEARFOUNDED": 1957,
+        "YEARACTIVETILL": 1971
+      },
+      {
+        "TEAM_ID": 1610612758,
+        "CITY": "Rochester",
+        "NICKNAME": "Royals",
+        "YEARFOUNDED": 1948,
+        "YEARACTIVETILL": 1956
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/sacramentokings"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/sacramentokings"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/SacramentoKings"
+      }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 1951, "OPPOSITETEAM": "New York Knicks" }
+    ],
+    "TeamAwardsConf": [],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1949, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1952, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1979, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2002, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2003, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 124,
+        "PLAYER": "Vlade Divac",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1999-2004",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 78510,
+        "PLAYER": "Jo Jo White",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1981",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": 78003,
+        "PLAYER": "Guy Rodgers",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1968",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 782,
+        "PLAYER": "Mitch Richmond",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1992-1998",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 36,
+        "PLAYER": "Sarunas Marciulionis",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1996",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 78055,
+        "PLAYER": "Ralph Sampson",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1990-1991",
+        "YEAR": 2012
+      },
+      {
+        "PLAYERID": 600016,
+        "PLAYER": "Maurice Stokes",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1956-1958",
+        "YEAR": 2004
+      },
+      {
+        "PLAYERID": 77967,
+        "PLAYER": "Arnie Risen",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1949-1955",
+        "YEAR": 1998
+      },
+      {
+        "PLAYERID": 76054,
+        "PLAYER": "Tiny Archibald",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1971-1976",
+        "YEAR": 1991
+      },
+      {
+        "PLAYERID": 77414,
+        "PLAYER": "Clyde Lovellette",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1958",
+        "YEAR": 1988
+      },
+      {
+        "PLAYERID": 78453,
+        "PLAYER": "Bobby Wanzer",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1949-1957",
+        "YEAR": 1987
+      },
+      {
+        "PLAYERID": 78388,
+        "PLAYER": "Jack Twyman",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1956-1966",
+        "YEAR": 1983
+      },
+      {
+        "PLAYERID": 77418,
+        "PLAYER": "Jerry Lucas",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1964-1970",
+        "YEAR": 1980
+      },
+      {
+        "PLAYERID": 600015,
+        "PLAYER": "Oscar Robertson",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1961-1970",
+        "YEAR": 1980
+      },
+      {
+        "PLAYERID": 600003,
+        "PLAYER": "Bob Cousy",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1970",
+        "YEAR": 1971
+      },
+      {
+        "PLAYERID": 76514,
+        "PLAYER": "Bob Davies",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1949-1955",
+        "YEAR": 1970
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 978,
+        "PLAYER": "Peja Stojakovic",
+        "POSITION": "F",
+        "JERSEY": "16",
+        "SEASONSWITHTEAM": "1999-2006",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 185,
+        "PLAYER": "Chris Webber",
+        "POSITION": "F",
+        "JERSEY": "4",
+        "SEASONSWITHTEAM": "1999-2005",
+        "YEAR": 2009
+      },
+      {
+        "PLAYERID": 124,
+        "PLAYER": "Vlade Divac",
+        "POSITION": "C",
+        "JERSEY": "21",
+        "SEASONSWITHTEAM": "1999-2004",
+        "YEAR": 2009
+      },
+      {
+        "PLAYERID": 782,
+        "PLAYER": "Mitch Richmond",
+        "POSITION": "G",
+        "JERSEY": "2",
+        "SEASONSWITHTEAM": "1992-1998",
+        "YEAR": 2003
+      },
+      {
+        "PLAYERID": 600015,
+        "PLAYER": "Oscar Robertson",
+        "POSITION": "G",
+        "JERSEY": "14",
+        "SEASONSWITHTEAM": "1961-1970",
+        "YEAR": 1970
+      },
+      {
+        "PLAYERID": 76533,
+        "PLAYER": "Bobby Davies",
+        "POSITION": "G",
+        "JERSEY": "11",
+        "SEASONSWITHTEAM": "1949-1955",
+        "YEAR": null
+      },
+      {
+        "PLAYERID": 78388,
+        "PLAYER": "Jack Twyman",
+        "POSITION": "F",
+        "JERSEY": "27",
+        "SEASONSWITHTEAM": "1956-1966",
+        "YEAR": null
+      },
+      {
+        "PLAYERID": 600016,
+        "PLAYER": "Maurice Stokes",
+        "POSITION": "F",
+        "JERSEY": "12",
+        "SEASONSWITHTEAM": "1956-1958",
+        "YEAR": null
+      },
+      {
+        "PLAYERID": 76054,
+        "PLAYER": "Nate \"Tiny\" Archibald",
+        "POSITION": "G",
+        "JERSEY": "1",
+        "SEASONSWITHTEAM": "1971-1976",
+        "YEAR": null
+      },
+      {
+        "PLAYERID": 77326,
+        "PLAYER": "Sam Lacey",
+        "POSITION": "C",
+        "JERSEY": "44",
+        "SEASONSWITHTEAM": "1971-1981",
+        "YEAR": null
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Sixth Man",
+        "POSITION": null,
+        "JERSEY": "6",
+        "SEASONSWITHTEAM": null,
+        "YEAR": null
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612759,
+        "ABBREVIATION": "SAS",
+        "NICKNAME": "Spurs",
+        "YEARFOUNDED": 1976,
+        "CITY": "San Antonio",
+        "ARENA": "AT&T Center",
+        "ARENACAPACITY": "18694",
+        "OWNER": "Peter Holt",
+        "GENERALMANAGER": "Brian Wright",
+        "HEADCOACH": "Gregg Popovich",
+        "DLEAGUEAFFILIATION": "Austin Spurs"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612759,
+        "CITY": "San Antonio",
+        "NICKNAME": "Spurs",
+        "YEARFOUNDED": 1976,
+        "YEARACTIVETILL": 2019
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/Spurs"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/spurs"
+      },
+      { "ACCOUNTTYPE": "Twitter", "WEBSITE_LINK": "https://twitter.com/spurs" }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 1999, "OPPOSITETEAM": "New York Knicks" },
+      { "YEARAWARDED": 2003, "OPPOSITETEAM": "New Jersey Nets" },
+      { "YEARAWARDED": 2005, "OPPOSITETEAM": "Detroit Pistons" },
+      { "YEARAWARDED": 2007, "OPPOSITETEAM": "Cleveland Cavaliers" },
+      { "YEARAWARDED": 2014, "OPPOSITETEAM": "Miami Heat" }
+    ],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 1999, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2003, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2005, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2007, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2013, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2014, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1978, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1979, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1981, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1982, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1983, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1990, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1991, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1995, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1996, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1999, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2001, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2002, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2003, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2005, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2006, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2009, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2011, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2012, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2013, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2014, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2016, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2017, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 1495,
+        "PLAYER": "Tim Duncan",
+        "POSITION": "F/C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1998-2016",
+        "YEAR": 2020
+      },
+      {
+        "PLAYERID": 76385,
+        "PLAYER": "Maurice Cheeks",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1989-1990",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 76499,
+        "PLAYER": "Louie Dampier",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1977-1979",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": 600014,
+        "PLAYER": "Artis Gilmore",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1983-1987",
+        "YEAR": 2011
+      },
+      {
+        "PLAYERID": 23,
+        "PLAYER": "Dennis Rodman",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1994-1995",
+        "YEAR": 2011
+      },
+      {
+        "PLAYERID": 764,
+        "PLAYER": "David Robinson",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1990-2003",
+        "YEAR": 2009
+      },
+      {
+        "PLAYERID": 1122,
+        "PLAYER": "Dominique Wilkins",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1997",
+        "YEAR": 2006
+      },
+      {
+        "PLAYERID": 77449,
+        "PLAYER": "Moses Malone",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1995",
+        "YEAR": 2001
+      },
+      {
+        "PLAYERID": 76804,
+        "PLAYER": "George Gervin",
+        "POSITION": "G/F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1974-1985",
+        "YEAR": 1996
+      },
+      {
+        "PLAYERID": 76912,
+        "PLAYER": "Cliff Hagan",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1968-1970",
+        "YEAR": 1978
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 1938,
+        "PLAYER": "Manu Ginobili",
+        "POSITION": "G",
+        "JERSEY": "20",
+        "SEASONSWITHTEAM": "2002-2018",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 2225,
+        "PLAYER": "Tony Parker",
+        "POSITION": "G",
+        "JERSEY": "9",
+        "SEASONSWITHTEAM": "2001-2018",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 1495,
+        "PLAYER": "Tim Duncan",
+        "POSITION": "C",
+        "JERSEY": "21",
+        "SEASONSWITHTEAM": "1998-2016",
+        "YEAR": 2016
+      },
+      {
+        "PLAYERID": 1477,
+        "PLAYER": "Bruce Bowen",
+        "POSITION": "F",
+        "JERSEY": "12",
+        "SEASONSWITHTEAM": "2002-2009",
+        "YEAR": 2012
+      },
+      {
+        "PLAYERID": 422,
+        "PLAYER": "Avery Johnson",
+        "POSITION": "G",
+        "JERSEY": "6",
+        "SEASONSWITHTEAM": "1991, 1993, 1995-2001",
+        "YEAR": 2007
+      },
+      {
+        "PLAYERID": 251,
+        "PLAYER": "Sean Elliott",
+        "POSITION": "F",
+        "JERSEY": "32",
+        "SEASONSWITHTEAM": "1990-1993, 1995-2001",
+        "YEAR": 2005
+      },
+      {
+        "PLAYERID": 764,
+        "PLAYER": "David Robinson",
+        "POSITION": "C",
+        "JERSEY": "50",
+        "SEASONSWITHTEAM": "1990-2003",
+        "YEAR": 2003
+      },
+      {
+        "PLAYERID": 77633,
+        "PLAYER": "Johnny Moore",
+        "POSITION": "G",
+        "JERSEY": "00",
+        "SEASONSWITHTEAM": "1981-1988, 1990",
+        "YEAR": 1998
+      },
+      {
+        "PLAYERID": 76804,
+        "PLAYER": "George Gervin",
+        "POSITION": "G",
+        "JERSEY": "44",
+        "SEASONSWITHTEAM": "1974-1985",
+        "YEAR": 1987
+      },
+      {
+        "PLAYERID": 78150,
+        "PLAYER": "James Silas",
+        "POSITION": "G",
+        "JERSEY": "13",
+        "SEASONSWITHTEAM": "1973-1981",
+        "YEAR": 1984
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612760,
+        "ABBREVIATION": "OKC",
+        "NICKNAME": "Thunder",
+        "YEARFOUNDED": 1967,
+        "CITY": "Oklahoma City",
+        "ARENA": "Paycom Center",
+        "ARENACAPACITY": null,
+        "OWNER": "Clay Bennett",
+        "GENERALMANAGER": "Sam Presti",
+        "HEADCOACH": "Mark Daigneault",
+        "DLEAGUEAFFILIATION": "Oklahoma City Blue"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612760,
+        "CITY": "Oklahoma City",
+        "NICKNAME": "Thunder",
+        "YEARFOUNDED": 2008,
+        "YEARACTIVETILL": 2019
+      },
+      {
+        "TEAM_ID": 1610612760,
+        "CITY": "Seattle",
+        "NICKNAME": "SuperSonics",
+        "YEARFOUNDED": 1967,
+        "YEARACTIVETILL": 2007
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/OKCThunder"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/okcthunder"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/okcthunder"
+      }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 1979, "OPPOSITETEAM": "Washington Bullets" }
+    ],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 1978, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1979, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1996, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2012, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1979, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1994, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1996, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1997, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1998, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2005, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2011, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2012, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2013, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2014, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2016, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 78149,
+        "PLAYER": "Jack Sikma",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1978-1986",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 78500,
+        "PLAYER": "Paul Westphal",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1981",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 951,
+        "PLAYER": "Ray Allen",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2002-2007",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 76981,
+        "PLAYER": "Spencer Haywood",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1971-1975",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": 36,
+        "PLAYER": "Sarunas Marciulionis",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1995",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 56,
+        "PLAYER": "Gary Payton",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1991-2003",
+        "YEAR": 2013
+      },
+      {
+        "PLAYERID": 77141,
+        "PLAYER": "Dennis Johnson",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1977-1980",
+        "YEAR": 2010
+      },
+      {
+        "PLAYERID": 121,
+        "PLAYER": "Patrick Ewing",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2001",
+        "YEAR": 2008
+      },
+      {
+        "PLAYERID": 78326,
+        "PLAYER": "David Thompson",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1983-1984",
+        "YEAR": 1996
+      },
+      {
+        "PLAYERID": 78530,
+        "PLAYER": "Lenny Wilkens",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1969-1972",
+        "YEAR": 1989
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 2555,
+        "PLAYER": "Nick Collison",
+        "POSITION": "F-C",
+        "JERSEY": "4",
+        "SEASONSWITHTEAM": "2004-2018",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 76981,
+        "PLAYER": "Spencer Haywood",
+        "POSITION": "F",
+        "JERSEY": "24",
+        "SEASONSWITHTEAM": "1972-1975",
+        "YEAR": 2007
+      },
+      {
+        "PLAYERID": 78549,
+        "PLAYER": "Gus Williams",
+        "POSITION": "G",
+        "JERSEY": "1",
+        "SEASONSWITHTEAM": "1978-1984",
+        "YEAR": 2004
+      },
+      {
+        "PLAYERID": 203,
+        "PLAYER": "Nate McMillan",
+        "POSITION": "G",
+        "JERSEY": "10",
+        "SEASONSWITHTEAM": "1987-1998",
+        "YEAR": 1999
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Bob Blackburn",
+        "POSITION": "Broadcaster",
+        "JERSEY": "",
+        "SEASONSWITHTEAM": "1968-1992",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 78149,
+        "PLAYER": "Jack Sikma",
+        "POSITION": "C",
+        "JERSEY": "43",
+        "SEASONSWITHTEAM": "1978-1986",
+        "YEAR": 1992
+      },
+      {
+        "PLAYERID": 76272,
+        "PLAYER": "Fred Brown",
+        "POSITION": "G",
+        "JERSEY": "32",
+        "SEASONSWITHTEAM": "1972-1984",
+        "YEAR": 1986
+      },
+      {
+        "PLAYERID": 78530,
+        "PLAYER": "Lenny Wilkens",
+        "POSITION": "G - Coach",
+        "JERSEY": "19",
+        "SEASONSWITHTEAM": "1969-1972, 1978-1985",
+        "YEAR": 1979
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612761,
+        "ABBREVIATION": "TOR",
+        "NICKNAME": "Raptors",
+        "YEARFOUNDED": 1995,
+        "CITY": "Toronto",
+        "ARENA": "Scotiabank Arena",
+        "ARENACAPACITY": null,
+        "OWNER": "Maple Leaf Sports and Entertainment",
+        "GENERALMANAGER": "Masai Ujiri",
+        "HEADCOACH": "Nick Nurse",
+        "DLEAGUEAFFILIATION": "Raptors 905"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612761,
+        "CITY": "Toronto",
+        "NICKNAME": "Raptors",
+        "YEARFOUNDED": 1995,
+        "YEARACTIVETILL": 2019
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/TorontoRaptors"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/raptors"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/Raptors"
+      }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 2019, "OPPOSITETEAM": "Golden State Warriors" }
+    ],
+    "TeamAwardsConf": [{ "YEARAWARDED": 2019, "OPPOSITETEAM": null }],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 2007, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2014, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2015, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2016, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2018, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2019, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2020, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 1503,
+        "PLAYER": "Tracy McGrady",
+        "POSITION": "G-F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1997-2000",
+        "YEAR": 2017
+      },
+      {
+        "PLAYERID": 165,
+        "PLAYER": "Hakeem Olajuwon",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2002",
+        "YEAR": 2008
+      }
+    ],
+    "TeamRetired": []
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612762,
+        "ABBREVIATION": "UTA",
+        "NICKNAME": "Jazz",
+        "YEARFOUNDED": 1974,
+        "CITY": "Utah",
+        "ARENA": "Vivint Arena",
+        "ARENACAPACITY": null,
+        "OWNER": "Ryan Smith",
+        "GENERALMANAGER": "Dennis Lindsey",
+        "HEADCOACH": "Quin Snyder",
+        "DLEAGUEAFFILIATION": "Salt Lake City Stars"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612762,
+        "CITY": "Utah",
+        "NICKNAME": "Jazz",
+        "YEARFOUNDED": 1979,
+        "YEARACTIVETILL": 2019
+      },
+      {
+        "TEAM_ID": 1610612762,
+        "CITY": "New Orleans",
+        "NICKNAME": "Jazz",
+        "YEARFOUNDED": 1974,
+        "YEARACTIVETILL": 1978
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/utahjazz"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/utahjazz"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/utahjazz"
+      }
+    ],
+    "TeamAwardsChampionships": [],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 1997, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1998, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1984, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1989, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1992, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1997, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1998, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1999, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2000, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2007, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2008, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2017, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2021, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 77264,
+        "PLAYER": "Bernard King",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1980",
+        "YEAR": 2013
+      },
+      {
+        "PLAYERID": 252,
+        "PLAYER": "Karl Malone",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1986-2003",
+        "YEAR": 2010
+      },
+      {
+        "PLAYERID": 304,
+        "PLAYER": "John Stockton",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1985-2003",
+        "YEAR": 2009
+      },
+      {
+        "PLAYERID": 76504,
+        "PLAYER": "Adrian Dantley",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1980-1986",
+        "YEAR": 2008
+      },
+      {
+        "PLAYERID": 76832,
+        "PLAYER": "Gail Goodrich",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1977-1979",
+        "YEAR": 1996
+      },
+      {
+        "PLAYERID": 76144,
+        "PLAYER": "Walt Bellamy",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1975",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 77459,
+        "PLAYER": "Pete Maravich",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1975-1980",
+        "YEAR": 1987
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 78173,
+        "PLAYER": "Jerry Sloan",
+        "POSITION": "Coach",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1988-2011",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Larry Miller",
+        "POSITION": "Owner",
+        "JERSEY": "9",
+        "SEASONSWITHTEAM": "1985-2009",
+        "YEAR": 2010
+      },
+      {
+        "PLAYERID": 77082,
+        "PLAYER": "Rod Hundley",
+        "POSITION": "Broadcaster",
+        "JERSEY": "",
+        "SEASONSWITHTEAM": "1975-2009",
+        "YEAR": 2010
+      },
+      {
+        "PLAYERID": 76504,
+        "PLAYER": "Adrian Dantley",
+        "POSITION": "F",
+        "JERSEY": "4",
+        "SEASONSWITHTEAM": "1980-1986",
+        "YEAR": 2007
+      },
+      {
+        "PLAYERID": 252,
+        "PLAYER": "Karl Malone",
+        "POSITION": "F",
+        "JERSEY": "32",
+        "SEASONSWITHTEAM": "1986-2003",
+        "YEAR": 2006
+      },
+      {
+        "PLAYERID": 304,
+        "PLAYER": "John Stockton",
+        "POSITION": "G",
+        "JERSEY": "12",
+        "SEASONSWITHTEAM": "1985-2003",
+        "YEAR": 2004
+      },
+      {
+        "PLAYERID": 204,
+        "PLAYER": "Jeff Hornacek",
+        "POSITION": "G",
+        "JERSEY": "14",
+        "SEASONSWITHTEAM": "1995-2000",
+        "YEAR": 2002
+      },
+      {
+        "PLAYERID": 76631,
+        "PLAYER": "Mark Eaton",
+        "POSITION": "C",
+        "JERSEY": "53",
+        "SEASONSWITHTEAM": "1983-1993",
+        "YEAR": 1996
+      },
+      {
+        "PLAYERID": 76890,
+        "PLAYER": "Darrell Griffith",
+        "POSITION": "G",
+        "JERSEY": "35",
+        "SEASONSWITHTEAM": "1981-1991",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Frank Layden",
+        "POSITION": "Coach",
+        "JERSEY": "1",
+        "SEASONSWITHTEAM": "1982-1988",
+        "YEAR": 1988
+      },
+      {
+        "PLAYERID": 77459,
+        "PLAYER": "Pete Maravich",
+        "POSITION": "G",
+        "JERSEY": "7",
+        "SEASONSWITHTEAM": "1975-1980",
+        "YEAR": 1985
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612763,
+        "ABBREVIATION": "MEM",
+        "NICKNAME": "Grizzlies",
+        "YEARFOUNDED": 1995,
+        "CITY": "Memphis",
+        "ARENA": "FedExForum",
+        "ARENACAPACITY": "18119",
+        "OWNER": "Robert Pera",
+        "GENERALMANAGER": "Zach Kleiman",
+        "HEADCOACH": "Taylor Jenkins",
+        "DLEAGUEAFFILIATION": "Memphis Hustle"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612763,
+        "CITY": "Memphis",
+        "NICKNAME": "Grizzlies",
+        "YEARFOUNDED": 2001,
+        "YEARACTIVETILL": 2019
+      },
+      {
+        "TEAM_ID": 1610612763,
+        "CITY": "Vancouver",
+        "NICKNAME": "Grizzlies",
+        "YEARFOUNDED": 1995,
+        "YEARACTIVETILL": 2000
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/MemphisGrizzlies"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/memgrizz"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/memgrizz"
+      }
+    ],
+    "TeamAwardsChampionships": [],
+    "TeamAwardsConf": [],
+    "TeamAwardsDiv": [],
+    "TeamHof": [
+      {
+        "PLAYERID": 947,
+        "PLAYER": "Allen Iverson",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2010",
+        "YEAR": 2016
+      }
+    ],
+    "TeamRetired": []
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612764,
+        "ABBREVIATION": "WAS",
+        "NICKNAME": "Wizards",
+        "YEARFOUNDED": 1961,
+        "CITY": "Washington",
+        "ARENA": "Capital One Arena",
+        "ARENACAPACITY": "20647",
+        "OWNER": "Ted Leonsis",
+        "GENERALMANAGER": "Tommy Sheppard",
+        "HEADCOACH": "Wes Unseld",
+        "DLEAGUEAFFILIATION": "Capital City Go-Go"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612764,
+        "CITY": "Washington",
+        "NICKNAME": "Wizards",
+        "YEARFOUNDED": 1997,
+        "YEARACTIVETILL": 2019
+      },
+      {
+        "TEAM_ID": 1610612764,
+        "CITY": "Washington",
+        "NICKNAME": "Bullets",
+        "YEARFOUNDED": 1974,
+        "YEARACTIVETILL": 1996
+      },
+      {
+        "TEAM_ID": 1610612764,
+        "CITY": "Capital",
+        "NICKNAME": "Bullets",
+        "YEARFOUNDED": 1973,
+        "YEARACTIVETILL": 1973
+      },
+      {
+        "TEAM_ID": 1610612764,
+        "CITY": "Baltimore",
+        "NICKNAME": "Bullets",
+        "YEARFOUNDED": 1963,
+        "YEARACTIVETILL": 1972
+      },
+      {
+        "TEAM_ID": 1610612764,
+        "CITY": "Chicago",
+        "NICKNAME": "Zephyrs",
+        "YEARFOUNDED": 1962,
+        "YEARACTIVETILL": 1962
+      },
+      {
+        "TEAM_ID": 1610612764,
+        "CITY": "Chicago",
+        "NICKNAME": "Packers",
+        "YEARFOUNDED": 1961,
+        "YEARACTIVETILL": 1961
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/Wizards"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/washwizards"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/WashWizards"
+      }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 1978, "OPPOSITETEAM": "Seattle SuperSonics" }
+    ],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 1971, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1975, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1978, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1979, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1969, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1971, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1972, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1973, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1974, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1975, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1979, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2017, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 76981,
+        "PLAYER": "Spencer Haywood",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1982-1983",
+        "YEAR": 2015
+      },
+      {
+        "PLAYERID": 782,
+        "PLAYER": "Mitch Richmond",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1999-2001",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 77264,
+        "PLAYER": "Bernard King",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1988-1991",
+        "YEAR": 2013
+      },
+      {
+        "PLAYERID": 78055,
+        "PLAYER": "Ralph Sampson",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1992",
+        "YEAR": 2012
+      },
+      {
+        "PLAYERID": 77150,
+        "PLAYER": "Gus Johnson",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1964-1972",
+        "YEAR": 2010
+      },
+      {
+        "PLAYERID": 893,
+        "PLAYER": "Michael Jordan",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2002-2003",
+        "YEAR": 2009
+      },
+      {
+        "PLAYERID": 77449,
+        "PLAYER": "Moses Malone",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1987-1988",
+        "YEAR": 2001
+      },
+      {
+        "PLAYERID": 77070,
+        "PLAYER": "Bailey Howell",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1965-1966",
+        "YEAR": 1997
+      },
+      {
+        "PLAYERID": 76144,
+        "PLAYER": "Walt Bellamy",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1962-1966",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 76166,
+        "PLAYER": "Dave Bing",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1976-1977",
+        "YEAR": 1990
+      },
+      {
+        "PLAYERID": 600006,
+        "PLAYER": "Earl Monroe",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1968-1972",
+        "YEAR": 1990
+      },
+      {
+        "PLAYERID": 76979,
+        "PLAYER": "Elvin Hayes",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1973-1981",
+        "YEAR": 1990
+      },
+      {
+        "PLAYERID": 78392,
+        "PLAYER": "Wes Unseld",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1969-1981",
+        "YEAR": 1988
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 600006,
+        "PLAYER": "Earl Monroe",
+        "POSITION": "G",
+        "JERSEY": "10",
+        "SEASONSWITHTEAM": "1968-1972",
+        "YEAR": 2007
+      },
+      {
+        "PLAYERID": 77150,
+        "PLAYER": "Gus Johnson",
+        "POSITION": "F",
+        "JERSEY": "25",
+        "SEASONSWITHTEAM": "1964-1972",
+        "YEAR": 1986
+      },
+      {
+        "PLAYERID": 76979,
+        "PLAYER": "Elvin Hayes",
+        "POSITION": "F",
+        "JERSEY": "11",
+        "SEASONSWITHTEAM": "1973-1981",
+        "YEAR": 1981
+      },
+      {
+        "PLAYERID": 78392,
+        "PLAYER": "Wes Unseld",
+        "POSITION": "C",
+        "JERSEY": "41",
+        "SEASONSWITHTEAM": "1969-1981",
+        "YEAR": 1981
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612765,
+        "ABBREVIATION": "DET",
+        "NICKNAME": "Pistons",
+        "YEARFOUNDED": 1948,
+        "CITY": "Detroit",
+        "ARENA": "Little Caesars Arena",
+        "ARENACAPACITY": null,
+        "OWNER": "Tom Gores",
+        "GENERALMANAGER": "Ed Stefanski",
+        "HEADCOACH": "Dwane Casey",
+        "DLEAGUEAFFILIATION": "Grand Rapids Drive"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612765,
+        "CITY": "Detroit",
+        "NICKNAME": "Pistons",
+        "YEARFOUNDED": 1957,
+        "YEARACTIVETILL": 2019
+      },
+      {
+        "TEAM_ID": 1610612765,
+        "CITY": "Ft. Wayne Zollner",
+        "NICKNAME": "Pistons",
+        "YEARFOUNDED": 1948,
+        "YEARACTIVETILL": 1956
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/detroitpistons"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/detroitpistons"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/DetroitPistons"
+      }
+    ],
+    "TeamAwardsChampionships": [
+      { "YEARAWARDED": 1989, "OPPOSITETEAM": "Los Angeles Lakers" },
+      { "YEARAWARDED": 1990, "OPPOSITETEAM": "Portland Trail Blazers" },
+      { "YEARAWARDED": 2004, "OPPOSITETEAM": "Los Angeles Lakers" }
+    ],
+    "TeamAwardsConf": [
+      { "YEARAWARDED": 1988, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1989, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1990, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2004, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2005, "OPPOSITETEAM": null }
+    ],
+    "TeamAwardsDiv": [
+      { "YEARAWARDED": 1955, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1956, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1988, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1989, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 1990, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2002, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2003, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2005, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2006, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2007, "OPPOSITETEAM": null },
+      { "YEARAWARDED": 2008, "OPPOSITETEAM": null }
+    ],
+    "TeamHof": [
+      {
+        "PLAYERID": 76442,
+        "PLAYER": "Chuck Cooper",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1956",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 255,
+        "PLAYER": "Grant Hill",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1994-2000",
+        "YEAR": 2018
+      },
+      {
+        "PLAYERID": 1503,
+        "PLAYER": "Tracy McGrady",
+        "POSITION": "G-F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2010-2011",
+        "YEAR": 2017
+      },
+      {
+        "PLAYERID": 947,
+        "PLAYER": "Allen Iverson",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "2009",
+        "YEAR": 2016
+      },
+      {
+        "PLAYERID": 76404,
+        "PLAYER": "Nat Clifton",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1952-1957",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 23,
+        "PLAYER": "Dennis Rodman",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1987-1993",
+        "YEAR": 2011
+      },
+      {
+        "PLAYERID": 76504,
+        "PLAYER": "Adrian Dantley",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1987-1989",
+        "YEAR": 2008
+      },
+      {
+        "PLAYERID": 247,
+        "PLAYER": "Joe Dumars",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1986-1996",
+        "YEAR": 2006
+      },
+      {
+        "PLAYERID": 77498,
+        "PLAYER": "Bob McAdoo",
+        "POSITION": "C/F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1980-1981",
+        "YEAR": 2000
+      },
+      {
+        "PLAYERID": 202738,
+        "PLAYER": "Isiah Thomas",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1982-1994",
+        "YEAR": 2000
+      },
+      {
+        "PLAYERID": 77070,
+        "PLAYER": "Bailey Howell",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1961-1964",
+        "YEAR": 1997
+      },
+      {
+        "PLAYERID": 78628,
+        "PLAYER": "George Yardley",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1954-1959",
+        "YEAR": 1996
+      },
+      {
+        "PLAYERID": 77537,
+        "PLAYER": "Dick McGuire",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1959-1960",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 76144,
+        "PLAYER": "Walt Bellamy",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1969-1970",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 600005,
+        "PLAYER": "Bob Lanier",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1971-1980",
+        "YEAR": 1992
+      },
+      {
+        "PLAYERID": 76773,
+        "PLAYER": "Harry Gallatin",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1958",
+        "YEAR": 1991
+      },
+      {
+        "PLAYERID": 76166,
+        "PLAYER": "Dave Bing",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1967-1975",
+        "YEAR": 1990
+      },
+      {
+        "PLAYERID": 77062,
+        "PLAYER": "Bob Houbregs",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1955-1958",
+        "YEAR": 1987
+      },
+      {
+        "PLAYERID": 76545,
+        "PLAYER": "Dave DeBusschere",
+        "POSITION": "F",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1963-1969",
+        "YEAR": 1983
+      },
+      {
+        "PLAYERID": 77853,
+        "PLAYER": "Andy Phillip",
+        "POSITION": "G",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1953-1956",
+        "YEAR": 1961
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 1888,
+        "PLAYER": "Richard Hamilton",
+        "POSITION": "G",
+        "JERSEY": "32",
+        "SEASONSWITHTEAM": "2003-2011",
+        "YEAR": 2017
+      },
+      {
+        "PLAYERID": 1112,
+        "PLAYER": "Ben Wallace",
+        "POSITION": "C",
+        "JERSEY": "3",
+        "SEASONSWITHTEAM": "2001-2006",
+        "YEAR": 2016
+      },
+      {
+        "PLAYERID": 1497,
+        "PLAYER": "Chauncey Billups",
+        "POSITION": "G",
+        "JERSEY": "1",
+        "SEASONSWITHTEAM": "2003-2014",
+        "YEAR": 2016
+      },
+      {
+        "PLAYERID": 23,
+        "PLAYER": "Dennis Rodman",
+        "POSITION": "F",
+        "JERSEY": "10",
+        "SEASONSWITHTEAM": "1987-1993",
+        "YEAR": 2011
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "William Davidson",
+        "POSITION": "Owner",
+        "JERSEY": "",
+        "SEASONSWITHTEAM": "1975-2009",
+        "YEAR": 2011
+      },
+      {
+        "PLAYERID": 77512,
+        "PLAYER": "Jack McCloskey",
+        "POSITION": "General Manager",
+        "JERSEY": "",
+        "SEASONSWITHTEAM": "1980-1992",
+        "YEAR": 2008
+      },
+      {
+        "PLAYERID": 247,
+        "PLAYER": "Joe Dumars",
+        "POSITION": "G",
+        "JERSEY": "4",
+        "SEASONSWITHTEAM": "1986-1996",
+        "YEAR": 2000
+      },
+      {
+        "PLAYERID": null,
+        "PLAYER": "Chuck Daly",
+        "POSITION": "Coach",
+        "JERSEY": "2",
+        "SEASONSWITHTEAM": "1984-1992",
+        "YEAR": 1997
+      },
+      {
+        "PLAYERID": 202738,
+        "PLAYER": "Isiah Thomas",
+        "POSITION": "G",
+        "JERSEY": "11",
+        "SEASONSWITHTEAM": "1982-1994",
+        "YEAR": 1996
+      },
+      {
+        "PLAYERID": 100263,
+        "PLAYER": "Bill Lambieer",
+        "POSITION": "C",
+        "JERSEY": "40",
+        "SEASONSWITHTEAM": "1983-1994",
+        "YEAR": 1995
+      },
+      {
+        "PLAYERID": 77167,
+        "PLAYER": "Vinnie Johnson",
+        "POSITION": "G",
+        "JERSEY": "15",
+        "SEASONSWITHTEAM": "1982-1991",
+        "YEAR": 1994
+      },
+      {
+        "PLAYERID": 600005,
+        "PLAYER": "Bob Lanier",
+        "POSITION": "C",
+        "JERSEY": "16",
+        "SEASONSWITHTEAM": "1971-1980",
+        "YEAR": 1993
+      },
+      {
+        "PLAYERID": 76166,
+        "PLAYER": "Dave Bing",
+        "POSITION": "G",
+        "JERSEY": "21",
+        "SEASONSWITHTEAM": "1967-1975",
+        "YEAR": 1983
+      }
+    ]
+  },
+  {
+    "TeamBackground": [
+      {
+        "TEAM_ID": 1610612766,
+        "ABBREVIATION": "CHA",
+        "NICKNAME": "Hornets",
+        "YEARFOUNDED": 1988,
+        "CITY": "Charlotte",
+        "ARENA": "Spectrum Center",
+        "ARENACAPACITY": "19026",
+        "OWNER": "Michael Jordan",
+        "GENERALMANAGER": "Mitch Kupchak",
+        "HEADCOACH": "James Borrego",
+        "DLEAGUEAFFILIATION": "Greensboro Swarm"
+      }
+    ],
+    "TeamHistory": [
+      {
+        "TEAM_ID": 1610612766,
+        "CITY": "Charlotte",
+        "NICKNAME": "Hornets",
+        "YEARFOUNDED": 2014,
+        "YEARACTIVETILL": 2019
+      },
+      {
+        "TEAM_ID": 1610612766,
+        "CITY": "Charlotte",
+        "NICKNAME": "Bobcats",
+        "YEARFOUNDED": 2004,
+        "YEARACTIVETILL": 2013
+      },
+      {
+        "TEAM_ID": 1610612766,
+        "CITY": "Charlotte",
+        "NICKNAME": "Hornets",
+        "YEARFOUNDED": 1988,
+        "YEARACTIVETILL": 2001
+      }
+    ],
+    "TeamSocialSites": [
+      {
+        "ACCOUNTTYPE": "Facebook",
+        "WEBSITE_LINK": "https://www.facebook.com/hornets"
+      },
+      {
+        "ACCOUNTTYPE": "Instagram",
+        "WEBSITE_LINK": "https://instagram.com/hornets"
+      },
+      {
+        "ACCOUNTTYPE": "Twitter",
+        "WEBSITE_LINK": "https://twitter.com/hornets"
+      }
+    ],
+    "TeamAwardsChampionships": [],
+    "TeamAwardsConf": [],
+    "TeamAwardsDiv": [],
+    "TeamHof": [
+      {
+        "PLAYERID": 124,
+        "PLAYER": "Vlade Divac",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1997-1998",
+        "YEAR": 2019
+      },
+      {
+        "PLAYERID": 297,
+        "PLAYER": "Alonzo Mourning",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1993-1995",
+        "YEAR": 2014
+      },
+      {
+        "PLAYERID": 305,
+        "PLAYER": "Robert Parish",
+        "POSITION": "C",
+        "JERSEY": null,
+        "SEASONSWITHTEAM": "1995-1996",
+        "YEAR": 2003
+      }
+    ],
+    "TeamRetired": [
+      {
+        "PLAYERID": 77459,
+        "PLAYER": "Pete Maravich",
+        "POSITION": "G",
+        "JERSEY": "7",
+        "SEASONSWITHTEAM": null,
+        "YEAR": 2002
+      },
+      {
+        "PLAYERID": 184,
+        "PLAYER": "Bobby Phills",
+        "POSITION": "G",
+        "JERSEY": "13",
+        "SEASONSWITHTEAM": "1998-2000",
+        "YEAR": 2000
+      }
+    ]
+  }
+]
