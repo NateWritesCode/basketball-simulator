@@ -6,13 +6,14 @@ import {
   GameEventEnum,
   GameEvent2FgAttempt,
   GameEvent3FgAttempt,
-  GameEventJumpBallWon,
+  GameEventDefensiveRebound,
+  GameEventJumpBall,
   GameEventStartingLineup,
   GameEventBlock,
   GameEvent2FgMade,
   GameEvent3FgMade,
-  GameEventRebound,
   GameEventFreeThrow,
+  GameEventOffensiveRebound,
   GameEventNonShootingDefensiveFoul,
   GameEvent3FgMadeFoul,
   GameEvent3FgMissFoul,
@@ -52,11 +53,12 @@ class GamePlayerState implements IObserver {
   starter: boolean;
   stl: number;
   teamIndex: number;
+  teamId: number;
   tov: number;
   tpa: number; //3 attempts
   tpm: number; //3 makes
 
-  constructor(id: number, teamIndex: number) {
+  constructor(id: number, teamId: number, teamIndex: number) {
     this.andOne = 0;
     this.ast = 0;
     this.blk = 0;
@@ -85,6 +87,7 @@ class GamePlayerState implements IObserver {
     this.secondsPlayed = 0;
     this.starter = false;
     this.stl = 0;
+    this.teamId = teamId;
     this.teamIndex = teamIndex;
     this.tov = 0;
     this.tpa = 0;
@@ -146,26 +149,26 @@ class GamePlayerState implements IObserver {
   notifyGameEvent(gameEvent: GameEventEnum, gameEventData: unknown): void {
     switch (gameEvent) {
       case "2FG_ATTEMPT": {
-        const { player } = gameEventData as GameEvent2FgAttempt;
-        if (player.id === this.id) {
+        const { offPlayer1 } = gameEventData as GameEvent2FgAttempt;
+        if (offPlayer1.id === this.id) {
           this.fga += 1;
         }
 
         break;
       }
       case "2FG_BLOCK": {
-        const { player, blockingPlayer } = gameEventData as GameEventBlock;
-        if (player.id === this.id) {
+        const { offPlayer1, defPlayer1 } = gameEventData as GameEventBlock;
+        if (offPlayer1.id === this.id) {
           this.blkd += 1;
         }
-        if (blockingPlayer.id === this.id) {
+        if (defPlayer1.id === this.id) {
           this.blk += 1;
         }
         break;
       }
       case "2FG_MADE": {
-        const { player } = gameEventData as GameEvent2FgMade;
-        if (player.id === this.id) {
+        const { offPlayer1 } = gameEventData as GameEvent2FgMade;
+        if (offPlayer1.id === this.id) {
           this.fgm += 1;
           this.pts += 2;
         }
@@ -173,14 +176,15 @@ class GamePlayerState implements IObserver {
         break;
       }
       case "2FG_MADE_FOUL": {
-        const { player, foulingPlayer } = gameEventData as GameEvent2FgMadeFoul;
-        if (player.id === this.id) {
+        const { offPlayer1, defPlayer1 } =
+          gameEventData as GameEvent2FgMadeFoul;
+        if (offPlayer1.id === this.id) {
           this.andOne += 1;
           this.fgm += 1;
           this.pts += 2;
         }
 
-        if (foulingPlayer.id === this.id) {
+        if (defPlayer1.id === this.id) {
           this.fouls += 1;
           this.foulsShooting == 1;
         }
@@ -190,16 +194,16 @@ class GamePlayerState implements IObserver {
         break;
       }
       case "2FG_MISS_FOUL": {
-        const { foulingPlayer } = gameEventData as GameEvent2FgMissFoul;
-        if (foulingPlayer.id === this.id) {
+        const { defPlayer1 } = gameEventData as GameEvent2FgMissFoul;
+        if (defPlayer1.id === this.id) {
           this.fouls += 1;
           this.foulsShooting == 1;
         }
         break;
       }
       case "3FG_ATTEMPT": {
-        const { player } = gameEventData as GameEvent3FgAttempt;
-        if (player.id === this.id) {
+        const { offPlayer1 } = gameEventData as GameEvent3FgAttempt;
+        if (offPlayer1.id === this.id) {
           this.fga += 1;
           this.tpa += 1;
         }
@@ -207,18 +211,18 @@ class GamePlayerState implements IObserver {
         break;
       }
       case "3FG_BLOCK": {
-        const { player, blockingPlayer } = gameEventData as GameEventBlock;
-        if (player.id === this.id) {
+        const { offPlayer1, defPlayer1 } = gameEventData as GameEventBlock;
+        if (offPlayer1.id === this.id) {
           this.blkd += 1;
         }
-        if (blockingPlayer.id === this.id) {
+        if (defPlayer1.id === this.id) {
           this.blk += 1;
         }
         break;
       }
       case "3FG_MADE": {
-        const { player } = gameEventData as GameEvent3FgMade;
-        if (player.id === this.id) {
+        const { offPlayer1 } = gameEventData as GameEvent3FgMade;
+        if (offPlayer1.id === this.id) {
           this.fgm += 1;
           this.pts += 3;
           this.tpm += 1;
@@ -227,15 +231,16 @@ class GamePlayerState implements IObserver {
         break;
       }
       case "3FG_MADE_FOUL": {
-        const { player, foulingPlayer } = gameEventData as GameEvent3FgMadeFoul;
-        if (player.id === this.id) {
+        const { offPlayer1, defPlayer1 } =
+          gameEventData as GameEvent3FgMadeFoul;
+        if (offPlayer1.id === this.id) {
           this.andOne += 1;
           this.fgm += 1;
           this.pts += 3;
           this.tpm += 1;
         }
 
-        if (foulingPlayer.id === this.id) {
+        if (defPlayer1.id === this.id) {
           this.fouls += 1;
           this.foulsShooting == 1;
         }
@@ -246,16 +251,16 @@ class GamePlayerState implements IObserver {
         break;
       }
       case "3FG_MISS_FOUL": {
-        const { foulingPlayer } = gameEventData as GameEvent3FgMissFoul;
-        if (foulingPlayer.id === this.id) {
+        const { defPlayer1 } = gameEventData as GameEvent3FgMissFoul;
+        if (defPlayer1.id === this.id) {
           this.fouls += 1;
           this.foulsShooting == 1;
         }
         break;
       }
       case "DEFENSIVE_REBOUND": {
-        const { player } = gameEventData as GameEventRebound;
-        if (player && player.id === this.id) {
+        const { defPlayer1 } = gameEventData as GameEventDefensiveRebound;
+        if (defPlayer1 && defPlayer1.id === this.id) {
           this.drb += 1;
         }
 
@@ -263,11 +268,11 @@ class GamePlayerState implements IObserver {
       }
 
       case "FREE_THROW": {
-        const { player, shotMade } = gameEventData as GameEventFreeThrow;
+        const { offPlayer1, valueToAdd } = gameEventData as GameEventFreeThrow;
 
-        if (player.id === this.id) {
+        if (offPlayer1.id === this.id) {
           this.fta += 1;
-          if (shotMade) {
+          if (valueToAdd) {
             this.ftm += 1;
             this.pts += 1;
           }
@@ -287,13 +292,13 @@ class GamePlayerState implements IObserver {
       case "GAME_START": {
         break;
       }
-      case "JUMP_BALL_WON": {
-        const { losingPlayer, winningPlayer } =
-          gameEventData as GameEventJumpBallWon;
-        if (winningPlayer.id === this.id) {
+      case "JUMP_BALL": {
+        const { offPlayer1, defPlayer1 } = gameEventData as GameEventJumpBall;
+
+        if (offPlayer1.id === this.id) {
           this.jumpBallsWon++;
         }
-        if (losingPlayer.id === this.id) {
+        if (defPlayer1.id === this.id) {
           this.jumpBallsLost++;
         }
 
@@ -301,10 +306,10 @@ class GamePlayerState implements IObserver {
       }
 
       case "NON_SHOOTING_DEFENSIVE_FOUL": {
-        const { foulingPlayer } =
+        const { defPlayer1 } =
           gameEventData as GameEventNonShootingDefensiveFoul;
 
-        if (foulingPlayer.id === this.id) {
+        if (defPlayer1.id === this.id) {
           this.fouls += 1;
         }
 
@@ -312,8 +317,8 @@ class GamePlayerState implements IObserver {
       }
 
       case "OFFENSIVE_REBOUND": {
-        const { player } = gameEventData as GameEventRebound;
-        if (player && player.id === this.id) {
+        const { offPlayer1 } = gameEventData as GameEventOffensiveRebound;
+        if (offPlayer1 && offPlayer1.id === this.id) {
           this.orb += 1;
         }
 
@@ -337,25 +342,39 @@ class GamePlayerState implements IObserver {
         break;
       }
       case "STARTING_LINEUP": {
-        const { playersOnCourt } = gameEventData as GameEventStartingLineup;
-        const myTeam = playersOnCourt[this.teamIndex];
-        if (this.getPlayerFromArrayById(myTeam)) {
-          this.starter = true;
+        const { offPlayersOnCourt, defPlayersOnCourt, offTeam } =
+          gameEventData as GameEventStartingLineup;
+
+        console.log("offPlayersOnCourt", offPlayersOnCourt);
+
+        if (offTeam.id === this.teamId) {
+          offPlayersOnCourt.forEach((player) => {
+            if (player.id === this.id) {
+              this.starter = true;
+            }
+          });
+        } else {
+          defPlayersOnCourt.forEach((player) => {
+            if (player.id === this.id) {
+              this.starter = true;
+            }
+          });
         }
+
         break;
       }
       case "STEAL": {
-        const { player, stealingPlayer } = gameEventData as GameEventSteal;
+        const { offPlayer1, defPlayer1 } = gameEventData as GameEventSteal;
 
-        if (player.id === this.id) {
+        if (offPlayer1.id === this.id) {
           this.tov += 1;
-        } else if (stealingPlayer.id === this.id) {
+        } else if (defPlayer1.id === this.id) {
           this.stl += 1;
         }
       }
       case "TURNOVER": {
-        const { player } = gameEventData as GameEventTurnover;
-        if (player.id === this.id) {
+        const { offPlayer1 } = gameEventData as GameEventTurnover;
+        if (offPlayer1.id === this.id) {
           this.tov += 1;
         }
         break;

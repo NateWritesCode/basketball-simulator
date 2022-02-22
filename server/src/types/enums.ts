@@ -29,8 +29,8 @@ export const ViolationTypes = z.enum([
   "GOALTEND_VIOLATION",
   "JUMPBALL_VIOLATION",
   "KICKED_BALL_VILATION",
-  "LANE_VIOLATION"
-])
+  "LANE_VIOLATION",
+]);
 
 export const GameEventEnum = z.enum([
   "2FG_ATTEMPT",
@@ -49,7 +49,7 @@ export const GameEventEnum = z.enum([
   "FREE_THROW",
   "GAME_START",
   "GAME_END",
-  "JUMP_BALL_WON",
+  "JUMP_BALL",
   "NON_SHOOTING_DEFENSIVE_FOUL",
   "OFFENSIVE_REBOUND",
   "POSSESSION_ARROW_WON",

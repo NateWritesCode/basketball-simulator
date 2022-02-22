@@ -5,8 +5,8 @@ import startServer from "./startServer";
 
 (async () => {
   try {
-    // await startServer();
-    startPlayByPlayParse();
+    await startServer();
+    // startPlayByPlayParse();
     // startTeamDetailsParse();
     // startPlayersParse();
   } catch (e) {

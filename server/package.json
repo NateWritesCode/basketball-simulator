@@ -33,6 +33,7 @@
     "random": "^3.0.6",
     "simple-statistics": "^7.7.3",
     "socket.io": "^4.4.1",
-    "zod": "^3.11.6"
+    "zod": "^3.11.6",
+    "zod-to-ts": "^0.2.0"
   }
 }
