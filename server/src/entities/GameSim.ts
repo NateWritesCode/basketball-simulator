@@ -6,7 +6,7 @@ import {
   FoulPenaltySettings,
   GameEventData,
   GameEventEnum,
-  GameEventPossessionEventOutcomes,
+  GameEventPossessionOutcomes,
   GameSimInit,
   GameSimPlayerFields,
   GameSimPlayerStat,
@@ -28,6 +28,7 @@ import {
   get2or3Pointer,
   get2PointShotType,
   get3PointShotType,
+  getPossessionOutcome,
   getShotXByShotType,
   getShotYByShotType,
 } from "../utils/probabilities";
@@ -547,11 +548,7 @@ class GameSim {
       this.timeSegments[this.timeSegmentIndex] -= lengthOfPossession;
     }
 
-    const outcome = sample(GameEventPossessionEventOutcomes.options, 1, () =>
-      random.float(0, 1)
-    )[0];
-    const offensiveTeam = this.teams[this.o];
-    const defensiveTeam = this.teams[this.d];
+    const outcome = getPossessionOutcome();
 
     switch (outcome) {
       case "NON_SHOOTING_DEFENSIVE_FOUL": {
@@ -640,6 +637,9 @@ class GameSim {
             const exhaustiveCheck: never = this.possessionTossupMethod;
             throw new Error(exhaustiveCheck);
         }
+        break;
+      }
+      case "OFFENSIVE_FOUL": {
         break;
       }
       case "SHOT": {
@@ -782,6 +782,9 @@ class GameSim {
             valueToAdd: 1,
           });
         }
+        break;
+      }
+      case "VIOLATION": {
         break;
       }
       default:

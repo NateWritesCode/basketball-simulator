@@ -1,5 +1,9 @@
 import { randomWeightedChoice } from ".";
-import { ShotTypes } from "../types";
+import {
+  GameEventEnum,
+  GameEventPossessionOutcomes,
+  ShotTypes,
+} from "../types";
 import arc3X from "../data/probabilities/arc3X.json";
 import arc3Y from "../data/probabilities/arc3Y.json";
 import atRimX from "../data/probabilities/atRimX.json";
@@ -8,34 +12,23 @@ import corner3X from "../data/probabilities/corner3X.json";
 import corner3Y from "../data/probabilities/corner3Y.json";
 import longMidRangeX from "../data/probabilities/longMidRangeX.json";
 import longMidRangeY from "../data/probabilities/longMidRangeY.json";
+import possessionOutcomesProbability from "../data/probabilities/possessionOutcomes.json";
 import shortMidRangeX from "../data/probabilities/shortMidRangeX.json";
 import shortMidRangeY from "../data/probabilities/shortMidRangeY.json";
 import shotTypeProbability from "../data/probabilities/shotType.json";
 
-const getShotTypeProbability = (shotType: ShotTypes): number => {
-  const keyConverter: { [key in ShotTypes]: string } = {
-    ARC_3: "Arc3",
-    AT_RIM: "AtRim",
-    CORNER_3: "Corner3",
-    LONG_MID_RANGE: "LongMidRange",
-    SHORT_MID_RANGE: "ShortMidRange",
-  };
+const buildXYArray = (probObj: {
+  [key: string]: number;
+}): [number, number][] => {
+  const returnArray: [number, number][] = [];
+  const keys = Object.keys(probObj);
 
-  const key = keyConverter[shotType];
-
-  return shotTypeProbability[
-    key as "Arc3" | "AtRim" | "Corner3" | "LongMidRange" | "ShortMidRange"
-  ];
-};
-
-const getShotTypeProbabilityTotal = (shotTypes: ShotTypes[]): number => {
-  let total = 0;
-
-  shotTypes.forEach((shotType) => {
-    total += getShotTypeProbability(shotType);
+  keys.forEach((key) => {
+    const pushArray: [number, number] = [Number(key), probObj[key]];
+    returnArray.push(pushArray);
   });
 
-  return total;
+  return returnArray;
 };
 
 export const get2or3Pointer = (): 2 | 3 => {
@@ -67,18 +60,41 @@ export const get3PointShotType = (): ShotTypes => {
   ]) as ShotTypes;
 };
 
-const buildXYArray = (probObj: {
-  [key: string]: number;
-}): [number, number][] => {
-  const returnArray: [number, number][] = [];
-  const keys = Object.keys(probObj);
+export const getPossessionOutcome = (): GameEventPossessionOutcomes => {
+  return randomWeightedChoice(
+    GameEventPossessionOutcomes.options.map((possessionOutcome) => {
+      return [
+        possessionOutcome,
+        possessionOutcomesProbability[possessionOutcome],
+      ];
+    })
+  );
+};
 
-  keys.forEach((key) => {
-    const pushArray: [number, number] = [Number(key), probObj[key]];
-    returnArray.push(pushArray);
+const getShotTypeProbability = (shotType: ShotTypes): number => {
+  const keyConverter: { [key in ShotTypes]: string } = {
+    ARC_3: "Arc3",
+    AT_RIM: "AtRim",
+    CORNER_3: "Corner3",
+    LONG_MID_RANGE: "LongMidRange",
+    SHORT_MID_RANGE: "ShortMidRange",
+  };
+
+  const key = keyConverter[shotType];
+
+  return shotTypeProbability[
+    key as "Arc3" | "AtRim" | "Corner3" | "LongMidRange" | "ShortMidRange"
+  ];
+};
+
+const getShotTypeProbabilityTotal = (shotTypes: ShotTypes[]): number => {
+  let total = 0;
+
+  shotTypes.forEach((shotType) => {
+    total += getShotTypeProbability(shotType);
   });
 
-  return returnArray;
+  return total;
 };
 
 export const getShotXByShotType = (shotType: ShotTypes): number => {

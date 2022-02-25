@@ -59,15 +59,19 @@ export const GameEventEnum = z.enum([
   "STEAL",
   "TURNOVER",
 ]);
+export type GameEventEnum = z.infer<typeof GameEventEnum>;
 
-export const GameEventPossessionEventOutcomes = z.enum([
+export const GameEventPossessionOutcomes = z.enum([
   "NON_SHOOTING_DEFENSIVE_FOUL",
   "JUMP_BALL",
+  "OFFENSIVE_FOUL",
   "SHOT",
   "TURNOVER",
+  "VIOLATION",
 ]);
-
-export type GameEventEnum = z.infer<typeof GameEventEnum>;
+export type GameEventPossessionOutcomes = z.infer<
+  typeof GameEventPossessionOutcomes
+>;
 
 export enum OvertimeLength { // in seconds
   NBA = 300,

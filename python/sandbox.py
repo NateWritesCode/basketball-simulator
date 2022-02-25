@@ -11,8 +11,29 @@ turnover_df = pd.DataFrame(pd.read_pickle("./output/turnover.pkl"))
 violation_df = pd.DataFrame(pd.read_pickle("./output/violation.pkl"))
 players_df = pd.DataFrame(pd.read_pickle("./output/players.pkl"))
 
-players_df = players_df.set_index(['PERSON_ID'])
-players_df.to_json("../server/src/data/nba-api/players.json", orient="index")
+pbp_df.to_json("../server/src/data/pbp/pbp.json", orient="index")
+print("PBP finished")
+fg_df.to_json("../server/src/data/pbp/fg.json", orient="index")
+print("FG finished")
+foul_df.to_json("../server/src/data/pbp/foul.json", orient="index")
+print("Foul finished")
+ft_df.to_json("../server/src/data/pbp/ft.json", orient="index")
+print("FT finished")
+jump_ball_df.to_json("../server/src/data/pbp/jump_ball.json", orient="index")
+print("Jump ball finished")
+rebound_df.to_json("../server/src/data/pbp/rebound.json", orient="index")
+print("Rebound finished")
+substitution_df.to_json(
+    "../server/src/data/pbp/substitution.json", orient="index")
+print("Substitution finished")
+turnover_df.to_json("../server/src/data/pbp/turnover.json", orient="index")
+print("Turnover finished")
+violation_df.to_json("../server/src/data/pbp/violation.json", orient="index")
+print("Violation finished")
+
+
+# players_df = players_df.set_index(['PERSON_ID'])
+# players_df.to_json("../server/src/data/nba-api/players.json", orient="index")
 
 # one_game_df = violation_df[
 #     (violation_df["pbp_id"].str.contains("0022000567"))

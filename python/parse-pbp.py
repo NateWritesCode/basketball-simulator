@@ -818,7 +818,6 @@ for game_id in game_ids:
                     print("Innie: ", e, possession_event)
                     print(traceback.format_exc())
 
-
                 update_row(pbp_ref, poss_general_data, "event_num",
                            possession_event.event_num)
 
@@ -839,7 +838,7 @@ for game_id in game_ids:
                 pbp_data.append(poss_general_data)
         except Exception as e:
             print(traceback.format_exc())
-            print("Outie: ", e, possession, ch)
+            print("Outie: ", e, possession)
 
 
 pbp_df = pd.DataFrame(pbp_data, columns=pbp_ref.keys())
@@ -874,3 +873,14 @@ rebound_df.to_csv("./output/rebound.csv", index=False)
 substitution_df.to_csv("./output/substitution.csv", index=False)
 turnover_df.to_csv("./output/turnover.csv", index=False)
 violation_df.to_csv("./output/violation.csv", index=False)
+
+pbp_df.to_json("../server/src/data/pbp/pbp.json", orient="index")
+fg_df.to_json("../server/src/data/pbp/fg.json", orient="index")
+foul_df.to_json("../server/src/data/pbp/foul.json", orient="index")
+ft_df.to_json("../server/src/data/pbp/ft.json", orient="index")
+jump_ball_df.to_json("../server/src/data/pbp/jump_ball.json", orient="index")
+rebound_df.to_json("../server/src/data/pbp/rebound.json", orient="index")
+substitution_df.to_json(
+    "../server/src/data/pbp/substitution.json", orient="index")
+turnover_df.to_json("../server/src/data/pbp/turnover.json", orient="index")
+violation_df.to_json("../server/src/data/pbp/violation.json", orient="index")
