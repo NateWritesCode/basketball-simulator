@@ -22,6 +22,7 @@ import {
   GameEventSteal,
   GameEventTurnover,
   IObserver,
+  GameEventViolation,
 } from "../types";
 import { log } from "../utils";
 import ordinal from "ordinal";
@@ -243,6 +244,9 @@ class GameLog implements IObserver {
 
         break;
       }
+      case "OFFENSIVE_FOUL": {
+        break;
+      }
       case "OFFENSIVE_REBOUND": {
         const { offPlayer1, offTeam } =
           gameEventData as GameEventOffensiveRebound;
@@ -302,6 +306,12 @@ class GameLog implements IObserver {
         this.logInfo([
           `TURNOVER - ${turnoverType} by ${offPlayer1.getFullName()} `,
         ]);
+
+        break;
+      }
+      case "VIOLATION": {
+        const { violationType } = gameEventData as GameEventViolation;
+        this.logInfo([`VIOLATION - ${violationType}`]);
 
         break;
       }

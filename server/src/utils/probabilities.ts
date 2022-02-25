@@ -1,8 +1,11 @@
 import { randomWeightedChoice } from ".";
 import {
-  GameEventEnum,
+  FgType,
+  FgTypesCoded,
   GameEventPossessionOutcomes,
   ShotTypes,
+  TurnoverTypes,
+  ViolationTypes,
 } from "../types";
 import arc3X from "../data/probabilities/arc3X.json";
 import arc3Y from "../data/probabilities/arc3Y.json";
@@ -10,12 +13,15 @@ import atRimX from "../data/probabilities/atRimX.json";
 import atRimY from "../data/probabilities/atRimY.json";
 import corner3X from "../data/probabilities/corner3X.json";
 import corner3Y from "../data/probabilities/corner3Y.json";
+import fgProbability from "../data/probabilities/fg.json";
 import longMidRangeX from "../data/probabilities/longMidRangeX.json";
 import longMidRangeY from "../data/probabilities/longMidRangeY.json";
 import possessionOutcomesProbability from "../data/probabilities/possessionOutcomes.json";
 import shortMidRangeX from "../data/probabilities/shortMidRangeX.json";
 import shortMidRangeY from "../data/probabilities/shortMidRangeY.json";
 import shotTypeProbability from "../data/probabilities/shotType.json";
+import turnoverProbability from "../data/probabilities/turnover.json";
+import violationProbability from "../data/probabilities/violation.json";
 
 const buildXYArray = (probObj: {
   [key: string]: number;
@@ -31,18 +37,21 @@ const buildXYArray = (probObj: {
   return returnArray;
 };
 
-export const get2or3Pointer = (): 2 | 3 => {
-  const TwoProbability = getShotTypeProbabilityTotal([
-    "AT_RIM",
-    "LONG_MID_RANGE",
-    "SHORT_MID_RANGE",
-  ]);
-  const ThreeProbability = getShotTypeProbabilityTotal(["ARC_3", "CORNER_3"]);
-
-  return randomWeightedChoice([
-    [2, TwoProbability],
-    [3, ThreeProbability],
-  ]) as 2 | 3;
+export const get2or3Pointer = (shotType: ShotTypes): 2 | 3 => {
+  switch (shotType) {
+    case "ARC_3":
+    case "CORNER_3": {
+      return 3;
+    }
+    case "AT_RIM":
+    case "LONG_MID_RANGE":
+    case "SHORT_MID_RANGE": {
+      return 2;
+    }
+    default:
+      const exhaustiveCheck: never = shotType;
+      throw new Error(exhaustiveCheck);
+  }
 };
 
 export const get2PointShotType = (): ShotTypes => {
@@ -58,6 +67,36 @@ export const get3PointShotType = (): ShotTypes => {
     ["ARC_3", getShotTypeProbability("ARC_3")],
     ["CORNER_3", getShotTypeProbability("CORNER_3")],
   ]) as ShotTypes;
+};
+
+const parseFgTypeString = (str: string): FgType => {
+  const bools = str.substring(str.length - 5);
+  const shotType = str.substring(0, str.length - 5) as ShotTypes;
+
+  const isAnd1 = bools[0] === "1";
+  const isAssist = bools[1] === "1";
+  const isBlock = bools[2] === "1";
+  const isMade = bools[3] === "1";
+  const isPutback = bools[4] === "1";
+
+  return {
+    isAnd1,
+    isAssist,
+    isBlock,
+    isMade,
+    isPutback,
+    shotType,
+  };
+};
+
+export const getFgType = (): FgType => {
+  const choice = randomWeightedChoice(
+    FgTypesCoded.options.map((fgType) => {
+      return [fgType, fgProbability[fgType]];
+    })
+  );
+
+  return parseFgTypeString(choice);
 };
 
 export const getPossessionOutcome = (): GameEventPossessionOutcomes => {
@@ -141,4 +180,20 @@ export const getShotYByShotType = (shotType: ShotTypes): number => {
       const exhaustiveCheck: never = shotType;
       throw new Error(exhaustiveCheck);
   }
+};
+
+export const getTurnoverType = (): TurnoverTypes => {
+  return randomWeightedChoice(
+    TurnoverTypes.options.map((turnoverType) => {
+      return [turnoverType, turnoverProbability[turnoverType]];
+    })
+  );
+};
+
+export const getViolationType = (): ViolationTypes => {
+  return randomWeightedChoice(
+    ViolationTypes.options.map((violationType) => {
+      return [violationType, violationProbability[violationType]];
+    })
+  );
 };

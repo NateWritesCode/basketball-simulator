@@ -1,0 +1,5 @@
+query getOneTeam($abbrev: String!) {
+  getOneTeam(abbrev: $abbrev) {
+    id
+  }
+}

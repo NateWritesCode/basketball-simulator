@@ -42,7 +42,7 @@ model Player {
   rebounding        Int       @default(50)
   school            String?
   seasonsExperience Int
-  slug              String
+  slug              String    @unique
   stealing          Int       @default(50)
   team              Team      @relation(fields: [teamId], references: [id])
   teamId            Int
@@ -52,7 +52,7 @@ model Player {
 }
 
 model Team {
-  abbrev        String
+  abbrev        String   @unique
   facebook      String
   homeName      String   @map("home_name")
   id            Int      @id

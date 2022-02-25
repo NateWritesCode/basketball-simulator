@@ -1,0 +1,34 @@
+query getOnePlayer($slug: String!) {
+  getOnePlayer(slug: $slug) {
+    active
+    birthdate
+    country
+    draftNumber
+    draftRound
+    draftYear
+    familyName
+    fromYear
+    givenName
+    greatest75
+    hasPlayedDLeague
+    hasPlayedGames
+    hasPlayedNba
+    height
+    id
+    jerseyNumber
+    playerCode
+    position
+    rebounding
+    school
+    seasonsExperience
+    slug
+    team {
+      abbrev
+      homeName
+      id
+      nickname
+    }
+    toYear
+    weight
+  }
+}

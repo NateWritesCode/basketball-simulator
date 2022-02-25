@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { ShotTypes } from ".";
 import { GamePlayerState, GameTeamState, Player, Team } from "../entities";
 import Socket from "../Socket";
 import {
@@ -10,6 +11,16 @@ import {
   PossessionTossupMethodEnum,
   ShotClockLengthEnum,
 } from "./enums";
+
+export const FgType = z.object({
+  isAnd1: z.boolean(),
+  isAssist: z.boolean(),
+  isBlock: z.boolean(),
+  isMade: z.boolean(),
+  isPutback: z.boolean(),
+  shotType: ShotTypes,
+});
+export type FgType = z.infer<typeof FgType>;
 
 export const OvertimeTypeShootout = z.object({
   numOfShooters: z.number(),

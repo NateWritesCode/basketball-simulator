@@ -5,7 +5,7 @@
     "is_blocked": false,
     "is_made": false,
     "is_putback": false,
-    "shot_type": "Arc3",
+    "shot_type": "ARC_3",
     "probability": 0.130579674623912,
     "count": 706988
   },
@@ -15,7 +15,7 @@
     "is_blocked": false,
     "is_made": false,
     "is_putback": false,
-    "shot_type": "AtRim",
+    "shot_type": "AT_RIM",
     "probability": 0.0718041559764672,
     "count": 388764
   },
@@ -25,7 +25,7 @@
     "is_blocked": false,
     "is_made": false,
     "is_putback": false,
-    "shot_type": "Corner3",
+    "shot_type": "CORNER_3",
     "probability": 0.0400406189101417,
     "count": 216789
   },
@@ -35,7 +35,7 @@
     "is_blocked": false,
     "is_made": false,
     "is_putback": false,
-    "shot_type": "LongMidRange",
+    "shot_type": "LONG_MID_RANGE",
     "probability": 0.12817157463106,
     "count": 693950
   },
@@ -45,7 +45,7 @@
     "is_blocked": false,
     "is_made": false,
     "is_putback": false,
-    "shot_type": "ShortMidRange",
+    "shot_type": "SHORT_MID_RANGE",
     "probability": 0.0981844684384308,
     "count": 531593
   },
@@ -55,7 +55,7 @@
     "is_blocked": false,
     "is_made": false,
     "is_putback": true,
-    "shot_type": "AtRim",
+    "shot_type": "AT_RIM",
     "probability": 0.0171662547580661,
     "count": 92942
   },
@@ -65,7 +65,7 @@
     "is_blocked": false,
     "is_made": false,
     "is_putback": true,
-    "shot_type": "LongMidRange",
+    "shot_type": "LONG_MID_RANGE",
     "probability": 0.000490744108069351,
     "count": 2657
   },
@@ -75,7 +75,7 @@
     "is_blocked": false,
     "is_made": false,
     "is_putback": true,
-    "shot_type": "ShortMidRange",
+    "shot_type": "SHORT_MID_RANGE",
     "probability": 0.00217519509248504,
     "count": 11777
   },
@@ -85,7 +85,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "Arc3",
+    "shot_type": "ARC_3",
     "probability": 0.0139262723930858,
     "count": 75400
   },
@@ -95,7 +95,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "AtRim",
+    "shot_type": "AT_RIM",
     "probability": 0.0559751188858539,
     "count": 303062
   },
@@ -105,7 +105,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "Corner3",
+    "shot_type": "CORNER_3",
     "probability": 0.00107919376117773,
     "count": 5843
   },
@@ -115,7 +115,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "LongMidRange",
+    "shot_type": "LONG_MID_RANGE",
     "probability": 0.0357670633314783,
     "count": 193651
   },
@@ -125,7 +125,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "ShortMidRange",
+    "shot_type": "SHORT_MID_RANGE",
     "probability": 0.0392523254012069,
     "count": 212521
   },
@@ -135,7 +135,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": true,
-    "shot_type": "AtRim",
+    "shot_type": "AT_RIM",
     "probability": 0.0256138133846254,
     "count": 138679
   },
@@ -145,7 +145,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": true,
-    "shot_type": "LongMidRange",
+    "shot_type": "LONG_MID_RANGE",
     "probability": 0.000313802875276563,
     "count": 1699
   },
@@ -155,7 +155,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": true,
-    "shot_type": "ShortMidRange",
+    "shot_type": "SHORT_MID_RANGE",
     "probability": 0.00180173457817709,
     "count": 9755
   },
@@ -165,7 +165,7 @@
     "is_blocked": true,
     "is_made": false,
     "is_putback": false,
-    "shot_type": "Arc3",
+    "shot_type": "ARC_3",
     "probability": 0.00142624237956776,
     "count": 7722
   },
@@ -175,7 +175,7 @@
     "is_blocked": true,
     "is_made": false,
     "is_putback": false,
-    "shot_type": "AtRim",
+    "shot_type": "AT_RIM",
     "probability": 0.0326632038146904,
     "count": 176846
   },
@@ -185,7 +185,7 @@
     "is_blocked": true,
     "is_made": false,
     "is_putback": false,
-    "shot_type": "Corner3",
+    "shot_type": "CORNER_3",
     "probability": 0.000564438838637538,
     "count": 3056
   },
@@ -195,7 +195,7 @@
     "is_blocked": true,
     "is_made": false,
     "is_putback": false,
-    "shot_type": "LongMidRange",
+    "shot_type": "LONG_MID_RANGE",
     "probability": 0.00320950710045959,
     "count": 17377
   },
@@ -205,7 +205,7 @@
     "is_blocked": true,
     "is_made": false,
     "is_putback": false,
-    "shot_type": "ShortMidRange",
+    "shot_type": "SHORT_MID_RANGE",
     "probability": 0.0170814781131268,
     "count": 92483
   },
@@ -215,7 +215,7 @@
     "is_blocked": true,
     "is_made": false,
     "is_putback": true,
-    "shot_type": "AtRim",
+    "shot_type": "AT_RIM",
     "probability": 0.00340140891765343,
     "count": 18416
   },
@@ -225,8 +225,8 @@
     "is_blocked": true,
     "is_made": false,
     "is_putback": true,
-    "shot_type": "LongMidRange",
-    "probability": 2.89976759378578e-05,
+    "shot_type": "LONG_MID_RANGE",
+    "probability": 2.89976759378578e-5,
     "count": 157
   },
   {
@@ -235,7 +235,7 @@
     "is_blocked": true,
     "is_made": false,
     "is_putback": true,
-    "shot_type": "ShortMidRange",
+    "shot_type": "SHORT_MID_RANGE",
     "probability": 0.000550217048527888,
     "count": 2979
   },
@@ -245,7 +245,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "Arc3",
+    "shot_type": "ARC_3",
     "probability": 0.0550017574069207,
     "count": 297792
   },
@@ -255,7 +255,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "AtRim",
+    "shot_type": "AT_RIM",
     "probability": 0.0937581671400183,
     "count": 507628
   },
@@ -265,7 +265,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "Corner3",
+    "shot_type": "CORNER_3",
     "probability": 0.0241343778160761,
     "count": 130669
   },
@@ -275,7 +275,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "LongMidRange",
+    "shot_type": "LONG_MID_RANGE",
     "probability": 0.0497323071234361,
     "count": 269262
   },
@@ -285,7 +285,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "ShortMidRange",
+    "shot_type": "SHORT_MID_RANGE",
     "probability": 0.0297623280294675,
     "count": 161140
   },
@@ -295,8 +295,8 @@
     "is_blocked": false,
     "is_made": false,
     "is_putback": false,
-    "shot_type": "AtRim",
-    "probability": 1.84698572852597e-07,
+    "shot_type": "AT_RIM",
+    "probability": 1.84698572852597e-7,
     "count": 1
   },
   {
@@ -305,8 +305,8 @@
     "is_blocked": false,
     "is_made": false,
     "is_putback": false,
-    "shot_type": "ShortMidRange",
-    "probability": 1.84698572852597e-07,
+    "shot_type": "SHORT_MID_RANGE",
+    "probability": 1.84698572852597e-7,
     "count": 1
   },
   {
@@ -315,7 +315,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "Arc3",
+    "shot_type": "ARC_3",
     "probability": 0.000166967509858748,
     "count": 904
   },
@@ -325,7 +325,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "AtRim",
+    "shot_type": "AT_RIM",
     "probability": 0.00749580688064981,
     "count": 40584
   },
@@ -335,8 +335,8 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "Corner3",
-    "probability": 1.44064886825026e-05,
+    "shot_type": "CORNER_3",
+    "probability": 1.44064886825026e-5,
     "count": 78
   },
   {
@@ -345,7 +345,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "LongMidRange",
+    "shot_type": "LONG_MID_RANGE",
     "probability": 0.000682830623836053,
     "count": 3697
   },
@@ -355,7 +355,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "ShortMidRange",
+    "shot_type": "SHORT_MID_RANGE",
     "probability": 0.00329613073112745,
     "count": 17846
   },
@@ -365,7 +365,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": true,
-    "shot_type": "AtRim",
+    "shot_type": "AT_RIM",
     "probability": 0.00185511246573149,
     "count": 10044
   },
@@ -375,8 +375,8 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": true,
-    "shot_type": "LongMidRange",
-    "probability": 6.27975147698831e-06,
+    "shot_type": "LONG_MID_RANGE",
+    "probability": 6.27975147698831e-6,
     "count": 34
   },
   {
@@ -385,7 +385,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": true,
-    "shot_type": "ShortMidRange",
+    "shot_type": "SHORT_MID_RANGE",
     "probability": 0.000171030878461505,
     "count": 926
   },
@@ -395,8 +395,8 @@
     "is_blocked": true,
     "is_made": false,
     "is_putback": false,
-    "shot_type": "ShortMidRange",
-    "probability": 1.84698572852597e-07,
+    "shot_type": "SHORT_MID_RANGE",
+    "probability": 1.84698572852597e-7,
     "count": 1
   },
   {
@@ -405,7 +405,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "Arc3",
+    "shot_type": "ARC_3",
     "probability": 0.000333380923998938,
     "count": 1805
   },
@@ -415,7 +415,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "AtRim",
+    "shot_type": "AT_RIM",
     "probability": 0.00980767891704578,
     "count": 53101
   },
@@ -425,7 +425,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "Corner3",
+    "shot_type": "CORNER_3",
     "probability": 0.00015071403544772,
     "count": 816
   },
@@ -435,7 +435,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "LongMidRange",
+    "shot_type": "LONG_MID_RANGE",
     "probability": 0.000442722479127676,
     "count": 2397
   },
@@ -445,7 +445,7 @@
     "is_blocked": false,
     "is_made": true,
     "is_putback": false,
-    "shot_type": "ShortMidRange",
+    "shot_type": "SHORT_MID_RANGE",
     "probability": 0.00191994166480275,
     "count": 10395
   }

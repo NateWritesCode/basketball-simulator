@@ -1,5 +1,10 @@
 import { z } from "zod";
-import { FoulPenaltySettings, ShotTypes, TurnoverTypes } from ".";
+import {
+  FoulPenaltySettings,
+  ShotTypes,
+  TurnoverTypes,
+  ViolationTypes,
+} from ".";
 import { Player, Team } from "../entities";
 
 export const GameEventStartingLineup = z.object({
@@ -23,6 +28,7 @@ export type GameEventJumpBall = z.infer<typeof GameEventJumpBall>;
 export const GameEvent2FgAttempt = z.object({
   defPlayersOnCourt: z.array(z.number()),
   defTeam: z.instanceof(Team),
+  isPutback: z.boolean(),
   offPlayersOnCourt: z.array(z.number()),
   offPlayer1: z.instanceof(Player),
   offTeam: z.instanceof(Team),
@@ -35,7 +41,9 @@ export type GameEvent2FgAttempt = z.infer<typeof GameEvent2FgAttempt>;
 
 export const GameEvent2FgMade = z.object({
   defTeam: z.instanceof(Team),
+  isPutback: z.boolean(),
   offPlayer1: z.instanceof(Player),
+  offPlayer2: z.instanceof(Player),
   offTeam: z.instanceof(Team),
   shotType: ShotTypes,
   shotValue: z.number(),
@@ -46,6 +54,7 @@ export type GameEvent2FgMade = z.infer<typeof GameEvent2FgMade>;
 
 export const GameEvent2FgMiss = z.object({
   defTeam: z.instanceof(Team),
+  isPutback: z.boolean(),
   offPlayer1: z.instanceof(Player),
   offTeam: z.instanceof(Team),
   shotType: ShotTypes,
@@ -59,7 +68,9 @@ export const GameEvent2FgMadeFoul = z.object({
   foulPenaltySettings: FoulPenaltySettings,
   defPlayer1: z.instanceof(Player),
   defTeam: z.instanceof(Team),
+  isPutback: z.boolean(),
   offPlayer1: z.instanceof(Player),
+  offPlayer2: z.instanceof(Player),
   offTeam: z.instanceof(Team),
   segment: z.number().optional(),
   shotType: ShotTypes,
@@ -73,6 +84,7 @@ export const GameEvent2FgMissFoul = z.object({
   foulPenaltySettings: FoulPenaltySettings,
   defPlayer1: z.instanceof(Player),
   defTeam: z.instanceof(Team),
+  isPutback: z.boolean(),
   offPlayer1: z.instanceof(Player),
   offTeam: z.instanceof(Team),
   segment: z.number().optional(),
@@ -86,6 +98,7 @@ export type GameEvent2FgMissFoul = z.infer<typeof GameEvent2FgMissFoul>;
 export const GameEvent3FgMade = z.object({
   defTeam: z.instanceof(Team),
   offPlayer1: z.instanceof(Player),
+  offPlayer2: z.instanceof(Player),
   offTeam: z.instanceof(Team),
   shotType: ShotTypes,
   shotValue: z.number(),
@@ -110,6 +123,7 @@ export const GameEvent3FgMadeFoul = z.object({
   defTeam: z.instanceof(Team),
   foulPenaltySettings: FoulPenaltySettings,
   offPlayer1: z.instanceof(Player),
+  offPlayer2: z.instanceof(Player),
   offTeam: z.instanceof(Team),
   segment: z.number().optional(),
   shotType: ShotTypes,
@@ -188,6 +202,16 @@ export const GameEventFreeThrow = z.object({
 });
 export type GameEventFreeThrow = z.infer<typeof GameEventFreeThrow>;
 
+export const GameEventOffensiveFoul = z.object({
+  defPlayersOnCourt: z.array(z.instanceof(Player)),
+  defTeam: z.instanceof(Team),
+  isCharge: z.boolean(),
+  offPlayersOnCourt: z.array(z.instanceof(Player)),
+  offPlayer1: z.instanceof(Player),
+  offTeam: z.instanceof(Team),
+});
+export type GameEventOffensiveFoul = z.infer<typeof GameEventOffensiveFoul>;
+
 export const GameEventNonShootingDefensiveFoul = z.object({
   defPlayer1: z.instanceof(Player),
   defTeam: z.instanceof(Team),
@@ -224,6 +248,16 @@ export const GameEventTurnover = z.object({
 });
 export type GameEventTurnover = z.infer<typeof GameEventTurnover>;
 
+export const GameEventViolation = z.object({
+  defPlayersOnCourt: z.array(z.instanceof(Player)),
+  defTeam: z.instanceof(Team),
+  offPlayersOnCourt: z.array(z.instanceof(Player)),
+  offTeam: z.instanceof(Team),
+  violationType: ViolationTypes,
+});
+
+export type GameEventViolation = z.infer<typeof GameEventViolation>;
+
 export const GameEventData = z.union([
   GameEvent2FgAttempt,
   GameEvent2FgMade,
@@ -246,6 +280,7 @@ export const GameEventData = z.union([
   GameEventStartingLineup,
   GameEventSteal,
   GameEventTurnover,
+  GameEventViolation,
   z.object({}),
 ]);
 export type GameEventData = z.infer<typeof GameEventData>;

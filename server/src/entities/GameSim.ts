@@ -28,9 +28,12 @@ import {
   get2or3Pointer,
   get2PointShotType,
   get3PointShotType,
+  getFgType,
   getPossessionOutcome,
   getShotXByShotType,
   getShotYByShotType,
+  getTurnoverType,
+  getViolationType,
 } from "../utils/probabilities";
 import Socket from "../Socket";
 import GameEventStore from "./GameEventStore";
@@ -330,6 +333,21 @@ class GameSim {
     return randomPlayer;
   };
 
+  pickRandomPlayerOnCourtByTeamExcludeOne = (
+    teamIndex: TeamIndex,
+    excludePlayer: Player
+  ): Player => {
+    const [randomPlayer] = sample(
+      this.playersOnCourt[teamIndex].filter(
+        (player) => excludePlayer.id !== player.id
+      ),
+      1,
+      () => random.float(0, 1)
+    );
+
+    return randomPlayer;
+  };
+
   pickPlayerOnCourtByTeamAndFields = (
     teamIndex: TeamIndex,
     fields: GameSimPlayerFields
@@ -551,28 +569,129 @@ class GameSim {
     const outcome = getPossessionOutcome();
 
     switch (outcome) {
-      case "NON_SHOOTING_DEFENSIVE_FOUL": {
+      case "FIELD_GOAL": {
+        const { isAnd1, isAssist, isBlock, isMade, isPutback, shotType } =
+          getFgType();
+        console.log("shotType", shotType);
         const offPlayer1 = this.pickRandomPlayerOnCourtByTeam(this.o);
-        const defTeam = this.teams[this.d];
-        const foulingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
-        isPossessionEventsComplete = false;
-
-        this.notifyObservers("NON_SHOOTING_DEFENSIVE_FOUL", {
-          defPlayer1: foulingPlayer,
-          foulPenaltySettings: this.foulPenaltySettings,
+        const pts = get2or3Pointer(shotType);
+        const x = getShotXByShotType(shotType);
+        const y = getShotYByShotType(shotType);
+        this.notifyObservers(`${pts}FG_ATTEMPT`, {
+          isPutback,
           offPlayer1,
-          segment:
-            this.timeSegmentIndex !== undefined
-              ? this.timeSegmentIndex
-              : undefined,
+          shotType,
+          shotValue: pts,
+          x,
+          y,
         });
 
-        if (this.teamStates[defTeam.id].penalty) {
-          isPossessionEventsComplete = this.simFreeThrows({
-            bonus: true,
+        const isFouled = isAnd1;
+
+        if (isMade && isFouled) {
+          const assistingPlayer = isAssist
+            ? this.pickRandomPlayerOnCourtByTeamExcludeOne(this.o, offPlayer1)
+            : null;
+          const foulingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
+          this.notifyObservers(`${pts}FG_MADE_FOUL`, {
+            defPlayer1: foulingPlayer,
+            foulPenaltySettings: this.foulPenaltySettings,
+            isPutback,
             offPlayer1,
-            totalShots: 2,
+            offPlayer2: assistingPlayer,
+            segment:
+              this.timeSegmentIndex !== undefined
+                ? this.timeSegmentIndex
+                : undefined,
+            shotValue: pts,
+            shotType,
+            valueToAdd: pts,
+            x,
+            y,
           });
+
+          isPossessionEventsComplete = this.simFreeThrows({
+            offPlayer1,
+            totalShots: 1,
+          });
+        } else if (!isMade && isFouled) {
+          const foulingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
+          this.notifyObservers(`${pts}FG_MISS_FOUL`, {
+            defPlayer1: foulingPlayer,
+            foulPenaltySettings: this.foulPenaltySettings,
+            offPlayer1,
+            segment:
+              this.timeSegmentIndex !== undefined
+                ? this.timeSegmentIndex
+                : undefined,
+            shotType,
+            shotValue: pts,
+            x,
+            y,
+          });
+          isPossessionEventsComplete = this.simFreeThrows({
+            totalShots: pts,
+            offPlayer1,
+          });
+        } else if (isMade && !isFouled) {
+          const assistingPlayer = isAssist
+            ? this.pickRandomPlayerOnCourtByTeamExcludeOne(this.o, offPlayer1)
+            : null;
+          this.notifyObservers(`${pts}FG_MADE`, {
+            isPutback,
+            offPlayer1,
+            offPlayer2: assistingPlayer,
+            shotType,
+            shotValue: pts,
+            valueToAdd: pts,
+            x,
+            y,
+          });
+        } else {
+          this.notifyObservers(`${pts}FG_MISS`, {
+            offPlayer1,
+            shotType,
+            shotValue: pts,
+            x,
+            y,
+          });
+
+          const isOffensiveRebound = random.bool();
+          let reboundingPlayer: Player | undefined;
+          const isTeamRebound = random.bool();
+
+          if (isBlock) {
+            const blockingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
+            this.notifyObservers(`${pts}FG_BLOCK`, {
+              defPlayer1: blockingPlayer,
+              offPlayer1,
+              shotValue: pts,
+              valueToAdd: 1,
+            });
+          }
+
+          if (isOffensiveRebound) {
+            if (!isTeamRebound) {
+              reboundingPlayer = this.pickRandomPlayerOnCourtByTeam(this.o);
+            }
+
+            this.notifyObservers(`OFFENSIVE_REBOUND`, {
+              offensivePlayer1: reboundingPlayer,
+              valueToAdd: 1,
+            });
+
+            isPossessionEventsComplete = false;
+          } else {
+            //isDefensiveRebound
+            if (!isTeamRebound) {
+              reboundingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
+            }
+
+            this.notifyObservers(`DEFENSIVE_REBOUND`, {
+              defPlayer1: reboundingPlayer,
+              valueToAdd: 1,
+            });
+          }
         }
         break;
       }
@@ -639,136 +758,55 @@ class GameSim {
         }
         break;
       }
-      case "OFFENSIVE_FOUL": {
-        break;
-      }
-      case "SHOT": {
+      case "NON_SHOOTING_DEFENSIVE_FOUL": {
         const offPlayer1 = this.pickRandomPlayerOnCourtByTeam(this.o);
-        const pts = get2or3Pointer();
-        let shotType: ShotTypes =
-          pts === 2 ? get2PointShotType() : get3PointShotType();
-        const x = getShotXByShotType(shotType);
-        const y = getShotYByShotType(shotType);
-        this.notifyObservers(`${pts}FG_ATTEMPT`, {
+        const defTeam = this.teams[this.d];
+        const foulingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
+        isPossessionEventsComplete = false;
+
+        this.notifyObservers("NON_SHOOTING_DEFENSIVE_FOUL", {
+          defPlayer1: foulingPlayer,
+          foulPenaltySettings: this.foulPenaltySettings,
           offPlayer1,
-          shotType,
-          shotValue: pts,
-          x,
-          y,
+          segment:
+            this.timeSegmentIndex !== undefined
+              ? this.timeSegmentIndex
+              : undefined,
         });
 
-        const isMade = random.bool();
-        const isFouled = random.bool();
-
-        if (isMade && isFouled) {
-          const foulingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
-          this.notifyObservers(`${pts}FG_MADE_FOUL`, {
-            defPlayer1: foulingPlayer,
-            foulPenaltySettings: this.foulPenaltySettings,
-            offPlayer1,
-            segment:
-              this.timeSegmentIndex !== undefined
-                ? this.timeSegmentIndex
-                : undefined,
-            shotValue: pts,
-            shotType,
-            valueToAdd: pts,
-            x,
-            y,
-          });
-
+        if (this.teamStates[defTeam.id].penalty) {
           isPossessionEventsComplete = this.simFreeThrows({
+            bonus: true,
             offPlayer1,
-            totalShots: 1,
+            totalShots: 2,
           });
-        } else if (!isMade && isFouled) {
-          const foulingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
-          this.notifyObservers(`${pts}FG_MISS_FOUL`, {
-            defPlayer1: foulingPlayer,
-            foulPenaltySettings: this.foulPenaltySettings,
-            offPlayer1,
-            segment:
-              this.timeSegmentIndex !== undefined
-                ? this.timeSegmentIndex
-                : undefined,
-            shotType,
-            shotValue: pts,
-            x,
-            y,
-          });
-          isPossessionEventsComplete = this.simFreeThrows({
-            totalShots: pts,
-            offPlayer1,
-          });
-        } else if (isMade && !isFouled) {
-          this.notifyObservers(`${pts}FG_MADE`, {
-            offPlayer1,
-            shotType,
-            shotValue: pts,
-            valueToAdd: pts,
-            x,
-            y,
-          });
-        } else {
-          this.notifyObservers(`${pts}FG_MISS`, {
-            offPlayer1,
-            shotType,
-            shotValue: pts,
-            x,
-            y,
-          });
-
-          const isBlock = random.bool();
-          const isOffensiveRebound = random.bool();
-          let reboundingPlayer: Player | undefined;
-          const isTeamRebound = random.bool();
-
-          if (isBlock) {
-            const blockingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
-            this.notifyObservers(`${pts}FG_BLOCK`, {
-              defPlayer1: blockingPlayer,
-              offPlayer1,
-              shotValue: pts,
-              valueToAdd: 1,
-            });
-          }
-
-          if (isOffensiveRebound) {
-            if (!isTeamRebound) {
-              reboundingPlayer = this.pickRandomPlayerOnCourtByTeam(this.o);
-            }
-
-            this.notifyObservers(`OFFENSIVE_REBOUND`, {
-              offensivePlayer1: reboundingPlayer,
-              valueToAdd: 1,
-            });
-
-            isPossessionEventsComplete = false;
-          } else {
-            //isDefensiveRebound
-            if (!isTeamRebound) {
-              reboundingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
-            }
-
-            this.notifyObservers(`DEFENSIVE_REBOUND`, {
-              defPlayer1: reboundingPlayer,
-              valueToAdd: 1,
-            });
-          }
         }
         break;
       }
+
+      case "OFFENSIVE_FOUL": {
+        const offPlayer1 = this.pickRandomPlayerOnCourtByTeam(this.o);
+        const isCharge = random.bool();
+        this.notifyObservers("OFFENSIVE_FOUL", {
+          isCharge,
+          offPlayer1,
+        });
+
+        break;
+      }
+
       case "TURNOVER": {
         const offPlayer1 = this.pickRandomPlayerOnCourtByTeam(this.o);
         const team = this.teams[this.o];
-        const isSteal = random.boolean();
+        const turnoverType = getTurnoverType();
 
-        if (isSteal) {
+        if (turnoverType === "BAD_PASS" || turnoverType === "LOST_BALL") {
           const defPlayer1 = this.pickRandomPlayerOnCourtByTeam(this.d);
           this.notifyObservers("STEAL", {
             defPlayer1,
             offPlayer1,
             team,
+            turnoverType,
             valueToAdd: 1,
           });
         } else {
@@ -785,6 +823,12 @@ class GameSim {
         break;
       }
       case "VIOLATION": {
+        const violationType = getViolationType();
+
+        this.notifyObservers("VIOLATION", {
+          violationType,
+        });
+
         break;
       }
       default:
@@ -802,7 +846,7 @@ class GameSim {
     // Was in bonus?
     //  Free throws - 1-and-1 or 2
 
-    //SHOT
+    //FIELD_GOAL
     // Was 2, 3, 4pter?
     // What type of shot?
     // Was made?
@@ -850,6 +894,8 @@ class GameSim {
     }
 
     this.notifyObservers("GAME_END");
+
+    console.log(this.teamStates);
 
     return Promise.resolve();
   };

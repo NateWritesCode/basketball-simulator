@@ -37,8 +37,11 @@ class GameEventStore implements IObserver {
       gameEvent: {},
       gameId: { alwaysThis: true },
       gameType: { alwaysThis: true },
+      isCharge: {},
+      isPutback: {},
       neutralFloor: { alwaysThis: true },
       offPlayer1: { getId: true },
+      offPlayer2: { getId: true },
       offPlayersOnCourt: { getIdArray: true },
       offTeam: { getId: true },
       segment: {},
@@ -48,6 +51,7 @@ class GameEventStore implements IObserver {
       team1: { alwaysThis: true },
       turnoverType: {},
       valueToAdd: {},
+      violationType: {},
       x: {},
       y: {},
     };
@@ -87,7 +91,9 @@ class GameEventStore implements IObserver {
         value = gameEvent;
       } else if (gameEventData[pipeSettingKey] !== undefined) {
         if (getId) {
-          value = gameEventData[pipeSettingKey]["id"];
+          if (gameEventData[pipeSettingKey]) {
+            value = gameEventData[pipeSettingKey]["id"];
+          }
         } else if (getIdArray) {
           value = gameEventData[pipeSettingKey].map((v: any) => v.id).join(",");
         } else {
@@ -175,6 +181,10 @@ class GameEventStore implements IObserver {
         this.appendToFile(gameEvent, gameEventData);
         break;
       }
+      case "OFFENSIVE_FOUL": {
+        this.appendToFile(gameEvent, gameEventData);
+        break;
+      }
       case "OFFENSIVE_REBOUND": {
         this.appendToFile(gameEvent, gameEventData);
         break;
@@ -200,6 +210,10 @@ class GameEventStore implements IObserver {
         break;
       }
       case "TURNOVER": {
+        this.appendToFile(gameEvent, gameEventData);
+        break;
+      }
+      case "VIOLATION": {
         this.appendToFile(gameEvent, gameEventData);
         break;
       }

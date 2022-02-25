@@ -15,6 +15,7 @@ import {
   GameSimStatFields,
   GameSimStats,
   IObserver,
+  GameEventOffensiveFoul,
 } from "../types";
 
 class GameTeamState implements IObserver {
@@ -38,6 +39,9 @@ class GameTeamState implements IObserver {
   id: number;
   jumpBallsLost: number;
   jumpBallsWon: number;
+  offensiveFoul: number;
+  offensiveFoulCharge: number;
+  offensiveFoulNonCharge: number;
   orb: number;
   penalty: boolean;
   pf: number;
@@ -72,6 +76,9 @@ class GameTeamState implements IObserver {
     this.id = id;
     this.jumpBallsLost = 0;
     this.jumpBallsWon = 0;
+    this.offensiveFoul = 0;
+    this.offensiveFoulCharge = 0;
+    this.offensiveFoulNonCharge = 0;
     this.orb = 0;
     this.penalty = false;
     this.pf = 0;
@@ -343,6 +350,21 @@ class GameTeamState implements IObserver {
         break;
       }
 
+      case "OFFENSIVE_FOUL": {
+        const { isCharge, offTeam } = gameEventData as GameEventOffensiveFoul;
+
+        if (offTeam.id === this.id) {
+          if (isCharge) {
+            this.offensiveFoulCharge++;
+          } else {
+            this.offensiveFoulNonCharge++;
+          }
+          this.offensiveFoul++;
+        }
+
+        break;
+      }
+
       case "OFFENSIVE_REBOUND": {
         const { offPlayer1, offTeam } =
           gameEventData as GameEventOffensiveRebound;
@@ -395,6 +417,11 @@ class GameTeamState implements IObserver {
         }
         break;
       }
+
+      case "VIOLATION": {
+        break;
+      }
+
       default: {
         const exhaustiveCheck: never = gameEvent;
         throw new Error(exhaustiveCheck);

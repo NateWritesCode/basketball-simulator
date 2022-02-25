@@ -19,6 +19,11 @@ scalar DateTime
 """An arbitrary-precision Decimal type"""
 scalar Decimal
 
+"""Game description"""
+type Game {
+  id: Int
+}
+
 """
 The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
@@ -30,11 +35,50 @@ type Mutation {
 }
 
 type Player {
+  active: Boolean!
+  birthdate: DateTime!
+  country: String
+  draftNumber: Int
+  draftRound: Int
+  draftYear: DateTime
   familyName: String!
+  fromYear: DateTime
   givenName: String!
+  greatest75: Boolean!
+  hasPlayedDLeague: Boolean!
+  hasPlayedGames: Boolean!
+  hasPlayedNba: Boolean!
+  height: Int!
   id: Int!
+  jerseyNumber: Int
+  playerCode: String
+  position: String
+  rebounding: Int!
+  school: String
+  seasonsExperience: Int!
+  slug: String!
+  team: Team!
+  toYear: DateTime
+  weight: Int!
 }
 
 type Query {
+  getOneGame: Game
+  getOnePlayer(slug: String!): Player
+  getOneTeam(abbrev: String!): Team
   getOneTest: Boolean
+}
+
+type Team {
+  abbrev: String!
+  facebook: String!
+  homeName: String!
+  id: Int!
+  instagram: String!
+  nickname: String!
+  players: [Player!]!
+  twitter: String!
+  venue: String!
+  venueCapacity: Int!
+  yearFounded: DateTime!
 }

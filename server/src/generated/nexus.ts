@@ -82,13 +82,49 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Game: { // root type
+    id?: number | null; // Int
+  }
   Mutation: {};
   Player: { // root type
+    active: boolean; // Boolean!
+    birthdate: NexusGenScalars['DateTime']; // DateTime!
+    country?: string | null; // String
+    draftNumber?: number | null; // Int
+    draftRound?: number | null; // Int
+    draftYear?: NexusGenScalars['DateTime'] | null; // DateTime
     familyName: string; // String!
+    fromYear?: NexusGenScalars['DateTime'] | null; // DateTime
     givenName: string; // String!
+    greatest75: boolean; // Boolean!
+    hasPlayedDLeague: boolean; // Boolean!
+    hasPlayedGames: boolean; // Boolean!
+    hasPlayedNba: boolean; // Boolean!
+    height: number; // Int!
     id: number; // Int!
+    jerseyNumber?: number | null; // Int
+    playerCode?: string | null; // String
+    position?: string | null; // String
+    rebounding: number; // Int!
+    school?: string | null; // String
+    seasonsExperience: number; // Int!
+    slug: string; // String!
+    toYear?: NexusGenScalars['DateTime'] | null; // DateTime
+    weight: number; // Int!
   }
   Query: {};
+  Team: { // root type
+    abbrev: string; // String!
+    facebook: string; // String!
+    homeName: string; // String!
+    id: number; // Int!
+    instagram: string; // String!
+    nickname: string; // String!
+    twitter: string; // String!
+    venue: string; // String!
+    venueCapacity: number; // Int!
+    yearFounded: NexusGenScalars['DateTime']; // DateTime!
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -102,36 +138,126 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Game: { // field return type
+    id: number | null; // Int
+  }
   Mutation: { // field return type
     createOneTest: boolean | null; // Boolean
     startGameSim: boolean | null; // Boolean
   }
   Player: { // field return type
+    active: boolean; // Boolean!
+    birthdate: NexusGenScalars['DateTime']; // DateTime!
+    country: string | null; // String
+    draftNumber: number | null; // Int
+    draftRound: number | null; // Int
+    draftYear: NexusGenScalars['DateTime'] | null; // DateTime
     familyName: string; // String!
+    fromYear: NexusGenScalars['DateTime'] | null; // DateTime
     givenName: string; // String!
+    greatest75: boolean; // Boolean!
+    hasPlayedDLeague: boolean; // Boolean!
+    hasPlayedGames: boolean; // Boolean!
+    hasPlayedNba: boolean; // Boolean!
+    height: number; // Int!
     id: number; // Int!
+    jerseyNumber: number | null; // Int
+    playerCode: string | null; // String
+    position: string | null; // String
+    rebounding: number; // Int!
+    school: string | null; // String
+    seasonsExperience: number; // Int!
+    slug: string; // String!
+    team: NexusGenRootTypes['Team']; // Team!
+    toYear: NexusGenScalars['DateTime'] | null; // DateTime
+    weight: number; // Int!
   }
   Query: { // field return type
+    getOneGame: NexusGenRootTypes['Game'] | null; // Game
+    getOnePlayer: NexusGenRootTypes['Player'] | null; // Player
+    getOneTeam: NexusGenRootTypes['Team'] | null; // Team
     getOneTest: boolean | null; // Boolean
+  }
+  Team: { // field return type
+    abbrev: string; // String!
+    facebook: string; // String!
+    homeName: string; // String!
+    id: number; // Int!
+    instagram: string; // String!
+    nickname: string; // String!
+    players: NexusGenRootTypes['Player'][]; // [Player!]!
+    twitter: string; // String!
+    venue: string; // String!
+    venueCapacity: number; // Int!
+    yearFounded: NexusGenScalars['DateTime']; // DateTime!
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Game: { // field return type name
+    id: 'Int'
+  }
   Mutation: { // field return type name
     createOneTest: 'Boolean'
     startGameSim: 'Boolean'
   }
   Player: { // field return type name
+    active: 'Boolean'
+    birthdate: 'DateTime'
+    country: 'String'
+    draftNumber: 'Int'
+    draftRound: 'Int'
+    draftYear: 'DateTime'
     familyName: 'String'
+    fromYear: 'DateTime'
     givenName: 'String'
+    greatest75: 'Boolean'
+    hasPlayedDLeague: 'Boolean'
+    hasPlayedGames: 'Boolean'
+    hasPlayedNba: 'Boolean'
+    height: 'Int'
     id: 'Int'
+    jerseyNumber: 'Int'
+    playerCode: 'String'
+    position: 'String'
+    rebounding: 'Int'
+    school: 'String'
+    seasonsExperience: 'Int'
+    slug: 'String'
+    team: 'Team'
+    toYear: 'DateTime'
+    weight: 'Int'
   }
   Query: { // field return type name
+    getOneGame: 'Game'
+    getOnePlayer: 'Player'
+    getOneTeam: 'Team'
     getOneTest: 'Boolean'
+  }
+  Team: { // field return type name
+    abbrev: 'String'
+    facebook: 'String'
+    homeName: 'String'
+    id: 'Int'
+    instagram: 'String'
+    nickname: 'String'
+    players: 'Player'
+    twitter: 'String'
+    venue: 'String'
+    venueCapacity: 'Int'
+    yearFounded: 'DateTime'
   }
 }
 
 export interface NexusGenArgTypes {
+  Query: {
+    getOnePlayer: { // args
+      slug: string; // String!
+    }
+    getOneTeam: { // args
+      abbrev: string; // String!
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {

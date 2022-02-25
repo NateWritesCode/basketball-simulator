@@ -578,7 +578,7 @@ export const startPlayByPlayParse = async () => {
       gameData.foulDefenseNonShooting / possessionOutcomeTotalEvents,
     JUMP_BALL: gameData.jumpBallTossup / possessionOutcomeTotalEvents,
     OFFENSIVE_FOUL: gameData.foulOffensiveTotal / possessionOutcomeTotalEvents,
-    SHOT: gameData.fgTotal / possessionOutcomeTotalEvents,
+    FIELD_GOAL: gameData.fgTotal / possessionOutcomeTotalEvents,
     TURNOVER: gameData.turnover / possessionOutcomeTotalEvents,
     VIOLATION: gameData.violation / possessionOutcomeTotalEvents,
   };
