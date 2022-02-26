@@ -1,0 +1,66 @@
+[
+  {
+    "possessionLength": 1,
+    "prob": 0.413476528667937
+  },
+  {
+    "possessionLength": 2,
+    "prob": 0.361510479819851
+  },
+  {
+    "possessionLength": 3,
+    "prob": 0.144812056123333
+  },
+  {
+    "possessionLength": 4,
+    "prob": 0.0564697730815867
+  },
+  {
+    "possessionLength": 5,
+    "prob": 0.0156475547087014
+  },
+  {
+    "possessionLength": 6,
+    "prob": 0.00467694439632773
+  },
+  {
+    "possessionLength": 7,
+    "prob": 0.00184768173682083
+  },
+  {
+    "possessionLength": 8,
+    "prob": 0.000404180379929557
+  },
+  {
+    "possessionLength": 9,
+    "prob": 0.000288700271378255
+  },
+  {
+    "possessionLength": 10,
+    "prob": 0.000404180379929557
+  },
+  {
+    "possessionLength": 11,
+    "prob": 0.000173220162826953
+  },
+  {
+    "possessionLength": 12,
+    "prob": 5.7740054275651e-05
+  },
+  {
+    "possessionLength": 13,
+    "prob": 5.7740054275651e-05
+  },
+  {
+    "possessionLength": 14,
+    "prob": 5.7740054275651e-05
+  },
+  {
+    "possessionLength": 15,
+    "prob": 5.7740054275651e-05
+  },
+  {
+    "possessionLength": 16,
+    "prob": 5.7740054275651e-05
+  }
+]

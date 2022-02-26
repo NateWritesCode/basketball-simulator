@@ -1,7 +1,10 @@
 import { startPlayByPlayParse } from "./data-wrangle/playByPlay";
 // import { startTeamDetailsParse } from "./data-wrangle/teams";
 import { startPlayersParse } from "./data-wrangle/players";
-import { parseFgProbability } from "./data-wrangle/r";
+import {
+  parseFgProbability,
+  parsePossessionLengthProbability,
+} from "./data-wrangle/r";
 import startServer from "./startServer";
 import { getFgType, getPossessionOutcome } from "./utils/probabilities";
 
@@ -14,6 +17,7 @@ import { getFgType, getPossessionOutcome } from "./utils/probabilities";
     // startPlayByPlayParse();
     // startTeamDetailsParse();
     // startPlayersParse();
+    // parsePossessionLengthProbability();
   } catch (e) {
     console.error(e);
   }

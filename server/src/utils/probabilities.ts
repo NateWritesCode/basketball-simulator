@@ -22,6 +22,12 @@ import shortMidRangeY from "../data/probabilities/shortMidRangeY.json";
 import shotTypeProbability from "../data/probabilities/shotType.json";
 import turnoverProbability from "../data/probabilities/turnover.json";
 import violationProbability from "../data/probabilities/violation.json";
+import fgLength from "../data/probabilities/fgLength.json";
+import foulLength from "../data/probabilities/foulLength.json";
+import generalLength from "../data/probabilities/generalLength.json";
+import reboundLength from "../data/probabilities/reboundLength.json";
+import turnoverLength from "../data/probabilities/turnoverLength.json";
+import violationLength from "../data/probabilities/violationLength.json";
 
 const buildXYArray = (probObj: {
   [key: string]: number;
@@ -97,6 +103,76 @@ export const getFgType = (): FgType => {
   );
 
   return parseFgTypeString(choice);
+};
+
+export const getPossessionLength = (
+  possessionType:
+    | "fg"
+    | "foul"
+    | "general"
+    | "rebound"
+    | "turnover"
+    | "violation"
+): number => {
+  switch (possessionType) {
+    case "fg": {
+      const choice = randomWeightedChoice(
+        Object.keys(fgLength).map((key) => [
+          Number(key),
+          fgLength[key as keyof typeof fgLength],
+        ])
+      );
+      return Math.round((choice + Number.EPSILON) * 100) / 100;
+    }
+    case "foul": {
+      const choice = randomWeightedChoice(
+        Object.keys(foulLength).map((key) => [
+          Number(key),
+          foulLength[key as keyof typeof foulLength],
+        ])
+      );
+      return Math.round((choice + Number.EPSILON) * 100) / 100;
+    }
+    case "general": {
+      const choice = randomWeightedChoice(
+        Object.keys(generalLength).map((key) => [
+          Number(key),
+          generalLength[key as keyof typeof generalLength],
+        ])
+      );
+      return Math.round((choice + Number.EPSILON) * 100) / 100;
+    }
+    case "rebound": {
+      const choice = randomWeightedChoice(
+        Object.keys(reboundLength).map((key) => [
+          Number(key),
+          reboundLength[key as keyof typeof reboundLength],
+        ])
+      );
+      return Math.round((choice + Number.EPSILON) * 100) / 100;
+    }
+    case "turnover": {
+      const choice = randomWeightedChoice(
+        Object.keys(turnoverLength).map((key) => [
+          Number(key),
+          turnoverLength[key as keyof typeof turnoverLength],
+        ])
+      );
+      return Math.round((choice + Number.EPSILON) * 100) / 100;
+    }
+    case "violation": {
+      const choice = randomWeightedChoice(
+        Object.keys(violationLength).map((key) => [
+          Number(key),
+          violationLength[key as keyof typeof violationLength],
+        ])
+      );
+      return Math.round((choice + Number.EPSILON) * 100) / 100;
+    }
+    default:
+      const exhaustiveCheck: never = possessionType;
+      throw new Error(exhaustiveCheck);
+  }
 };
 
 export const getPossessionOutcome = (): GameEventPossessionOutcomes => {

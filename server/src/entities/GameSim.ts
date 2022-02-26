@@ -29,6 +29,7 @@ import {
   get2PointShotType,
   get3PointShotType,
   getFgType,
+  getPossessionLength,
   getPossessionOutcome,
   getShotXByShotType,
   getShotYByShotType,
@@ -546,10 +547,21 @@ class GameSim {
     isEndOfSegment: boolean;
     isPossessionEventsComplete: boolean;
   } => {
+    const outcome = getPossessionOutcome();
     let isEndOfSegment = false;
     let isPossessionEventsComplete = true;
     let lengthOfPossession =
-      Math.round((random.float(1, 30) + Number.EPSILON) * 100) / 100;
+      outcome === "FIELD_GOAL"
+        ? getPossessionLength("fg")
+        : outcome === "JUMP_BALL"
+        ? getPossessionLength("general")
+        : outcome === "NON_SHOOTING_DEFENSIVE_FOUL"
+        ? getPossessionLength("general")
+        : outcome === "OFFENSIVE_FOUL"
+        ? getPossessionLength("foul")
+        : outcome === "TURNOVER"
+        ? getPossessionLength("turnover")
+        : getPossessionLength("violation");
 
     if (
       this.gameType.type === "time" &&
@@ -565,8 +577,6 @@ class GameSim {
 
       this.timeSegments[this.timeSegmentIndex] -= lengthOfPossession;
     }
-
-    const outcome = getPossessionOutcome();
 
     switch (outcome) {
       case "FIELD_GOAL": {
