@@ -167,8 +167,6 @@ for season_game in season.games.items[:1]:
 
                 continue
 
-            if isinstance(possession_event, Foul):
-
             if isinstance(possession_event, Rebound):
                 if possession_event.is_real_rebound:
                     players_on_court_update(
