@@ -63,14 +63,42 @@ for season_game in season.games.items[:1]:
     team_1 = game.boxscore.team_items[1]["team_id"]  # think this is home team
 
     master_game_dict[game_id] = {
+        "assist": 0,
+        "block": 0,
         "ejection": 0,
+        "fieldGoal": 0,
+        "foulDefNonShooting": 0,
+        "foulOffCharge": 0,
+        "foulOffOther": 0,
+        "foulOffTotal": 0,
+        "foulShooting": 0,
         "jumpBall": 0,
         "possession": 0,
         "rebDefTeam": 0,
         "rebOffTeam": 0,
         "replay": 0,
+        "steal": 0,
         "substitution": 0,
-        "timeout": 0
+        "timeout": 0,
+        "turnover": 0,
+        "turnover3Second": 0,
+        "turnoverBadPass": 0,  # steal
+        "turnoverBadPassOutOfBounds": 0,
+        "turnoverKickBall": 0,
+        "turnoverLaneViolation": 0,
+        "turnoverLostBall": 0,  # steal
+        "turnoverLostBallOutOfBounds": 0,
+        "turnoverOffGoaltend": 0,
+        "turnoverShotClock": 0,
+        "turnoverStepOutOfBounds": 0,
+        "turnoverTravel": 0,
+        "violation": 0,
+        "violationDelayOfGame": 0,  # FG after usually
+        "violationDoubleLane": 0,  # FREE THROW
+        "violationDefGoaltend": 0,  # POSSESSION - FG awarded
+        "violationJumpBall": 0,  # JUMP BALL
+        "violationDefKickBall": 0,  # POSSESSION - Defense kicked ball
+        "violationLane": 0,  # FREE THROW
     }
 
     print("team_0", team_0)
@@ -80,29 +108,39 @@ for season_game in season.games.items[:1]:
 
         if item["player_id"] not in master_player_dict:
             master_player_dict[item["player_id"]] = {
+                "assist": 0,
+                "assistChance": 0,
                 "defBlockChance": 0,
                 "defBlock": 0,
+                "defSteal": 0,
+                "defStealChance": 0,
                 "fgArc3Attempt": 0,
+                "fgArc3Block": 0,
                 "fgArc3Chance": 0,
                 "fgArc3Made": 0,
                 "fgArc3MadeFoul": 0,
                 "fgAtRimAttempt": 0,
+                "fgAtRimBlock": 0,
                 "fgAtRimChance": 0,
                 "fgAtRimMade": 0,
                 "fgAtRimMadeFoul": 0,
                 "fgCorner3Attempt": 0,
+                "fgCorner3Block": 0,
                 "fgCorner3Chance": 0,
                 "fgCorner3Made": 0,
                 "fgCorner3MadeFoul": 0,
                 "fgLongMidRangeAttempt": 0,
+                "fgLongMidRangeBlock": 0,
                 "fgLongMidRangeChance": 0,
                 "fgLongMidRangeMade": 0,
                 "fgLongMidRangeMadeFoul": 0,
                 "fgShortMidRangeAttempt": 0,
+                "fgShortMidRangeBlock": 0,
                 "fgShortMidRangeChance": 0,
                 "fgShortMidRangeMade": 0,
                 "fgShortMidRangeMadeFoul": 0,
                 "fgTotalAttempt": 0,
+                "fgTotalBlock": 0,
                 "fgTotalChance": 0,
                 "fgTotalMade": 0,
                 "fgTotalMadeFoul": 0,
@@ -137,7 +175,12 @@ for season_game in season.games.items[:1]:
                 continue
 
             if isinstance(possession_event, JumpBall):
-                game_update(game_id, master_game_dict, "jumpBall", 1)
+                is_jump_ball_starts_period = False
+                for event in possession_event.get_all_events_at_current_time():
+                    if isinstance(event, StartOfPeriod):
+                        is_jump_ball_starts_period = True
+                if is_jump_ball_starts_period != True:
+                    game_update(game_id, master_game_dict, "jumpBall", 1)
                 continue
 
             if isinstance(possession_event, Replay):
@@ -152,16 +195,75 @@ for season_game in season.games.items[:1]:
                 game_update(game_id, master_game_dict, "timeout", 1)
                 continue
 
+            if isinstance(possession_event, Violation):
+                game_update(game_id, master_game_dict, "violation", 1)
+                if possession_event.is_delay_of_game:
+                    game_update(game_id, master_game_dict,
+                                "violationDelayOfGame", 1)
+                if possession_event.is_double_lane_violation:
+                    game_update(game_id, master_game_dict,
+                                "violationDoubleLane", 1)
+                if possession_event.is_goaltend_violation:
+                    game_update(game_id, master_game_dict,
+                                "violationDefGoaltend", 1)
+                if possession_event.is_jumpball_violation:
+                    game_update(game_id, master_game_dict,
+                                "violationJumpBall", 1)
+                if possession_event.is_kicked_ball_violation:
+                    game_update(game_id, master_game_dict,
+                                "violationDefKickBall", 1)
+                if possession_event.is_lane_violation:
+                    game_update(game_id, master_game_dict,
+                                "violationLane", 1)
+
+            if isinstance(possession_event, Turnover) and not possession_event.is_no_turnover:
+                game_update(game_id, master_game_dict, "turnover", 1)
+                if possession_event.is_steal:
+                    players_on_court_update(
+                        defense_players, master_player_dict, "defStealChance", 1)
+                    player = possession_event.player3_id
+                    player_update(player, master_player_dict, "defSteal", 1)
+                if possession_event.is_bad_pass:
+                    game_update(game_id, master_game_dict,
+                                "turnoverBadPass", 1)
+                if possession_event.is_bad_pass_out_of_bounds:
+                    game_update(game_id, master_game_dict,
+                                "turnoverBadPassOutOfBounds", 1)
+                if possession_event.is_kicked_ball:
+                    game_update(game_id, master_game_dict,
+                                "turnoverKickBall", 1)
+                if possession_event.is_lane_violation:
+                    game_update(game_id, master_game_dict,
+                                "turnoverLaneViolation", 1)
+                if possession_event.is_lost_ball:
+                    game_update(game_id, master_game_dict,
+                                "turnoverLostBall", 1)
+                if possession_event.is_lost_ball_out_of_bounds:
+                    game_update(game_id, master_game_dict,
+                                "turnoverLostBallOutOfBounds", 1)
+                if possession_event.is_offensive_goaltending:
+                    game_update(game_id, master_game_dict,
+                                "turnoverOffGoaltend", 1)
+                if possession_event.is_shot_clock_violation:
+                    game_update(game_id, master_game_dict,
+                                "turnoverShotClock", 1)
+                if possession_event.is_step_out_of_bounds:
+                    game_update(game_id, master_game_dict,
+                                "turnoverStepOutOfBounds", 1)
+                if possession_event.is_travel:
+                    game_update(game_id, master_game_dict,
+                                "turnoverTravel", 1)
+
             if isinstance(possession_event, FreeThrow):
                 player = possession_event.player1_id
                 player_update(player, master_player_dict, "ftAttempt", 1)
                 if possession_event.is_made:
                     player_update(player, master_player_dict, "ftMade", 1)
-                if possession_event.foul_that_led_to_ft.shot_type == "2pt Shooting Foul":
+                if possession_event.foul_that_led_to_ft.foul_type_string == "2pt Shooting Foul":
                     player_update(player, master_player_dict,
                                   "fgTotalMissFoul2", 1)
 
-                if possession_event.foul_that_led_to_ft.shot_type == "3pt Shooting Foul":
+                if possession_event.foul_that_led_to_ft.foul_type_string == "3pt Shooting Foul":
                     player_update(player, master_player_dict,
                                   "fgTotalMissFoul3", 1)
 
@@ -181,7 +283,7 @@ for season_game in season.games.items[:1]:
                         else:
                             player_update(
                                 player, master_player_dict, "rebDef", 1)
-                    else:
+                    else:  # is team rebound
                         if possession_event.oreb:
                             game_update(game_id, master_game_dict,
                                         "rebOffTeam", 1)
@@ -204,6 +306,15 @@ for season_game in season.games.items[:1]:
                     is_long_mid_range = possession_event.shot_type == "LongMidRange"
                     is_made = possession_event.is_made
                     is_short_mid_range = possession_event.shot_type == "ShortMidRange"
+                    is_block = possession_event.is_blocked
+                    is_assist = possession_event.is_assisted
+
+                    if is_assist:
+                        players_on_court_update(
+                            offense_players, master_player_dict, "assistChance", 1)
+                        player = possession_event.player2_id
+                        player_update(
+                            player, master_player_dict, "assist", 1)
 
                     shot_type_field_string = ""
 
@@ -237,6 +348,16 @@ for season_game in season.games.items[:1]:
 
                     player_update(player, master_player_dict,
                                   "fgTotalAttempt", 1)
+
+                    if is_block:
+                        field_string += "Block"
+                        player_update(player, master_player_dict,
+                                      field_string, 1)
+                        players_on_court_update(
+                            defense_players, master_player_dict, "defBlockChance", 1)
+                        blocking_player = possession_event.player3_id
+                        player_update(blocking_player, master_player_dict,
+                                      "defBlock", 1)
 
                     if is_made:
                         field_string += "Made"
