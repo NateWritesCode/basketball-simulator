@@ -574,7 +574,7 @@ export const startPlayByPlayParse = async () => {
     gameData.violation;
 
   const possessionOutcomeProbability = {
-    NON_SHOOTING_DEFENSIVE_FOUL:
+    FOUL_DEFENSIVE_NON_SHOOTING:
       gameData.foulDefenseNonShooting / possessionOutcomeTotalEvents,
     JUMP_BALL: gameData.jumpBallTossup / possessionOutcomeTotalEvents,
     OFFENSIVE_FOUL: gameData.foulOffensiveTotal / possessionOutcomeTotalEvents,

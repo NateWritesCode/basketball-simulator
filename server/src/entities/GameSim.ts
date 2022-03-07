@@ -555,7 +555,7 @@ class GameSim {
         ? getPossessionLength("fg")
         : outcome === "JUMP_BALL"
         ? getPossessionLength("general")
-        : outcome === "NON_SHOOTING_DEFENSIVE_FOUL"
+        : outcome === "FOUL_DEFENSIVE_NON_SHOOTING"
         ? getPossessionLength("general")
         : outcome === "OFFENSIVE_FOUL"
         ? getPossessionLength("foul")
@@ -768,13 +768,13 @@ class GameSim {
         }
         break;
       }
-      case "NON_SHOOTING_DEFENSIVE_FOUL": {
+      case "FOUL_DEFENSIVE_NON_SHOOTING": {
         const offPlayer1 = this.pickRandomPlayerOnCourtByTeam(this.o);
         const defTeam = this.teams[this.d];
         const foulingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
         isPossessionEventsComplete = false;
 
-        this.notifyObservers("NON_SHOOTING_DEFENSIVE_FOUL", {
+        this.notifyObservers("FOUL_DEFENSIVE_NON_SHOOTING", {
           defPlayer1: foulingPlayer,
           foulPenaltySettings: this.foulPenaltySettings,
           offPlayer1,

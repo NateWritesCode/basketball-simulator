@@ -6,3 +6,4 @@ venv
 __pycache__
 game_id_errors.txt
 yarn-error.log
+probabilities-player

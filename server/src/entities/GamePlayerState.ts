@@ -312,7 +312,7 @@ class GamePlayerState implements IObserver {
         break;
       }
 
-      case "NON_SHOOTING_DEFENSIVE_FOUL": {
+      case "FOUL_DEFENSIVE_NON_SHOOTING": {
         const { defPlayer1 } =
           gameEventData as GameEventNonShootingDefensiveFoul;
 

@@ -177,7 +177,7 @@ class GameEventStore implements IObserver {
         this.appendToFile(gameEvent, gameEventData);
         break;
       }
-      case "NON_SHOOTING_DEFENSIVE_FOUL": {
+      case "FOUL_DEFENSIVE_NON_SHOOTING": {
         this.appendToFile(gameEvent, gameEventData);
         break;
       }

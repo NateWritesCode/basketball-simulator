@@ -101,7 +101,7 @@ export const GameEventEnum = z.enum([
   "GAME_START",
   "GAME_END",
   "JUMP_BALL",
-  "NON_SHOOTING_DEFENSIVE_FOUL",
+  "FOUL_DEFENSIVE_NON_SHOOTING",
   "OFFENSIVE_FOUL",
   "OFFENSIVE_REBOUND",
   "POSSESSION_ARROW_WON",
@@ -115,7 +115,7 @@ export const GameEventEnum = z.enum([
 export type GameEventEnum = z.infer<typeof GameEventEnum>;
 
 export const GameEventPossessionOutcomes = z.enum([
-  "NON_SHOOTING_DEFENSIVE_FOUL",
+  "FOUL_DEFENSIVE_NON_SHOOTING",
   "JUMP_BALL",
   "OFFENSIVE_FOUL",
   "FIELD_GOAL",
