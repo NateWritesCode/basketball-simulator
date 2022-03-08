@@ -13,7 +13,6 @@ from pbpstats.resources.enhanced_pbp.substitution import Substitution
 from pbpstats.resources.enhanced_pbp.timeout import Timeout
 from pbpstats.resources.enhanced_pbp.turnover import Turnover
 from pbpstats.resources.enhanced_pbp.violation import Violation
-from os import listdir
 import pandas as pd
 import json
 
@@ -61,7 +60,7 @@ def team_update(team_id, dict, field, value):
     dict[team_id][field] += value
 
 
-for season_game in season.games.items[:10]:
+for season_game in season.games.items[:5]:
     game_id = season_game.game_id
     print("Processing game id: ", game_id)
     game = None
@@ -84,6 +83,7 @@ for season_game in season.games.items[:10]:
         "fgCorner3": 0,
         "fgLongMidRange": 0,
         "fgShortMidRange": 0,
+        "fgMade": 0,
         "fgXY": {
             "Arc3": {},
             "AtRim": {},
@@ -157,31 +157,37 @@ for season_game in season.games.items[:10]:
                 "fgArc3Attempt": 0,
                 "fgArc3Block": 0,
                 "fgArc3Chance": 0,
+                "fgArc3DefChance": 0,
                 "fgArc3Made": 0,
                 "fgArc3MadeFoul": 0,
                 "fgAtRimAttempt": 0,
                 "fgAtRimBlock": 0,
                 "fgAtRimChance": 0,
+                "fgAtRimDefChance": 0,
                 "fgAtRimMade": 0,
                 "fgAtRimMadeFoul": 0,
                 "fgCorner3Attempt": 0,
                 "fgCorner3Block": 0,
                 "fgCorner3Chance": 0,
+                "fgCorner3DefChance": 0,
                 "fgCorner3Made": 0,
                 "fgCorner3MadeFoul": 0,
                 "fgLongMidRangeAttempt": 0,
                 "fgLongMidRangeBlock": 0,
                 "fgLongMidRangeChance": 0,
+                "fgLongMidRangeDefChance": 0,
                 "fgLongMidRangeMade": 0,
                 "fgLongMidRangeMadeFoul": 0,
                 "fgShortMidRangeAttempt": 0,
                 "fgShortMidRangeBlock": 0,
                 "fgShortMidRangeChance": 0,
+                "fgShortMidRangeDefChance": 0,
                 "fgShortMidRangeMade": 0,
                 "fgShortMidRangeMadeFoul": 0,
                 "fgTotalAttempt": 0,
                 "fgTotalBlock": 0,
                 "fgTotalChance": 0,
+                "fgTotalDefChance": 0,
                 "fgTotalMade": 0,
                 "fgTotalMadeFoul": 0,
                 "fgTotalMissFoul2": 0,
@@ -294,6 +300,12 @@ for season_game in season.games.items[:10]:
                         defense_players, master_player_dict, "defStealChance", 1)
                     player = possession_event.player3_id
                     player_update(player, master_player_dict, "defSteal", 1)
+                    game_update(game_id, master_game_dict,
+                                "steal", 1)
+
+                if possession_event.is_3_second_violation:
+                    game_update(game_id, master_game_dict,
+                                "turnover3Second", 1)
                 if possession_event.is_bad_pass:
                     game_update(game_id, master_game_dict,
                                 "turnoverBadPass", 1)
@@ -454,6 +466,8 @@ for season_game in season.games.items[:10]:
             if isinstance(possession_event, FieldGoal):
                 players_on_court_update(
                     offense_players, master_player_dict, "fgTotalChance", 1)
+                players_on_court_update(
+                    defense_players, master_player_dict, "fgTotalDefChance", 1)
                 game_update(game_id, master_game_dict,
                             "fg", 1)
 
@@ -472,6 +486,8 @@ for season_game in season.games.items[:10]:
                     is_assist = possession_event.is_assisted
 
                     if is_assist:
+                        game_update(game_id, master_game_dict,
+                                    "assist", 1)
                         players_on_court_update(
                             offense_players, master_player_dict, "assistChance", 1)
                         player = possession_event.player2_id
@@ -484,30 +500,40 @@ for season_game in season.games.items[:10]:
                         shot_type_field_string = "Arc3"
                         players_on_court_update(
                             offense_players, master_player_dict, "fgArc3Chance", 1)
+                        players_on_court_update(
+                            defense_players, master_player_dict, "fgArc3DefChance", 1)
                         game_update(game_id, master_game_dict,
                                     "fgArc3", 1)
                     elif is_at_rim:
                         shot_type_field_string = "AtRim"
                         players_on_court_update(
                             offense_players, master_player_dict, "fgAtRimChance", 1)
+                        players_on_court_update(
+                            defense_players, master_player_dict, "fgAtRimDefChance", 1)
                         game_update(game_id, master_game_dict,
                                     "fgAtRim", 1)
                     elif is_corner_3:
                         shot_type_field_string = "Corner3"
                         players_on_court_update(
                             offense_players, master_player_dict, "fgCorner3Chance", 1)
+                        players_on_court_update(
+                            defense_players, master_player_dict, "fgCorner3DefChance", 1)
                         game_update(game_id, master_game_dict,
                                     "fgCorner3", 1)
                     elif is_long_mid_range:
                         shot_type_field_string = "LongMidRange"
                         players_on_court_update(
                             offense_players, master_player_dict, "fgLongMidRangeChance", 1)
+                        players_on_court_update(
+                            defense_players, master_player_dict, "fgLongMidRangeDefChance", 1)
                         game_update(game_id, master_game_dict,
                                     "fgLongMidRange", 1)
                     elif is_short_mid_range:
                         shot_type_field_string = "ShortMidRange"
                         players_on_court_update(
                             offense_players, master_player_dict, "fgShortMidRangeChance", 1)
+                        players_on_court_update(
+                            defense_players, master_player_dict, "fgShortMidRangeDefChance", 1)
                         game_update(game_id, master_game_dict,
                                     "fgShortMidRange", 1)
                     else:
@@ -542,6 +568,8 @@ for season_game in season.games.items[:10]:
                                   "fgTotalAttempt", 1)
 
                     if is_block:
+                        game_update(game_id, master_game_dict,
+                                    "block", 1)
                         field_string += "Block"
                         player_update(player, master_player_dict,
                                       field_string, 1)
@@ -552,6 +580,8 @@ for season_game in season.games.items[:10]:
                                       "defBlock", 1)
 
                     if is_made:
+                        game_update(game_id, master_game_dict,
+                                    "fgMade", 1)
                         field_string += "Made"
                         player_update(player, master_player_dict,
                                       field_string, 1)
@@ -575,18 +605,39 @@ possession_outcome_turnover = 0
 possession_outcome_violation_def_goaltend = 0
 possession_outcome_violation_def_kick_ball = 0
 
-total_assist = 0
-total_fgs = 0
 total_arc3 = 0
+total_assist = 0
 total_at_rim = 0
+total_block = 0
 total_corner3 = 0
+total_def_team_reb = 0
+total_fg = 0
+total_fg_made = 0
 total_long_mid_range = 0
-total_short_mid_range = 0
+total_off_foul = 0
+total_off_foul_charge = 0
+total_off_foul_other = 0
+total_off_team_reb = 0
 total_reb = 0
 total_reb_off = 0
 total_reb_def = 0
-total_off_team_reb = 0
-total_def_team_reb = 0
+total_short_mid_range = 0
+total_steal = 0
+total_turnover = 0
+total_turnover_3_second = 0
+total_turnover_bad_pass = 0
+total_turnover_bad_pass_out_of_bounds = 0
+total_turnover_kick_ball = 0
+total_turnover_lane_violation = 0
+total_turnover_lost_ball = 0
+total_turnover_lost_ball_out_of_bounds = 0
+total_turnover_off_goaltend = 0
+total_turnover_shot_clock = 0
+total_turnover_step_out_of_bounds = 0
+total_turnover_travel = 0
+total_violation_possession = 0
+total_violation_def_kick_ball = 0
+total_violation_def_goaltend = 0
 
 
 for game_id in master_game_dict.keys():
@@ -604,12 +655,19 @@ for game_id in master_game_dict.keys():
     possession_outcome_violation_def_goaltend += game["violationDefGoaltend"]
     possession_outcome_violation_def_kick_ball += game["violationDefKickBall"]
 
-    total_fgs += game["fg"]
+    total_off_foul += game["foulOffTotal"]
+    total_off_foul_charge += game["foulOffCharge"]
+    total_off_foul_other += game["foulOffOther"]
+
+    total_fg += game["fg"]
+    total_fg_made += game["fgMade"]
+    total_assist += game["assist"]
     total_arc3 += game["fgArc3"]
     total_at_rim += game["fgAtRim"]
     total_corner3 += game["fgCorner3"]
     total_long_mid_range += game["fgLongMidRange"]
     total_short_mid_range += game["fgShortMidRange"]
+    total_block += game["block"]
 
     total_reb += game["reb"]
     total_reb_off += game["rebOff"]
@@ -617,16 +675,54 @@ for game_id in master_game_dict.keys():
     total_def_team_reb += game["rebDefTeam"]
     total_off_team_reb += game["rebOffTeam"]
 
+    total_steal += game["steal"]
+    total_turnover += game["turnover"]
+    total_turnover_3_second += game["turnover3Second"]
+    total_turnover_bad_pass += game["turnoverBadPass"]
+    total_turnover_bad_pass_out_of_bounds += game["turnoverBadPassOutOfBounds"]
+    total_turnover_kick_ball += game["turnoverKickBall"]
+    total_turnover_lane_violation += game["turnoverLaneViolation"]
+    total_turnover_lost_ball += game["turnoverLostBall"]
+    total_turnover_lost_ball_out_of_bounds += game["turnoverLostBallOutOfBounds"]
+    total_turnover_off_goaltend += game["turnoverOffGoaltend"]
+    total_turnover_shot_clock += game["turnoverShotClock"]
+    total_turnover_step_out_of_bounds += game["turnoverStepOutOfBounds"]
+    total_turnover_travel += game["turnoverTravel"]
 
-reb_probabilities = {
+    total_violation_possession += game["violationDefKickBall"] + \
+        game["violationDefGoaltend"]
+
+    total_violation_def_kick_ball += game["violationDefKickBall"]
+    total_violation_def_goaltend += game["violationDefGoaltend"]
+
+
+general_probabilities = {
+    "ASSIST": total_assist / total_fg_made,
+    "BLOCK": total_block / total_fg,
     "DEF_REB": total_reb_def / total_reb,
     "DEF_REB_TEAM": total_def_team_reb / total_reb,
+    "OFF_FOUL_CHARGE": total_off_foul_charge / total_off_foul,
+    "OFF_FOUL_OTHER": total_off_foul_other / total_off_foul,
     "OFF_REB": total_reb_off / total_reb,
     "OFF_REB_TEAM": total_off_team_reb / total_reb,
+    "TURNOVER_3_SECOND": total_turnover_3_second / total_turnover,
+    "TURNOVER_BAD_PASS": total_turnover_bad_pass / total_turnover,
+    "TURNOVER_BAD_PASS_OUT_OF_BOUNDS": total_turnover_bad_pass_out_of_bounds / total_turnover,
+    "TURNOVER_KICK_BALL": total_turnover_kick_ball / total_turnover,
+    "TURNOVER_LANE_VIOLATION": total_turnover_lane_violation / total_turnover,
+    "TURNOVER_LOST_BALL": total_turnover_lost_ball / total_turnover,
+    "TURNOVER_LOST_BALL_OUT_OF_BOUNDS": total_turnover_lost_ball_out_of_bounds / total_turnover,
+    "TURNOVER_OFF_GOALTEND": total_turnover_off_goaltend / total_turnover,
+    "TURNOVER_SHOT_CLOCK": total_turnover_shot_clock / total_turnover,
+    "TURNOVER_STEP_OUT_OF_BOUNDS": total_turnover_step_out_of_bounds / total_turnover,
+    "TURNOVER_TRAVEL": total_turnover_travel / total_turnover,
+    "VIOLATION_DEF_GOALTEND": total_violation_def_goaltend / total_violation_possession,
+    "VIOLATION_DEF_KICK_BALL": total_violation_def_kick_ball / total_violation_possession,
 }
 
-with open('../server/src/data/probabilities/reb.json', 'w') as outfile:
-    json.dump(reb_probabilities, outfile)
+
+with open('../server/src/data/probabilities/general.json', 'w') as outfile:
+    json.dump(general_probabilities, outfile)
 
 
 fg_x_y_probabilities = {
@@ -674,6 +770,7 @@ with open('../server/src/data/probabilities/possessionOutcomes.json', 'w') as ou
 
 for player_id in master_player_dict.keys():
     player_stats = master_player_dict[player_id]
+
     player_probabilities = {
         "assist": player_stats["assist"] / player_stats["assistChance"] if player_stats["assistChance"] != 0 else 0.0,
         "block": player_stats["defBlock"] / player_stats["defBlockChance"] if player_stats["defBlockChance"] != 0 else 0.0,
@@ -708,6 +805,16 @@ for player_id in master_player_dict.keys():
         "rebDef": player_stats["rebDef"] / player_stats["rebDefChance"] if player_stats["rebDefChance"] != 0 else 0.0,
         "rebOff": player_stats["rebOff"] / player_stats["rebOffChance"] if player_stats["rebOffChance"] != 0 else 0.0,
         "steal": player_stats["defSteal"] / player_stats["defStealChance"] if player_stats["defStealChance"] != 0 else 0.0,
+        "shotTypeArc3": player_stats["fgArc3Chance"] / player_stats["fgTotalChance"] if player_stats["fgArc3Chance"] != 0 else 0.0,
+        "shotTypeArc3Def": player_stats["fgArc3DefChance"] / player_stats["fgTotalDefChance"] if player_stats["fgArc3DefChance"] != 0 else 0.0,
+        "shotTypeAtRim": player_stats["fgAtRimChance"] / player_stats["fgTotalChance"] if player_stats["fgAtRimChance"] != 0 else 0.0,
+        "shotTypeAtRimDef": player_stats["fgAtRimDefChance"] / player_stats["fgTotalDefChance"] if player_stats["fgAtRimDefChance"] != 0 else 0.0,
+        "shotTypeCorner3": player_stats["fgCorner3Chance"] / player_stats["fgTotalChance"] if player_stats["fgCorner3Chance"] != 0 else 0.0,
+        "shotTypeCorner3Def": player_stats["fgCorner3DefChance"] / player_stats["fgTotalDefChance"] if player_stats["fgCorner3DefChance"] != 0 else 0.0,
+        "shotTypeLongMidRange": player_stats["fgLongMidRangeChance"] / player_stats["fgTotalChance"] if player_stats["fgLongMidRangeChance"] != 0 else 0.0,
+        "shotTypeLongMidRangeDef": player_stats["fgLongMidRangeDefChance"] / player_stats["fgTotalDefChance"] if player_stats["fgLongMidRangeDefChance"] != 0 else 0.0,
+        "shotTypeShortMidRange": player_stats["fgShortMidRangeChance"] / player_stats["fgTotalChance"] if player_stats["fgShortMidRangeChance"] != 0 else 0.0,
+        "shotTypeShortMidRangeDef": player_stats["fgShortMidRangeDefChance"] / player_stats["fgTotalDefChance"] if player_stats["fgShortMidRangeDefChance"] != 0 else 0.0,
         "turnover": player_stats["turnover"] / player_stats["turnoverChance"] if player_stats["turnoverChance"] != 0 else 0.0,
         "violationDefGoaltend": player_stats["violationDefGoaltend"] / player_stats["violationDefGoaltendChance"] if player_stats["violationDefGoaltendChance"] != 0 else 0.0,
         "violationDefKickBall": player_stats["violationDefKickBall"] / player_stats["violationDefKickBallChance"] if player_stats["violationDefKickBallChance"] != 0 else 0.0

@@ -580,6 +580,37 @@ class GameSim {
 
     switch (outcome) {
       case "FIELD_GOAL": {
+        //average across all offensive players
+        //figure out shot type
+        //p1 ar 0.25 c3 0.35
+        //p2 ar 0.27 c3 0.37
+        //p3 ar 0.11 c3 0.31
+        //p4 ar 0.31 c3 0.31
+        //p5 ar 0.41 c3 0.31
+
+        //      0.27    0.33
+
+        //defense
+
+        //p1 ar 0.25 c3 0.35
+        //p2 ar 0.27 c3 0.37
+        //p3 ar 0.11 c3 0.31
+        //p4 ar 0.31 c3 0.31
+        //p5 ar 0.41 c3 0.31
+
+        //      0.21    0.39
+
+        //0.23  0.36 select shot type using these probabilities, could build in a weights here
+
+        //have my shot type
+        // pick a player
+        // sum the percent, then divide by the sum
+        // sum array of values and then divide by the sum
+        // otherwise rely on general data, if i have a large enough sample go player xy
+        // 40 observations
+
+        //is made on shot type player
+
         const { isAnd1, isAssist, isBlock, isMade, isPutback, shotType } =
           getFgType();
         console.log("shotType", shotType);
