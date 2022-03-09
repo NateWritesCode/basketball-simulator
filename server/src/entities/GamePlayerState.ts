@@ -46,6 +46,7 @@ class GamePlayerState implements IObserver {
   inspiration: number;
   jumpBallsLost: number;
   jumpBallsWon: number;
+  name: string;
   offensiveFoul: number;
   offensiveFoulCharge: number;
   offensiveFoulNonCharge: number;
@@ -62,7 +63,7 @@ class GamePlayerState implements IObserver {
   tpa: number; //3 attempts
   tpm: number; //3 makes
 
-  constructor(id: number, teamId: number, teamIndex: number) {
+  constructor(id: number, name: string, teamId: number, teamIndex: number) {
     this.andOne = 0;
     this.ast = 0;
     this.blk = 0;
@@ -84,6 +85,7 @@ class GamePlayerState implements IObserver {
     this.inspiration = 0;
     this.jumpBallsLost = 0;
     this.jumpBallsWon = 0;
+    this.name = name;
     this.offensiveFoul = 0;
     this.offensiveFoulCharge = 0;
     this.offensiveFoulNonCharge = 0;

@@ -38,7 +38,6 @@ class GameEventStore implements IObserver {
       gameId: { alwaysThis: true },
       gameType: { alwaysThis: true },
       isCharge: {},
-      isPutback: {},
       neutralFloor: { alwaysThis: true },
       offPlayer1: { getId: true },
       offPlayer2: { getId: true },

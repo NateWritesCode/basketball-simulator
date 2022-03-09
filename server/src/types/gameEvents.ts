@@ -28,7 +28,6 @@ export type GameEventJumpBall = z.infer<typeof GameEventJumpBall>;
 export const GameEvent2FgAttempt = z.object({
   defPlayersOnCourt: z.array(z.number()),
   defTeam: z.instanceof(Team),
-  isPutback: z.boolean(),
   offPlayersOnCourt: z.array(z.number()),
   offPlayer1: z.instanceof(Player),
   offTeam: z.instanceof(Team),
@@ -41,7 +40,6 @@ export type GameEvent2FgAttempt = z.infer<typeof GameEvent2FgAttempt>;
 
 export const GameEvent2FgMade = z.object({
   defTeam: z.instanceof(Team),
-  isPutback: z.boolean(),
   offPlayer1: z.instanceof(Player),
   offPlayer2: z.instanceof(Player),
   offTeam: z.instanceof(Team),
@@ -54,7 +52,6 @@ export type GameEvent2FgMade = z.infer<typeof GameEvent2FgMade>;
 
 export const GameEvent2FgMiss = z.object({
   defTeam: z.instanceof(Team),
-  isPutback: z.boolean(),
   offPlayer1: z.instanceof(Player),
   offTeam: z.instanceof(Team),
   shotType: ShotTypes,
@@ -68,7 +65,6 @@ export const GameEvent2FgMadeFoul = z.object({
   foulPenaltySettings: FoulPenaltySettings,
   defPlayer1: z.instanceof(Player),
   defTeam: z.instanceof(Team),
-  isPutback: z.boolean(),
   offPlayer1: z.instanceof(Player),
   offPlayer2: z.instanceof(Player),
   offTeam: z.instanceof(Team),
@@ -84,7 +80,6 @@ export const GameEvent2FgMissFoul = z.object({
   foulPenaltySettings: FoulPenaltySettings,
   defPlayer1: z.instanceof(Player),
   defTeam: z.instanceof(Team),
-  isPutback: z.boolean(),
   offPlayer1: z.instanceof(Player),
   offTeam: z.instanceof(Team),
   segment: z.number().optional(),

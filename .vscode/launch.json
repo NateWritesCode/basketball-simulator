@@ -8,7 +8,7 @@
       "protocol": "inspector",
       "cwd": "${workspaceRoot}/server",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run-script", "dev"]
+      "runtimeArgs": ["run-script", "dev:prisma"]
     }
   ]
 }

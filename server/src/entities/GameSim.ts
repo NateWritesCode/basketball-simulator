@@ -26,13 +26,23 @@ import {
 } from "../types";
 import {
   get2or3Pointer,
-  get2PointShotType,
-  get3PointShotType,
-  getFgType,
+  getAssistPlayer,
+  getBlockPlayer,
+  getFgAttemptPlayer,
+  getFgIsMadeByPlayer,
+  getFgXYByShotType,
+  getFtIsMadeByPlayer,
+  getIsAssist,
+  getIsBlock,
+  getIsOffensiveRebound,
+  getIsShootingFoul,
+  getIsTeamRebound,
+  getOffensiveReboundPlayer,
   getPossessionLength,
   getPossessionOutcome,
-  getShotXByShotType,
-  getShotYByShotType,
+  getShotType,
+  getStealPlayer,
+  getTurnoverPlayer,
   getTurnoverType,
   getViolationType,
 } from "../utils/probabilities";
@@ -90,14 +100,23 @@ class GameSim {
     this.playerStates = {};
     this.socket = socket;
     this.teams.forEach((team, teamIndex) => {
-      const teamState = new GameTeamState(team.id, timeouts);
+      const teamState = new GameTeamState(
+        team.id,
+        team.getFullName(),
+        timeouts
+      );
       this.teamStates[team.id] = teamState;
       this.observers.push(teamState);
 
       team.players.forEach((player) => {
         player.normalizePlayerData();
 
-        const playerState = new GamePlayerState(player.id, team.id, teamIndex);
+        const playerState = new GamePlayerState(
+          player.id,
+          player.getFullName(),
+          team.id,
+          teamIndex
+        );
         this.playerStates[player.id] = playerState;
         this.observers.push(playerState);
       });
@@ -398,7 +417,7 @@ class GameSim {
     let i = 0;
     do {
       const isLastShot = totalShots === i + 1;
-      const shotMade = random.bool();
+      const shotMade = getFtIsMadeByPlayer(offPlayer1);
       const shotNumber = i + 1;
       const valueToAdd = shotMade ? 1 : 0;
 
@@ -411,16 +430,21 @@ class GameSim {
       });
 
       if (isLastShot && !shotMade) {
-        const isReboundedByOffense = random.bool();
+        const isReboundedByOffense = getIsOffensiveRebound();
+        const isReboundedByTeam = getIsTeamRebound(isReboundedByOffense);
         if (isReboundedByOffense) {
-          const offPlayer1 = this.pickRandomPlayerOnCourtByTeam(this.o);
+          const offPlayer1 = isReboundedByTeam
+            ? null
+            : getOffensiveReboundPlayer(this.playersOnCourt[this.o]);
           this.notifyObservers("OFFENSIVE_REBOUND", {
             offPlayer1,
           });
           isPossessionEventsComplete = false;
         } else {
           //isReboundedByDefense
-          const defPlayer1 = this.pickRandomPlayerOnCourtByTeam(this.d);
+          const defPlayer1 = isReboundedByTeam
+            ? null
+            : getOffensiveReboundPlayer(this.playersOnCourt[this.d]);
           this.notifyObservers("DEFENSIVE_REBOUND", {
             defPlayer1,
           });
@@ -554,9 +578,9 @@ class GameSim {
       outcome === "FIELD_GOAL"
         ? getPossessionLength("fg")
         : outcome === "JUMP_BALL"
-        ? getPossessionLength("general")
+        ? getPossessionLength("jumpBall")
         : outcome === "FOUL_DEFENSIVE_NON_SHOOTING"
-        ? getPossessionLength("general")
+        ? getPossessionLength("foul")
         : outcome === "OFFENSIVE_FOUL"
         ? getPossessionLength("foul")
         : outcome === "TURNOVER"
@@ -578,48 +602,22 @@ class GameSim {
       this.timeSegments[this.timeSegmentIndex] -= lengthOfPossession;
     }
 
+    const offPlayersOnCourt = this.playersOnCourt[this.o];
+    const defPlayersOnCourt = this.playersOnCourt[this.d];
+
     switch (outcome) {
       case "FIELD_GOAL": {
-        //average across all offensive players
-        //figure out shot type
-        //p1 ar 0.25 c3 0.35
-        //p2 ar 0.27 c3 0.37
-        //p3 ar 0.11 c3 0.31
-        //p4 ar 0.31 c3 0.31
-        //p5 ar 0.41 c3 0.31
-
-        //      0.27    0.33
-
-        //defense
-
-        //p1 ar 0.25 c3 0.35
-        //p2 ar 0.27 c3 0.37
-        //p3 ar 0.11 c3 0.31
-        //p4 ar 0.31 c3 0.31
-        //p5 ar 0.41 c3 0.31
-
-        //      0.21    0.39
-
-        //0.23  0.36 select shot type using these probabilities, could build in a weights here
-
-        //have my shot type
-        // pick a player
-        // sum the percent, then divide by the sum
-        // sum array of values and then divide by the sum
-        // otherwise rely on general data, if i have a large enough sample go player xy
-        // 40 observations
-
         //is made on shot type player
+        const shotType = getShotType([offPlayersOnCourt, defPlayersOnCourt]);
+        const offPlayer1 = getFgAttemptPlayer(offPlayersOnCourt, shotType);
+        const isMade = getFgIsMadeByPlayer(offPlayer1, shotType);
 
-        const { isAnd1, isAssist, isBlock, isMade, isPutback, shotType } =
-          getFgType();
-        console.log("shotType", shotType);
-        const offPlayer1 = this.pickRandomPlayerOnCourtByTeam(this.o);
+        // const { isAnd1, isAssist, isBlock, isMade,  shotType } =
+        //   getFgType();
         const pts = get2or3Pointer(shotType);
-        const x = getShotXByShotType(shotType);
-        const y = getShotYByShotType(shotType);
+        const [x, y] = getFgXYByShotType(shotType);
+
         this.notifyObservers(`${pts}FG_ATTEMPT`, {
-          isPutback,
           offPlayer1,
           shotType,
           shotValue: pts,
@@ -627,17 +625,18 @@ class GameSim {
           y,
         });
 
-        const isFouled = isAnd1;
+        const isFouled = getIsShootingFoul();
+        const isBlock = getIsBlock();
 
         if (isMade && isFouled) {
+          const isAssist = getIsAssist();
           const assistingPlayer = isAssist
-            ? this.pickRandomPlayerOnCourtByTeamExcludeOne(this.o, offPlayer1)
+            ? getAssistPlayer(offPlayersOnCourt)
             : null;
           const foulingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
           this.notifyObservers(`${pts}FG_MADE_FOUL`, {
             defPlayer1: foulingPlayer,
             foulPenaltySettings: this.foulPenaltySettings,
-            isPutback,
             offPlayer1,
             offPlayer2: assistingPlayer,
             segment:
@@ -675,11 +674,11 @@ class GameSim {
             offPlayer1,
           });
         } else if (isMade && !isFouled) {
+          const isAssist = getIsAssist();
           const assistingPlayer = isAssist
-            ? this.pickRandomPlayerOnCourtByTeamExcludeOne(this.o, offPlayer1)
+            ? getAssistPlayer(offPlayersOnCourt)
             : null;
           this.notifyObservers(`${pts}FG_MADE`, {
-            isPutback,
             offPlayer1,
             offPlayer2: assistingPlayer,
             shotType,
@@ -697,12 +696,12 @@ class GameSim {
             y,
           });
 
-          const isOffensiveRebound = random.bool();
-          let reboundingPlayer: Player | undefined;
-          const isTeamRebound = random.bool();
+          const isOffensiveRebound = getIsOffensiveRebound();
+          let reboundingPlayer: Player | null = null;
+          const isTeamRebound = getIsTeamRebound(isOffensiveRebound);
 
           if (isBlock) {
-            const blockingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
+            const blockingPlayer = getBlockPlayer(defPlayersOnCourt);
             this.notifyObservers(`${pts}FG_BLOCK`, {
               defPlayer1: blockingPlayer,
               offPlayer1,
@@ -713,7 +712,9 @@ class GameSim {
 
           if (isOffensiveRebound) {
             if (!isTeamRebound) {
-              reboundingPlayer = this.pickRandomPlayerOnCourtByTeam(this.o);
+              reboundingPlayer = getOffensiveReboundPlayer(
+                this.playersOnCourt[this.o]
+              );
             }
 
             this.notifyObservers(`OFFENSIVE_REBOUND`, {
@@ -725,7 +726,9 @@ class GameSim {
           } else {
             //isDefensiveRebound
             if (!isTeamRebound) {
-              reboundingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
+              reboundingPlayer = getOffensiveReboundPlayer(
+                this.playersOnCourt[this.d]
+              );
             }
 
             this.notifyObservers(`DEFENSIVE_REBOUND`, {
@@ -837,12 +840,12 @@ class GameSim {
       }
 
       case "TURNOVER": {
-        const offPlayer1 = this.pickRandomPlayerOnCourtByTeam(this.o);
+        const offPlayer1 = getTurnoverPlayer(offPlayersOnCourt);
         const team = this.teams[this.o];
         const turnoverType = getTurnoverType();
 
         if (turnoverType === "BAD_PASS" || turnoverType === "LOST_BALL") {
-          const defPlayer1 = this.pickRandomPlayerOnCourtByTeam(this.d);
+          const defPlayer1 = getStealPlayer(defPlayersOnCourt);
           this.notifyObservers("STEAL", {
             defPlayer1,
             offPlayer1,
@@ -863,11 +866,16 @@ class GameSim {
         }
         break;
       }
-      case "VIOLATION": {
-        const violationType = getViolationType();
-
+      case "VIOLATION_DEF_GOALTEND": {
         this.notifyObservers("VIOLATION", {
-          violationType,
+          violationType: "DEF_GOALTEND",
+        });
+
+        break;
+      }
+      case "VIOLATION_DEF_KICK_BALL": {
+        this.notifyObservers("VIOLATION", {
+          violationType: "DEF_KICK_BALL",
         });
 
         break;
@@ -913,7 +921,7 @@ class GameSim {
     console.log("Simming shootout");
   };
 
-  start = (): Promise<void> => {
+  start = () => {
     this.notifyObservers("GAME_START");
 
     let simPossessionIsOver = false;
@@ -936,9 +944,16 @@ class GameSim {
 
     this.notifyObservers("GAME_END");
 
-    console.log(this.teamStates);
-
-    return Promise.resolve();
+    return {
+      playerStats: [
+        this.teams[0].players.map((player) => this.playerStates[player.id]),
+        this.teams[1].players.map((player) => this.playerStates[player.id]),
+      ],
+      teamStats: [
+        this.teamStates[this.teams[0].id],
+        this.teamStates[this.teams[1].id],
+      ],
+    };
   };
 }
 

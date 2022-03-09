@@ -41,6 +41,14 @@ master_x_y_dict = {
     "LongMidRange": {},
     "ShortMidRange": {}
 }
+master_play_length_dict = {
+    "fg": {},
+    "foul": {},
+    "jumpBall": {},
+    "rebound": {},
+    "turnover": {},
+    "violation": {}
+}
 
 
 def players_on_court_update(players_on_court, dict, field, value):
@@ -60,7 +68,18 @@ def team_update(team_id, dict, field, value):
     dict[team_id][field] += value
 
 
-for season_game in season.games.items[:5]:
+def possession_length_update(possession_type, dict, seconds):
+    if seconds <= 0:
+        return
+    key = str(int(seconds))
+
+    if key in dict[possession_type]:
+        dict[possession_type][key] += 1
+    else:
+        dict[possession_type][key] = 1
+
+
+for season_game in season.games.items[:100]:
     game_id = season_game.game_id
     print("Processing game id: ", game_id)
     game = None
@@ -78,6 +97,7 @@ for season_game in season.games.items[:5]:
         "block": 0,
         "ejection": 0,
         "fg": 0,
+        "fgIncludingShootingFoulsMissed": 0,
         "fgArc3": 0,
         "fgAtRim": 0,
         "fgCorner3": 0,
@@ -215,6 +235,7 @@ for season_game in season.games.items[:5]:
 
     for possession in game.possessions.items:
         for possession_event in possession.events:
+            possession_event_length = possession_event.seconds_since_previous_event
             if possession_event.count_as_possession:
                 game_update(game_id, master_game_dict, "possession", 1)
 
@@ -240,6 +261,8 @@ for season_game in season.games.items[:5]:
                         is_jump_ball_starts_period = True
                 if is_jump_ball_starts_period != True:
                     game_update(game_id, master_game_dict, "jumpBall", 1)
+                    possession_length_update(
+                        "jumpBall", master_play_length_dict, possession_event_length)
                 continue
 
             if isinstance(possession_event, Replay):
@@ -271,6 +294,9 @@ for season_game in season.games.items[:5]:
                     player_update(player, master_player_dict,
                                   "violationDefGoaltend", 1)
 
+                    possession_length_update(
+                        "violation", master_play_length_dict, possession_event_length)
+
                 if possession_event.is_jumpball_violation:
                     game_update(game_id, master_game_dict,
                                 "violationJumpBall", 1)
@@ -282,11 +308,15 @@ for season_game in season.games.items[:5]:
                     player = possession_event.player1_id
                     player_update(player, master_player_dict,
                                   "violationDefKickBall", 1)
+                    possession_length_update(
+                        "violation", master_play_length_dict, possession_event_length)
                 if possession_event.is_lane_violation:
                     game_update(game_id, master_game_dict,
                                 "violationLane", 1)
 
             if isinstance(possession_event, Turnover) and not possession_event.is_no_turnover:
+                possession_length_update(
+                    "turnover", master_play_length_dict, possession_event_length)
                 players_on_court_update(
                     offense_players, master_player_dict, "turnoverChance", 1)
                 offense_player = possession_event.player1_id
@@ -346,15 +376,21 @@ for season_game in season.games.items[:5]:
                     if possession_event.foul_that_led_to_ft.foul_type_string == "2pt Shooting Foul":
                         player_update(player, master_player_dict,
                                       "fgTotalMissFoul2", 1)
+                        game_update(game_id, master_game_dict,
+                                    "fgIncludingShootingFoulsMissed", 1)
 
                     if possession_event.foul_that_led_to_ft.foul_type_string == "3pt Shooting Foul":
                         player_update(player, master_player_dict,
                                       "fgTotalMissFoul3", 1)
+                        game_update(game_id, master_game_dict,
+                                    "fgIncludingShootingFoulsMissed", 1)
 
                 continue
 
             if isinstance(possession_event, Rebound):
                 if possession_event.is_real_rebound:
+                    possession_length_update(
+                        "rebound", master_play_length_dict, possession_event_length)
                     game_update(
                         game_id, master_game_dict, "reb", 1)
                     players_on_court_update(
@@ -382,6 +418,8 @@ for season_game in season.games.items[:5]:
             if isinstance(possession_event, Foul):
                 game_update(game_id, master_game_dict,
                             "foul", 1)
+                possession_length_update(
+                    "foul", master_play_length_dict, possession_event_length)
                 if possession_event.is_away_from_play_foul:
                     game_update(game_id, master_game_dict,
                                 "foulAwayFromPlay", 1)
@@ -464,12 +502,16 @@ for season_game in season.games.items[:5]:
                                     "foulDefNonShooting", 1)
 
             if isinstance(possession_event, FieldGoal):
+                possession_length_update(
+                    "fg", master_play_length_dict, possession_event_length)
                 players_on_court_update(
                     offense_players, master_player_dict, "fgTotalChance", 1)
                 players_on_court_update(
                     defense_players, master_player_dict, "fgTotalDefChance", 1)
                 game_update(game_id, master_game_dict,
                             "fg", 1)
+                game_update(game_id, master_game_dict,
+                            "fgIncludingShootingFoulsMissed", 1)
 
                 if hasattr(possession_event, 'player1_id') and possession_event.player1_id != 0:
                     player = possession_event.player1_id
@@ -613,6 +655,8 @@ total_corner3 = 0
 total_def_team_reb = 0
 total_fg = 0
 total_fg_made = 0
+total_fg_including_shooting_foul_missed = 0
+total_foul_shooting = 0
 total_long_mid_range = 0
 total_off_foul = 0
 total_off_foul_charge = 0
@@ -659,6 +703,10 @@ for game_id in master_game_dict.keys():
     total_off_foul_charge += game["foulOffCharge"]
     total_off_foul_other += game["foulOffOther"]
 
+    total_foul_shooting += game["foulShooting"]
+
+    total_fg_including_shooting_foul_missed += game["fgIncludingShootingFoulsMissed"]
+
     total_fg += game["fg"]
     total_fg_made += game["fgMade"]
     total_assist += game["assist"]
@@ -701,6 +749,7 @@ general_probabilities = {
     "BLOCK": total_block / total_fg,
     "DEF_REB": total_reb_def / total_reb,
     "DEF_REB_TEAM": total_def_team_reb / total_reb,
+    "FG_SHOOTING_FOUL": total_foul_shooting / total_fg_including_shooting_foul_missed,
     "OFF_FOUL_CHARGE": total_off_foul_charge / total_off_foul,
     "OFF_FOUL_OTHER": total_off_foul_other / total_off_foul,
     "OFF_REB": total_reb_off / total_reb,
@@ -726,26 +775,26 @@ with open('../server/src/data/probabilities/general.json', 'w') as outfile:
 
 
 fg_x_y_probabilities = {
-    "ARC_3": {},
-    "AT_RIM": {},
-    "CORNER_3": {},
-    "LONG_MID_RANGE": {},
-    "SHORT_MID_RANGE": {}
+    "Arc3": {},
+    "AtRim": {},
+    "Corner3": {},
+    "LongMidRange": {},
+    "ShortMidRange": {}
 }
 
 for shot_type in master_x_y_dict.keys():
     for x_y in master_x_y_dict[shot_type]:
         if shot_type == "Arc3":
-            fg_x_y_probabilities["ARC_3"][x_y] = master_x_y_dict[shot_type][x_y] / total_arc3
+            fg_x_y_probabilities["Arc3"][x_y] = master_x_y_dict[shot_type][x_y] / total_arc3
         elif shot_type == "AtRim":
-            fg_x_y_probabilities["AT_RIM"][x_y] = master_x_y_dict[shot_type][x_y] / total_at_rim
+            fg_x_y_probabilities["AtRim"][x_y] = master_x_y_dict[shot_type][x_y] / total_at_rim
         elif shot_type == "Corner3":
-            fg_x_y_probabilities["CORNER_3"][x_y] = master_x_y_dict[shot_type][x_y] / total_corner3
+            fg_x_y_probabilities["Corner3"][x_y] = master_x_y_dict[shot_type][x_y] / total_corner3
         elif shot_type == "LongMidRange":
-            fg_x_y_probabilities["LONG_MID_RANGE"][x_y] = master_x_y_dict[shot_type][x_y] / \
+            fg_x_y_probabilities["LongMidRange"][x_y] = master_x_y_dict[shot_type][x_y] / \
                 total_long_mid_range
         elif shot_type == "ShortMidRange":
-            fg_x_y_probabilities["SHORT_MID_RANGE"][x_y] = master_x_y_dict[shot_type][x_y] / \
+            fg_x_y_probabilities["ShortMidRange"][x_y] = master_x_y_dict[shot_type][x_y] / \
                 total_short_mid_range
         else:
             raise("Don't know what this is")
@@ -776,30 +825,30 @@ for player_id in master_player_dict.keys():
         "block": player_stats["defBlock"] / player_stats["defBlockChance"] if player_stats["defBlockChance"] != 0 else 0.0,
         "fgArc3Attempt": player_stats["fgArc3Attempt"] / player_stats["fgArc3Chance"] if player_stats["fgArc3Chance"] != 0 else 0.0,
         "fgArc3Block": player_stats["fgArc3Block"] / player_stats["fgArc3Chance"] if player_stats["fgArc3Chance"] != 0 else 0.0,
-        "fgArc3Made": player_stats["fgArc3Made"] / player_stats["fgArc3Chance"] if player_stats["fgArc3Chance"] != 0 else 0.0,
+        "fgArc3Made": player_stats["fgArc3Made"] / player_stats["fgArc3Attempt"] if player_stats["fgArc3Attempt"] != 0 else 0.0,
         "fgArc3MadeFoul": player_stats["fgArc3MadeFoul"] / player_stats["fgArc3Chance"] if player_stats["fgArc3Chance"] != 0 else 0.0,
         "fgAtRimAttempt": player_stats["fgAtRimAttempt"] / player_stats["fgAtRimChance"] if player_stats["fgAtRimChance"] != 0 else 0.0,
         "fgAtRimBlock": player_stats["fgAtRimBlock"] / player_stats["fgAtRimChance"] if player_stats["fgAtRimChance"] != 0 else 0.0,
-        "fgAtRimMade": player_stats["fgAtRimMade"] / player_stats["fgAtRimChance"] if player_stats["fgAtRimChance"] != 0 else 0.0,
+        "fgAtRimMade": player_stats["fgAtRimMade"] / player_stats["fgAtRimAttempt"] if player_stats["fgAtRimAttempt"] != 0 else 0.0,
         "fgAtRimMadeFoul": player_stats["fgAtRimMadeFoul"] / player_stats["fgAtRimChance"] if player_stats["fgAtRimChance"] != 0 else 0.0,
         "fgCorner3Attempt": player_stats["fgCorner3Attempt"] / player_stats["fgCorner3Chance"] if player_stats["fgCorner3Chance"] != 0 else 0.0,
         "fgCorner3Block": player_stats["fgCorner3Block"] / player_stats["fgCorner3Chance"] if player_stats["fgCorner3Chance"] != 0 else 0.0,
-        "fgCorner3Made": player_stats["fgCorner3Made"] / player_stats["fgCorner3Chance"] if player_stats["fgCorner3Chance"] != 0 else 0.0,
+        "fgCorner3Made": player_stats["fgCorner3Made"] / player_stats["fgCorner3Attempt"] if player_stats["fgCorner3Attempt"] != 0 else 0.0,
         "fgCorner3MadeFoul": player_stats["fgCorner3MadeFoul"] / player_stats["fgCorner3Chance"] if player_stats["fgCorner3Chance"] != 0 else 0.0,
         "fgLongMidRangeAttempt": player_stats["fgLongMidRangeAttempt"] / player_stats["fgLongMidRangeChance"] if player_stats["fgLongMidRangeChance"] != 0 else 0.0,
         "fgLongMidRangeBlock": player_stats["fgLongMidRangeBlock"] / player_stats["fgLongMidRangeChance"] if player_stats["fgLongMidRangeChance"] != 0 else 0.0,
-        "fgLongMidRangeMade": player_stats["fgLongMidRangeMade"] / player_stats["fgLongMidRangeChance"] if player_stats["fgLongMidRangeChance"] != 0 else 0.0,
+        "fgLongMidRangeMade": player_stats["fgLongMidRangeMade"] / player_stats["fgLongMidRangeAttempt"] if player_stats["fgLongMidRangeAttempt"] != 0 else 0.0,
         "fgLongMidRangeMadeFoul": player_stats["fgLongMidRangeMadeFoul"] / player_stats["fgLongMidRangeChance"] if player_stats["fgLongMidRangeChance"] != 0 else 0.0,
         "fgShortMidRangeAttempt": player_stats["fgShortMidRangeAttempt"] / player_stats["fgShortMidRangeChance"] if player_stats["fgShortMidRangeChance"] != 0 else 0.0,
         "fgShortMidRangeBlock": player_stats["fgShortMidRangeBlock"] / player_stats["fgShortMidRangeChance"] if player_stats["fgShortMidRangeChance"] != 0 else 0.0,
-        "fgShortMidRangeMade": player_stats["fgShortMidRangeMade"] / player_stats["fgShortMidRangeChance"] if player_stats["fgShortMidRangeChance"] != 0 else 0.0,
+        "fgShortMidRangeMade": player_stats["fgShortMidRangeMade"] / player_stats["fgShortMidRangeAttempt"] if player_stats["fgShortMidRangeAttempt"] != 0 else 0.0,
         "fgShortMidRangeMadeFoul": player_stats["fgShortMidRangeMadeFoul"] / player_stats["fgShortMidRangeChance"] if player_stats["fgShortMidRangeChance"] != 0 else 0.0,
         "fgXY": {
-            "ARC_3": {},
-            "AT_RIM": {},
-            "CORNER_3": {},
-            "LONG_MID_RANGE": {},
-            "SHORT_MID_RANGE": {}
+            "Arc3": {},
+            "AtRim": {},
+            "Corner3": {},
+            "LongMidRange": {},
+            "ShortMidRange": {}
         },
         "freeThrow": player_stats["ftMade"] / player_stats["ftAttempt"] if player_stats["ftAttempt"] != 0 else 0.0,
         "rebDef": player_stats["rebDef"] / player_stats["rebDefChance"] if player_stats["rebDefChance"] != 0 else 0.0,
@@ -817,28 +866,45 @@ for player_id in master_player_dict.keys():
         "shotTypeShortMidRangeDef": player_stats["fgShortMidRangeDefChance"] / player_stats["fgTotalDefChance"] if player_stats["fgShortMidRangeDefChance"] != 0 else 0.0,
         "turnover": player_stats["turnover"] / player_stats["turnoverChance"] if player_stats["turnoverChance"] != 0 else 0.0,
         "violationDefGoaltend": player_stats["violationDefGoaltend"] / player_stats["violationDefGoaltendChance"] if player_stats["violationDefGoaltendChance"] != 0 else 0.0,
-        "violationDefKickBall": player_stats["violationDefKickBall"] / player_stats["violationDefKickBallChance"] if player_stats["violationDefKickBallChance"] != 0 else 0.0
+        "violationDefKickBall": player_stats["violationDefKickBall"] / player_stats["violationDefKickBallChance"] if player_stats["violationDefKickBallChance"] != 0 else 0.0,
+        "totals": {
+            **player_stats
+        }
     }
 
     for shot_type in player_stats["fgXY"].keys():
         for x_y in player_stats["fgXY"][shot_type]:
             if shot_type == "Arc3":
-                player_probabilities["fgXY"]["ARC_3"][x_y] = player_stats["fgXY"][shot_type][x_y] / \
+                player_probabilities["fgXY"]["Arc3"][x_y] = player_stats["fgXY"][shot_type][x_y] / \
                     player_stats["fgArc3Attempt"]
             elif shot_type == "AtRim":
-                player_probabilities["fgXY"]["AT_RIM"][x_y] = player_stats["fgXY"][shot_type][x_y] / \
+                player_probabilities["fgXY"]["AtRim"][x_y] = player_stats["fgXY"][shot_type][x_y] / \
                     player_stats["fgAtRimAttempt"]
             elif shot_type == "Corner3":
-                player_probabilities["fgXY"]["CORNER_3"][x_y] = player_stats["fgXY"][shot_type][x_y] / \
+                player_probabilities["fgXY"]["Corner3"][x_y] = player_stats["fgXY"][shot_type][x_y] / \
                     player_stats["fgCorner3Attempt"]
             elif shot_type == "LongMidRange":
-                player_probabilities["fgXY"]["LONG_MID_RANGE"][x_y] = player_stats["fgXY"][shot_type][x_y] / \
+                player_probabilities["fgXY"]["LongMidRange"][x_y] = player_stats["fgXY"][shot_type][x_y] / \
                     player_stats["fgLongMidRangeAttempt"]
             elif shot_type == "ShortMidRange":
-                player_probabilities["fgXY"]["SHORT_MID_RANGE"][x_y] = player_stats["fgXY"][shot_type][x_y] / \
+                player_probabilities["fgXY"]["ShortMidRange"][x_y] = player_stats["fgXY"][shot_type][x_y] / \
                     player_stats["fgShortMidRangeAttempt"]
             else:
                 raise("Don't know what this is")
 
     with open(f'../server/src/data/probabilities-player/{player_id}.json', 'w') as outfile:
         json.dump(player_probabilities, outfile)
+
+
+play_length_output = {}
+
+for key in master_play_length_dict.keys():
+    total = 0
+    play_length_output[key] = {}
+    for nested_key in master_play_length_dict[key]:
+        total += master_play_length_dict[key][nested_key]
+    for nested_key in master_play_length_dict[key]:
+        play_length_output[key][nested_key] = master_play_length_dict[key][nested_key] / total
+
+with open(f'../server/src/data/probabilities/possessionLength.json', 'w') as outfile:
+    json.dump(play_length_output, outfile)

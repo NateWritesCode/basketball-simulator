@@ -1,4 +1,5 @@
 import { mutationField } from "nexus";
+import fs from "fs";
 import random from "random";
 import { sample } from "simple-statistics";
 import { GameSim, Player, Team } from "../../entities";
@@ -10,18 +11,44 @@ import {
 } from "../../types";
 
 export const startGameSim = mutationField("startGameSim", {
-  type: "Boolean",
+  type: "SimResult",
   async resolve(_parent, _args, { prisma, socket }) {
     try {
-      const teamsFetch = await prisma.team.findMany({});
-      const [team0, team1] = sample(teamsFetch, 2, () => random.float(0, 1));
+      const team0 = await prisma.team.findUnique({ where: { abbrev: "CHI" } });
+      const team1 = await prisma.team.findUnique({ where: { abbrev: "MIL" } });
+
+      if (!team0 || !team1) {
+        throw new Error("Teams do not exist");
+      }
+
       const playersFetch = await prisma.player.findMany({
         where: {
-          OR: [{ teamId: team0.id }, { teamId: team1.id }],
+          id: {
+            in: [
+              201942, 203897, 1629632, 202696, 1628366, 203507, 201950, 203114,
+              1626171, 201572,
+            ],
+          },
         },
       });
 
-      const players = playersFetch.map((player) => new Player(player));
+      console.log("team0", team0);
+      console.log("team1", team1);
+
+      console.log("playersFetch", playersFetch);
+
+      const players = playersFetch.map(
+        (player) =>
+          new Player(
+            player,
+            JSON.parse(
+              fs.readFileSync(
+                `./src/data/probabilities-player/${player.id}.json`,
+                "utf-8"
+              )
+            )
+          )
+      );
 
       const teams = [team0, team1].map(
         (team) =>
@@ -53,11 +80,16 @@ export const startGameSim = mutationField("startGameSim", {
         timeouts: 7,
       });
 
-      console.log("Starting the game");
+      const { playerStats, teamStats } = gameSim.start();
 
-      await gameSim.start();
-
-      return true;
+      return {
+        team0,
+        team0PlayerStats: playerStats[0],
+        team0Stats: teamStats[0],
+        team1,
+        team1PlayerStats: playerStats[1],
+        team1Stats: teamStats[1],
+      };
     } catch (error) {
       console.error(error);
       throw new Error(error);

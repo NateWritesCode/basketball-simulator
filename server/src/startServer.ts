@@ -37,6 +37,16 @@ export default async () => {
     debug: true,
     introspection: true,
     schema: schema as unknown as GraphQLSchema,
+    formatError: (err) => {
+      console.log("err", err);
+      // Don't give the specific errors to the client.
+      if (err.message.startsWith("Database Error: ")) {
+        return new Error("Internal server error");
+      }
+      // Otherwise return the original error. The error can also
+      // be manipulated in other ways, as long as it's returned.
+      return err;
+    },
   };
 
   const apolloServer = new ApolloServer(apolloServerOptions);

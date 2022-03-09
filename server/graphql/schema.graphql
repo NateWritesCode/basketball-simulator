@@ -31,7 +31,7 @@ scalar Json @specifiedBy(url: "http://www.ecma-international.org/publications/fi
 
 type Mutation {
   createOneTest: Boolean
-  startGameSim: Boolean
+  startGameSim: SimResult
 }
 
 type Player {
@@ -67,6 +67,92 @@ type Query {
   getOnePlayer(slug: String!): Player
   getOneTeam(abbrev: String!): Team
   getOneTest: Boolean
+}
+
+"""Sim result"""
+type SimResult {
+  team0: Team
+  team0PlayerStats: [SimResultPlayer]
+  team0Stats: SimResultTeam
+  team1: Team
+  team1PlayerStats: [SimResultPlayer]
+  team1Stats: SimResultTeam
+}
+
+"""Sim result player"""
+type SimResultPlayer {
+  andOne: Int
+  ast: Int
+  blk: Int
+  blkd: Int
+  drb: Int
+  dunks: Int
+  fatigue: Int
+  fga: Int
+  fgm: Int
+  fouls: Int
+  foulsOffensive: Int
+  foulsShooting: Int
+  fta: Int
+  ftm: Int
+  heaves: Int
+  id: Int
+  inspiration: Int
+  jumpBallsLost: Int
+  jumpBallsWon: Int
+  name: String
+  offensiveFoul: Int
+  offensiveFoulCharge: Int
+  offensiveFoulNonCharge: Int
+  orb: Int
+  pga: Int
+  plusMinus: Int
+  pts: Int
+  secondsPlayed: Int
+  starter: Boolean
+  stl: Int
+  teamId: Int
+  teamIndex: Int
+  tov: Int
+  tpa: Int
+  tpm: Int
+}
+
+"""Sim result team"""
+type SimResultTeam {
+  andOne: Int
+  ast: Int
+  blk: Int
+  blkd: Int
+  drb: Int
+  dunks: Int
+  fga: Int
+  fgm: Int
+  fouls: Int
+  foulsBySegment: [Int]
+  foulsOffensive: Int
+  foulsShooting: Int
+  fta: Int
+  ftm: Int
+  heaves: Int
+  id: Int
+  jumpBallsLost: Int
+  jumpBallsWon: Int
+  name: String
+  offensiveFoul: Int
+  offensiveFoulCharge: Int
+  offensiveFoulNonCharge: Int
+  orb: Int
+  pf: Int
+  pga: Int
+  pts: Int
+  stl: Int
+  teamDrb: Int
+  teamOrb: Int
+  timeouts: Int
+  tov: Int
+  tpa: Int
+  tpm: Int
 }
 
 type Team {

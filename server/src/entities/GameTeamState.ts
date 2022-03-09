@@ -39,6 +39,7 @@ class GameTeamState implements IObserver {
   id: number;
   jumpBallsLost: number;
   jumpBallsWon: number;
+  name: string;
   offensiveFoul: number;
   offensiveFoulCharge: number;
   offensiveFoulNonCharge: number;
@@ -55,7 +56,7 @@ class GameTeamState implements IObserver {
   tpa: number;
   tpm: number;
 
-  constructor(id: number, timeouts: number) {
+  constructor(id: number, name: string, timeouts: number) {
     this.andOne = 0;
     this.ast = 0;
     this.blk = 0;
@@ -76,6 +77,7 @@ class GameTeamState implements IObserver {
     this.id = id;
     this.jumpBallsLost = 0;
     this.jumpBallsWon = 0;
+    this.name = name;
     this.offensiveFoul = 0;
     this.offensiveFoulCharge = 0;
     this.offensiveFoulNonCharge = 0;

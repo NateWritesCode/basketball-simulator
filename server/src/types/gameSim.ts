@@ -17,7 +17,6 @@ export const FgType = z.object({
   isAssist: z.boolean(),
   isBlock: z.boolean(),
   isMade: z.boolean(),
-  isPutback: z.boolean(),
   shotType: ShotTypes,
 });
 export type FgType = z.infer<typeof FgType>;

@@ -113,6 +113,86 @@ export interface NexusGenObjects {
     weight: number; // Int!
   }
   Query: {};
+  SimResult: { // root type
+    team0?: NexusGenRootTypes['Team'] | null; // Team
+    team0PlayerStats?: Array<NexusGenRootTypes['SimResultPlayer'] | null> | null; // [SimResultPlayer]
+    team0Stats?: NexusGenRootTypes['SimResultTeam'] | null; // SimResultTeam
+    team1?: NexusGenRootTypes['Team'] | null; // Team
+    team1PlayerStats?: Array<NexusGenRootTypes['SimResultPlayer'] | null> | null; // [SimResultPlayer]
+    team1Stats?: NexusGenRootTypes['SimResultTeam'] | null; // SimResultTeam
+  }
+  SimResultPlayer: { // root type
+    andOne?: number | null; // Int
+    ast?: number | null; // Int
+    blk?: number | null; // Int
+    blkd?: number | null; // Int
+    drb?: number | null; // Int
+    dunks?: number | null; // Int
+    fatigue?: number | null; // Int
+    fga?: number | null; // Int
+    fgm?: number | null; // Int
+    fouls?: number | null; // Int
+    foulsOffensive?: number | null; // Int
+    foulsShooting?: number | null; // Int
+    fta?: number | null; // Int
+    ftm?: number | null; // Int
+    heaves?: number | null; // Int
+    id?: number | null; // Int
+    inspiration?: number | null; // Int
+    jumpBallsLost?: number | null; // Int
+    jumpBallsWon?: number | null; // Int
+    name?: string | null; // String
+    offensiveFoul?: number | null; // Int
+    offensiveFoulCharge?: number | null; // Int
+    offensiveFoulNonCharge?: number | null; // Int
+    orb?: number | null; // Int
+    pga?: number | null; // Int
+    plusMinus?: number | null; // Int
+    pts?: number | null; // Int
+    secondsPlayed?: number | null; // Int
+    starter?: boolean | null; // Boolean
+    stl?: number | null; // Int
+    teamId?: number | null; // Int
+    teamIndex?: number | null; // Int
+    tov?: number | null; // Int
+    tpa?: number | null; // Int
+    tpm?: number | null; // Int
+  }
+  SimResultTeam: { // root type
+    andOne?: number | null; // Int
+    ast?: number | null; // Int
+    blk?: number | null; // Int
+    blkd?: number | null; // Int
+    drb?: number | null; // Int
+    dunks?: number | null; // Int
+    fga?: number | null; // Int
+    fgm?: number | null; // Int
+    fouls?: number | null; // Int
+    foulsBySegment?: Array<number | null> | null; // [Int]
+    foulsOffensive?: number | null; // Int
+    foulsShooting?: number | null; // Int
+    fta?: number | null; // Int
+    ftm?: number | null; // Int
+    heaves?: number | null; // Int
+    id?: number | null; // Int
+    jumpBallsLost?: number | null; // Int
+    jumpBallsWon?: number | null; // Int
+    name?: string | null; // String
+    offensiveFoul?: number | null; // Int
+    offensiveFoulCharge?: number | null; // Int
+    offensiveFoulNonCharge?: number | null; // Int
+    orb?: number | null; // Int
+    pf?: number | null; // Int
+    pga?: number | null; // Int
+    pts?: number | null; // Int
+    stl?: number | null; // Int
+    teamDrb?: number | null; // Int
+    teamOrb?: number | null; // Int
+    timeouts?: number | null; // Int
+    tov?: number | null; // Int
+    tpa?: number | null; // Int
+    tpm?: number | null; // Int
+  }
   Team: { // root type
     abbrev: string; // String!
     facebook: string; // String!
@@ -143,7 +223,7 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     createOneTest: boolean | null; // Boolean
-    startGameSim: boolean | null; // Boolean
+    startGameSim: NexusGenRootTypes['SimResult'] | null; // SimResult
   }
   Player: { // field return type
     active: boolean; // Boolean!
@@ -178,6 +258,86 @@ export interface NexusGenFieldTypes {
     getOneTeam: NexusGenRootTypes['Team'] | null; // Team
     getOneTest: boolean | null; // Boolean
   }
+  SimResult: { // field return type
+    team0: NexusGenRootTypes['Team'] | null; // Team
+    team0PlayerStats: Array<NexusGenRootTypes['SimResultPlayer'] | null> | null; // [SimResultPlayer]
+    team0Stats: NexusGenRootTypes['SimResultTeam'] | null; // SimResultTeam
+    team1: NexusGenRootTypes['Team'] | null; // Team
+    team1PlayerStats: Array<NexusGenRootTypes['SimResultPlayer'] | null> | null; // [SimResultPlayer]
+    team1Stats: NexusGenRootTypes['SimResultTeam'] | null; // SimResultTeam
+  }
+  SimResultPlayer: { // field return type
+    andOne: number | null; // Int
+    ast: number | null; // Int
+    blk: number | null; // Int
+    blkd: number | null; // Int
+    drb: number | null; // Int
+    dunks: number | null; // Int
+    fatigue: number | null; // Int
+    fga: number | null; // Int
+    fgm: number | null; // Int
+    fouls: number | null; // Int
+    foulsOffensive: number | null; // Int
+    foulsShooting: number | null; // Int
+    fta: number | null; // Int
+    ftm: number | null; // Int
+    heaves: number | null; // Int
+    id: number | null; // Int
+    inspiration: number | null; // Int
+    jumpBallsLost: number | null; // Int
+    jumpBallsWon: number | null; // Int
+    name: string | null; // String
+    offensiveFoul: number | null; // Int
+    offensiveFoulCharge: number | null; // Int
+    offensiveFoulNonCharge: number | null; // Int
+    orb: number | null; // Int
+    pga: number | null; // Int
+    plusMinus: number | null; // Int
+    pts: number | null; // Int
+    secondsPlayed: number | null; // Int
+    starter: boolean | null; // Boolean
+    stl: number | null; // Int
+    teamId: number | null; // Int
+    teamIndex: number | null; // Int
+    tov: number | null; // Int
+    tpa: number | null; // Int
+    tpm: number | null; // Int
+  }
+  SimResultTeam: { // field return type
+    andOne: number | null; // Int
+    ast: number | null; // Int
+    blk: number | null; // Int
+    blkd: number | null; // Int
+    drb: number | null; // Int
+    dunks: number | null; // Int
+    fga: number | null; // Int
+    fgm: number | null; // Int
+    fouls: number | null; // Int
+    foulsBySegment: Array<number | null> | null; // [Int]
+    foulsOffensive: number | null; // Int
+    foulsShooting: number | null; // Int
+    fta: number | null; // Int
+    ftm: number | null; // Int
+    heaves: number | null; // Int
+    id: number | null; // Int
+    jumpBallsLost: number | null; // Int
+    jumpBallsWon: number | null; // Int
+    name: string | null; // String
+    offensiveFoul: number | null; // Int
+    offensiveFoulCharge: number | null; // Int
+    offensiveFoulNonCharge: number | null; // Int
+    orb: number | null; // Int
+    pf: number | null; // Int
+    pga: number | null; // Int
+    pts: number | null; // Int
+    stl: number | null; // Int
+    teamDrb: number | null; // Int
+    teamOrb: number | null; // Int
+    timeouts: number | null; // Int
+    tov: number | null; // Int
+    tpa: number | null; // Int
+    tpm: number | null; // Int
+  }
   Team: { // field return type
     abbrev: string; // String!
     facebook: string; // String!
@@ -199,7 +359,7 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: { // field return type name
     createOneTest: 'Boolean'
-    startGameSim: 'Boolean'
+    startGameSim: 'SimResult'
   }
   Player: { // field return type name
     active: 'Boolean'
@@ -233,6 +393,86 @@ export interface NexusGenFieldTypeNames {
     getOnePlayer: 'Player'
     getOneTeam: 'Team'
     getOneTest: 'Boolean'
+  }
+  SimResult: { // field return type name
+    team0: 'Team'
+    team0PlayerStats: 'SimResultPlayer'
+    team0Stats: 'SimResultTeam'
+    team1: 'Team'
+    team1PlayerStats: 'SimResultPlayer'
+    team1Stats: 'SimResultTeam'
+  }
+  SimResultPlayer: { // field return type name
+    andOne: 'Int'
+    ast: 'Int'
+    blk: 'Int'
+    blkd: 'Int'
+    drb: 'Int'
+    dunks: 'Int'
+    fatigue: 'Int'
+    fga: 'Int'
+    fgm: 'Int'
+    fouls: 'Int'
+    foulsOffensive: 'Int'
+    foulsShooting: 'Int'
+    fta: 'Int'
+    ftm: 'Int'
+    heaves: 'Int'
+    id: 'Int'
+    inspiration: 'Int'
+    jumpBallsLost: 'Int'
+    jumpBallsWon: 'Int'
+    name: 'String'
+    offensiveFoul: 'Int'
+    offensiveFoulCharge: 'Int'
+    offensiveFoulNonCharge: 'Int'
+    orb: 'Int'
+    pga: 'Int'
+    plusMinus: 'Int'
+    pts: 'Int'
+    secondsPlayed: 'Int'
+    starter: 'Boolean'
+    stl: 'Int'
+    teamId: 'Int'
+    teamIndex: 'Int'
+    tov: 'Int'
+    tpa: 'Int'
+    tpm: 'Int'
+  }
+  SimResultTeam: { // field return type name
+    andOne: 'Int'
+    ast: 'Int'
+    blk: 'Int'
+    blkd: 'Int'
+    drb: 'Int'
+    dunks: 'Int'
+    fga: 'Int'
+    fgm: 'Int'
+    fouls: 'Int'
+    foulsBySegment: 'Int'
+    foulsOffensive: 'Int'
+    foulsShooting: 'Int'
+    fta: 'Int'
+    ftm: 'Int'
+    heaves: 'Int'
+    id: 'Int'
+    jumpBallsLost: 'Int'
+    jumpBallsWon: 'Int'
+    name: 'String'
+    offensiveFoul: 'Int'
+    offensiveFoulCharge: 'Int'
+    offensiveFoulNonCharge: 'Int'
+    orb: 'Int'
+    pf: 'Int'
+    pga: 'Int'
+    pts: 'Int'
+    stl: 'Int'
+    teamDrb: 'Int'
+    teamOrb: 'Int'
+    timeouts: 'Int'
+    tov: 'Int'
+    tpa: 'Int'
+    tpm: 'Int'
   }
   Team: { // field return type name
     abbrev: 'String'
