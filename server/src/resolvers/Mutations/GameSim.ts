@@ -23,6 +23,9 @@ export const startGameSim = mutationField("startGameSim", {
 
       const playersFetch = await prisma.player.findMany({
         where: {
+          // teamId: {
+          //   in: [team0.id, team1.id],
+          // },
           id: {
             in: [
               201942, 203897, 1629632, 202696, 1628366, 203507, 201950, 203114,
@@ -32,18 +35,23 @@ export const startGameSim = mutationField("startGameSim", {
         },
       });
 
-      const players = playersFetch.map(
-        (player) =>
-          new Player(
-            player,
-            JSON.parse(
-              fs.readFileSync(
-                `./src/data/probabilities-player/${player.id}.json`,
-                "utf-8"
+      const players = playersFetch
+        .map((player) => {
+          try {
+            return new Player(
+              player,
+              JSON.parse(
+                fs.readFileSync(
+                  `./src/data/probabilities-player/${player.id}.json`,
+                  "utf-8"
+                )
               )
-            )
-          )
-      );
+            );
+          } catch (error) {
+            return null;
+          }
+        })
+        .filter((player) => player !== null) as Player[];
 
       const teams = [team0, team1].map(
         (team) =>

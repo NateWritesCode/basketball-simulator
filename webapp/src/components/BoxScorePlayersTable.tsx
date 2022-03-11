@@ -14,7 +14,7 @@ import {
 import React, { useMemo } from "react";
 import { useSortBy, useTable } from "react-table";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
-import { getTextTransform } from "../utility";
+import { getTextTransform, secondsToMinutes } from "../utility";
 import numeral from "numeral";
 import { startGameSim_startGameSim_playerStats } from "../types/startGameSim";
 
@@ -64,6 +64,10 @@ const FooterTotalText = () => {
   );
 };
 
+const FooterBlank = () => {
+  return <></>;
+};
+
 const BoxScorePlayersTable = (props: IBoxScorePlayersTableProps) => {
   const data = useMemo(
     () =>
@@ -78,6 +82,8 @@ const BoxScorePlayersTable = (props: IBoxScorePlayersTableProps) => {
       }),
     []
   );
+
+  console.log("props", props);
 
   const columns = useMemo(
     () => [
@@ -111,8 +117,24 @@ const BoxScorePlayersTable = (props: IBoxScorePlayersTableProps) => {
           );
         },
       },
-      { Header: "FGM", accessor: "fgm", Footer: FooterTotalSum },
-      { Header: "FGA", accessor: "fga", Footer: FooterTotalSum },
+      {
+        Header: "MIN",
+        accessor: "timePlayed",
+        Footer: FooterBlank,
+        Cell: (props: any) => {
+          return <>{props.value ? secondsToMinutes(props.value) : "DNP"}</>;
+        },
+      },
+      {
+        Header: "FGM",
+        accessor: "fgm",
+        Footer: FooterTotalSum,
+      },
+      {
+        Header: "FGA",
+        accessor: "fga",
+        Footer: FooterTotalSum,
+      },
       {
         accessor: "fg%",
         Header: "FG%",
@@ -182,11 +204,29 @@ const BoxScorePlayersTable = (props: IBoxScorePlayersTableProps) => {
         Footer: FooterTotalSum,
       },
       { Header: "PTS", accessor: "pts", Footer: FooterTotalSum },
-      { Header: "+/-", accessor: "plusMinus", Footer: FooterTotalSum },
+      { Header: "+/-", accessor: "plusMinus", Footer: FooterTotalAvg },
     ],
     []
   );
-  const tableInstance = useTable({ columns, data }, useSortBy);
+  const tableInstance = useTable(
+    {
+      columns,
+      data,
+      initialState: {
+        sortBy: [
+          {
+            id: "timePlayed",
+            desc: true,
+          },
+          {
+            id: "pts",
+            desc: true,
+          },
+        ],
+      },
+    },
+    useSortBy
+  );
   const {
     getTableProps,
     getTableBodyProps,

@@ -13,10 +13,6 @@ import Player from "../entities/Player";
 import getAverage from "./getAverage";
 import random from "random";
 
-interface TypeSafeColDef<T extends object> extends Player {
-  field: Extract<keyof T, number>;
-}
-
 export const get2or3Pointer = (shotType: ShotTypes): 2 | 3 => {
   switch (shotType) {
     case "Arc3":

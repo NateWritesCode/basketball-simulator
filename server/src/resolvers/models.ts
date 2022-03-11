@@ -1,4 +1,4 @@
-import { list, objectType } from "nexus";
+import { list, nonNull, objectType } from "nexus";
 import { Player, Team } from "nexus-prisma";
 
 export const GameObjectType = objectType({
@@ -15,7 +15,7 @@ export const SimResult = objectType({
   definition(t) {
     t.nonNull.list.field("playerStats", { type: list(SimResultPlayer) });
     t.nonNull.list.field("teams", { type: TeamObjectType });
-    t.nonNull.list.field("teamStats", { type: SimResultTeam });
+    t.nonNull.list.field("teamStats", { type: nonNull(SimResultTeam) });
   },
 });
 
@@ -96,6 +96,7 @@ export const SimResultPlayer = objectType({
     t.nonNull.int("stl");
     t.nonNull.int("teamIndex");
     t.nonNull.int("teamId");
+    t.nonNull.float("timePlayed");
     t.nonNull.int("tov");
     t.nonNull.int("tpa");
     t.nonNull.int("tpm");

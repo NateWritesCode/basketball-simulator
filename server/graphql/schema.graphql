@@ -72,7 +72,7 @@ type Query {
 """Sim result"""
 type SimResult {
   playerStats: [[SimResultPlayer]]!
-  teamStats: [SimResultTeam]!
+  teamStats: [SimResultTeam!]!
   teams: [Team]!
 }
 
@@ -112,6 +112,7 @@ type SimResultPlayer {
   stl: Int!
   teamId: Int!
   teamIndex: Int!
+  timePlayed: Float!
   tov: Int!
   tpa: Int!
   tpm: Int!

@@ -115,7 +115,7 @@ export interface NexusGenObjects {
   Query: {};
   SimResult: { // root type
     playerStats: Array<Array<NexusGenRootTypes['SimResultPlayer'] | null> | null>; // [[SimResultPlayer]]!
-    teamStats: Array<NexusGenRootTypes['SimResultTeam'] | null>; // [SimResultTeam]!
+    teamStats: NexusGenRootTypes['SimResultTeam'][]; // [SimResultTeam!]!
     teams: Array<NexusGenRootTypes['Team'] | null>; // [Team]!
   }
   SimResultPlayer: { // root type
@@ -153,6 +153,7 @@ export interface NexusGenObjects {
     stl: number; // Int!
     teamId: number; // Int!
     teamIndex: number; // Int!
+    timePlayed: number; // Float!
     tov: number; // Int!
     tpa: number; // Int!
     tpm: number; // Int!
@@ -258,7 +259,7 @@ export interface NexusGenFieldTypes {
   }
   SimResult: { // field return type
     playerStats: Array<Array<NexusGenRootTypes['SimResultPlayer'] | null> | null>; // [[SimResultPlayer]]!
-    teamStats: Array<NexusGenRootTypes['SimResultTeam'] | null>; // [SimResultTeam]!
+    teamStats: NexusGenRootTypes['SimResultTeam'][]; // [SimResultTeam!]!
     teams: Array<NexusGenRootTypes['Team'] | null>; // [Team]!
   }
   SimResultPlayer: { // field return type
@@ -296,6 +297,7 @@ export interface NexusGenFieldTypes {
     stl: number; // Int!
     teamId: number; // Int!
     teamIndex: number; // Int!
+    timePlayed: number; // Float!
     tov: number; // Int!
     tpa: number; // Int!
     tpm: number; // Int!
@@ -430,6 +432,7 @@ export interface NexusGenFieldTypeNames {
     stl: 'Int'
     teamId: 'Int'
     teamIndex: 'Int'
+    timePlayed: 'Float'
     tov: 'Int'
     tpa: 'Int'
     tpm: 'Int'

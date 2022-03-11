@@ -38,8 +38,10 @@ export interface startGameSim_startGameSim_playerStats {
   position: string;
   pts: number;
   secondsPlayed: number;
+  slug: string;
   starter: boolean;
   stl: number;
+  timePlayed: number;
   tov: number;
   tpa: number;
   tpm: number;
@@ -105,7 +107,7 @@ export interface startGameSim_startGameSim {
   __typename: "SimResult";
   playerStats: ((startGameSim_startGameSim_playerStats | null)[] | null)[];
   teams: (startGameSim_startGameSim_teams | null)[];
-  teamStats: (startGameSim_startGameSim_teamStats | null)[];
+  teamStats: startGameSim_startGameSim_teamStats[];
 }
 
 export interface startGameSim {

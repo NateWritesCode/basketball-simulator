@@ -18,10 +18,12 @@ export type GameEventStartingLineup = z.infer<typeof GameEventStartingLineup>;
 export const GameEventJumpBall = z.object({
   defPlayer1: z.instanceof(Player),
   defTeam: z.instanceof(Team),
+  isStartSegmentTip: z.boolean(),
   offPlayer1: z.instanceof(Player),
   defPlayersOnCourt: z.array(z.instanceof(Player)),
   offPlayersOnCourt: z.array(z.instanceof(Player)),
   offTeam: z.instanceof(Team),
+  possessionLength: z.number(),
 });
 export type GameEventJumpBall = z.infer<typeof GameEventJumpBall>;
 
@@ -31,6 +33,7 @@ export const GameEvent2FgAttempt = z.object({
   defTeam: z.instanceof(Team),
   offPlayer1: z.instanceof(Player),
   offTeam: z.instanceof(Team),
+  possessionLength: z.number(),
   shotType: ShotTypes,
   shotValue: z.number(),
   x: z.number(),
@@ -153,6 +156,10 @@ export type GameEvent3FgMissFoul = z.infer<typeof GameEvent3FgMissFoul>;
 export const GameEvent3FgAttempt = z.object({
   offPlayer1: z.instanceof(Player),
   offTeam: z.instanceof(Team),
+  defTeam: z.instanceof(Team),
+  defPlayersOnCourt: z.array(z.instanceof(Player)),
+  offPlayersOnCourt: z.array(z.instanceof(Player)),
+  possessionLength: z.number(),
   shotType: ShotTypes,
   shotValue: z.number(),
   x: z.number(),
@@ -173,6 +180,9 @@ export const GameEventOffensiveRebound = z.object({
   defTeam: z.instanceof(Team),
   offPlayer1: z.instanceof(Player).optional(),
   offTeam: z.instanceof(Team),
+  defPlayersOnCourt: z.array(z.instanceof(Player)),
+  offPlayersOnCourt: z.array(z.instanceof(Player)),
+  possessionLength: z.number(),
 });
 export type GameEventOffensiveRebound = z.infer<
   typeof GameEventOffensiveRebound
@@ -182,6 +192,9 @@ export const GameEventDefensiveRebound = z.object({
   defPlayer1: z.instanceof(Player).optional(),
   defTeam: z.instanceof(Team),
   offTeam: z.instanceof(Team),
+  defPlayersOnCourt: z.array(z.instanceof(Player)),
+  offPlayersOnCourt: z.array(z.instanceof(Player)),
+  possessionLength: z.number(),
 });
 export type GameEventDefensiveRebound = z.infer<
   typeof GameEventDefensiveRebound
@@ -214,6 +227,7 @@ export const GameEventOffensiveFoul = z.object({
   offPlayersOnCourt: z.array(z.instanceof(Player)),
   offPlayer1: z.instanceof(Player),
   offTeam: z.instanceof(Team),
+  possessionLength: z.number(),
 });
 export type GameEventOffensiveFoul = z.infer<typeof GameEventOffensiveFoul>;
 
@@ -221,8 +235,11 @@ export const GameEventNonShootingDefensiveFoul = z.object({
   defPlayer1: z.instanceof(Player),
   defTeam: z.instanceof(Team),
   foulPenaltySettings: FoulPenaltySettings,
+  defPlayersOnCourt: z.array(z.instanceof(Player)),
+  offPlayersOnCourt: z.array(z.instanceof(Player)),
   offPlayer1: z.instanceof(Player),
   offTeam: z.instanceof(Team),
+  possessionLength: z.number(),
   segment: z.number().optional(),
 });
 export type GameEventNonShootingDefensiveFoul = z.infer<
@@ -232,6 +249,7 @@ export type GameEventNonShootingDefensiveFoul = z.infer<
 export const GameEventPossessionArrowWon = z.object({
   defTeam: z.instanceof(Team),
   offTeam: z.instanceof(Team),
+  possessionLength: z.number(),
 });
 export type GameEventPossessionArrowWon = z.infer<
   typeof GameEventPossessionArrowWon
@@ -241,24 +259,31 @@ export const GameEventSteal = z.object({
   defPlayer1: z.instanceof(Player),
   defTeam: z.instanceof(Team),
   offPlayer1: z.instanceof(Player),
+  defPlayersOnCourt: z.array(z.instanceof(Player)),
+  offPlayersOnCourt: z.array(z.instanceof(Player)),
   offTeam: z.instanceof(Team),
+  possessionLength: z.number(),
 });
 export type GameEventSteal = z.infer<typeof GameEventSteal>;
 
 export const GameEventTurnover = z.object({
+  defPlayersOnCourt: z.array(z.instanceof(Player)),
+  offPlayersOnCourt: z.array(z.instanceof(Player)),
   defTeam: z.instanceof(Team),
   offPlayer1: z.instanceof(Player),
   offTeam: z.instanceof(Team),
+  possessionLength: z.number(),
   turnoverType: TurnoverTypes,
 });
 export type GameEventTurnover = z.infer<typeof GameEventTurnover>;
 
 export const GameEventViolation = z.object({
   defPlayersOnCourt: z.array(z.instanceof(Player)),
-  defTeam: z.instanceof(Team),
   offPlayersOnCourt: z.array(z.instanceof(Player)),
+  defTeam: z.instanceof(Team),
   offTeam: z.instanceof(Team),
   violationType: ViolationTypes,
+  possessionLength: z.number(),
 });
 
 export type GameEventViolation = z.infer<typeof GameEventViolation>;

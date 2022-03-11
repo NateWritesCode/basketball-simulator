@@ -22,7 +22,7 @@ season_settings = {
     "Games": {"source": "web", "data_provider": "stats_nba"}
 }
 season_client = Client(season_settings)
-season = season_client.Season("nba", "2020-21", "Regular Season")
+season = season_client.Season("nba", "2021-22", "Regular Season")
 
 game_settings = {
     "dir": "response_data",
@@ -512,9 +512,6 @@ for season_game in season.games.items[:100]:
                             "fg", 1)
                 game_update(game_id, master_game_dict,
                             "fgIncludingShootingFoulsMissed", 1)
-
-                if hasattr(possession_event, "player3_id"):
-                    print(possession_event.player3_id)
 
                 if hasattr(possession_event, 'player1_id') and possession_event.player1_id != 0:
                     player = possession_event.player1_id

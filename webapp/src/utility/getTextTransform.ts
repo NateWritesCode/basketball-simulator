@@ -7,6 +7,8 @@ export default (textTransformType: "positionAbbrev", value: string): string => {
         Forward: "F",
         Guard: "G",
         "Guard-Forward": "G/F",
+        "Center-Forward": "C/F",
+        "Forward-Center": "F/C",
       };
 
       const returnValue = positions[value as keyof typeof positions];

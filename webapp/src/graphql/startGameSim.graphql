@@ -33,6 +33,7 @@ mutation startGameSim {
       slug
       starter
       stl
+      timePlayed
       tov
       tpa
       tpm
