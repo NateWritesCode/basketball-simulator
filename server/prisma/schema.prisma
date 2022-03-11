@@ -38,7 +38,7 @@ model Player {
   midRangeLong      Int       @default(50)
   midRangeShort     Int       @default(50)
   playerCode        String?   @map("player_code")
-  position          String?
+  position          String
   rebounding        Int       @default(50)
   school            String?
   seasonsExperience Int

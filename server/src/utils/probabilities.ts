@@ -114,13 +114,13 @@ export const getFgIsMadeByPlayer = (
 
   const isMade = random.bernoulli(value);
 
-  return isMade() === 0;
+  return isMade() === 1;
 };
 
 export const getIsOffensiveRebound = (): Boolean => {
   const isOffensiveRebound = random.bernoulli(general["OFF_REB"]);
 
-  return isOffensiveRebound() === 0;
+  return isOffensiveRebound() === 1;
 };
 
 export const getOffensiveReboundPlayer = (offPlayersOnCourt: Player[]) => {
@@ -135,11 +135,10 @@ export const getIsTeamRebound = (isOffensiveRebound: Boolean): Boolean => {
     general[isOffensiveRebound ? "OFF_REB_TEAM" : "DEF_REB_TEAM"]
   );
 
-  return isTeamRebound() === 0;
+  return isTeamRebound() === 1;
 };
 
 export const getFtIsMadeByPlayer = (player: Player) => {
-  console.log("player.getFullName()", player.getFullName(), player.id);
   let value = player.freeThrow;
 
   if (value === 1) {
@@ -148,7 +147,7 @@ export const getFtIsMadeByPlayer = (player: Player) => {
 
   const isMade = random.bernoulli(value);
 
-  return isMade() === 0;
+  return isMade() === 1;
 };
 
 export const getPossessionLength = (
@@ -231,7 +230,7 @@ export const getPossessionLength = (
 export const getIsAssist = (): Boolean => {
   const isAssist = random.bernoulli(general["ASSIST"]);
 
-  return isAssist() === 0;
+  return isAssist() === 1;
 };
 
 export const getAssistPlayer = (offPlayersOnCourt: Player[]) => {
@@ -241,7 +240,7 @@ export const getAssistPlayer = (offPlayersOnCourt: Player[]) => {
 export const getIsBlock = (): Boolean => {
   const isBlock = random.bernoulli(general["BLOCK"]);
 
-  return isBlock() === 0;
+  return isBlock() === 1;
 };
 
 export const getBlockPlayer = (defPlayersOnCourt: Player[]) => {
@@ -258,7 +257,7 @@ export const getStealPlayer = (defPlayersOnCourt: Player[]) => {
 export const getIsShootingFoul = () => {
   const isShootingFoul = random.bernoulli(general["FG_SHOOTING_FOUL"]);
 
-  return isShootingFoul() === 0;
+  return isShootingFoul() === 1;
 };
 
 export const getPossessionOutcome = (): GameEventPossessionOutcomes => {

@@ -36,6 +36,7 @@ class Player {
   id: number;
   midRangeLong: number;
   midRangeShort: number;
+  position: string;
   rebounding: number;
   rebDef: number;
   rebOff: number;
@@ -50,6 +51,7 @@ class Player {
   shotTypeLongMidRangeDef: number;
   shotTypeShortMidRange: number;
   shotTypeShortMidRangeDef: number;
+  slug: string;
   stealing: number;
   teamId: number;
   turnover: number;
@@ -72,7 +74,9 @@ class Player {
       jumping,
       midRangeLong,
       midRangeShort,
+      position,
       rebounding,
+      slug,
       stealing,
       teamId,
       turnoverProne,
@@ -158,6 +162,7 @@ class Player {
     this.jumping = jumping;
     this.midRangeLong = midRangeLong;
     this.midRangeShort = midRangeShort;
+    this.position = position;
     this.rebounding = rebounding;
     this.shotTypeArc3 = shotTypeArc3;
     this.shotTypeArc3Def = shotTypeArc3Def;
@@ -169,6 +174,7 @@ class Player {
     this.shotTypeLongMidRangeDef = shotTypeLongMidRangeDef;
     this.shotTypeShortMidRange = shotTypeShortMidRange;
     this.shotTypeShortMidRangeDef = shotTypeShortMidRangeDef;
+    this.slug = slug;
     this.stealing = stealing;
     this.teamId = teamId;
     this.turnoverProne = turnoverProne;

@@ -44,7 +44,6 @@ import {
   getStealPlayer,
   getTurnoverPlayer,
   getTurnoverType,
-  getViolationType,
 } from "../utils/probabilities";
 import Socket from "../Socket";
 import GameEventStore from "./GameEventStore";
@@ -114,7 +113,9 @@ class GameSim {
         const playerState = new GamePlayerState(
           player.id,
           player.getFullName(),
-          team.id,
+          player.position,
+          player.slug,
+          player.teamId,
           teamIndex
         );
         this.playerStates[player.id] = playerState;
@@ -123,7 +124,7 @@ class GameSim {
     });
 
     // INIT OTHER OBSERVERS
-    this.observers.push(new GameLog(socket));
+    // this.observers.push(new GameLog(socket));
     this.observers.push(
       new GameEventStore({
         gameId: id,
@@ -421,18 +422,23 @@ class GameSim {
       const shotNumber = i + 1;
       const valueToAdd = shotMade ? 1 : 0;
 
+      const offPlayersOnCourt = this.playersOnCourt[this.o];
+      const defPlayersOnCourt = this.playersOnCourt[this.d];
+
       this.notifyObservers("FREE_THROW", {
         bonus,
         offPlayer1,
         shotNumber,
         totalShots,
         valueToAdd,
+        offPlayersOnCourt,
+        defPlayersOnCourt,
       });
 
       if (isLastShot && !shotMade) {
-        const isReboundedByOffense = getIsOffensiveRebound();
-        const isReboundedByTeam = getIsTeamRebound(isReboundedByOffense);
-        if (isReboundedByOffense) {
+        const isOffensiveRebound = getIsOffensiveRebound();
+        const isReboundedByTeam = getIsTeamRebound(isOffensiveRebound);
+        if (isOffensiveRebound) {
           const offPlayer1 = isReboundedByTeam
             ? null
             : getOffensiveReboundPlayer(this.playersOnCourt[this.o]);
@@ -607,13 +613,10 @@ class GameSim {
 
     switch (outcome) {
       case "FIELD_GOAL": {
-        //is made on shot type player
         const shotType = getShotType([offPlayersOnCourt, defPlayersOnCourt]);
         const offPlayer1 = getFgAttemptPlayer(offPlayersOnCourt, shotType);
         const isMade = getFgIsMadeByPlayer(offPlayer1, shotType);
 
-        // const { isAnd1, isAssist, isBlock, isMade,  shotType } =
-        //   getFgType();
         const pts = get2or3Pointer(shotType);
         const [x, y] = getFgXYByShotType(shotType);
 
@@ -697,6 +700,7 @@ class GameSim {
           });
 
           const isOffensiveRebound = getIsOffensiveRebound();
+
           let reboundingPlayer: Player | null = null;
           const isTeamRebound = getIsTeamRebound(isOffensiveRebound);
 
@@ -718,7 +722,7 @@ class GameSim {
             }
 
             this.notifyObservers(`OFFENSIVE_REBOUND`, {
-              offensivePlayer1: reboundingPlayer,
+              offPlayer1: reboundingPlayer,
               valueToAdd: 1,
             });
 
@@ -781,16 +785,7 @@ class GameSim {
               this.possessionArrow = this.d;
               isPossessionEventsComplete = false;
             } else {
-              const defPlayersOnCourt = this.playersOnCourt[this.d];
-              const offPlayersOnCourt = this.playersOnCourt[this.d];
-              const offTeam = this.teams[this.d];
-              const defTeam = this.teams[this.o];
-              this.notifyObservers("POSSESSION_ARROW_WON", {
-                defPlayersOnCourt,
-                defTeam,
-                offPlayersOnCourt,
-                offTeam,
-              });
+              this.notifyObservers("POSSESSION_ARROW_WON", {});
               this.possessionArrow = this.o;
             }
 
@@ -841,7 +836,6 @@ class GameSim {
 
       case "TURNOVER": {
         const offPlayer1 = getTurnoverPlayer(offPlayersOnCourt);
-        const team = this.teams[this.o];
         const turnoverType = getTurnoverType();
 
         if (turnoverType === "BAD_PASS" || turnoverType === "LOST_BALL") {
@@ -849,7 +843,6 @@ class GameSim {
           this.notifyObservers("STEAL", {
             defPlayer1,
             offPlayer1,
-            team,
             turnoverType,
             valueToAdd: 1,
           });
@@ -944,6 +937,11 @@ class GameSim {
 
     this.notifyObservers("GAME_END");
 
+    const offPlayersOnCourt = this.playersOnCourt[this.o];
+    const defPlayersOnCourt = this.playersOnCourt[this.d];
+
+    console.log("offPlayersOnCourt", offPlayersOnCourt.length);
+    console.log("defPlayersOnCourt", defPlayersOnCourt.length);
     return {
       playerStats: [
         this.teams[0].players.map((player) => this.playerStates[player.id]),

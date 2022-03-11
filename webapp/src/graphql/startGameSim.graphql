@@ -1,21 +1,6 @@
 mutation startGameSim {
   startGameSim {
-    team0 {
-      abbrev
-      facebook
-      homeName
-      id
-      instagram
-      nickname
-      players {
-        id
-      }
-      twitter
-      venue
-      venueCapacity
-      yearFounded
-    }
-    team0PlayerStats {
+    playerStats {
       andOne
       ast
       blk
@@ -38,54 +23,21 @@ mutation startGameSim {
       jumpBallsWon
       offensiveFoul
       offensiveFoulCharge
-      offensiveFoulNonCharge
+      offensiveFoulOther
       orb
       pga
       plusMinus
+      position
       pts
       secondsPlayed
+      slug
       starter
       stl
       tov
       tpa
       tpm
     }
-    team0Stats {
-      andOne
-      ast
-      blk
-      blkd
-      drb
-      dunks
-      fga
-      fgm
-      fouls
-      foulsOffensive
-      foulsShooting
-      foulsBySegment
-      fta
-      ftm
-      heaves
-      id
-      jumpBallsLost
-      jumpBallsWon
-      name
-      offensiveFoul
-      offensiveFoulCharge
-      offensiveFoulNonCharge
-      orb
-      pf
-      pga
-      pts
-      stl
-      teamDrb
-      teamOrb
-      timeouts
-      tov
-      tpa
-      tpm
-    }
-    team1 {
+    teams {
       abbrev
       facebook
       homeName
@@ -100,42 +52,7 @@ mutation startGameSim {
       venueCapacity
       yearFounded
     }
-    team1PlayerStats {
-      andOne
-      ast
-      blk
-      blkd
-      drb
-      dunks
-      fatigue
-      fga
-      fgm
-      fta
-      ftm
-      fouls
-      foulsOffensive
-      foulsShooting
-      heaves
-      id
-      name
-      inspiration
-      jumpBallsLost
-      jumpBallsWon
-      offensiveFoul
-      offensiveFoulCharge
-      offensiveFoulNonCharge
-      orb
-      pga
-      plusMinus
-      pts
-      secondsPlayed
-      starter
-      stl
-      tov
-      tpa
-      tpm
-    }
-    team1Stats {
+    teamStats {
       andOne
       ast
       blk
@@ -147,7 +64,6 @@ mutation startGameSim {
       fouls
       foulsOffensive
       foulsShooting
-      foulsBySegment
       fta
       ftm
       heaves
@@ -157,7 +73,7 @@ mutation startGameSim {
       name
       offensiveFoul
       offensiveFoulCharge
-      offensiveFoulNonCharge
+      offensiveFoulOther
       orb
       pf
       pga

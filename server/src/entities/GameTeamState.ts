@@ -42,7 +42,7 @@ class GameTeamState implements IObserver {
   name: string;
   offensiveFoul: number;
   offensiveFoulCharge: number;
-  offensiveFoulNonCharge: number;
+  offensiveFoulOther: number;
   orb: number;
   penalty: boolean;
   pf: number;
@@ -80,7 +80,7 @@ class GameTeamState implements IObserver {
     this.name = name;
     this.offensiveFoul = 0;
     this.offensiveFoulCharge = 0;
-    this.offensiveFoulNonCharge = 0;
+    this.offensiveFoulOther = 0;
     this.orb = 0;
     this.penalty = false;
     this.pf = 0;
@@ -230,16 +230,23 @@ class GameTeamState implements IObserver {
         break;
       }
       case "3FG_MADE": {
-        const { offTeam } = gameEventData as GameEvent2FgMade;
+        const { offTeam, offPlayer2 } = gameEventData as GameEvent2FgMade;
         if (offTeam.id === this.id) {
           this.fgm += 1;
           this.pts += 3;
+          this.tpm += 1;
         }
+
+        if (offPlayer2) {
+          this.ast += 1;
+        }
+
         break;
       }
       case "3FG_MADE_FOUL": {
         const {
           foulPenaltySettings,
+          offPlayer2,
           offTeam,
           segment: gameEventDataSegment,
         } = gameEventData as GameEvent2FgMadeFoul;
@@ -247,6 +254,10 @@ class GameTeamState implements IObserver {
           this.fgm += 1;
           this.pts += 3;
           this.tpm += 1;
+
+          if (offPlayer2) {
+            this.ast += 1;
+          }
         } else {
           const segment = gameEventDataSegment ? gameEventDataSegment : 0;
           this.foulsBySegment[segment] += 1;
@@ -359,7 +370,7 @@ class GameTeamState implements IObserver {
           if (isCharge) {
             this.offensiveFoulCharge++;
           } else {
-            this.offensiveFoulNonCharge++;
+            this.offensiveFoulOther++;
           }
           this.offensiveFoul++;
         }

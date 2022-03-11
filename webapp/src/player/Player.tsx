@@ -49,13 +49,11 @@ const Player = () => {
           />
           <Flex minH={40}>
             <Box minH={40}>
-              <AspectRatio maxW={60} ratio={26 / 19}>
-                <Image
-                  display={"inline-block"}
-                  alt={`${entity.givenName} ${entity.familyName}`}
-                  src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${entity.id}.png`}
-                />
-              </AspectRatio>
+              <Image
+                display={"inline-block"}
+                alt={`${entity.givenName} ${entity.familyName}`}
+                src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${entity.id}.png`}
+              />
             </Box>
             <Box bg="white" p={2}>
               {entity.givenName} {entity.familyName} - {entity.team.homeName}{" "}

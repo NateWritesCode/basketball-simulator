@@ -32,11 +32,6 @@ export const startGameSim = mutationField("startGameSim", {
         },
       });
 
-      console.log("team0", team0);
-      console.log("team1", team1);
-
-      console.log("playersFetch", playersFetch);
-
       const players = playersFetch.map(
         (player) =>
           new Player(
@@ -83,12 +78,9 @@ export const startGameSim = mutationField("startGameSim", {
       const { playerStats, teamStats } = gameSim.start();
 
       return {
-        team0,
-        team0PlayerStats: playerStats[0],
-        team0Stats: teamStats[0],
-        team1,
-        team1PlayerStats: playerStats[1],
-        team1Stats: teamStats[1],
+        playerStats: [playerStats[0], playerStats[1]],
+        teams: [team0, team1],
+        teamStats: [teamStats[0], teamStats[1]],
       };
     } catch (error) {
       console.error(error);

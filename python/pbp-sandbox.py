@@ -513,6 +513,9 @@ for season_game in season.games.items[:100]:
                 game_update(game_id, master_game_dict,
                             "fgIncludingShootingFoulsMissed", 1)
 
+                if hasattr(possession_event, "player3_id"):
+                    print(possession_event.player3_id)
+
                 if hasattr(possession_event, 'player1_id') and possession_event.player1_id != 0:
                     player = possession_event.player1_id
                     is_2 = possession_event.shot_value == 2
@@ -754,17 +757,17 @@ general_probabilities = {
     "OFF_FOUL_OTHER": total_off_foul_other / total_off_foul,
     "OFF_REB": total_reb_off / total_reb,
     "OFF_REB_TEAM": total_off_team_reb / total_reb,
-    "TURNOVER_3_SECOND": total_turnover_3_second / total_turnover,
-    "TURNOVER_BAD_PASS": total_turnover_bad_pass / total_turnover,
-    "TURNOVER_BAD_PASS_OUT_OF_BOUNDS": total_turnover_bad_pass_out_of_bounds / total_turnover,
-    "TURNOVER_KICK_BALL": total_turnover_kick_ball / total_turnover,
-    "TURNOVER_LANE_VIOLATION": total_turnover_lane_violation / total_turnover,
-    "TURNOVER_LOST_BALL": total_turnover_lost_ball / total_turnover,
-    "TURNOVER_LOST_BALL_OUT_OF_BOUNDS": total_turnover_lost_ball_out_of_bounds / total_turnover,
-    "TURNOVER_OFF_GOALTEND": total_turnover_off_goaltend / total_turnover,
-    "TURNOVER_SHOT_CLOCK": total_turnover_shot_clock / total_turnover,
-    "TURNOVER_STEP_OUT_OF_BOUNDS": total_turnover_step_out_of_bounds / total_turnover,
-    "TURNOVER_TRAVEL": total_turnover_travel / total_turnover,
+    "3_SECOND": total_turnover_3_second / total_turnover,
+    "BAD_PASS": total_turnover_bad_pass / total_turnover,
+    "BAD_PASS_OUT_OF_BOUNDS": total_turnover_bad_pass_out_of_bounds / total_turnover,
+    "KICK_BALL": total_turnover_kick_ball / total_turnover,
+    "LANE_VIOLATION": total_turnover_lane_violation / total_turnover,
+    "LOST_BALL": total_turnover_lost_ball / total_turnover,
+    "LOST_BALL_OUT_OF_BOUNDS": total_turnover_lost_ball_out_of_bounds / total_turnover,
+    "OFF_GOALTEND": total_turnover_off_goaltend / total_turnover,
+    "SHOT_CLOCK": total_turnover_shot_clock / total_turnover,
+    "STEP_OUT_OF_BOUNDS": total_turnover_step_out_of_bounds / total_turnover,
+    "TRAVEL": total_turnover_travel / total_turnover,
     "VIOLATION_DEF_GOALTEND": total_violation_def_goaltend / total_violation_possession,
     "VIOLATION_DEF_KICK_BALL": total_violation_def_kick_ball / total_violation_possession,
 }

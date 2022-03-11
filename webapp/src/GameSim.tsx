@@ -2,15 +2,18 @@ import { useMutation } from "@apollo/client";
 import {
   Box,
   Button,
+  Flex,
   Table,
   Tbody,
   Td,
   Tfoot,
   Th,
   Thead,
+  Image,
   Tr,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import BoxScorePlayersTable from "./components/BoxScorePlayersTable";
 import { START_GAME_SIM } from "./graphql/constants";
 import socket from "./Socket";
 import { startGameSim } from "./types/startGameSim";
@@ -32,87 +35,36 @@ const GameSim = () => {
     };
   }, []);
 
-  const team0 = {
-    players: data?.startGameSim?.team0PlayerStats,
-    ...data?.startGameSim?.team0,
-    ...data?.startGameSim?.team0Stats,
-  };
-
-  const team1 = {
-    players: data?.startGameSim?.team1PlayerStats,
-    ...data?.startGameSim?.team1,
-    ...data?.startGameSim?.team1Stats,
-  };
-
-  console.log("team0", team0);
+  const team0 = data?.startGameSim?.teams[0];
+  const team0PlayerStats = data?.startGameSim?.playerStats[0];
+  const team1 = data?.startGameSim?.teams[1];
+  const team1PlayerStats = data?.startGameSim?.playerStats[1];
 
   return (
     <Box mx={8} my={8}>
       <Button colorScheme={"blue"} onClick={() => startGameSim()}>
         Start game
       </Button>
-
-      <Table variant="simple" size={"sm"}>
-        <Thead>
-          <Tr>
-            <Th></Th>
-            <Th>{team0.name}</Th>
-            <Th>{team1.name}</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          <Tr>
-            <Th>Pts</Th>
-            <Td>{team0.pts}</Td>
-            <Td>{team1.pts}</Td>
-          </Tr>
-          <Tr>
-            <Th>Ast</Th>
-            <Td>{team0.ast}</Td>
-            <Td>{team1.ast}</Td>
-          </Tr>
-          <Tr>
-            <Th>Blk</Th>
-            <Td>{team0.blk}</Td>
-            <Td>{team1.blk}</Td>
-          </Tr>
-          <Tr>
-            <Th>Blkd</Th>
-            <Td>{team0.blkd}</Td>
-            <Td>{team1.blkd}</Td>
-          </Tr>
-          <Tr>
-            <Th>Drb</Th>
-            <Td>{team0.drb}</Td>
-            <Td>{team1.drb}</Td>
-          </Tr>
-          <Tr>
-            <Th>Dunks</Th>
-            <Td>{team0.dunks}</Td>
-            <Td>{team1.dunks}</Td>
-          </Tr>
-          <Tr>
-            <Th>FGA</Th>
-            <Td>{team0.fga}</Td>
-            <Td>{team1.fga}</Td>
-          </Tr>
-          <Tr>
-            <Th>FGM</Th>
-            <Td>{team0.fgm}</Td>
-            <Td>{team1.fgm}</Td>
-          </Tr>
-          <Tr>
-            <Th>FTA</Th>
-            <Td>{team0.fta}</Td>
-            <Td>{team1.fta}</Td>
-          </Tr>
-          <Tr>
-            <Th>FTM</Th>
-            <Td>{team0.ftm}</Td>
-            <Td>{team1.ftm}</Td>
-          </Tr>
-        </Tbody>
-      </Table>
+      {team0 && team1 && (
+        <>
+          <Flex my={2} fontWeight="bold" fontSize={"2xl"} alignItems="center">
+            <Image
+              maxW={20}
+              src={`https://cdn.nba.com/logos/nba/${team0.id}/primary/L/logo.svg`}
+            />
+            {team0.homeName} {team0.nickname}
+          </Flex>
+          <BoxScorePlayersTable data={team0PlayerStats} />
+          <Flex my={2} fontWeight="bold" fontSize={"2xl"} alignItems="center">
+            <Image
+              maxW={20}
+              src={`https://cdn.nba.com/logos/nba/${team1.id}/primary/L/logo.svg`}
+            />
+            {team1.homeName} {team1.nickname}
+          </Flex>
+          <BoxScorePlayersTable data={team1PlayerStats} />
+        </>
+      )}
     </Box>
   );
 };
