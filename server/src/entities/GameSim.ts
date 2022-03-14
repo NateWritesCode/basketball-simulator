@@ -948,12 +948,6 @@ class GameSim {
 
     this.notifyObservers("GAME_END");
 
-    const testes = this.possessionLengthTest.reduce(
-      (partialSum, a) => partialSum + a,
-      0
-    );
-    console.log("testes", testes);
-
     return {
       playerStats: [
         this.teams[0].players.map((player) => this.playerStates[player.id]),
