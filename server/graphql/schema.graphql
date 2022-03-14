@@ -84,7 +84,7 @@ type SimResultPlayer {
   blkd: Int!
   drb: Int!
   dunks: Int!
-  fatigue: Int!
+  fatigue: Float!
   fga: Int!
   fgm: Int!
   fouls: Int!

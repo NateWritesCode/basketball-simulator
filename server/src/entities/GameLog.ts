@@ -23,6 +23,7 @@ import {
   GameEventTurnover,
   IObserver,
   GameEventViolation,
+  GameEventSubstitution,
 } from "../types";
 import { log } from "../utils";
 import ordinal from "ordinal";
@@ -296,6 +297,16 @@ class GameLog implements IObserver {
 
         this.logInfo([
           `TURNOVER - ${offPlayer1.getFullName()} had the ball stolen by ${defPlayer1.getFullName()}`,
+        ]);
+
+        break;
+      }
+      case "SUBSTITUTION": {
+        const { incomingPlayer, outgoingPlayer } =
+          gameEventData as GameEventSubstitution;
+
+        this.logInfo([
+          `SUBSTITUTION - ${incomingPlayer.getFullName()} subbing in for ${outgoingPlayer.getFullName()}`,
         ]);
 
         break;

@@ -68,7 +68,7 @@ export const SimResultPlayer = objectType({
     t.nonNull.int("blkd");
     t.nonNull.int("drb");
     t.nonNull.int("dunks");
-    t.nonNull.int("fatigue");
+    t.nonNull.float("fatigue");
     t.nonNull.int("fga");
     t.nonNull.int("fgm");
     t.nonNull.int("fta");

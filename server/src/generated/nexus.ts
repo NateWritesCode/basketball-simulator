@@ -125,7 +125,7 @@ export interface NexusGenObjects {
     blkd: number; // Int!
     drb: number; // Int!
     dunks: number; // Int!
-    fatigue: number; // Int!
+    fatigue: number; // Float!
     fga: number; // Int!
     fgm: number; // Int!
     fouls: number; // Int!
@@ -269,7 +269,7 @@ export interface NexusGenFieldTypes {
     blkd: number; // Int!
     drb: number; // Int!
     dunks: number; // Int!
-    fatigue: number; // Int!
+    fatigue: number; // Float!
     fga: number; // Int!
     fgm: number; // Int!
     fouls: number; // Int!
@@ -404,7 +404,7 @@ export interface NexusGenFieldTypeNames {
     blkd: 'Int'
     drb: 'Int'
     dunks: 'Int'
-    fatigue: 'Int'
+    fatigue: 'Float'
     fga: 'Int'
     fgm: 'Int'
     fouls: 'Int'

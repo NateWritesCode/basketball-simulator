@@ -23,15 +23,15 @@ export const startGameSim = mutationField("startGameSim", {
 
       const playersFetch = await prisma.player.findMany({
         where: {
-          // teamId: {
-          //   in: [team0.id, team1.id],
-          // },
-          id: {
-            in: [
-              201942, 203897, 1629632, 202696, 1628366, 203507, 201950, 203114,
-              1626171, 201572,
-            ],
+          teamId: {
+            in: [team0.id, team1.id],
           },
+          // id: {
+          //   in: [
+          //     201942, 203897, 1629632, 202696, 1628366, 203507, 201950, 203114,
+          //     1626171, 201572,
+          //   ],
+          // },
         },
       });
 

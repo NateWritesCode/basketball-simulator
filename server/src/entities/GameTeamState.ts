@@ -423,6 +423,9 @@ class GameTeamState implements IObserver {
           this.stl += 1;
         }
       }
+      case "SUBSTITUTION": {
+        break;
+      }
       case "TURNOVER": {
         const { offTeam } = gameEventData as GameEventTurnover;
         if (offTeam.id === this.id) {

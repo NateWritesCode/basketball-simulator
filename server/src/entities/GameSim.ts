@@ -1,7 +1,7 @@
 import { errors, getTypeGuardSafeData, isTypeGuardSafeObj } from "../utils";
 import { GameTeamState, GamePlayerState, Player, GameLog } from ".";
 import random from "random";
-import { sample } from "simple-statistics";
+import { sample, shuffle } from "simple-statistics";
 import {
   FoulPenaltySettings,
   GameEventData,
@@ -116,6 +116,7 @@ class GameSim {
 
         const playerState = new GamePlayerState(
           player.id,
+          random.int(50, 95),
           player.getFullName(),
           player.position,
           player.slug,
@@ -240,6 +241,10 @@ class GameSim {
     ];
   };
 
+  getPlayerState = (player: Player): GamePlayerState => {
+    return this.playerStates[player.id];
+  };
+
   getPlayerTotal = ({
     player,
     fields,
@@ -269,6 +274,79 @@ class GameSim {
     });
 
     return total;
+  };
+
+  getBenchPlayers = (): [Player[], Player[]] => {
+    return this.teams.map((team, teamIndex) => {
+      const playersOnCourt = this.playersOnCourt[teamIndex].map(
+        (player) => player.id
+      );
+      const players = team.players.filter(
+        (player) => !playersOnCourt.includes(player.id)
+      );
+      return players;
+    }) as [Player[], Player[]];
+  };
+
+  handleSubstitution = (ineligiblePlayers?: Player[]) => {
+    const ineligiblePlayersIds = ineligiblePlayers?.map((player) => player.id);
+    const allBenchPlayers = this.getBenchPlayers();
+
+    this.playersOnCourt.forEach((players, teamIndex) => {
+      const benchPlayers = shuffle(allBenchPlayers[teamIndex]);
+
+      players.forEach((player, playerIndex) => {
+        if (ineligiblePlayersIds?.includes(player.id)) {
+          return;
+        }
+
+        const playerState = this.getPlayerState(player);
+        if (playerState && playerState.fatigue >= 80) {
+          const outgoingPlayer = player;
+          //TODO: Account for when the bench is empty
+          const incomingPlayerIndex = random.int(0, benchPlayers.length - 1);
+          const incomingPlayer = benchPlayers.splice(incomingPlayerIndex, 1)[0];
+
+          this.playersOnCourt[teamIndex][playerIndex] = incomingPlayer;
+
+          this.notifyObservers("SUBSTITUTION", {
+            incomingPlayer,
+            outgoingPlayer,
+          });
+        }
+      });
+    });
+  };
+
+  handleTime = (
+    possessionType:
+      | "fg"
+      | "foul"
+      | "jumpBall"
+      | "rebound"
+      | "turnover"
+      | "violation"
+  ): number => {
+    let possessionLength = getPossessionLength(possessionType);
+
+    if (
+      this.gameType.type === "time" &&
+      this.timeSegments &&
+      this.timeSegmentIndex !== undefined
+    ) {
+      const timeRemaining = this.timeSegments[this.timeSegmentIndex];
+
+      if (timeRemaining <= 24) {
+        possessionLength = timeRemaining;
+        this.isEndOfSegment = true;
+      }
+
+      this.timeSegments[this.timeSegmentIndex] -= possessionLength;
+    }
+
+    this.possessionLengthTest.push(possessionLength);
+
+    return possessionLength;
   };
 
   headToHead = ({
@@ -321,6 +399,18 @@ class GameSim {
     }
 
     return false;
+  };
+
+  isPlayerTeam0OrTeam1 = (player: Player): 0 | 1 => {
+    if (player.teamId === this.teams[0].id) {
+      return 0;
+    } else if (player.teamId === this.teams[1].id) {
+      return 1;
+    } else {
+      throw new Error(
+        `${player.getFullName} does not have a team that is in this game`
+      );
+    }
   };
 
   jumpBall = ({ players }: { players: TwoPlayers }) => {
@@ -433,6 +523,10 @@ class GameSim {
 
       const offPlayersOnCourt = this.playersOnCourt[this.o];
       const defPlayersOnCourt = this.playersOnCourt[this.d];
+
+      if (isLastShot) {
+        this.handleSubstitution([offPlayer1]);
+      }
 
       this.notifyObservers("FREE_THROW", {
         bonus,
@@ -578,39 +672,6 @@ class GameSim {
       this.d = this.o ^ this.d;
       this.o = this.o ^ this.d;
     }
-  };
-
-  handleTime = (
-    possessionType:
-      | "fg"
-      | "foul"
-      | "jumpBall"
-      | "rebound"
-      | "turnover"
-      | "violation"
-  ): number => {
-    let possessionLength = getPossessionLength(possessionType);
-
-    if (
-      this.gameType.type === "time" &&
-      this.timeSegments &&
-      this.timeSegmentIndex !== undefined
-    ) {
-      const timeRemaining = this.timeSegments[this.timeSegmentIndex];
-
-      if (timeRemaining <= 24) {
-        possessionLength = timeRemaining;
-        this.isEndOfSegment = true;
-      }
-
-      this.timeSegments[this.timeSegmentIndex] -= possessionLength;
-    }
-
-    this.possessionLengthTest.push(possessionLength);
-
-    console.log("possessionLength Correct value", possessionLength);
-
-    return possessionLength;
   };
 
   simPossessionEvents = () => {
@@ -762,7 +823,9 @@ class GameSim {
           case "jumpBall": {
             const offensePlayer = this.pickRandomPlayerOnCourtByTeam(this.o);
             const defensePlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
+
             const players: [Player, Player] = [offensePlayer, defensePlayer];
+            this.handleSubstitution(players);
 
             const isOffenseWinner = this.jumpBall({
               players,
@@ -835,6 +898,8 @@ class GameSim {
               : undefined,
         });
 
+        this.handleSubstitution();
+
         if (this.teamStates[defTeam.id].penalty) {
           this.simFreeThrows({
             bonus: true,
@@ -856,6 +921,8 @@ class GameSim {
           possessionLength,
         });
 
+        this.handleSubstitution();
+
         break;
       }
 
@@ -874,16 +941,13 @@ class GameSim {
             valueToAdd: 1,
           });
         } else {
-          const possibleTurnoverTypes = TurnoverTypes.options;
-          const turnoverType = sample(possibleTurnoverTypes, 1, () =>
-            random.float(0, 1)
-          )[0];
           this.notifyObservers("TURNOVER", {
             offPlayer1,
             possessionLength,
             turnoverType,
             valueToAdd: 1,
           });
+          this.handleSubstitution();
         }
         break;
       }
@@ -894,6 +958,8 @@ class GameSim {
           violationType: "DEF_GOALTEND",
         });
 
+        this.handleSubstitution();
+
         break;
       }
       case "VIOLATION_DEF_KICK_BALL": {
@@ -902,6 +968,8 @@ class GameSim {
           possessionLength,
           violationType: "DEF_KICK_BALL",
         });
+
+        this.handleSubstitution();
 
         break;
       }

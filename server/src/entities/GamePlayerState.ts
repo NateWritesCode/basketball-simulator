@@ -34,6 +34,7 @@ class GamePlayerState implements IObserver {
   drb: number;
   dunks: number;
   fatigue: number;
+  fatigueFactor: number;
   fga: number;
   fgm: number;
   fta: number;
@@ -70,6 +71,7 @@ class GamePlayerState implements IObserver {
 
   constructor(
     id: number,
+    fatigueFactor: number,
     name: string,
     position: string,
     slug: string,
@@ -83,6 +85,7 @@ class GamePlayerState implements IObserver {
     this.drb = 0;
     this.dunks = 0;
     this.fatigue = 0;
+    this.fatigueFactor = fatigueFactor;
     this.fga = 0;
     this.fgm = 0;
     this.fouls = 0;
@@ -170,6 +173,37 @@ class GamePlayerState implements IObserver {
     return null;
   };
 
+  handleFatigue = (gameEventData: any) => {
+    if (gameEventData.possessionLength) {
+      if (
+        gameEventData.offPlayersOnCourt &&
+        gameEventData.defPlayersOnCourt &&
+        gameEventData.offPlayersOnCourt.length > 0 &&
+        gameEventData.defPlayersOnCourt.length > 0
+      ) {
+        const onCourtPlayerIds = [
+          ...gameEventData.offPlayersOnCourt.map((player: Player) => player.id),
+          ...gameEventData.defPlayersOnCourt.map((player: Player) => player.id),
+        ];
+
+        if (onCourtPlayerIds.includes(this.id)) {
+          const possessionLength: number = gameEventData.possessionLength;
+          const fatigue = possessionLength * (this.fatigueFactor * 0.01);
+
+          this.fatigue += fatigue;
+        } else {
+          const possessionLength: number = gameEventData.possessionLength;
+          const rest = possessionLength * (this.fatigueFactor * 0.01);
+          this.fatigue -= rest;
+        }
+      } else {
+        throw new Error(
+          "We don't have the required data to handle fatigue in player state"
+        );
+      }
+    }
+  };
+
   incrementFieldForOffAndDefPlayersOnCourt(
     offPlayersOnCourt: Player[],
     defPlayersOnCourt: Player[],
@@ -189,6 +223,8 @@ class GamePlayerState implements IObserver {
   }
 
   notifyGameEvent(gameEvent: GameEventEnum, gameEventData: unknown): void {
+    this.handleFatigue(gameEventData);
+
     switch (gameEvent) {
       case "2FG_ATTEMPT": {
         const {
@@ -199,10 +235,6 @@ class GamePlayerState implements IObserver {
         } = gameEventData as GameEvent2FgAttempt;
         if (offPlayer1.id === this.id) {
           this.fga += 1;
-        }
-
-        if (this.id === 201942) {
-          console.log("possessionLength 2fg Attempt", possessionLength);
         }
 
         this.incrementFieldForOffAndDefPlayersOnCourt(
@@ -308,10 +340,6 @@ class GamePlayerState implements IObserver {
         if (offPlayer1.id === this.id) {
           this.fga += 1;
           this.tpa += 1;
-        }
-
-        if (this.id === 201942) {
-          console.log("possessionLength 3fg Attempt", possessionLength);
         }
 
         this.incrementFieldForOffAndDefPlayersOnCourt(
@@ -631,6 +659,9 @@ class GamePlayerState implements IObserver {
 
         break;
       }
+      case "SUBSTITUTION": {
+        break;
+      }
       case "TURNOVER": {
         const {
           offPlayer1,
@@ -655,9 +686,6 @@ class GamePlayerState implements IObserver {
         const { offPlayersOnCourt, defPlayersOnCourt, possessionLength } =
           gameEventData as GameEventViolation;
 
-        if (this.id === 201942) {
-          console.log("violation", possessionLength);
-        }
         this.incrementFieldForOffAndDefPlayersOnCourt(
           offPlayersOnCourt,
           defPlayersOnCourt,

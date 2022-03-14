@@ -266,6 +266,12 @@ export const GameEventSteal = z.object({
 });
 export type GameEventSteal = z.infer<typeof GameEventSteal>;
 
+export const GameEventSubstitution = z.object({
+  incomingPlayer: z.instanceof(Player),
+  outgoingPlayer: z.instanceof(Player),
+});
+export type GameEventSubstitution = z.infer<typeof GameEventSubstitution>;
+
 export const GameEventTurnover = z.object({
   defPlayersOnCourt: z.array(z.instanceof(Player)),
   offPlayersOnCourt: z.array(z.instanceof(Player)),
