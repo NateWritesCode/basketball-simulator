@@ -230,8 +230,7 @@ class GameLog implements IObserver {
       case "JUMP_BALL": {
         const { offPlayer1, offTeam } = gameEventData as GameEventJumpBall;
         this.logInfo([
-          `${offPlayer1.getFullName()} wins the tip 
-           for the ${offTeam.getFullName()}`,
+          `${offPlayer1.getFullName()} wins the tip for the ${offTeam.getFullName()}`,
         ]);
 
         break;
@@ -267,6 +266,18 @@ class GameLog implements IObserver {
         const prettySegment = this.getPrettySegment(segment, timeSegmentIndex);
 
         this.logDanger([`${prettySegment} has ended`]);
+
+        const isHalftimePossible = segment > 1;
+
+        if (isHalftimePossible) {
+          const isHalftime = segment / 2 === timeSegmentIndex + 1;
+          if (isHalftime) {
+            this.logInfo([
+              `HALFTIME SHOW has begun. Everyone say hello Three Dog Night!`,
+            ]);
+          }
+        }
+
         break;
       }
       case "SEGMENT_START": {
@@ -280,14 +291,17 @@ class GameLog implements IObserver {
       case "STARTING_LINEUP": {
         const { defPlayersOnCourt, defTeam, offPlayersOnCourt, offTeam } =
           gameEventData as GameEventStartingLineup;
+
         this.logInfo([
-          `STARTING LINEUP ${offTeam.getFullName()} - `,
-          ...offPlayersOnCourt.map((player) => player.getFullName()),
+          `STARTING LINEUP ${offTeam.getFullName()} - ${offPlayersOnCourt
+            .map((player) => player.getFullName())
+            .join(", ")}`,
         ]);
 
         this.logInfo([
-          `STARTING LINEUP ${defTeam.getFullName()} - `,
-          ...defPlayersOnCourt.map((player) => player.getFullName()),
+          `STARTING LINEUP ${defTeam.getFullName()} - ${defPlayersOnCourt
+            .map((player) => player.getFullName())
+            .join(", ")}`,
         ]);
 
         break;
@@ -302,11 +316,13 @@ class GameLog implements IObserver {
         break;
       }
       case "SUBSTITUTION": {
-        const { incomingPlayer, outgoingPlayer } =
+        const { incomingPlayer, outgoingPlayer, isPlayerFouledOut } =
           gameEventData as GameEventSubstitution;
 
         this.logInfo([
-          `SUBSTITUTION - ${incomingPlayer.getFullName()} subbing in for ${outgoingPlayer.getFullName()}`,
+          `SUBSTITUTION${
+            isPlayerFouledOut ? " (PLAYER FOUL OUT)" : ""
+          } - ${incomingPlayer.getFullName()} subbing in for ${outgoingPlayer.getFullName()}`,
         ]);
 
         break;

@@ -70,6 +70,7 @@ export const GameSimInit = z.object({
   gameType: GameType,
   id: z.number().gte(1),
   neutralFloor: z.boolean().optional(),
+  numFoulsForPlayerFoulOut: z.number().gte(1).optional(),
   possessionTossupMethod: PossessionTossupMethodEnum,
   shotClock: ShotClockLengthEnum.optional(),
   socket: z.instanceof(Socket),

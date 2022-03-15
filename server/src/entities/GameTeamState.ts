@@ -16,6 +16,7 @@ import {
   GameSimStats,
   IObserver,
   GameEventOffensiveFoul,
+  GameEventSubstitution,
 } from "../types";
 
 class GameTeamState implements IObserver {
@@ -49,6 +50,7 @@ class GameTeamState implements IObserver {
   pga: number;
   pts: number;
   stl: number;
+  substitutions: number;
   teamDrb: number;
   teamOrb: number;
   timeouts: number;
@@ -87,6 +89,7 @@ class GameTeamState implements IObserver {
     this.pga = 0;
     this.pts = 0;
     this.stl = 0;
+    this.substitutions = 0;
     this.teamDrb = 0;
     this.teamOrb = 0;
     this.timeouts = timeouts;
@@ -330,7 +333,6 @@ class GameTeamState implements IObserver {
       case "GAME_START": {
         break;
       }
-
       case "JUMP_BALL": {
         const { offTeam } = gameEventData as GameEventJumpBall;
         if (offTeam.id === this.id) {
@@ -422,8 +424,14 @@ class GameTeamState implements IObserver {
         } else {
           this.stl += 1;
         }
+        break;
       }
       case "SUBSTITUTION": {
+        const { incomingPlayer } = gameEventData as GameEventSubstitution;
+        console.log("incomingPlayer", incomingPlayer);
+        if (incomingPlayer.teamId === this.id) {
+          this.substitutions++;
+        }
         break;
       }
       case "TURNOVER": {

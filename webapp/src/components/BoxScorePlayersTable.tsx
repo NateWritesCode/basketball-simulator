@@ -39,6 +39,26 @@ const FooterTotalSum = (props: any) => {
   );
 };
 
+const FooterTotalPlusMinus = (props: any) => {
+  const total = React.useMemo(
+    () =>
+      props.rows
+        .filter((row: any) => row.values["timePlayed"] !== 0)
+        .reduce((sum: any, row: any) => {
+          return row.values[props.column.id] + sum;
+        }, 0),
+    [props.rows]
+  );
+
+  //TODO: This should only be players who played
+  //TODO: Account for when it is not 5 players that play
+  return (
+    <Box as="span" fontWeight={"bold"}>
+      {numeral(total / 5).format("0.0")}
+    </Box>
+  );
+};
+
 const FooterTotalAvg = (props: any) => {
   const total = React.useMemo(
     () =>
@@ -204,7 +224,7 @@ const BoxScorePlayersTable = (props: IBoxScorePlayersTableProps) => {
         Footer: FooterTotalSum,
       },
       { Header: "PTS", accessor: "pts", Footer: FooterTotalSum },
-      { Header: "+/-", accessor: "plusMinus", Footer: FooterTotalAvg },
+      { Header: "+/-", accessor: "plusMinus", Footer: FooterTotalPlusMinus },
     ],
     []
   );

@@ -28,6 +28,7 @@ class Player {
   fgShortMidRangeBlock: number;
   fgShortMidRangeMade: number;
   fgShortMidRangeMadeFoul: number;
+  fgTotalChance: number;
   freeThrow: number;
   givenName: string;
   height: number;
@@ -119,6 +120,7 @@ class Player {
       shotTypeLongMidRangeDef,
       shotTypeShortMidRange,
       shotTypeShortMidRangeDef,
+      totals,
       turnover,
       violationDefGoaltend,
       violationDefKickBall,
@@ -151,6 +153,7 @@ class Player {
     this.fgShortMidRangeBlock = fgShortMidRangeBlock;
     this.fgShortMidRangeMade = fgShortMidRangeMade;
     this.fgShortMidRangeMadeFoul = fgShortMidRangeMadeFoul;
+    this.fgTotalChance = totals.fgTotalChance;
     this.freeThrow = freeThrow;
     this.rebDef = rebDef;
     this.rebOff = rebOff;

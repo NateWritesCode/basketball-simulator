@@ -23,6 +23,7 @@ class GameEventStore implements IObserver {
     team0: number;
     team1: number;
   }) {
+    // always this means the field will always be there
     this.gameId = gameId;
     this.gameType = gameType;
     this.neutralFloor = neutralFloor;
@@ -32,6 +33,7 @@ class GameEventStore implements IObserver {
     this.pipeSettings = {
       bonus: {},
       defPlayer1: { getId: true },
+      defPlayer2: { getId: true },
       defPlayersOnCourt: { getIdArray: true },
       defTeam: { getId: true },
       gameEvent: {},
@@ -62,7 +64,6 @@ class GameEventStore implements IObserver {
     let headerString = "";
     const pipeSettingsKeys = Object.keys(this.pipeSettings);
     pipeSettingsKeys.forEach((pipeSettingKey, i) => {
-      let value = "";
       const isLastKey = i + 1 === pipeSettingsKeys.length;
 
       headerString += `${pipeSettingKey}${isLastKey ? "" : "|"}`;
@@ -79,7 +80,7 @@ class GameEventStore implements IObserver {
     pipeSettingsKeys.forEach((pipeSettingKey, i) => {
       let value = "";
       const isLastKey = i + 1 === pipeSettingsKeys.length;
-      const { alwaysThis, getId, getIdArray } =
+      const { alwaysThis, custom, getId, getIdArray } =
         this.pipeSettings[pipeSettingKey];
 
       if (alwaysThis) {

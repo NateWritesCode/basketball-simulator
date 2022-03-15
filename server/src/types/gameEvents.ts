@@ -255,6 +255,11 @@ export type GameEventPossessionArrowWon = z.infer<
   typeof GameEventPossessionArrowWon
 >;
 
+export const GameEventSegmentEnd = z.object({
+  isHalftime: z.boolean(),
+});
+export type GameEventSegmentEnd = z.infer<typeof GameEventSegmentEnd>;
+
 export const GameEventSteal = z.object({
   defPlayer1: z.instanceof(Player),
   defTeam: z.instanceof(Team),
@@ -267,6 +272,7 @@ export const GameEventSteal = z.object({
 export type GameEventSteal = z.infer<typeof GameEventSteal>;
 
 export const GameEventSubstitution = z.object({
+  isPlayerFouledOut: z.boolean(),
   incomingPlayer: z.instanceof(Player),
   outgoingPlayer: z.instanceof(Player),
 });
@@ -315,6 +321,7 @@ export const GameEventData = z.union([
   GameEventSegment,
   GameEventStartingLineup,
   GameEventSteal,
+  GameEventSubstitution,
   GameEventTurnover,
   GameEventViolation,
   z.object({}),

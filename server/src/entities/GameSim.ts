@@ -58,6 +58,7 @@ class GameSim {
   private isPossessionEventsComplete: boolean;
   private isShootout: boolean;
   private neutralFloor: boolean;
+  private numFoulsForPlayerFoulOut: number | undefined;
   private o: TeamIndex;
   private observers: IObserver[];
   private playersOnCourt: PlayersOnCourt;
@@ -76,6 +77,7 @@ class GameSim {
     gameType,
     id,
     neutralFloor = false,
+    numFoulsForPlayerFoulOut,
     possessionTossupMethod,
     socket,
     teams,
@@ -92,6 +94,7 @@ class GameSim {
     this.isPossessionEventsComplete = false;
     this.isShootout = false;
     this.neutralFloor = neutralFloor;
+    this.numFoulsForPlayerFoulOut = numFoulsForPlayerFoulOut;
     this.o = 0;
     this.observers = [];
     this.teams = teams;
@@ -116,7 +119,7 @@ class GameSim {
 
         const playerState = new GamePlayerState(
           player.id,
-          random.int(50, 95),
+          random.int(80, 99),
           player.getFullName(),
           player.position,
           player.slug,
@@ -143,11 +146,7 @@ class GameSim {
     //START MANIPULATING GAME STATE
 
     //STARTERS
-    this.playersOnCourt = [
-      [...teams[0].getRandomPlayers(5)],
-      [...teams[1].getRandomPlayers(5)],
-    ];
-
+    this.playersOnCourt = this.pickStarters();
     this.notifyObservers("STARTING_LINEUP", {});
 
     if (isTypeGuardSafeObj(GameTypeTime, gameType)) {
@@ -276,42 +275,141 @@ class GameSim {
     return total;
   };
 
-  getBenchPlayers = (): [Player[], Player[]] => {
+  isPlayerEligibleToSub = (player: Player): boolean => {
+    let returnBool = true;
+    const playerState = this.getPlayerState(player);
+
+    if (
+      (this.numFoulsForPlayerFoulOut &&
+        playerState.fouls === this.numFoulsForPlayerFoulOut) ||
+      playerState.isInjuredWithNoReturn
+    ) {
+      returnBool = false;
+    }
+
+    return returnBool;
+  };
+
+  getEligibleBenchPlayers = (): [Player[], Player[]] => {
     return this.teams.map((team, teamIndex) => {
       const playersOnCourt = this.playersOnCourt[teamIndex].map(
         (player) => player.id
       );
       const players = team.players.filter(
-        (player) => !playersOnCourt.includes(player.id)
+        (player) =>
+          !playersOnCourt.includes(player.id) &&
+          this.isPlayerEligibleToSub(player)
       );
+
       return players;
     }) as [Player[], Player[]];
   };
 
-  handleSubstitution = (ineligiblePlayers?: Player[]) => {
-    const ineligiblePlayersIds = ineligiblePlayers?.map((player) => player.id);
-    const allBenchPlayers = this.getBenchPlayers();
+  getIncomingPlayer = (
+    benchPlayers: Player[],
+    outgoingPlayer: Player
+  ): Player => {
+    if (!benchPlayers || benchPlayers.length === 0) {
+      throw new Error("Ut oh! Don't have any bench players");
+    }
+
+    let incomingPlayer = benchPlayers[0];
+    let incomingPlayerIndex = 0;
+    benchPlayers.sort((a, b) => b.fgTotalChance - a.fgTotalChance);
+
+    if (outgoingPlayer.position.includes("Center")) {
+      for (let i = 0; i < benchPlayers.length; i++) {
+        const player = benchPlayers[i];
+        const playerState = this.getPlayerState(player);
+
+        if (player.position.includes("Center") && playerState.fatigue <= 80) {
+          incomingPlayer = player;
+          incomingPlayerIndex = i;
+          break;
+        }
+      }
+    } else if (outgoingPlayer.position.includes("Forward")) {
+      for (let i = 0; i < benchPlayers.length; i++) {
+        const player = benchPlayers[i];
+        const playerState = this.getPlayerState(player);
+
+        if (player.position.includes("Forward") && playerState.fatigue <= 80) {
+          incomingPlayer = player;
+          incomingPlayerIndex = i;
+          break;
+        }
+      }
+    } else if (outgoingPlayer.position.includes("Guard")) {
+      for (let i = 0; i < benchPlayers.length; i++) {
+        const player = benchPlayers[i];
+        const playerState = this.getPlayerState(player);
+
+        if (player.position.includes("Guard") && playerState.fatigue <= 80) {
+          incomingPlayer = player;
+          incomingPlayerIndex = i;
+          break;
+        }
+      }
+    }
+
+    benchPlayers.splice(incomingPlayerIndex, 1);
+
+    return incomingPlayer;
+  };
+
+  handleSubstitution = (ineligibleOutcomingPlayers?: Player[]) => {
+    let ineligibleOutcomingPlayersIds = ineligibleOutcomingPlayers?.map(
+      (player) => player.id
+    );
+
+    const allEligibleBenchPlayers = this.getEligibleBenchPlayers();
 
     this.playersOnCourt.forEach((players, teamIndex) => {
-      const benchPlayers = shuffle(allBenchPlayers[teamIndex]);
+      const benchPlayers = allEligibleBenchPlayers[teamIndex];
 
       players.forEach((player, playerIndex) => {
-        if (ineligiblePlayersIds?.includes(player.id)) {
+        if (ineligibleOutcomingPlayersIds?.includes(player.id)) {
           return;
         }
 
         const playerState = this.getPlayerState(player);
-        if (playerState && playerState.fatigue >= 80) {
-          const outgoingPlayer = player;
+        let incomingPlayer, outgoingPlayer;
+        let isPlayerFouledOut = false;
+
+        if (
+          this.numFoulsForPlayerFoulOut &&
+          playerState &&
+          playerState.fouls === this.numFoulsForPlayerFoulOut
+        ) {
+          isPlayerFouledOut = true;
+          outgoingPlayer = player;
           //TODO: Account for when the bench is empty
-          const incomingPlayerIndex = random.int(0, benchPlayers.length - 1);
-          const incomingPlayer = benchPlayers.splice(incomingPlayerIndex, 1)[0];
+
+          incomingPlayer = this.getIncomingPlayer(benchPlayers, outgoingPlayer);
 
           this.playersOnCourt[teamIndex][playerIndex] = incomingPlayer;
+        }
 
+        if (!isPlayerFouledOut && playerState && playerState.fatigue >= 80) {
+          outgoingPlayer = player;
+          incomingPlayer = this.getIncomingPlayer(benchPlayers, outgoingPlayer);
+
+          this.playersOnCourt[teamIndex][playerIndex] = incomingPlayer;
+        }
+
+        if (incomingPlayer && outgoingPlayer) {
+          console.log(
+            "incomingPlayer.getFullName()",
+            incomingPlayer.getFullName()
+          );
+          console.log(
+            "outgoingPlayer.getFullName()",
+            outgoingPlayer.getFullName()
+          );
           this.notifyObservers("SUBSTITUTION", {
             incomingPlayer,
             outgoingPlayer,
+            isPlayerFouledOut,
           });
         }
       });
@@ -505,6 +603,13 @@ class GameSim {
     }
   };
 
+  pickStarters = (): PlayersOnCourt => {
+    return [
+      [...this.teams[0].getStartingLineup(5)],
+      [...this.teams[1].getStartingLineup(5)],
+    ];
+  };
+
   simFreeThrows = ({
     bonus,
     offPlayer1,
@@ -626,6 +731,7 @@ class GameSim {
 
       if (this.isEndOfSegment) {
         this.isEndOfSegment = false;
+
         const isLastSegment =
           this.timeSegments[this.timeSegments.length - 1] === 0;
 
@@ -658,6 +764,17 @@ class GameSim {
             segment: gameType.segment,
             timeSegmentIndex: this.timeSegmentIndex,
           });
+          const isHalftimePossible = this.timeSegments.length > 1;
+
+          if (isHalftimePossible) {
+            const isHalftime =
+              this.timeSegments.length / 2 === this.timeSegmentIndex + 1;
+            if (isHalftime) {
+              this.playersOnCourt = this.pickStarters();
+              this.notifyObservers("STARTING_LINEUP", {});
+            }
+          }
+
           this.timeSegmentIndex++;
         }
       }

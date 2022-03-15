@@ -23,6 +23,8 @@ import {
   GameEventTurnover,
   GameEventOffensiveFoul,
   GameEventViolation,
+  GameEventSegment,
+  GameEventSubstitution,
 } from "../types";
 
 class GamePlayerState implements IObserver {
@@ -46,6 +48,7 @@ class GamePlayerState implements IObserver {
   gameSimSegmentData: GameSimStats[];
   heaves: number; //shots in front of half court
   id: number;
+  isInjuredWithNoReturn: boolean;
   inspiration: number;
   jumpBallsLost: number;
   jumpBallsWon: number;
@@ -62,6 +65,8 @@ class GamePlayerState implements IObserver {
   slug: string;
   starter: boolean;
   stl: number;
+  substitutionIn: number;
+  substitutionOut: number;
   teamIndex: number;
   teamId: number;
   timePlayed: number;
@@ -97,6 +102,7 @@ class GamePlayerState implements IObserver {
     this.gameSimStats = null;
     this.heaves = 0;
     this.id = id;
+    this.isInjuredWithNoReturn = false;
     this.inspiration = 0;
     this.jumpBallsLost = 0;
     this.jumpBallsWon = 0;
@@ -113,6 +119,8 @@ class GamePlayerState implements IObserver {
     this.slug = slug;
     this.starter = false;
     this.stl = 0;
+    this.substitutionIn = 0;
+    this.substitutionOut = 0;
     this.teamId = teamId;
     this.teamIndex = teamIndex;
     this.timePlayed = 0;
@@ -188,12 +196,12 @@ class GamePlayerState implements IObserver {
 
         if (onCourtPlayerIds.includes(this.id)) {
           const possessionLength: number = gameEventData.possessionLength;
-          const fatigue = possessionLength * (this.fatigueFactor * 0.01);
+          const fatigue = possessionLength * (this.fatigueFactor * 0.001);
 
           this.fatigue += fatigue;
         } else {
           const possessionLength: number = gameEventData.possessionLength;
-          const rest = possessionLength * (this.fatigueFactor * 0.01);
+          const rest = possessionLength * (this.fatigueFactor * 0.001);
           this.fatigue -= rest;
         }
       } else {
@@ -215,7 +223,6 @@ class GamePlayerState implements IObserver {
         if (Number.isInteger(value)) {
           this[field] += value;
         } else {
-          debugger;
           throw new Error("This has to be a number");
         }
       }
@@ -613,6 +620,17 @@ class GamePlayerState implements IObserver {
 
         this.gameSimSegmentData.push(gameSimSegmentData);
 
+        const { segment, timeSegmentIndex } = gameEventData as GameEventSegment;
+
+        const isHalftimePossible = segment > 1;
+
+        if (isHalftimePossible) {
+          const isHalftime = segment / 2 === timeSegmentIndex + 1;
+          if (isHalftime) {
+            this.fatigue = 0;
+          }
+        }
+
         break;
       }
       case "STARTING_LINEUP": {
@@ -660,6 +678,16 @@ class GamePlayerState implements IObserver {
         break;
       }
       case "SUBSTITUTION": {
+        const { incomingPlayer, outgoingPlayer } =
+          gameEventData as GameEventSubstitution;
+        if (incomingPlayer.id === this.id) {
+          this.substitutionsIn++;
+        }
+
+        if (outgoingPlayer.id === this.id) {
+          this.substitutionOut++;
+        }
+
         break;
       }
       case "TURNOVER": {

@@ -76,6 +76,7 @@ export const startGameSim = mutationField("startGameSim", {
           type: "time",
         },
         id: 1,
+        numFoulsForPlayerFoulOut: 6,
         possessionTossupMethod: "jumpBall",
         shotClock: ShotClockLength.NBA,
         socket,
