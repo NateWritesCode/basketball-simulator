@@ -28,12 +28,13 @@ import {
 import { log } from "../utils";
 import ordinal from "ordinal";
 import fs from "fs";
-import Socket from "../Socket";
 
 class GameLog implements IObserver {
+  gameId: number;
   gameLog: string[][];
 
-  constructor(socket: Socket) {
+  constructor(gameId: number) {
+    this.gameId = gameId;
     this.gameLog = [];
   }
 
@@ -218,7 +219,9 @@ class GameLog implements IObserver {
 
       case "GAME_END": {
         this.logDanger(["Game has ended"]);
-        const file = fs.createWriteStream("./src/data/gameLog.txt");
+        const file = fs.createWriteStream(
+          `./src/data/game-logs/${this.gameId}.txt`
+        );
         this.gameLog.forEach((v) => file.write(`${v}\r\n`));
         file.end();
         break;

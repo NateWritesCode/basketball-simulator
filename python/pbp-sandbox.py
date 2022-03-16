@@ -79,7 +79,7 @@ def possession_length_update(possession_type, dict, seconds):
         dict[possession_type][key] = 1
 
 
-for season_game in season.games.items[:100]:
+for season_game in season.games.items[:889]:
     game_id = season_game.game_id
     print("Processing game id: ", game_id)
     game = None

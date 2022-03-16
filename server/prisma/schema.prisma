@@ -11,6 +11,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model League {
+  abbrev       String @unique
+  commissioner String @unique
+  id           Int    @id @default(autoincrement())
+  name         String @unique
+}
+
 model Player {
   active            Boolean
   arc3              Int       @default(50)

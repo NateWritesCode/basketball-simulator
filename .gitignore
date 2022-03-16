@@ -9,3 +9,6 @@ yarn-error.log
 probabilities-player
 game-event-store
 relationships
+game-logs
+dist
+presto

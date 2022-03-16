@@ -5,9 +5,7 @@ import { schema } from "./schema";
 import { log } from "./utils";
 import express from "express";
 import * as http from "http";
-import { Server } from "socket.io";
 import Socket from "./Socket";
-import { Context } from "./types";
 import cors from "cors";
 
 const prisma = new PrismaClient();

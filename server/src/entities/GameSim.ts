@@ -132,7 +132,7 @@ class GameSim {
     });
 
     // INIT OTHER OBSERVERS
-    this.observers.push(new GameLog(socket));
+    this.observers.push(new GameLog(id));
     this.observers.push(
       new GameEventStore({
         gameId: id,
@@ -398,14 +398,6 @@ class GameSim {
         }
 
         if (incomingPlayer && outgoingPlayer) {
-          console.log(
-            "incomingPlayer.getFullName()",
-            incomingPlayer.getFullName()
-          );
-          console.log(
-            "outgoingPlayer.getFullName()",
-            outgoingPlayer.getFullName()
-          );
           this.notifyObservers("SUBSTITUTION", {
             incomingPlayer,
             outgoingPlayer,

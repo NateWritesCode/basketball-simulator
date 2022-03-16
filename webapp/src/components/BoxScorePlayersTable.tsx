@@ -60,18 +60,19 @@ const FooterTotalPlusMinus = (props: any) => {
 };
 
 const FooterTotalAvg = (props: any) => {
-  const total = React.useMemo(
-    () =>
-      props.rows.reduce((sum: any, row: any) => {
-        return row.values[props.column.id] + sum;
-      }, 0),
-    [props.rows]
+  const rowsToCount = props.rows.filter(
+    (row: any) => row.values[props.column.id] !== null
   );
 
-  //TODO: This should only be players who played
+  const total = React.useMemo(() => {
+    return rowsToCount.reduce((sum: any, row: any) => {
+      return row.values[props.column.id] + sum;
+    }, 0);
+  }, [props.rows]);
+
   return (
     <Box as="span" fontWeight={"bold"}>
-      {numeral(total / props.rows.length).format("0.0")}
+      {numeral(total / rowsToCount.length).format("0.0")}
     </Box>
   );
 };
@@ -94,16 +95,14 @@ const BoxScorePlayersTable = (props: IBoxScorePlayersTableProps) => {
       props.data.map((obj: startGameSim_startGameSim_playerStats) => {
         return {
           ...obj,
-          "fg%": (obj.fgm / obj.fga) * 100,
-          "tp%": (obj.tpm / obj.tpa) * 100,
-          "ft%": (obj.ftm / obj.fta) * 100,
+          "fg%": obj.fga ? (obj.fgm / obj.fga) * 100 : null,
+          "tp%": obj.tpa ? (obj.tpm / obj.tpa) * 100 : null,
+          "ft%": obj.fta ? (obj.ftm / obj.fta) * 100 : null,
           reb: obj.orb + obj.drb,
         };
       }),
     []
   );
-
-  console.log("props", props);
 
   const columns = useMemo(
     () => [
