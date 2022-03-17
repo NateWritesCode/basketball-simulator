@@ -5,7 +5,7 @@ class GameSimSocket {
   socket: Socket;
 
   constructor() {
-    this.socket = io("ws://localhost:8080", {
+    this.socket = io("ws://localhost:8081", {
       transports: ["websocket"],
     });
   }

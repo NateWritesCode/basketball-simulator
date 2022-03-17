@@ -1,7 +1,5 @@
 import { mutationField } from "nexus";
 import fs from "fs";
-import random from "random";
-import { sample } from "simple-statistics";
 import { GameSim, Player, Team } from "../../entities";
 import {
   OvertimeLength,

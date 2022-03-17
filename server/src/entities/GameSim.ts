@@ -57,7 +57,7 @@ class GameSim {
   private isOvertime: boolean;
   private isPossessionEventsComplete: boolean;
   private isShootout: boolean;
-  private neutralFloor: boolean;
+  private isNeutralFloor: boolean;
   private numFoulsForPlayerFoulOut: number | undefined;
   private o: TeamIndex;
   private observers: IObserver[];
@@ -76,7 +76,7 @@ class GameSim {
     foulPenaltySettings,
     gameType,
     id,
-    neutralFloor = false,
+    isNeutralFloor = false,
     numFoulsForPlayerFoulOut,
     possessionTossupMethod,
     socket,
@@ -93,7 +93,7 @@ class GameSim {
     this.isOvertime = false;
     this.isPossessionEventsComplete = false;
     this.isShootout = false;
-    this.neutralFloor = neutralFloor;
+    this.isNeutralFloor = isNeutralFloor;
     this.numFoulsForPlayerFoulOut = numFoulsForPlayerFoulOut;
     this.o = 0;
     this.observers = [];
@@ -137,7 +137,7 @@ class GameSim {
       new GameEventStore({
         gameId: id,
         gameType: gameType.type,
-        neutralFloor,
+        isNeutralFloor,
         team0: teams[0].id,
         team1: teams[1].id,
       })
@@ -607,7 +607,7 @@ class GameSim {
     offPlayer1,
     totalShots,
   }: {
-    bonus?: boolean;
+    bonus: boolean;
     totalShots: 1 | 2 | 3;
     offPlayer1: Player;
   }) => {
@@ -834,6 +834,7 @@ class GameSim {
           });
 
           this.simFreeThrows({
+            bonus: false,
             offPlayer1,
             totalShots: 1,
           });
@@ -853,6 +854,7 @@ class GameSim {
             y,
           });
           this.simFreeThrows({
+            bonus: false,
             totalShots: pts,
             offPlayer1,
           });

@@ -1,11 +1,11 @@
-import { GameEvent2FgAttempt, GameEventEnum, IObserver } from "../types";
+import { GameEventEnum, IObserver } from "../types";
 import fs from "fs";
 
 class GameEventStore implements IObserver {
   filePath: string;
   gameId: number;
   gameType: string;
-  neutralFloor: boolean;
+  isNeutralFloor: boolean;
   pipeSettings: { [key: string]: any };
   team0: number;
   team1: number;
@@ -13,20 +13,20 @@ class GameEventStore implements IObserver {
   constructor({
     gameId,
     gameType,
-    neutralFloor,
+    isNeutralFloor,
     team0,
     team1,
   }: {
     gameId: number;
     gameType: string;
-    neutralFloor: boolean;
+    isNeutralFloor: boolean;
     team0: number;
     team1: number;
   }) {
     // always this means the field will always be there
     this.gameId = gameId;
     this.gameType = gameType;
-    this.neutralFloor = neutralFloor;
+    this.isNeutralFloor = isNeutralFloor;
     this.team0 = team0; //home team if not neutral floor
     this.team1 = team1;
     this.filePath = `./src/data/game-event-store/${gameId}.txt`;
@@ -42,7 +42,7 @@ class GameEventStore implements IObserver {
       incomingPlayer: { getId: true },
       isPlayerFouledOut: {},
       isCharge: {},
-      neutralFloor: { alwaysThis: true },
+      isNeutralFloor: { alwaysThis: true },
       offPlayer1: { getId: true },
       offPlayer2: { getId: true },
       offPlayersOnCourt: { getIdArray: true },
@@ -84,7 +84,7 @@ class GameEventStore implements IObserver {
     pipeSettingsKeys.forEach((pipeSettingKey, i) => {
       let value = "";
       const isLastKey = i + 1 === pipeSettingsKeys.length;
-      const { alwaysThis, custom, getId, getIdArray } =
+      const { alwaysThis, getId, getIdArray } =
         this.pipeSettings[pipeSettingKey];
 
       if (alwaysThis) {

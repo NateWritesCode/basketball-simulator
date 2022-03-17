@@ -54,7 +54,7 @@ export default async () => {
     app,
   });
 
-  const port = 8080;
+  const port = 8081;
 
   httpServer.listen(
     {

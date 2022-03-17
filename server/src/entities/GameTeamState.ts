@@ -428,7 +428,6 @@ class GameTeamState implements IObserver {
       }
       case "SUBSTITUTION": {
         const { incomingPlayer } = gameEventData as GameEventSubstitution;
-        console.log("incomingPlayer", incomingPlayer);
         if (incomingPlayer.teamId === this.id) {
           this.substitutions++;
         }

@@ -1,0 +1,1 @@
+select distinct id from "Team" WHERE "home_name"="Chicago";
