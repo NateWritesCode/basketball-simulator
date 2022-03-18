@@ -10,5 +10,6 @@ probabilities-player
 game-event-store
 relationships
 game-logs
+game-events
 dist
 presto

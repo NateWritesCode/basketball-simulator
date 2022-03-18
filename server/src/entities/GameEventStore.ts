@@ -29,7 +29,7 @@ class GameEventStore implements IObserver {
     this.isNeutralFloor = isNeutralFloor;
     this.team0 = team0; //home team if not neutral floor
     this.team1 = team1;
-    this.filePath = `./src/data/game-event-store/${gameId}.txt`;
+    this.filePath = `./src/data/game-events/${gameId}.txt`;
     this.pipeSettings = {
       bonus: {},
       defPlayer1: { getId: true },

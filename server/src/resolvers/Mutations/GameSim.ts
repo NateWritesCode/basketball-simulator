@@ -10,7 +10,7 @@ import {
 
 export const startGameSim = mutationField("startGameSim", {
   type: "SimResult",
-  async resolve(_parent, _args, { prisma, socket }) {
+  async resolve(_parent, _args, { presto, prisma, socket }) {
     try {
       const team0 = await prisma.team.findUnique({ where: { abbrev: "CHI" } });
       const team1 = await prisma.team.findUnique({ where: { abbrev: "MIL" } });
@@ -83,6 +83,12 @@ export const startGameSim = mutationField("startGameSim", {
       });
 
       const { playerStats, teamStats } = gameSim.start();
+
+      const test = await presto.query(
+        "SELECT * FROM game_events WHERE offplayer1=203897"
+      );
+
+      console.log("test", test);
 
       return {
         playerStats: [playerStats[0], playerStats[1]],

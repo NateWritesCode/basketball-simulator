@@ -7,8 +7,10 @@ import express from "express";
 import * as http from "http";
 import Socket from "./Socket";
 import cors from "cors";
+import PrestoClient from "./PrestoClient";
 
 const prisma = new PrismaClient();
+const presto = new PrestoClient();
 
 export default async () => {
   log.info("Starting server");
@@ -26,6 +28,7 @@ export default async () => {
   app.use(cors(corsOptions));
 
   const context = {
+    presto,
     prisma,
     socket,
   };
