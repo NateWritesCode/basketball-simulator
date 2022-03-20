@@ -43,7 +43,7 @@ mock_hive_engine.execute("""
     COLLECTION ITEMS TERMINATED BY ','
     STORED AS TEXTFILE 
     LOCATION 's3a://mothena/gameEvents'
-    TBLPROPERTIES ('skip.header.line.count'='1')
+    TBLPROPERTIES ('skip.header.line.count'='1', 'serialization.null.format'='')
     """
                          )
 mock_hive_engine.execute("MSCK REPAIR TABLE game_events")

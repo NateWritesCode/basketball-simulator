@@ -8,6 +8,9 @@ import * as http from "http";
 import Socket from "./Socket";
 import cors from "cors";
 import PrestoClient from "./PrestoClient";
+import CubeJsServer from "@cubejs-backend/server";
+import PostgresDriver from "@cubejs-backend/postgres-driver";
+import PrestoDriver from "@cubejs-backend/prestodb-driver";
 
 const prisma = new PrismaClient();
 const presto = new PrestoClient();
@@ -58,6 +61,39 @@ export default async () => {
   });
 
   const port = 8081;
+
+  const cubeJsServer = new CubeJsServer({
+    dbType: ({ dataSource }) => {
+      console.log("dataSource", dataSource);
+      if (dataSource === "analytics") {
+        return "prestodb";
+      } else {
+        return "postgres";
+      }
+    },
+    driverFactory: ({ dataSource }) => {
+      console.log("dataSource", dataSource);
+      if (dataSource === "analytics") {
+        return new PrestoDriver({
+          host: "localhost",
+          port: 8080,
+          catalog: "hive",
+          user: "root",
+          schema: "default",
+        });
+      } else {
+        return new PostgresDriver({
+          database: "postgres",
+          host: "localhost",
+          user: "admin",
+          password: "helloworld",
+          port: 5432,
+        });
+      }
+    },
+  });
+
+  await cubeJsServer.listen();
 
   httpServer.listen(
     {

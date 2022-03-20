@@ -256,6 +256,7 @@ export interface NexusGenFieldTypes {
     getOnePlayer: NexusGenRootTypes['Player'] | null; // Player
     getOneTeam: NexusGenRootTypes['Team'] | null; // Team
     getOneTest: boolean | null; // Boolean
+    sqlSandbox: string | null; // String
   }
   SimResult: { // field return type
     playerStats: Array<Array<NexusGenRootTypes['SimResultPlayer'] | null> | null>; // [[SimResultPlayer]]!
@@ -391,6 +392,7 @@ export interface NexusGenFieldTypeNames {
     getOnePlayer: 'Player'
     getOneTeam: 'Team'
     getOneTest: 'Boolean'
+    sqlSandbox: 'String'
   }
   SimResult: { // field return type name
     playerStats: 'SimResultPlayer'
@@ -493,6 +495,11 @@ export interface NexusGenArgTypes {
     }
     getOneTeam: { // args
       abbrev: string; // String!
+    }
+    sqlSandbox: { // args
+      dbType: string; // String!
+      sqlString: string; // String!
+      values?: string | null; // String
     }
   }
 }

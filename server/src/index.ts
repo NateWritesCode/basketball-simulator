@@ -1,11 +1,10 @@
-// import { startTeamDetailsParse } from "./data-wrangle/teams";
-import startServer from "./startServer";
-import initBigData from "./initBigData";
+import startExpressServer from "./startExpressServer";
+import startHive from "./startHive";
 
 (async () => {
   try {
-    await initBigData();
-    await startServer();
+    // await startHive();
+    await startExpressServer();
   } catch (e) {
     console.error(e);
   }

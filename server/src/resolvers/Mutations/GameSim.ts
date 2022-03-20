@@ -59,42 +59,44 @@ export const startGameSim = mutationField("startGameSim", {
           })
       );
 
-      const gameSim = new GameSim({
-        foulPenaltySettings: {
-          doublePenaltyThreshold: 10,
-          penaltyThreshold: 6,
-        },
-        gameType: {
-          overtimeOptions: {
-            overtimeLength: OvertimeLength.NBA,
+      let counter = 1;
+
+      while (counter < 11) {
+        const gameSim = new GameSim({
+          foulPenaltySettings: {
+            doublePenaltyThreshold: 10,
+            penaltyThreshold: 6,
+          },
+          gameType: {
+            overtimeOptions: {
+              overtimeLength: OvertimeLength.NBA,
+              type: "time",
+            },
+            segment: GameTypeTimeSegments.Quarter,
+            totalTime: GameTotalTime.NBA,
             type: "time",
           },
-          segment: GameTypeTimeSegments.Quarter,
-          totalTime: GameTotalTime.NBA,
-          type: "time",
-        },
-        id: 1,
-        numFoulsForPlayerFoulOut: 6,
-        possessionTossupMethod: "jumpBall",
-        shotClock: ShotClockLength.NBA,
-        socket,
-        teams: [teams[0], teams[1]],
-        timeouts: 7,
-      });
+          id: counter,
+          numFoulsForPlayerFoulOut: 6,
+          possessionTossupMethod: "jumpBall",
+          shotClock: ShotClockLength.NBA,
+          socket,
+          teams: [teams[0], teams[1]],
+          timeouts: 7,
+        });
+        gameSim.start();
+        counter++;
+      }
 
-      const { playerStats, teamStats } = gameSim.start();
+      return null;
 
-      const test = await presto.query(
-        "SELECT * FROM game_events WHERE offplayer1=203897"
-      );
+      // const { playerStats, teamStats } = gameSim.start();
 
-      console.log("test", test);
-
-      return {
-        playerStats: [playerStats[0], playerStats[1]],
-        teams: [team0, team1],
-        teamStats: [teamStats[0], teamStats[1]],
-      };
+      // return {
+      //   playerStats: [playerStats[0], playerStats[1]],
+      //   teams: [team0, team1],
+      //   teamStats: [teamStats[0], teamStats[1]],
+      // };
     } catch (error) {
       console.error(error);
       throw new Error(error);

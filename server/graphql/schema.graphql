@@ -67,6 +67,7 @@ type Query {
   getOnePlayer(slug: String!): Player
   getOneTeam(abbrev: String!): Team
   getOneTest: Boolean
+  sqlSandbox(dbType: String!, sqlString: String!, values: String): String
 }
 
 """Sim result"""

@@ -2,7 +2,7 @@ import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { CreateBucketCommand } from "@aws-sdk/client-s3";
 import path from "path";
 import fs from "fs";
-import { spawnSync } from "child_process";
+import { spawn, spawnSync } from "child_process";
 
 const REGION = "us-east-1";
 const s3Client = new S3Client({
@@ -36,7 +36,13 @@ export default async () => {
       );
     }
     const hiveUpdateScriptPath = path.join("../", "python", "hive-update.py");
-    spawnSync("python3", [hiveUpdateScriptPath]);
+    const pythonSpawn = spawnSync("python3", [hiveUpdateScriptPath]);
+
+    // console.log("pythonSpawn", pythonSpawn);
+
+    // if (pythonSpawn.stderr) {
+    //   throw new Error(pythonSpawn.stderr as any);
+    // }
   } catch (error) {
     console.error(error);
   }

@@ -1,5 +1,6 @@
 export { default as errors } from "./errors";
 export { default as getAverage } from "./getAverage";
+export { default as getSqlFile } from "./getSqlFile";
 export { default as getTypeGuardSafeData } from "./getTypeGuardSafeData";
 export { default as groupBy } from "./groupBy";
 export { default as isTypeGuardSafeObj } from "./isTypeGuardSafeObj";
