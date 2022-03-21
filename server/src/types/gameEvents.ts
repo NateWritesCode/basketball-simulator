@@ -207,7 +207,7 @@ export const GameEventSegment = z.object({
 export type GameEventSegment = z.infer<typeof GameEventSegment>;
 
 export const GameEventFreeThrow = z.object({
-  bonus: z.boolean().optional(),
+  isBonus: z.boolean().optional(),
   defTeam: z.instanceof(Team),
   offPlayer1: z.instanceof(Player),
   offTeam: z.instanceof(Team),

@@ -1,4 +1,5 @@
 declare module "@cubejs-backend/prestodb-driver";
+declare function cube(name: string, definition: any): void;
 
 declare namespace NodeJS {
   export interface ProcessEnv {

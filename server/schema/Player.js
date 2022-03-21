@@ -8,7 +8,7 @@ cube(`Player`, {
   
   joins: {
     Team: {
-      sql: `${CUBE}."teamId" = ${Team}.id`,
+      sql: `${CUBE}.team_id = ${Team}.id`,
       relationship: `belongsTo`
     }
   },
@@ -16,7 +16,7 @@ cube(`Player`, {
   measures: {
     count: {
       type: `count`,
-      drillMembers: [id, familyName, givenName, country, birthdate]
+      drillMembers: [id, country, familyName, givenName, birthdate]
     },
     
     draftNumber: {
@@ -63,6 +63,21 @@ cube(`Player`, {
       primaryKey: true
     },
     
+    country: {
+      sql: `country`,
+      type: `string`
+    },
+    
+    familyName: {
+      sql: `family_name`,
+      type: `string`
+    },
+    
+    givenName: {
+      sql: `given_name`,
+      type: `string`
+    },
+    
     playerCode: {
       sql: `player_code`,
       type: `string`
@@ -80,21 +95,6 @@ cube(`Player`, {
     
     slug: {
       sql: `slug`,
-      type: `string`
-    },
-    
-    familyName: {
-      sql: `family_name`,
-      type: `string`
-    },
-    
-    givenName: {
-      sql: `given_name`,
-      type: `string`
-    },
-    
-    country: {
-      sql: `country`,
       type: `string`
     },
     

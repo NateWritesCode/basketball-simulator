@@ -132,7 +132,7 @@ class GameSim {
     });
 
     // INIT OTHER OBSERVERS
-    this.observers.push(new GameLog(id));
+    // this.observers.push(new GameLog(id));
     this.observers.push(
       new GameEventStore({
         gameId: id,
@@ -603,11 +603,11 @@ class GameSim {
   };
 
   simFreeThrows = ({
-    bonus,
+    isBonus,
     offPlayer1,
     totalShots,
   }: {
-    bonus: boolean;
+    isBonus: boolean;
     totalShots: 1 | 2 | 3;
     offPlayer1: Player;
   }) => {
@@ -626,7 +626,7 @@ class GameSim {
       }
 
       this.notifyObservers("FREE_THROW", {
-        bonus,
+        isBonus,
         offPlayer1,
         shotNumber,
         totalShots,
@@ -834,7 +834,7 @@ class GameSim {
           });
 
           this.simFreeThrows({
-            bonus: false,
+            isBonus: false,
             offPlayer1,
             totalShots: 1,
           });
@@ -854,7 +854,7 @@ class GameSim {
             y,
           });
           this.simFreeThrows({
-            bonus: false,
+            isBonus: false,
             totalShots: pts,
             offPlayer1,
           });
@@ -1013,7 +1013,7 @@ class GameSim {
 
         if (this.teamStates[defTeam.id].penalty) {
           this.simFreeThrows({
-            bonus: true,
+            isBonus: true,
             offPlayer1,
             totalShots: 2,
           });

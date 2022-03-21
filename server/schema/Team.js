@@ -13,7 +13,7 @@ cube(`Team`, {
   measures: {
     count: {
       type: `count`,
-      drillMembers: [id, homeName, nickname]
+      drillMembers: [id, nickname, homeName]
     }
   },
   
@@ -24,8 +24,8 @@ cube(`Team`, {
       primaryKey: true
     },
     
-    venue: {
-      sql: `venue`,
+    nickname: {
+      sql: `nickname`,
       type: `string`
     },
     
@@ -49,13 +49,13 @@ cube(`Team`, {
       type: `string`
     },
     
-    nickname: {
-      sql: `nickname`,
+    twitter: {
+      sql: `twitter`,
       type: `string`
     },
     
-    twitter: {
-      sql: `twitter`,
+    venue: {
+      sql: `venue`,
       type: `string`
     },
     

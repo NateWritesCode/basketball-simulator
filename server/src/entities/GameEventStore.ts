@@ -1,7 +1,9 @@
 import { GameEventEnum, IObserver } from "../types";
 import fs from "fs";
+import { getMappedKey } from "../utils";
 
 class GameEventStore implements IObserver {
+  eventIdIterator: number;
   filePath: string;
   gameId: number;
   gameType: string;
@@ -24,6 +26,7 @@ class GameEventStore implements IObserver {
     team1: number;
   }) {
     // always this means the field will always be there
+    this.eventIdIterator = 1;
     this.gameId = gameId;
     this.gameType = gameType;
     this.isNeutralFloor = isNeutralFloor;
@@ -31,7 +34,6 @@ class GameEventStore implements IObserver {
     this.team1 = team1;
     this.filePath = `./src/data/game-events/${gameId}.txt`;
     this.pipeSettings = {
-      bonus: {},
       defPlayer1: { getId: true },
       defPlayer2: { getId: true },
       defPlayersOnCourt: { getIdArray: true },
@@ -39,10 +41,12 @@ class GameEventStore implements IObserver {
       gameEvent: {},
       gameId: { alwaysThis: true },
       gameType: { alwaysThis: true },
+      id: { isId: true },
       incomingPlayer: { getId: true },
-      isPlayerFouledOut: {},
+      isBonus: {},
       isCharge: {},
       isNeutralFloor: { alwaysThis: true },
+      isPlayerFouledOut: {},
       offPlayer1: { getId: true },
       offPlayer2: { getId: true },
       offPlayersOnCourt: { getIdArray: true },
@@ -70,7 +74,15 @@ class GameEventStore implements IObserver {
     pipeSettingsKeys.forEach((pipeSettingKey, i) => {
       const isLastKey = i + 1 === pipeSettingsKeys.length;
 
-      headerString += `${pipeSettingKey}${isLastKey ? "" : "|"}`;
+      const value = pipeSettingKey;
+
+      // const value = getMappedKey({
+      //   mappedKeyType: "gameEvent",
+      //   textTypeToGet: "snake",
+      //   value: pipeSettingKey,
+      // });
+
+      headerString += `${value}${isLastKey ? "" : "|"}`;
     });
 
     fs.appendFileSync(this.filePath, `${headerString}\n`);
@@ -84,7 +96,7 @@ class GameEventStore implements IObserver {
     pipeSettingsKeys.forEach((pipeSettingKey, i) => {
       let value = "";
       const isLastKey = i + 1 === pipeSettingsKeys.length;
-      const { alwaysThis, getId, getIdArray } =
+      const { alwaysThis, getId, getIdArray, isId } =
         this.pipeSettings[pipeSettingKey];
 
       if (alwaysThis) {
@@ -93,6 +105,8 @@ class GameEventStore implements IObserver {
         value = self[pipeSettingKey];
       } else if (pipeSettingKey === "gameEvent") {
         value = gameEvent;
+      } else if (isId) {
+        value = `${this.gameId}-${this.eventIdIterator}`;
       } else if (gameEventData[pipeSettingKey] !== undefined) {
         if (getId) {
           if (gameEventData[pipeSettingKey]) {
@@ -109,6 +123,7 @@ class GameEventStore implements IObserver {
     });
 
     fs.appendFileSync(this.filePath, `${insertString}\n`);
+    this.eventIdIterator++;
   };
 
   notifyGameEvent(gameEvent: GameEventEnum, gameEventData: object): void {
