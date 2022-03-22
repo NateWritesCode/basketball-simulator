@@ -17,7 +17,7 @@ async function main() {
 
   const gameEventFiles = fs.readdirSync("./src/data/game-events");
   for (const [_, file] of gameEventFiles.entries()) {
-    const gameEvents = await csvtojson({
+    let gameEvents = await csvtojson({
       checkType: true,
       colParser: {
         defPlayersOnCourt: (item) => {
@@ -31,8 +31,43 @@ async function main() {
       ignoreEmpty: true,
     }).fromFile(`./src/data/game-events/${file}`);
 
+    gameEvents = gameEvents.map((gameEvent) => {
+      if (gameEvent.defPlayer1) {
+        gameEvent.defPlayer1Id = gameEvent.defPlayer1;
+        delete gameEvent.defPlayer1;
+      }
+      if (gameEvent.defPlayer2) {
+        gameEvent.defPlayer2Id = gameEvent.defPlayer2;
+        delete gameEvent.defPlayer2;
+      }
+      if (gameEvent.defTeam) {
+        gameEvent.defTeamId = gameEvent.defTeam;
+        delete gameEvent.defTeam;
+      }
+      if (gameEvent.offPlayer1) {
+        gameEvent.offPlayer1Id = gameEvent.offPlayer1;
+        delete gameEvent.offPlayer1;
+      }
+      if (gameEvent.offPlayer2) {
+        gameEvent.offPlayer2Id = gameEvent.offPlayer2;
+        delete gameEvent.offPlayer2;
+      }
+      if (gameEvent.offTeam) {
+        gameEvent.offTeamId = gameEvent.offTeam;
+        delete gameEvent.offTeam;
+      }
+      if (gameEvent.team0) {
+        gameEvent.team0Id = gameEvent.team0;
+        delete gameEvent.team0;
+      }
+      if (gameEvent.team1) {
+        gameEvent.team1Id = gameEvent.team1;
+        delete gameEvent.team1;
+      }
+    });
+
     await prisma.gameEvent.createMany({
-      data: gameEvents,
+      data: {},
     });
   }
 }
