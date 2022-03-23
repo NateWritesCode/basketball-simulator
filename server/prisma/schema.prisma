@@ -12,98 +12,140 @@ datasource db {
 }
 
 model GameEvent {
-  defPlayer1                  Player?  @relation(name: "DefPlayer1GameEvents", fields: [defPlayer1Id], references: [id])
-  defPlayer1Id                Int?
-  defPlayer2                  Player?  @relation(name: "DefPlayer2GameEvents", fields: [defPlayer2Id], references: [id])
-  defPlayer2Id                Int?
-  defPlayersOnCourt           Player[] @relation(name: "DefPlayersOnCourtGameEvents")
-  defTeam                     Team?    @relation(name: "DefTeamGameEvents", fields: [defTeamId], references: [id])
-  defTeamId                   Int?
-  gameEvent                   String   @map("game_event")
-  gameId                      Int      @map("game_id")
-  gameType                    String   @map("game_type")
-  id                          String   @id
-  incomingPlayer              Int?     @map("incoming_player")
-  isBonus                     Boolean? @map("is_bonus")
-  isCharge                    Boolean? @map("is_charge")
-  isNeutralFloor              Boolean? @map("is_neutral_floor")
-  isPlayerFouledOut           Boolean? @map("is_player_fouled_out")
-  offPlayer1                  Player?  @relation(name: "OffPlayer1GameEvents", fields: [offPlayer1Id], references: [id])
-  offPlayer1Id                Int?
-  offPlayer2                  Player?  @relation(name: "OffPlayer2GameEvents", fields: [offPlayer2Id], references: [id])
-  offPlayer2Id                Int?
-  offPlayersOnCourtGameEvents Player[] @relation(name: "OffPlayersOnCourtGameEvents")
-  offTeam                     Team?    @relation(name: "OffTeamGameEvents", fields: [offTeamId], references: [id])
-  offTeamId                   Int?
-  outgoingPlayer              Int?     @map("outgoing_player")
-  possessionLength            Int?     @map("possession_length")
-  segment                     Int?
-  shotType                    String?  @map("shot_type")
-  shotValue                   Int?     @map("shot_value")
-  team0                       Team?    @relation(name: "Team0GameEvents", fields: [team0Id], references: [id])
-  team0Id                     Int?
-  team1                       Team?    @relation(name: "Team1GameEvents", fields: [team1Id], references: [id])
-  team1Id                     Int?
-  turnoverType                String?  @map("turnover_type")
-  valueToAdd                  Int?     @map("value_to_add")
-  violationType               String?  @map("violation_type")
-  x                           Int?
-  y                           Int?
+  defPlayer1        Player?  @relation(name: "DefPlayer1GameEvents", fields: [defPlayer1Id], references: [id])
+  defPlayer1Id      Int?     @map("def_player_1_id")
+  defPlayer2        Player?  @relation(name: "DefPlayer2GameEvents", fields: [defPlayer2Id], references: [id])
+  defPlayer2Id      Int?     @map("def_player_2_id")
+  // defPlayersOnCourt Player[] @relation(name: "DefPlayersOnCourtGameEvents")
+  defTeam           Team?    @relation(name: "DefTeamGameEvents", fields: [defTeamId], references: [id])
+  defTeamId         Int?     @map("def_team_id")
+  gameEvent         String   @map("game_event")
+  gameId            Int      @map("game_id")
+  gameType          String   @map("game_type")
+  id                String   @id
+  incomingPlayer    Int?     @map("incoming_player")
+  isBonus           Boolean? @map("is_bonus")
+  isCharge          Boolean? @map("is_charge")
+  isNeutralFloor    Boolean? @map("is_neutral_floor")
+  isPlayerFouledOut Boolean? @map("is_player_fouled_out")
+  offPlayer1        Player?  @relation(name: "OffPlayer1GameEvents", fields: [offPlayer1Id], references: [id])
+  offPlayer1Id      Int?     @map("off_player_1_id")
+  offPlayer2        Player?  @relation(name: "OffPlayer2GameEvents", fields: [offPlayer2Id], references: [id])
+  offPlayer2Id      Int?     @map("off_player_2_id")
+  // offPlayersOnCourt Player[] @relation(name: "OffPlayersOnCourtGameEvents")
+  offTeam           Team?    @relation(name: "OffTeamGameEvents", fields: [offTeamId], references: [id])
+  offTeamId         Int?     @map("off_team_id")
+  outgoingPlayer    Int?     @map("outgoing_player")
+  possessionLength  Int?     @map("possession_length")
+  segment           Int?
+  shotType          String?  @map("shot_type")
+  shotValue         Int?     @map("shot_value")
+  team0             Team?    @relation(name: "Team0GameEvents", fields: [team0Id], references: [id])
+  team0Id           Int?     @map("team_0_id")
+  team1             Team?    @relation(name: "Team1GameEvents", fields: [team1Id], references: [id])
+  team1Id           Int?     @map("team_1_id")
+  turnoverType      String?  @map("turnover_type")
+  valueToAdd        Int?     @map("value_to_add")
+  violationType     String?  @map("violation_type")
+  x                 Int?
+  y                 Int?
+}
+
+model League {
+  abbrev      String
+  conferences Conference[]
+  date        DateTime
+  divisions   Division[]
+  id          Int          @id @default(autoincrement())
+  name        String
+  players     Player[]
+  teams       Team[]
+}
+
+model Division {
+  abbrev       String
+  conference   Conference @relation(fields: [conferenceId], references: [id])
+  conferenceId Int        @map("conference_id")
+  id           Int        @id
+  league       League     @relation(fields: [leagueId], references: [id])
+  leagueId     Int        @map("league_id")
+  name         String
+  players      Player[]
+  teams        Team[]
+}
+
+model Conference {
+  abbrev    String
+  divisions Division[]
+  id        Int        @id
+  league    League     @relation(fields: [leagueId], references: [id])
+  leagueId  Int
+  name      String
+  players   Player[]
+  teams     Team[]
 }
 
 model Player {
-  active                      Boolean
-  arc3                        Int         @default(50)
-  atRim                       Int         @default(50) @map("at_rim")
-  birthdate                   DateTime
-  blocking                    Int         @default(50)
-  corner3                     Int         @default(50)
-  country                     String?
-  defPlayer1GameEvents        GameEvent[] @relation("DefPlayer1GameEvents")
-  defPlayer2GameEvents        GameEvent[] @relation("DefPlayer2GameEvents")
-  defPlayersOnCourtGameEvents GameEvent[] @relation("DefPlayersOnCourtGameEvents")
-  draftNumber                 Int?        @map("draft_number")
-  draftRound                  Int?        @map("draft_round")
-  draftYear                   DateTime?   @map("draft_year")
-  familyName                  String      @map("family_name")
-  freeThrow                   Int         @default(50) @map("free_throw")
-  fromYear                    DateTime?   @map("from_year")
-  givenName                   String      @map("given_name")
-  greatest75                  Boolean     @map("greatest_75")
-  hasPlayedDLeague            Boolean     @map("has_played_d_league")
-  hasPlayedGames              Boolean     @map("has_played_games")
-  hasPlayedNba                Boolean     @map("has_played_nba")
-  height                      Int
-  id                          Int         @id
-  irritability                Int         @default(50)
-  jerseyNumber                Int?        @map("jersey_number")
-  jumping                     Int         @default(50)
-  midRangeLong                Int         @default(50)
-  midRangeShort               Int         @default(50)
-  offPlayer1GameEvents        GameEvent[] @relation("OffPlayer1GameEvents")
-  offPlayer2GameEvents        GameEvent[] @relation("OffPlayer2GameEvents")
-  offPlayersOnCourtGameEvents GameEvent[] @relation("OffPlayersOnCourtGameEvents")
-  playerCode                  String?     @map("player_code")
-  position                    String
-  rebounding                  Int         @default(50)
-  school                      String?
-  seasonsExperience           Int         @map("seasons_experience")
-  slug                        String      @unique
-  stealing                    Int         @default(50)
-  team                        Team        @relation(fields: [teamId], references: [id])
-  teamId                      Int         @map("team_id")
-  toYear                      DateTime?   @map("to_year")
-  turnoverProne               Int         @default(50) @map("turnover_prone")
-  weight                      Int
+  active               Boolean
+  arc3                 Int         @default(50)
+  atRim                Int         @default(50) @map("at_rim")
+  birthdate            DateTime
+  blocking             Int         @default(50)
+  corner3              Int         @default(50)
+  country              String?
+  defPlayer1GameEvents GameEvent[] @relation("DefPlayer1GameEvents")
+  defPlayer2GameEvents GameEvent[] @relation("DefPlayer2GameEvents")
+  division             Division    @relation(fields: [divisionId], references: [id])
+  // defPlayersOnCourtGameEvents GameEvent[] @relation("DefPlayersOnCourtGameEvents")
+  draftNumber          Int?        @map("draft_number")
+  draftRound           Int?        @map("draft_round")
+  draftYear            DateTime?   @map("draft_year")
+  familyName           String      @map("family_name")
+  freeThrow            Int         @default(50) @map("free_throw")
+  fromYear             DateTime?   @map("from_year")
+  givenName            String      @map("given_name")
+  greatest75           Boolean     @map("greatest_75")
+  hasPlayedDLeague     Boolean     @map("has_played_d_league")
+  hasPlayedGames       Boolean     @map("has_played_games")
+  hasPlayedNba         Boolean     @map("has_played_nba")
+  height               Int
+  id                   Int         @id
+  irritability         Int         @default(50)
+  jerseyNumber         Int?        @map("jersey_number")
+  jumping              Int         @default(50)
+  league               League      @relation(fields: [leagueId], references: [id])
+  midRangeLong         Int         @default(50)
+  midRangeShort        Int         @default(50)
+  offPlayer1GameEvents GameEvent[] @relation("OffPlayer1GameEvents")
+  offPlayer2GameEvents GameEvent[] @relation("OffPlayer2GameEvents")
+  // offPlayersOnCourtGameEvents GameEvent[] @relation("OffPlayersOnCourtGameEvents")
+  playerCode           String?     @map("player_code")
+  position             String
+  rebounding           Int         @default(50)
+  school               String?
+  seasonsExperience    Int         @map("seasons_experience")
+  slug                 String      @unique
+  stealing             Int         @default(50)
+  team                 Team        @relation(fields: [teamId], references: [id])
+  teamId               Int         @map("team_id")
+  toYear               DateTime?   @map("to_year")
+  turnoverProne        Int         @default(50) @map("turnover_prone")
+  weight               Int
+  divisionId           Int
+  leagueId             Int
+  Conference           Conference? @relation(fields: [conferenceId], references: [id])
+  conferenceId         Int?
 }
 
 model Team {
   abbrev            String      @unique
   defTeamGameEvents GameEvent[] @relation("DefTeamGameEvents")
+  division          Division    @relation(fields: [divisionId], references: [id])
   facebook          String
   homeName          String      @map("home_name")
   id                Int         @id
   instagram         String
+  league            League      @relation(fields: [leagueId], references: [id])
   nickname          String
   offTeamGameEvents GameEvent[] @relation("OffTeamGameEvents")
   players           Player[]
@@ -113,4 +155,8 @@ model Team {
   venue             String
   venueCapacity     Int         @map("venue_capacity")
   yearFounded       DateTime    @map("year_founded")
+  leagueId          Int
+  divisionId        Int
+  Conference        Conference? @relation(fields: [conferenceId], references: [id])
+  conferenceId      Int?
 }

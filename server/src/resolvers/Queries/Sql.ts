@@ -26,6 +26,8 @@ export const sqlSandbox = queryField("sqlSandbox", {
       return JSON.stringify(data);
     } else if (dbType === "postgres") {
       return null;
+    } else if (dbType === "custom") {
+      await prisma.$queryRawUnsafe(sqlString);
     } else {
       throw new Error("We don't know how to handle this");
     }

@@ -34,6 +34,7 @@
     "express": "^4.17.3",
     "graphql": "^16.3.0",
     "http": "^0.0.1-security",
+    "moment": "^2.29.1",
     "nexus": "^1.2.0",
     "nexus-prisma": "^0.35.0",
     "ordinal": "^1.0.3",

@@ -6,7 +6,7 @@ import { SQL_SANDBOX } from "../graphql/constants";
 import ReactJson from "react-json-view";
 
 export default () => {
-  const [dbType, setDbType] = useState("presto");
+  const [dbType, setDbType] = useState("custom");
   const [sqlString, setSqlString] = useState("");
   const [values, setValues] = useState("");
   const [sqlSandbox, { loading, error, data }] = useLazyQuery<
@@ -24,8 +24,9 @@ export default () => {
     <Box>
       <Box my={"2"}>
         <Select value={dbType} onChange={(e) => setDbType(e.target.value)}>
-          <option value="presto">Presto</option>
+          <option value="custom">Custom</option>
           <option value="postgres">Postgres</option>
+          <option value="presto">Presto</option>
         </Select>
       </Box>
       <Button

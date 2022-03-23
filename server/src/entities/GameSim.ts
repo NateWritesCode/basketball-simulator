@@ -115,7 +115,7 @@ class GameSim {
       this.observers.push(teamState);
 
       team.players.forEach((player) => {
-        player.normalizePlayerData();
+        // player.normalizePlayerData();
 
         const playerState = new GamePlayerState(
           player.id,
@@ -132,7 +132,7 @@ class GameSim {
     });
 
     // INIT OTHER OBSERVERS
-    // this.observers.push(new GameLog(id));
+    this.observers.push(new GameLog(id));
     this.observers.push(
       new GameEventStore({
         gameId: id,
@@ -465,11 +465,17 @@ class GameSim {
       probability += 1 - team0PlayerTotal / team1PlayerTotal;
     }
 
-    //lower probability goes to team 0, higher probablity goes to team 1
-    const pickWinner = random.bernoulli(probability);
+    try {
+      //lower probability goes to team 0, higher probablity goes to team 1
+      const pickWinner = random.bernoulli(probability);
 
-    //did team 0 win?
-    return pickWinner() === 0;
+      //did team 0 win?
+      return pickWinner() === 0;
+    } catch (error) {
+      console.log("players", players);
+      console.log("fields", fields);
+      throw new Error(error);
+    }
   };
 
   isSegmentStart = (): boolean => {

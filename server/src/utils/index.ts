@@ -1,4 +1,5 @@
 export { default as errors } from "./errors";
+export { default as generateSchedule } from "./generateSchedule";
 export { default as getAverage } from "./getAverage";
 export { default as getMappedKey } from "./getMappedKey";
 export { default as getSqlFile } from "./getSqlFile";
