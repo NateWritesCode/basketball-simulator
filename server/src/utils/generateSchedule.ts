@@ -23,6 +23,24 @@ export default ({
 
         let currentDate = regularSeasonStart;
 
+        const teamObj: any = {};
+
+        teams.forEach((team) => {
+          teamObj[team.abbrev] = {};
+
+          teams.forEach((opponentTeam) => {
+            if (team.id === opponentTeam.id) {
+              return;
+            } else {
+              let opponentType = getOpponentType(team, opponentTeam);
+
+              teamObj[team.abbrev][opponentTeam.abbrev] = {
+                opponentType: "",
+              };
+            }
+          });
+        });
+
         while (currentDate <= regularSeasonEnd) {
           console.log(currentDate);
           currentDate = moment(currentDate).add(1, "day").format("YYYY-MM-DD");
@@ -47,3 +65,5 @@ export default ({
       throw new Error(exhaustiveCheck);
   }
 };
+
+const getOpponentType = (team: Team, opponentTeam: Team) => {};
