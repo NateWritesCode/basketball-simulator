@@ -1,57 +1,27 @@
 import { randomWeightedChoice } from ".";
 import {
-  FgType,
-  FgTypesCoded,
   GameEventPossessionOutcomes,
   ShotTypes,
   TurnoverTypes,
   ViolationTypes,
 } from "../types";
-import arc3X from "../data/probabilities/arc3X.json";
-import arc3Y from "../data/probabilities/arc3Y.json";
-import atRimX from "../data/probabilities/atRimX.json";
-import atRimY from "../data/probabilities/atRimY.json";
-import corner3X from "../data/probabilities/corner3X.json";
-import corner3Y from "../data/probabilities/corner3Y.json";
-import fgProbability from "../data/probabilities/fg.json";
-import longMidRangeX from "../data/probabilities/longMidRangeX.json";
-import longMidRangeY from "../data/probabilities/longMidRangeY.json";
-import possessionOutcomesProbability from "../data/probabilities/possessionOutcomes.json";
-import shortMidRangeX from "../data/probabilities/shortMidRangeX.json";
-import shortMidRangeY from "../data/probabilities/shortMidRangeY.json";
-import shotTypeProbability from "../data/probabilities/shotType.json";
-import turnoverProbability from "../data/probabilities/turnover.json";
-import violationProbability from "../data/probabilities/violation.json";
-import fgLength from "../data/probabilities/fgLength.json";
-import foulLength from "../data/probabilities/foulLength.json";
-import generalLength from "../data/probabilities/generalLength.json";
-import reboundLength from "../data/probabilities/reboundLength.json";
-import turnoverLength from "../data/probabilities/turnoverLength.json";
-import violationLength from "../data/probabilities/violationLength.json";
-
-const buildXYArray = (probObj: {
-  [key: string]: number;
-}): [number, number][] => {
-  const returnArray: [number, number][] = [];
-  const keys = Object.keys(probObj);
-
-  keys.forEach((key) => {
-    const pushArray: [number, number] = [Number(key), probObj[key]];
-    returnArray.push(pushArray);
-  });
-
-  return returnArray;
-};
+import general from "../data/probabilities/general.json";
+import possessionLength from "../data/probabilities/possessionLength.json";
+import possessionOutcomes from "../data/probabilities/possessionOutcomes.json";
+import fgXY from "../data/probabilities/fgXY.json";
+import Player from "../entities/Player";
+import getAverage from "./getAverage";
+import random from "random";
 
 export const get2or3Pointer = (shotType: ShotTypes): 2 | 3 => {
   switch (shotType) {
-    case "ARC_3":
-    case "CORNER_3": {
+    case "Arc3":
+    case "Corner3": {
       return 3;
     }
-    case "AT_RIM":
-    case "LONG_MID_RANGE":
-    case "SHORT_MID_RANGE": {
+    case "AtRim":
+    case "LongMidRange":
+    case "ShortMidRange": {
       return 2;
     }
     default:
@@ -60,111 +30,189 @@ export const get2or3Pointer = (shotType: ShotTypes): 2 | 3 => {
   }
 };
 
-export const get2PointShotType = (): ShotTypes => {
-  return randomWeightedChoice([
-    ["AT_RIM", getShotTypeProbability("AT_RIM")],
-    ["SHORT_MID_RANGE", getShotTypeProbability("SHORT_MID_RANGE")],
-    ["LONG_MID_RANGE", getShotTypeProbability("LONG_MID_RANGE")],
-  ]) as ShotTypes;
+export const getShotType = ([offPlayersOnCourt, defPlayersOnCourt]: [
+  Player[],
+  Player[]
+]): ShotTypes => {
+  const shotTypes = ShotTypes.options;
+  const probabilityArray: [ShotTypes, number][] = [];
+
+  shotTypes.forEach((shotType: ShotTypes) => {
+    const holder: number[] = [];
+
+    offPlayersOnCourt.forEach((player) =>
+      holder.push(player[`shotType${shotType}`])
+    );
+    defPlayersOnCourt.forEach((player) =>
+      holder.push(player[`shotType${shotType}Def`])
+    );
+
+    probabilityArray.push([shotType, getAverage(holder)]);
+  });
+
+  return randomWeightedChoice(probabilityArray) as ShotTypes;
 };
 
-export const get3PointShotType = (): ShotTypes => {
-  return randomWeightedChoice([
-    ["ARC_3", getShotTypeProbability("ARC_3")],
-    ["CORNER_3", getShotTypeProbability("CORNER_3")],
-  ]) as ShotTypes;
-};
+export const getFgXYByShotType = (shotType: ShotTypes): [number, number] => {
+  const probabilityObj = fgXY[shotType];
 
-const parseFgTypeString = (str: string): FgType => {
-  const bools = str.substring(str.length - 5);
-  const shotType = str.substring(0, str.length - 5) as ShotTypes;
-
-  const isAnd1 = bools[0] === "1";
-  const isAssist = bools[1] === "1";
-  const isBlock = bools[2] === "1";
-  const isMade = bools[3] === "1";
-  const isPutback = bools[4] === "1";
-
-  return {
-    isAnd1,
-    isAssist,
-    isBlock,
-    isMade,
-    isPutback,
-    shotType,
-  };
-};
-
-export const getFgType = (): FgType => {
   const choice = randomWeightedChoice(
-    FgTypesCoded.options.map((fgType) => {
-      return [fgType, fgProbability[fgType]];
-    })
+    Object.keys(probabilityObj).map((key) => [
+      key,
+      probabilityObj[key as keyof typeof probabilityObj],
+    ])
   );
 
-  return parseFgTypeString(choice);
+  const choiceSplit = choice.split("|");
+
+  return [Number(choiceSplit[0]), Number(choiceSplit[1])];
+};
+
+const getPlayerFromUnevenChoiceByField = (
+  players: any,
+  field: any //TODO: FIX THIS TO BE A TYPE OF ONLY PROPERTIES OF THE PLAYER CLASS
+): Player => {
+  const probabilityArray: [Player, number][] = [];
+  let total = 0;
+
+  players.forEach((player: any) => {
+    total += player[field];
+  });
+
+  players.forEach((player: any) => {
+    probabilityArray.push([player, player[field] / total]);
+  });
+
+  return randomWeightedChoice(probabilityArray);
+};
+
+export const getFgAttemptPlayer = (
+  offPlayersOnCourt: Player[],
+  shotType: ShotTypes
+): Player => {
+  return getPlayerFromUnevenChoiceByField(
+    offPlayersOnCourt,
+    `fg${shotType}Attempt`
+  );
+};
+
+export const getFgIsMadeByPlayer = (
+  player: Player,
+  shotType: ShotTypes
+): Boolean => {
+  //lower probability goes to team 0, higher probablity goes to team 1
+
+  let value = player[`fg${shotType}Made`];
+
+  if (value === 1) {
+    value = 0.99;
+  }
+
+  const isMade = random.bernoulli(value);
+
+  return isMade() === 1;
+};
+
+export const getIsOffensiveRebound = (): Boolean => {
+  const isOffensiveRebound = random.bernoulli(general["OFF_REB"]);
+
+  return isOffensiveRebound() === 1;
+};
+
+export const getOffensiveReboundPlayer = (offPlayersOnCourt: Player[]) => {
+  return getPlayerFromUnevenChoiceByField(offPlayersOnCourt, `rebOff`);
+};
+export const getDefensiveReboundPlayer = (defPlayersOnCourt: Player[]) => {
+  return getPlayerFromUnevenChoiceByField(defPlayersOnCourt, `rebDef`);
+};
+
+export const getIsTeamRebound = (isOffensiveRebound: Boolean): Boolean => {
+  const isTeamRebound = random.bernoulli(
+    general[isOffensiveRebound ? "OFF_REB_TEAM" : "DEF_REB_TEAM"]
+  );
+
+  return isTeamRebound() === 1;
+};
+
+export const getFtIsMadeByPlayer = (player: Player) => {
+  let value = player.freeThrow;
+
+  if (value === 1) {
+    value = 0.99;
+  }
+
+  const isMade = random.bernoulli(value);
+
+  return isMade() === 1;
 };
 
 export const getPossessionLength = (
   possessionType:
     | "fg"
     | "foul"
-    | "general"
+    | "jumpBall"
     | "rebound"
     | "turnover"
     | "violation"
 ): number => {
   switch (possessionType) {
     case "fg": {
+      const probabilityObj = possessionLength["fg"];
+
       const choice = randomWeightedChoice(
-        Object.keys(fgLength).map((key) => [
+        Object.keys(probabilityObj).map((key) => [
           Number(key),
-          fgLength[key as keyof typeof fgLength],
+          probabilityObj[key as keyof typeof probabilityObj],
         ])
       );
       return Math.round((choice + Number.EPSILON) * 100) / 100;
     }
     case "foul": {
+      const probabilityObj = possessionLength["foul"];
       const choice = randomWeightedChoice(
-        Object.keys(foulLength).map((key) => [
+        Object.keys(probabilityObj).map((key) => [
           Number(key),
-          foulLength[key as keyof typeof foulLength],
+          probabilityObj[key as keyof typeof probabilityObj],
         ])
       );
       return Math.round((choice + Number.EPSILON) * 100) / 100;
     }
-    case "general": {
+    case "jumpBall": {
+      const probabilityObj = possessionLength["jumpBall"];
       const choice = randomWeightedChoice(
-        Object.keys(generalLength).map((key) => [
+        Object.keys(probabilityObj).map((key) => [
           Number(key),
-          generalLength[key as keyof typeof generalLength],
+          probabilityObj[key as keyof typeof probabilityObj],
         ])
       );
       return Math.round((choice + Number.EPSILON) * 100) / 100;
     }
     case "rebound": {
+      const probabilityObj = possessionLength["rebound"];
       const choice = randomWeightedChoice(
-        Object.keys(reboundLength).map((key) => [
+        Object.keys(probabilityObj).map((key) => [
           Number(key),
-          reboundLength[key as keyof typeof reboundLength],
+          probabilityObj[key as keyof typeof probabilityObj],
         ])
       );
       return Math.round((choice + Number.EPSILON) * 100) / 100;
     }
     case "turnover": {
+      const probabilityObj = possessionLength["turnover"];
       const choice = randomWeightedChoice(
-        Object.keys(turnoverLength).map((key) => [
+        Object.keys(probabilityObj).map((key) => [
           Number(key),
-          turnoverLength[key as keyof typeof turnoverLength],
+          probabilityObj[key as keyof typeof probabilityObj],
         ])
       );
       return Math.round((choice + Number.EPSILON) * 100) / 100;
     }
     case "violation": {
+      const probabilityObj = possessionLength["violation"];
       const choice = randomWeightedChoice(
-        Object.keys(violationLength).map((key) => [
+        Object.keys(probabilityObj).map((key) => [
           Number(key),
-          violationLength[key as keyof typeof violationLength],
+          probabilityObj[key as keyof typeof probabilityObj],
         ])
       );
       return Math.round((choice + Number.EPSILON) * 100) / 100;
@@ -175,93 +223,56 @@ export const getPossessionLength = (
   }
 };
 
+export const getIsAssist = (): Boolean => {
+  const isAssist = random.bernoulli(general["ASSIST"]);
+
+  return isAssist() === 1;
+};
+
+export const getAssistPlayer = (offPlayersOnCourt: Player[]) => {
+  return getPlayerFromUnevenChoiceByField(offPlayersOnCourt, `assist`);
+};
+
+export const getIsBlock = (): Boolean => {
+  const isBlock = random.bernoulli(general["BLOCK"]);
+
+  return isBlock() === 1;
+};
+
+export const getBlockPlayer = (defPlayersOnCourt: Player[]) => {
+  return getPlayerFromUnevenChoiceByField(defPlayersOnCourt, `block`);
+};
+export const getTurnoverPlayer = (offPlayersOnCourt: Player[]) => {
+  return getPlayerFromUnevenChoiceByField(offPlayersOnCourt, `turnover`);
+};
+
+export const getStealPlayer = (defPlayersOnCourt: Player[]) => {
+  return getPlayerFromUnevenChoiceByField(defPlayersOnCourt, `steal`);
+};
+
+export const getIsShootingFoul = () => {
+  const isShootingFoul = random.bernoulli(general["FG_SHOOTING_FOUL"]);
+
+  return isShootingFoul() === 1;
+};
+
 export const getPossessionOutcome = (): GameEventPossessionOutcomes => {
   return randomWeightedChoice(
     GameEventPossessionOutcomes.options.map((possessionOutcome) => {
       return [
         possessionOutcome,
-        possessionOutcomesProbability[possessionOutcome],
+        possessionOutcomes[
+          possessionOutcome as keyof typeof possessionOutcomes
+        ],
       ];
     })
   );
 };
 
-const getShotTypeProbability = (shotType: ShotTypes): number => {
-  const keyConverter: { [key in ShotTypes]: string } = {
-    ARC_3: "Arc3",
-    AT_RIM: "AtRim",
-    CORNER_3: "Corner3",
-    LONG_MID_RANGE: "LongMidRange",
-    SHORT_MID_RANGE: "ShortMidRange",
-  };
-
-  const key = keyConverter[shotType];
-
-  return shotTypeProbability[
-    key as "Arc3" | "AtRim" | "Corner3" | "LongMidRange" | "ShortMidRange"
-  ];
-};
-
-const getShotTypeProbabilityTotal = (shotTypes: ShotTypes[]): number => {
-  let total = 0;
-
-  shotTypes.forEach((shotType) => {
-    total += getShotTypeProbability(shotType);
-  });
-
-  return total;
-};
-
-export const getShotXByShotType = (shotType: ShotTypes): number => {
-  switch (shotType) {
-    case "ARC_3": {
-      return randomWeightedChoice(buildXYArray(arc3X));
-    }
-    case "AT_RIM": {
-      return randomWeightedChoice(buildXYArray(atRimX));
-    }
-    case "CORNER_3": {
-      return randomWeightedChoice(buildXYArray(corner3X));
-    }
-    case "LONG_MID_RANGE": {
-      return randomWeightedChoice(buildXYArray(longMidRangeX));
-    }
-    case "SHORT_MID_RANGE": {
-      return randomWeightedChoice(buildXYArray(shortMidRangeX));
-    }
-    default:
-      const exhaustiveCheck: never = shotType;
-      throw new Error(exhaustiveCheck);
-  }
-};
-
-export const getShotYByShotType = (shotType: ShotTypes): number => {
-  switch (shotType) {
-    case "ARC_3": {
-      return randomWeightedChoice(buildXYArray(arc3Y));
-    }
-    case "AT_RIM": {
-      return randomWeightedChoice(buildXYArray(atRimY));
-    }
-    case "CORNER_3": {
-      return randomWeightedChoice(buildXYArray(corner3Y));
-    }
-    case "LONG_MID_RANGE": {
-      return randomWeightedChoice(buildXYArray(longMidRangeY));
-    }
-    case "SHORT_MID_RANGE": {
-      return randomWeightedChoice(buildXYArray(shortMidRangeY));
-    }
-    default:
-      const exhaustiveCheck: never = shotType;
-      throw new Error(exhaustiveCheck);
-  }
-};
-
 export const getTurnoverType = (): TurnoverTypes => {
   return randomWeightedChoice(
     TurnoverTypes.options.map((turnoverType) => {
-      return [turnoverType, turnoverProbability[turnoverType]];
+      return [turnoverType, general[turnoverType as keyof typeof general]];
     })
   );
 };
@@ -269,7 +280,38 @@ export const getTurnoverType = (): TurnoverTypes => {
 export const getViolationType = (): ViolationTypes => {
   return randomWeightedChoice(
     ViolationTypes.options.map((violationType) => {
-      return [violationType, violationProbability[violationType]];
+      return [violationType, general[violationType as keyof typeof general]];
     })
   );
 };
+
+//average across all offensive players
+//figure out shot type
+//p1 ar 0.25 c3 0.35
+//p2 ar 0.27 c3 0.37
+//p3 ar 0.11 c3 0.31
+//p4 ar 0.31 c3 0.31
+//p5 ar 0.41 c3 0.31
+
+//      0.27    0.33
+
+//defense
+
+//p1 ar 0.25 c3 0.35
+//p2 ar 0.27 c3 0.37
+//p3 ar 0.11 c3 0.31
+//p4 ar 0.31 c3 0.31
+//p5 ar 0.41 c3 0.31
+
+//      0.21    0.39
+
+//0.23  0.36 select shot type using these probabilities, could build in a weights here
+
+//have my shot type
+// pick a player
+// sum the percent, then divide by the sum
+// sum array of values and then divide by the sum
+// otherwise rely on general data, if i have a large enough sample go player xy
+// 40 observations
+
+//is made on shot type player

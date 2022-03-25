@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Box, Container } from "@chakra-ui/react";
+import { AspectRatio, Box, Container, Flex, Image } from "@chakra-ui/react";
 import React from "react";
 import { useParams } from "react-router-dom";
 import PageError from "../components/PageError";
@@ -42,10 +42,25 @@ const Player = () => {
   return (
     <PageWrapper>
       <Container maxW={"container.xl"} pt={8}>
-        <Box bg="white" p={2}>
-          {entity.givenName} {entity.familyName} - {entity.team.homeName}{" "}
-          {entity.team.nickname} {getPrettyHeight(entity.height)}{" "}
-          {getPrettyWeight(entity.weight)}
+        <Box>
+          <Image
+            maxW={40}
+            src={`https://cdn.nba.com/logos/nba/${entity.team.id}/primary/L/logo.svg`}
+          />
+          <Flex minH={40}>
+            <Box minH={40}>
+              <Image
+                display={"inline-block"}
+                alt={`${entity.givenName} ${entity.familyName}`}
+                src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${entity.id}.png`}
+              />
+            </Box>
+            <Box bg="white" p={2}>
+              {entity.givenName} {entity.familyName} - {entity.team.homeName}{" "}
+              {entity.team.nickname} {getPrettyHeight(entity.height)}{" "}
+              {getPrettyWeight(entity.weight)}
+            </Box>
+          </Flex>
         </Box>
       </Container>
     </PageWrapper>

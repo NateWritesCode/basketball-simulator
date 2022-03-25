@@ -6,3 +6,11 @@ venv
 __pycache__
 game_id_errors.txt
 yarn-error.log
+probabilities-player
+game-event-store
+relationships
+game-logs
+game-events
+dist
+presto
+.cubestore

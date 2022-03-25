@@ -1,23 +1,10 @@
-import { startPlayByPlayParse } from "./data-wrangle/playByPlay";
-// import { startTeamDetailsParse } from "./data-wrangle/teams";
-import { startPlayersParse } from "./data-wrangle/players";
-import {
-  parseFgProbability,
-  parsePossessionLengthProbability,
-} from "./data-wrangle/r";
-import startServer from "./startServer";
-import { getFgType, getPossessionOutcome } from "./utils/probabilities";
+import startExpressServer from "./startExpressServer";
+import startHive from "./startHive";
 
 (async () => {
   try {
-    // getFgType();
-    // getPossessionOutcome();
-    // parseFgProbability();
-    await startServer();
-    // startPlayByPlayParse();
-    // startTeamDetailsParse();
-    // startPlayersParse();
-    // parsePossessionLengthProbability();
+    // await startHive();
+    await startExpressServer();
   } catch (e) {
     console.error(e);
   }

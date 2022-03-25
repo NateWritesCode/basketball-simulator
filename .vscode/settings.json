@@ -10,5 +10,7 @@
       "username": "admin",
       "password": "helloworld"
     }
-  ]
+  ],
+  "python.autoComplete.extraPaths": ["./python"],
+  "python.analysis.extraPaths": ["./python"]
 }

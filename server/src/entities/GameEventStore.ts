@@ -1,11 +1,13 @@
-import { GameEvent2FgAttempt, GameEventEnum, IObserver } from "../types";
+import { GameEventEnum, IObserver } from "../types";
 import fs from "fs";
+import { getMappedKey } from "../utils";
 
 class GameEventStore implements IObserver {
+  eventIdIterator: number;
   filePath: string;
   gameId: number;
   gameType: string;
-  neutralFloor: boolean;
+  isNeutralFloor: boolean;
   pipeSettings: { [key: string]: any };
   team0: number;
   team1: number;
@@ -13,37 +15,44 @@ class GameEventStore implements IObserver {
   constructor({
     gameId,
     gameType,
-    neutralFloor,
+    isNeutralFloor,
     team0,
     team1,
   }: {
     gameId: number;
     gameType: string;
-    neutralFloor: boolean;
+    isNeutralFloor: boolean;
     team0: number;
     team1: number;
   }) {
+    // always this means the field will always be there
+    this.eventIdIterator = 1;
     this.gameId = gameId;
     this.gameType = gameType;
-    this.neutralFloor = neutralFloor;
+    this.isNeutralFloor = isNeutralFloor;
     this.team0 = team0; //home team if not neutral floor
     this.team1 = team1;
-    this.filePath = `./src/data/game-event-store/${gameId}.txt`;
+    this.filePath = `./src/data/game-events/${gameId}.txt`;
     this.pipeSettings = {
-      bonus: {},
       defPlayer1: { getId: true },
+      defPlayer2: { getId: true },
       defPlayersOnCourt: { getIdArray: true },
       defTeam: { getId: true },
       gameEvent: {},
       gameId: { alwaysThis: true },
       gameType: { alwaysThis: true },
+      id: { isId: true },
+      incomingPlayer: { getId: true },
+      isBonus: {},
       isCharge: {},
-      isPutback: {},
-      neutralFloor: { alwaysThis: true },
+      isNeutralFloor: { alwaysThis: true },
+      isPlayerFouledOut: {},
       offPlayer1: { getId: true },
       offPlayer2: { getId: true },
       offPlayersOnCourt: { getIdArray: true },
       offTeam: { getId: true },
+      outgoingPlayer: { getId: true },
+      possessionLength: {},
       segment: {},
       shotType: {},
       shotValue: {},
@@ -63,10 +72,17 @@ class GameEventStore implements IObserver {
     let headerString = "";
     const pipeSettingsKeys = Object.keys(this.pipeSettings);
     pipeSettingsKeys.forEach((pipeSettingKey, i) => {
-      let value = "";
       const isLastKey = i + 1 === pipeSettingsKeys.length;
 
-      headerString += `${pipeSettingKey}${isLastKey ? "" : "|"}`;
+      const value = pipeSettingKey;
+
+      // const value = getMappedKey({
+      //   mappedKeyType: "gameEvent",
+      //   textTypeToGet: "snake",
+      //   value: pipeSettingKey,
+      // });
+
+      headerString += `${value}${isLastKey ? "" : "|"}`;
     });
 
     fs.appendFileSync(this.filePath, `${headerString}\n`);
@@ -80,7 +96,7 @@ class GameEventStore implements IObserver {
     pipeSettingsKeys.forEach((pipeSettingKey, i) => {
       let value = "";
       const isLastKey = i + 1 === pipeSettingsKeys.length;
-      const { alwaysThis, getId, getIdArray } =
+      const { alwaysThis, getId, getIdArray, isId } =
         this.pipeSettings[pipeSettingKey];
 
       if (alwaysThis) {
@@ -89,6 +105,8 @@ class GameEventStore implements IObserver {
         value = self[pipeSettingKey];
       } else if (pipeSettingKey === "gameEvent") {
         value = gameEvent;
+      } else if (isId) {
+        value = `${this.gameId}-${this.eventIdIterator}`;
       } else if (gameEventData[pipeSettingKey] !== undefined) {
         if (getId) {
           if (gameEventData[pipeSettingKey]) {
@@ -105,6 +123,7 @@ class GameEventStore implements IObserver {
     });
 
     fs.appendFileSync(this.filePath, `${insertString}\n`);
+    this.eventIdIterator++;
   };
 
   notifyGameEvent(gameEvent: GameEventEnum, gameEventData: object): void {
@@ -177,7 +196,7 @@ class GameEventStore implements IObserver {
         this.appendToFile(gameEvent, gameEventData);
         break;
       }
-      case "NON_SHOOTING_DEFENSIVE_FOUL": {
+      case "FOUL_DEFENSIVE_NON_SHOOTING": {
         this.appendToFile(gameEvent, gameEventData);
         break;
       }
@@ -207,6 +226,9 @@ class GameEventStore implements IObserver {
       }
       case "STEAL": {
         this.appendToFile(gameEvent, gameEventData);
+        break;
+      }
+      case "SUBSTITUTION": {
         break;
       }
       case "TURNOVER": {

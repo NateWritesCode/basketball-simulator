@@ -1,4 +1,4 @@
-import { objectType } from "nexus";
+import { list, nonNull, objectType } from "nexus";
 import { Player, Team } from "nexus-prisma";
 
 export const GameObjectType = objectType({
@@ -6,6 +6,100 @@ export const GameObjectType = objectType({
   description: "Game description",
   definition(t) {
     t.int("id");
+  },
+});
+
+export const SimResult = objectType({
+  name: "SimResult",
+  description: "Sim result",
+  definition(t) {
+    t.nonNull.list.field("playerStats", { type: list(SimResultPlayer) });
+    t.nonNull.list.field("teams", { type: TeamObjectType });
+    t.nonNull.list.field("teamStats", { type: nonNull(SimResultTeam) });
+  },
+});
+
+export const SimResultTeam = objectType({
+  name: "SimResultTeam",
+  description: "Sim result team",
+  definition(t) {
+    t.nonNull.int("andOne");
+    t.nonNull.int("ast");
+    t.nonNull.int("blk");
+    t.nonNull.int("blkd");
+    t.nonNull.int("drb");
+    t.nonNull.int("dunks");
+    t.nonNull.int("fga");
+    t.nonNull.int("fgm");
+    t.nonNull.int("fouls");
+    t.nonNull.int("foulsOffensive");
+    t.nonNull.int("foulsShooting");
+    t.nonNull.int("fta");
+    t.nonNull.int("ftm");
+    t.nonNull.int("heaves");
+    t.nonNull.int("id");
+    t.nonNull.int("jumpBallsLost");
+    t.nonNull.int("jumpBallsWon");
+    t.nonNull.string("name");
+    t.nonNull.int("offensiveFoul");
+    t.nonNull.int("offensiveFoulCharge");
+    t.nonNull.int("offensiveFoulOther");
+    t.nonNull.int("orb");
+    t.nonNull.int("pf");
+    t.nonNull.int("pga");
+    t.nonNull.int("pts");
+    t.nonNull.int("stl");
+    t.nonNull.int("teamDrb");
+    t.nonNull.int("teamOrb");
+    t.nonNull.int("timeouts");
+    t.nonNull.int("tov");
+    t.nonNull.int("tpa");
+    t.nonNull.int("tpm");
+  },
+});
+
+export const SimResultPlayer = objectType({
+  name: "SimResultPlayer",
+  description: "Sim result player",
+  definition(t) {
+    t.nonNull.int("andOne");
+    t.nonNull.int("ast");
+    t.nonNull.int("blk");
+    t.nonNull.int("blkd");
+    t.nonNull.int("drb");
+    t.nonNull.int("dunks");
+    t.nonNull.float("fatigue");
+    t.nonNull.int("fga");
+    t.nonNull.int("fgm");
+    t.nonNull.int("fta");
+    t.nonNull.int("ftm");
+    t.nonNull.int("fouls");
+    t.nonNull.int("foulsOffensive");
+    t.nonNull.int("foulsShooting");
+    t.nonNull.int("heaves");
+    t.nonNull.int("id");
+    t.nonNull.string("name");
+    t.nonNull.int("inspiration");
+    t.nonNull.int("jumpBallsLost");
+    t.nonNull.int("jumpBallsWon");
+    t.nonNull.int("offensiveFoul");
+    t.nonNull.int("offensiveFoulCharge");
+    t.nonNull.int("offensiveFoulOther");
+    t.nonNull.int("orb");
+    t.nonNull.int("pga");
+    t.nonNull.int("plusMinus");
+    t.nonNull.string("position");
+    t.nonNull.int("pts");
+    t.nonNull.int("secondsPlayed");
+    t.nonNull.string("slug");
+    t.nonNull.boolean("starter");
+    t.nonNull.int("stl");
+    t.nonNull.int("teamIndex");
+    t.nonNull.int("teamId");
+    t.nonNull.float("timePlayed");
+    t.nonNull.int("tov");
+    t.nonNull.int("tpa");
+    t.nonNull.int("tpm");
   },
 });
 

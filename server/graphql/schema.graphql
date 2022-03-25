@@ -31,7 +31,7 @@ scalar Json @specifiedBy(url: "http://www.ecma-international.org/publications/fi
 
 type Mutation {
   createOneTest: Boolean
-  startGameSim: Boolean
+  startGameSim: SimResult
 }
 
 type Player {
@@ -52,7 +52,7 @@ type Player {
   id: Int!
   jerseyNumber: Int
   playerCode: String
-  position: String
+  position: String!
   rebounding: Int!
   school: String
   seasonsExperience: Int!
@@ -67,6 +67,92 @@ type Query {
   getOnePlayer(slug: String!): Player
   getOneTeam(abbrev: String!): Team
   getOneTest: Boolean
+  sqlSandbox(dbType: String!, sqlString: String!, values: String): String
+}
+
+"""Sim result"""
+type SimResult {
+  playerStats: [[SimResultPlayer]]!
+  teamStats: [SimResultTeam!]!
+  teams: [Team]!
+}
+
+"""Sim result player"""
+type SimResultPlayer {
+  andOne: Int!
+  ast: Int!
+  blk: Int!
+  blkd: Int!
+  drb: Int!
+  dunks: Int!
+  fatigue: Float!
+  fga: Int!
+  fgm: Int!
+  fouls: Int!
+  foulsOffensive: Int!
+  foulsShooting: Int!
+  fta: Int!
+  ftm: Int!
+  heaves: Int!
+  id: Int!
+  inspiration: Int!
+  jumpBallsLost: Int!
+  jumpBallsWon: Int!
+  name: String!
+  offensiveFoul: Int!
+  offensiveFoulCharge: Int!
+  offensiveFoulOther: Int!
+  orb: Int!
+  pga: Int!
+  plusMinus: Int!
+  position: String!
+  pts: Int!
+  secondsPlayed: Int!
+  slug: String!
+  starter: Boolean!
+  stl: Int!
+  teamId: Int!
+  teamIndex: Int!
+  timePlayed: Float!
+  tov: Int!
+  tpa: Int!
+  tpm: Int!
+}
+
+"""Sim result team"""
+type SimResultTeam {
+  andOne: Int!
+  ast: Int!
+  blk: Int!
+  blkd: Int!
+  drb: Int!
+  dunks: Int!
+  fga: Int!
+  fgm: Int!
+  fouls: Int!
+  foulsOffensive: Int!
+  foulsShooting: Int!
+  fta: Int!
+  ftm: Int!
+  heaves: Int!
+  id: Int!
+  jumpBallsLost: Int!
+  jumpBallsWon: Int!
+  name: String!
+  offensiveFoul: Int!
+  offensiveFoulCharge: Int!
+  offensiveFoulOther: Int!
+  orb: Int!
+  pf: Int!
+  pga: Int!
+  pts: Int!
+  stl: Int!
+  teamDrb: Int!
+  teamOrb: Int!
+  timeouts: Int!
+  tov: Int!
+  tpa: Int!
+  tpm: Int!
 }
 
 type Team {

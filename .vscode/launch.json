@@ -4,11 +4,20 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug",
+      "name": "Debug Server",
       "protocol": "inspector",
       "cwd": "${workspaceRoot}/server",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run-script", "dev"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Server w/ Prisma Seed",
+      "protocol": "inspector",
+      "cwd": "${workspaceRoot}/server",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "dev:prisma"]
     }
   ]
 }

@@ -1,0 +1,3 @@
+query sqlSandbox($dbType: String!, $sqlString: String!, $values: String) {
+  sqlSandbox(dbType: $dbType, sqlString: $sqlString, values: $values)
+}

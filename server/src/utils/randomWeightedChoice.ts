@@ -1,6 +1,7 @@
 import random from "random";
+import { Player } from "../entities";
 
-type WeightedChoiceTuple = [string | number, number];
+type WeightedChoiceTuple = [string | number | Player, number];
 
 export default (data: WeightedChoiceTuple[]): any => {
   // First, we loop the main dataset to count up the total weight.

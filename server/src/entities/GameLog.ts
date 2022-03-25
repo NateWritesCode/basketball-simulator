@@ -23,16 +23,18 @@ import {
   GameEventTurnover,
   IObserver,
   GameEventViolation,
+  GameEventSubstitution,
 } from "../types";
 import { log } from "../utils";
 import ordinal from "ordinal";
 import fs from "fs";
-import Socket from "../Socket";
 
 class GameLog implements IObserver {
+  gameId: number;
   gameLog: string[][];
 
-  constructor(socket: Socket) {
+  constructor(gameId: number) {
+    this.gameId = gameId;
     this.gameLog = [];
   }
 
@@ -204,12 +206,12 @@ class GameLog implements IObserver {
       }
 
       case "FREE_THROW": {
-        const { bonus, offPlayer1, valueToAdd, shotNumber, totalShots } =
+        const { isBonus, offPlayer1, valueToAdd, shotNumber, totalShots } =
           gameEventData as GameEventFreeThrow;
         const shotResultText = valueToAdd ? "MADE" : "MISS";
         this.logInfo([
           `${
-            bonus ? "BONUS - " : ""
+            isBonus ? "BONUS - " : ""
           }Free throw ${shotNumber} of ${totalShots} - ${offPlayer1.getFullName()} ${shotResultText}`,
         ]);
         break;
@@ -217,7 +219,9 @@ class GameLog implements IObserver {
 
       case "GAME_END": {
         this.logDanger(["Game has ended"]);
-        const file = fs.createWriteStream("./src/data/gameLog.txt");
+        const file = fs.createWriteStream(
+          `./src/data/game-logs/${this.gameId}.txt`
+        );
         this.gameLog.forEach((v) => file.write(`${v}\r\n`));
         file.end();
         break;
@@ -229,13 +233,12 @@ class GameLog implements IObserver {
       case "JUMP_BALL": {
         const { offPlayer1, offTeam } = gameEventData as GameEventJumpBall;
         this.logInfo([
-          `${offPlayer1.getFullName()} wins the tip 
-           for the ${offTeam.getFullName()}`,
+          `${offPlayer1.getFullName()} wins the tip for the ${offTeam.getFullName()}`,
         ]);
 
         break;
       }
-      case "NON_SHOOTING_DEFENSIVE_FOUL": {
+      case "FOUL_DEFENSIVE_NON_SHOOTING": {
         const { offPlayer1, defPlayer1 } =
           gameEventData as GameEventNonShootingDefensiveFoul;
         this.logInfo([
@@ -266,6 +269,18 @@ class GameLog implements IObserver {
         const prettySegment = this.getPrettySegment(segment, timeSegmentIndex);
 
         this.logDanger([`${prettySegment} has ended`]);
+
+        const isHalftimePossible = segment > 1;
+
+        if (isHalftimePossible) {
+          const isHalftime = segment / 2 === timeSegmentIndex + 1;
+          if (isHalftime) {
+            this.logInfo([
+              `HALFTIME SHOW has begun. Everyone say hello Three Dog Night!`,
+            ]);
+          }
+        }
+
         break;
       }
       case "SEGMENT_START": {
@@ -279,14 +294,17 @@ class GameLog implements IObserver {
       case "STARTING_LINEUP": {
         const { defPlayersOnCourt, defTeam, offPlayersOnCourt, offTeam } =
           gameEventData as GameEventStartingLineup;
+
         this.logInfo([
-          `STARTING LINEUP ${offTeam.getFullName()} - `,
-          ...offPlayersOnCourt.map((player) => player.getFullName()),
+          `STARTING LINEUP ${offTeam.getFullName()} - ${offPlayersOnCourt
+            .map((player) => player.getFullName())
+            .join(", ")}`,
         ]);
 
         this.logInfo([
-          `STARTING LINEUP ${defTeam.getFullName()} - `,
-          ...defPlayersOnCourt.map((player) => player.getFullName()),
+          `STARTING LINEUP ${defTeam.getFullName()} - ${defPlayersOnCourt
+            .map((player) => player.getFullName())
+            .join(", ")}`,
         ]);
 
         break;
@@ -296,6 +314,18 @@ class GameLog implements IObserver {
 
         this.logInfo([
           `TURNOVER - ${offPlayer1.getFullName()} had the ball stolen by ${defPlayer1.getFullName()}`,
+        ]);
+
+        break;
+      }
+      case "SUBSTITUTION": {
+        const { incomingPlayer, outgoingPlayer, isPlayerFouledOut } =
+          gameEventData as GameEventSubstitution;
+
+        this.logInfo([
+          `SUBSTITUTION${
+            isPlayerFouledOut ? " (PLAYER FOUL OUT)" : ""
+          } - ${incomingPlayer.getFullName()} subbing in for ${outgoingPlayer.getFullName()}`,
         ]);
 
         break;

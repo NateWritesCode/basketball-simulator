@@ -34,7 +34,7 @@ export interface getOnePlayer_getOnePlayer {
   id: number;
   jerseyNumber: number | null;
   playerCode: string | null;
-  position: string | null;
+  position: string;
   rebounding: number;
   school: string | null;
   seasonsExperience: number;
