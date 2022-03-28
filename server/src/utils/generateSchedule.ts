@@ -1,5 +1,5 @@
-import { Team } from "@prisma/client";
 import moment from "moment";
+import { Team } from "@prisma/client";
 
 export default ({
   scheduleType,
@@ -35,7 +35,7 @@ export default ({
               let opponentType = getOpponentType(team, opponentTeam);
 
               teamObj[team.abbrev][opponentTeam.abbrev] = {
-                opponentType: "",
+                opponentType,
               };
             }
           });
@@ -66,4 +66,39 @@ export default ({
   }
 };
 
-const getOpponentType = (team: Team, opponentTeam: Team) => {};
+const getOpponentType = (
+  team: Team,
+  opponentTeam: Team
+):
+  | "inDivisionInConference"
+  | "outDivisionInConference"
+  | "outDivisionOutConference" => {
+  let isInConference = false;
+  let isInDivision = false;
+
+  if (
+    team.conferenceId &&
+    opponentTeam.conferenceId &&
+    team.conferenceId === opponentTeam.conferenceId
+  ) {
+    isInConference = true;
+  }
+
+  if (
+    team.divisionId &&
+    opponentTeam.divisionId &&
+    team.divisionId === opponentTeam.divisionId
+  ) {
+    isInDivision = true;
+  }
+
+  if (isInConference && isInDivision) {
+    return "inDivisionInConference";
+  } else if (isInConference && !isInDivision) {
+    return "outDivisionInConference";
+  } else if (!isInConference) {
+    return "outDivisionOutConference";
+  } else {
+    throw new Error("Problem getting opponent type");
+  }
+};
