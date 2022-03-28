@@ -24,6 +24,7 @@ import {
   IObserver,
   GameEventViolation,
   GameEventSubstitution,
+  GameEventTimeout,
 } from "../types";
 import { log } from "../utils";
 import ordinal from "ordinal";
@@ -327,6 +328,13 @@ class GameLog implements IObserver {
             isPlayerFouledOut ? " (PLAYER FOUL OUT)" : ""
           } - ${incomingPlayer.getFullName()} subbing in for ${outgoingPlayer.getFullName()}`,
         ]);
+
+        break;
+      }
+      case "TIMEOUT": {
+        const { reason, team0 } = gameEventData as GameEventTimeout;
+
+        this.logInfo([`TIMEOUT - ${team0.getFullName()} - ${reason}`]);
 
         break;
       }

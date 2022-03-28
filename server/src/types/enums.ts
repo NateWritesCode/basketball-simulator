@@ -103,6 +103,7 @@ export const GameEventEnum = z.enum([
   "STARTING_LINEUP",
   "STEAL",
   "SUBSTITUTION",
+  "TIMEOUT",
   "TURNOVER",
   "VIOLATION",
 ]);

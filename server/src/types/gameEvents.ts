@@ -278,6 +278,12 @@ export const GameEventSubstitution = z.object({
 });
 export type GameEventSubstitution = z.infer<typeof GameEventSubstitution>;
 
+export const GameEventTimeout = z.object({
+  reason: z.string(),
+  team0: z.instanceof(Team),
+});
+export type GameEventTimeout = z.infer<typeof GameEventTimeout>;
+
 export const GameEventTurnover = z.object({
   defPlayersOnCourt: z.array(z.instanceof(Player)),
   offPlayersOnCourt: z.array(z.instanceof(Player)),
@@ -322,6 +328,7 @@ export const GameEventData = z.union([
   GameEventStartingLineup,
   GameEventSteal,
   GameEventSubstitution,
+  GameEventTimeout,
   GameEventTurnover,
   GameEventViolation,
   z.object({}),

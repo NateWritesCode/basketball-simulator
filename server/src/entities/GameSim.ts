@@ -1,7 +1,7 @@
 import { errors, getTypeGuardSafeData, isTypeGuardSafeObj } from "../utils";
 import { GameTeamState, GamePlayerState, Player, GameLog } from ".";
 import random from "random";
-import { sample, shuffle } from "simple-statistics";
+import { sample } from "simple-statistics";
 import {
   FoulPenaltySettings,
   GameEventData,
@@ -19,6 +19,7 @@ import {
   PlayersOnCourt,
   PossessionTossupMethodEnum,
   TeamIndex,
+  TimeoutOptions,
   TurnoverTypes,
   TwoPlayers,
 } from "../types";
@@ -69,6 +70,13 @@ class GameSim {
   private socket: Socket;
   private teams: GameSimTeams;
   private teamStates: GameSimTeamStat;
+  private timeoutOptions: TimeoutOptions;
+  private timeoutSegments:
+    | {
+        time: number;
+        teamChargedForTimeout: 0 | 1;
+      }[][]
+    | undefined;
   private timeSegmentIndex: number | undefined;
   private timeSegments: number[] | undefined;
 
@@ -81,7 +89,7 @@ class GameSim {
     possessionTossupMethod,
     socket,
     teams,
-    timeouts,
+    timeoutOptions,
   }: GameSimInit) {
     // INIT GAME STATE
 
@@ -105,11 +113,12 @@ class GameSim {
     this.teamStates = {};
     this.playerStates = {};
     this.socket = socket;
+    this.timeoutOptions = timeoutOptions;
     this.teams.forEach((team, teamIndex) => {
       const teamState = new GameTeamState(
         team.id,
         team.getFullName(),
-        timeouts
+        timeoutOptions.timeouts
       );
       this.teamStates[team.id] = teamState;
       this.observers.push(teamState);
@@ -163,10 +172,20 @@ class GameSim {
       this.timeSegmentIndex = 0;
       let counter = gameType.segment;
 
+      if (this.timeoutOptions.timeoutRules === "NBA") {
+        this.timeoutSegments = [];
+      }
+
       this.fullSegmentTime = gameType.totalTime / gameType.segment;
 
       while (counter > 0) {
         this.timeSegments.push(this.fullSegmentTime);
+        if (this.timeoutSegments) {
+          this.timeoutSegments.push([
+            { time: 419, teamChargedForTimeout: 0 },
+            { time: 179, teamChargedForTimeout: 1 },
+          ]);
+        }
         counter--;
       }
     }
@@ -439,6 +458,63 @@ class GameSim {
     return possessionLength;
   };
 
+  handleTimeout = ({ isDeadBall }: { isDeadBall: boolean }) => {
+    let reason: string | undefined = undefined;
+    let isTimeoutCalled = false;
+    let teamCallingTimeout: number | undefined = undefined; //team that is calling the timeout
+    if (this.timeoutOptions.timeoutRules === "NBA") {
+      if (
+        this.timeoutSegments &&
+        this.timeSegments &&
+        this.timeSegmentIndex !== undefined
+      ) {
+        const currentTime = this.timeSegments[this.timeSegmentIndex];
+        const currentTimeoutSegment =
+          this.timeoutSegments[this.timeSegmentIndex];
+
+        if (currentTimeoutSegment && currentTimeoutSegment.length > 0) {
+          for (let i = 0; i < currentTimeoutSegment.length; i++) {
+            const timeoutSegment = currentTimeoutSegment[i];
+
+            if (isDeadBall && currentTime <= timeoutSegment.time) {
+              // call a mandatory timeout (TV)
+              isTimeoutCalled = true;
+              teamCallingTimeout = timeoutSegment.teamChargedForTimeout;
+              currentTimeoutSegment.splice(i, 1);
+              reason = "TV Timeout - Mandatory";
+
+              break;
+            }
+          }
+        }
+      }
+    } else {
+      throw new Error("Don't know how to handle these timeout options");
+    }
+
+    if (!isTimeoutCalled) {
+      const [team0, team1] = this.getGameTeamStates();
+      const momentumDifference = Math.abs(team0.momentum - team1.momentum);
+
+      if (momentumDifference && momentumDifference > 10) {
+        if (team0.momentum > team1.momentum) {
+          teamCallingTimeout = 1;
+        } else {
+          teamCallingTimeout = 0;
+        }
+      }
+      isTimeoutCalled = true;
+      reason = "Momentum";
+    }
+
+    if (isTimeoutCalled && reason && teamCallingTimeout !== undefined) {
+      this.notifyObservers("TIMEOUT", {
+        reason,
+        team0: this.teams[teamCallingTimeout],
+      });
+    }
+  };
+
   headToHead = ({
     players,
     fields,
@@ -619,6 +695,7 @@ class GameSim {
   }) => {
     let i = 0;
     do {
+      const isFirstShot = 1 === i + 1;
       const isLastShot = totalShots === i + 1;
       const shotMade = getFtIsMadeByPlayer(offPlayer1);
       const shotNumber = i + 1;
@@ -626,6 +703,11 @@ class GameSim {
 
       const offPlayersOnCourt = this.playersOnCourt[this.o];
       const defPlayersOnCourt = this.playersOnCourt[this.d];
+
+      if (!isFirstShot) {
+        //allow timeouts before each shot. timeouts before the first shot are handled in simPossessionEvents method
+        this.handleTimeout({ isDeadBall: true });
+      }
 
       if (isLastShot) {
         this.handleSubstitution([offPlayer1]);
@@ -671,7 +753,6 @@ class GameSim {
   };
 
   simPossession = () => {
-    console.info("----------------------------");
     this.isPossessionEventsComplete = false;
     const isSegmentStart = this.isSegmentStart();
 
@@ -736,10 +817,14 @@ class GameSim {
         if (isLastSegment) {
           if (this.checkIfGameTied()) {
             if (gameType.overtimeOptions) {
-              if (gameType.overtimeOptions.type === "time") {
-                const overtimeOptions =
-                  gameType.overtimeOptions as OvertimeTypeTime;
+              const overtimeOptions =
+                gameType.overtimeOptions as OvertimeTypeTime;
 
+              //set timeouts in the team state to the number of overtime timeouts allowed
+              this.teamStates[0].setTimeouts(overtimeOptions.timeouts);
+              this.teamStates[1].setTimeouts(overtimeOptions.timeouts);
+
+              if (gameType.overtimeOptions.type === "time") {
                 if (!this.isOvertime) {
                   this.isOvertime = true;
                 }
@@ -790,6 +875,7 @@ class GameSim {
   };
 
   simPossessionEvents = () => {
+    this.handleTimeout({ isDeadBall: false });
     const outcome = getPossessionOutcome();
     this.isPossessionEventsComplete = true;
     const offPlayersOnCourt = this.playersOnCourt[this.o];
@@ -839,6 +925,8 @@ class GameSim {
             y,
           });
 
+          this.handleTimeout({ isDeadBall: true });
+
           this.simFreeThrows({
             isBonus: false,
             offPlayer1,
@@ -859,6 +947,9 @@ class GameSim {
             x,
             y,
           });
+
+          this.handleTimeout({ isDeadBall: true });
+
           this.simFreeThrows({
             isBonus: false,
             totalShots: pts,
@@ -938,6 +1029,8 @@ class GameSim {
         const possessionLength = this.handleTime("jumpBall");
         switch (this.possessionTossupMethod) {
           case "jumpBall": {
+            this.handleTimeout({ isDeadBall: true });
+
             const offensePlayer = this.pickRandomPlayerOnCourtByTeam(this.o);
             const defensePlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
 
@@ -1015,6 +1108,7 @@ class GameSim {
               : undefined,
         });
 
+        this.handleTimeout({ isDeadBall: true });
         this.handleSubstitution();
 
         if (this.teamStates[defTeam.id].penalty) {
@@ -1037,6 +1131,8 @@ class GameSim {
           offPlayer1,
           possessionLength,
         });
+
+        this.handleTimeout({ isDeadBall: true });
 
         this.handleSubstitution();
 
@@ -1064,6 +1160,7 @@ class GameSim {
             turnoverType,
             valueToAdd: 1,
           });
+          this.handleTimeout({ isDeadBall: true });
           this.handleSubstitution();
         }
         break;
@@ -1076,6 +1173,7 @@ class GameSim {
         });
 
         this.handleSubstitution();
+        this.handleTimeout({ isDeadBall: true });
 
         break;
       }
@@ -1087,6 +1185,7 @@ class GameSim {
         });
 
         this.handleSubstitution();
+        this.handleTimeout({ isDeadBall: true });
 
         break;
       }

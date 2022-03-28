@@ -181,7 +181,7 @@ class GamePlayerState implements IObserver {
     return null;
   };
 
-  handleFatigue = (gameEventData: any) => {
+  handleFatigue = (gameEventData: any, isRestEveryone: boolean) => {
     if (gameEventData.possessionLength) {
       if (
         gameEventData.offPlayersOnCourt &&
@@ -194,7 +194,7 @@ class GamePlayerState implements IObserver {
           ...gameEventData.defPlayersOnCourt.map((player: Player) => player.id),
         ];
 
-        if (onCourtPlayerIds.includes(this.id)) {
+        if (onCourtPlayerIds.includes(this.id) && !isRestEveryone) {
           const possessionLength: number = gameEventData.possessionLength;
           const fatigue = possessionLength * (this.fatigueFactor * 0.001);
 
@@ -230,7 +230,7 @@ class GamePlayerState implements IObserver {
   }
 
   notifyGameEvent(gameEvent: GameEventEnum, gameEventData: unknown): void {
-    this.handleFatigue(gameEventData);
+    this.handleFatigue(gameEventData, gameEvent === "TIMEOUT");
 
     switch (gameEvent) {
       case "2FG_ATTEMPT": {
@@ -708,6 +708,9 @@ class GamePlayerState implements IObserver {
           possessionLength
         );
 
+        break;
+      }
+      case "TIMEOUT": {
         break;
       }
       case "VIOLATION": {

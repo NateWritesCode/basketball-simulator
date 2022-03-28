@@ -23,6 +23,7 @@ export type FgType = z.infer<typeof FgType>;
 
 export const OvertimeTypeShootout = z.object({
   numOfShooters: z.number(),
+  timeouts: z.number(),
   type: OvertimeTypeEnum,
 });
 export type OvertimeTypeShootout = z.infer<typeof OvertimeTypeShootout>;
@@ -30,6 +31,7 @@ export type OvertimeTypeShootout = z.infer<typeof OvertimeTypeShootout>;
 export const OvertimeTypeTime = z.object({
   max: z.number().optional(),
   overtimeLength: OvertimeLengthEnum,
+  timeouts: z.number(),
   type: OvertimeTypeEnum,
 });
 export type OvertimeTypeTime = z.infer<typeof OvertimeTypeTime>;
@@ -40,6 +42,12 @@ export const OvertimeOptions = z.union([
   z.null(),
 ]);
 export type OvertimeOptions = z.infer<typeof OvertimeOptions>;
+
+export const TimeoutOptions = z.object({
+  timeouts: z.number().positive(),
+  timeoutRules: z.enum(["NBA"]),
+});
+export type TimeoutOptions = z.infer<typeof TimeoutOptions>;
 
 export const GameTypePoints = z.object({
   totalPts: z.number(),
@@ -75,7 +83,7 @@ export const GameSimInit = z.object({
   shotClock: ShotClockLengthEnum.optional(),
   socket: z.instanceof(Socket),
   teams: z.tuple([z.instanceof(Team), z.instanceof(Team)]),
-  timeouts: z.number().positive(),
+  timeoutOptions: TimeoutOptions,
 });
 export type GameSimInit = z.infer<typeof GameSimInit>;
 
