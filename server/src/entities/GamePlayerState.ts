@@ -21,7 +21,7 @@ import {
   GameEvent2FgMadeFoul,
   GameEventSteal,
   GameEventTurnover,
-  GameEventOffensiveFoul,
+  GameEventFoulOffensive,
   GameEventViolation,
   GameEventSegment,
   GameEventSubstitution,
@@ -556,14 +556,14 @@ class GamePlayerState implements IObserver {
         break;
       }
 
-      case "OFFENSIVE_FOUL": {
+      case "FOUL_OFFENSIVE": {
         const {
+          defPlayersOnCourt,
           isCharge,
           offPlayer1,
           offPlayersOnCourt,
-          defPlayersOnCourt,
           possessionLength,
-        } = gameEventData as GameEventOffensiveFoul;
+        } = gameEventData as GameEventFoulOffensive;
 
         if (offPlayer1.id === this.id) {
           if (isCharge) {
@@ -605,7 +605,7 @@ class GamePlayerState implements IObserver {
 
         break;
       }
-      case "POSSESSION_ARROW_WON": {
+      case "POSSESSION_ARROW": {
         break;
       }
       case "SEGMENT_START": {

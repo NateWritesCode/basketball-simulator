@@ -220,8 +220,9 @@ export const GameEventFreeThrow = z.object({
 });
 export type GameEventFreeThrow = z.infer<typeof GameEventFreeThrow>;
 
-export const GameEventOffensiveFoul = z.object({
+export const GameEventFoulOffensive = z.object({
   defPlayersOnCourt: z.array(z.instanceof(Player)),
+  defPlayer1: z.instanceof(Player),
   defTeam: z.instanceof(Team),
   isCharge: z.boolean(),
   offPlayersOnCourt: z.array(z.instanceof(Player)),
@@ -229,7 +230,7 @@ export const GameEventOffensiveFoul = z.object({
   offTeam: z.instanceof(Team),
   possessionLength: z.number(),
 });
-export type GameEventOffensiveFoul = z.infer<typeof GameEventOffensiveFoul>;
+export type GameEventFoulOffensive = z.infer<typeof GameEventFoulOffensive>;
 
 export const GameEventNonShootingDefensiveFoul = z.object({
   defPlayer1: z.instanceof(Player),

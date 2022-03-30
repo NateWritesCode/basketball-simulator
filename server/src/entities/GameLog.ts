@@ -25,6 +25,7 @@ import {
   GameEventViolation,
   GameEventSubstitution,
   GameEventTimeout,
+  GameEventFoulOffensive,
 } from "../types";
 import { log } from "../utils";
 import ordinal from "ordinal";
@@ -248,7 +249,15 @@ class GameLog implements IObserver {
 
         break;
       }
-      case "OFFENSIVE_FOUL": {
+      case "FOUL_OFFENSIVE": {
+        const { defPlayer1, isCharge, offPlayer1 } =
+          gameEventData as GameEventFoulOffensive;
+        this.logInfo([
+          `OFFENSIVE FOUL${
+            isCharge ? " CHARGE " : ""
+          }-${offPlayer1.getFullName()} fouled ${defPlayer1.getFullName()}`,
+        ]);
+
         break;
       }
       case "OFFENSIVE_REBOUND": {
@@ -261,7 +270,7 @@ class GameLog implements IObserver {
         ]);
         break;
       }
-      case "POSSESSION_ARROW_WON": {
+      case "POSSESSION_ARROW": {
         break;
       }
       case "SEGMENT_END": {

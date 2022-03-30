@@ -200,7 +200,7 @@ class GameEventStore implements IObserver {
         this.appendToFile(gameEvent, gameEventData);
         break;
       }
-      case "OFFENSIVE_FOUL": {
+      case "FOUL_OFFENSIVE": {
         this.appendToFile(gameEvent, gameEventData);
         break;
       }
@@ -208,7 +208,7 @@ class GameEventStore implements IObserver {
         this.appendToFile(gameEvent, gameEventData);
         break;
       }
-      case "POSSESSION_ARROW_WON": {
+      case "POSSESSION_ARROW": {
         this.appendToFile(gameEvent, gameEventData);
         break;
       }

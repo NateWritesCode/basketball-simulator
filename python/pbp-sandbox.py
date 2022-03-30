@@ -15,8 +15,7 @@ from pbpstats.resources.enhanced_pbp.turnover import Turnover
 from pbpstats.resources.enhanced_pbp.violation import Violation
 import pandas as pd
 import json
-import pprint
-games_to_process = 100
+games_to_process = 150
 
 
 season_settings = {
@@ -60,19 +59,19 @@ master_game_dict = {}
 master_player_dict = {}
 master_team_dict = {}
 master_x_y_dict = {
-    "Arc3": {},
-    "AtRim": {},
-    "Corner3": {},
-    "LongMidRange": {},
-    "ShortMidRange": {}
+    "ARC_3": {},
+    "AT_RIM": {},
+    "CORNER_3": {},
+    "LONG_MID_RANGE": {},
+    "SHORT_MID_RANGE": {}
 }
 master_play_length_dict = {
-    "fg": {},
-    "foul": {},
-    "jumpBall": {},
-    "rebound": {},
-    "turnover": {},
-    "violation": {}
+    "FG": {},
+    "FOUL": {},
+    "JUMP_BALL": {},
+    "REBOUND": {},
+    "TURNOVER": {},
+    "VIOLATION": {}
 }
 
 
@@ -121,232 +120,232 @@ for season_game in season.games.items[:games_to_process]:
     team_1 = game.boxscore.team_items[1]["team_id"]  # think this is home team
 
     master_game_dict[game_id] = {
-        "assist": 0,
-        "block": 0,
-        "ejection": 0,
-        "fg": 0,
-        "fgIncludingShootingFoulsMissed": 0,
-        "fgArc3": 0,
-        "fgAtRim": 0,
-        "fgCorner3": 0,
-        "fgLongMidRange": 0,
-        "fgShortMidRange": 0,
-        "fgMade": 0,
-        "fgXY": {
-            "Arc3": {},
-            "AtRim": {},
-            "Corner3": {},
-            "LongMidRange": {},
-            "ShortMidRange": {}
+        "ASSIST": 0,
+        "BLOCK": 0,
+        "EJECTION": 0,
+        "FG": 0,
+        "FG_INCLUDING_SHOOTING_FOULS_MISSED": 0,
+        "FG_ARC_3": 0,
+        "FG_AT_RIM": 0,
+        "FG_CORNER_3": 0,
+        "FG_LONG_MID_RANGE": 0,
+        "FG_SHORT_MID_RANGE": 0,
+        "FG_MADE": 0,
+        "FG_XY": {
+            "ARC_3": {},
+            "AT_RIM": {},
+            "CORNER_3": {},
+            "LONG_MID_RANGE": {},
+            "SHORT_MID_RANGE": {}
         },
-        "foul": 0,
-        "foulAwayFromPlay": 0,
-        "foulClearPath": 0,
-        "foulCountAsPersonal": 0,
-        "foulCountTowardPenalty": 0,
-        "foulDefNonShooting": 0,
-        "foulDouble": 0,
-        "foulDoubleTechnical": 0,
-        "foulFlagrant": 0,
-        "foulFlagrant1": 0,
-        "foulFlagrant2": 0,
-        "foulInbound": 0,
-        "foulLooseBall": 0,
-        "foulOffCharge": 0,
-        "foulOffOther": 0,
-        "foulOffTotal": 0,
-        "foulPersonal": 0,
-        "foulPersonalBlock": 0,
-        "foulPersonalTake": 0,
-        "foulShooting": 0,
-        "foulShootingBlock": 0,
-        "foulTechnical": 0,
-        "foulTechnicalNonPlayer": 0,
-        "jumpBall": 0,
-        "possession": 0,
-        "reb": 0,
-        "rebDef": 0,
-        "rebOff": 0,
-        "rebDefTeam": 0,
-        "rebOffTeam": 0,
-        "replay": 0,
-        "steal": 0,
-        "substitution": 0,
-        "timeout": 0,
-        "turnover": 0,
-        "turnover3Second": 0,
-        "turnoverBadPass": 0,  # steal
-        "turnoverBadPassOutOfBounds": 0,
-        "turnoverKickBall": 0,
-        "turnoverLaneViolation": 0,
-        "turnoverLostBall": 0,  # steal
-        "turnoverLostBallOutOfBounds": 0,
-        "turnoverOffGoaltend": 0,
-        "turnoverShotClock": 0,
-        "turnoverStepOutOfBounds": 0,
-        "turnoverTravel": 0,
-        "violation": 0,
-        "violationDelayOfGame": 0,  # FG after usually
-        "violationDoubleLane": 0,  # FREE THROW
-        "violationDefGoaltend": 0,  # POSSESSION - FG awarded
-        "violationJumpBall": 0,  # JUMP BALL
-        "violationDefKickBall": 0,  # POSSESSION - Defense kicked ball
-        "violationLane": 0,  # FREE THROW
+        "FOUL": 0,
+        "FOUL_AWAY_FROM_PLAY": 0,
+        "FOUL_CLEAR_PATH": 0,
+        "FOUL_COUNT_AS_PERSONAL": 0,
+        "FOUL_COUNT_TOWARD_PENALTY": 0,
+        "FOUL_DEFENSIVE_NON_SHOOTING": 0,
+        "FOUL_DOUBLE": 0,
+        "FOUL_DOUBLE_TECHNICAL": 0,
+        "FOUL_FLAGRANT": 0,
+        "FOUL_FLAGRANT_1": 0,
+        "FOUL_FLAGRANT_2": 0,
+        "FOUL_INBOUND": 0,
+        "FOUL_LOOSE_BALL": 0,
+        "FOUL_OFFENSIVE_CHARGE": 0,
+        "FOUL_OFFENSIVE_OTHER": 0,
+        "FOUL_OFFENSIVE_TOTAL": 0,
+        "FOUL_PERSONAL": 0,
+        "FOUL_PERSONAL_BLOCK": 0,
+        "FOUL_PERSONAL_TAKE": 0,
+        "FOUL_SHOOTING": 0,
+        "FOUL_SHOOTING_BLOCK": 0,
+        "FOUL_TECHNICAL": 0,
+        "FOUL_TECHNICAL_NON_PLAYER": 0,
+        "JUMP_BALL": 0,
+        "POSSESSION": 0,
+        "REBOUND": 0,
+        "REBOUND_DEFENSIVE": 0,
+        "REBOUND_OFFENSIVE": 0,
+        "REBOUND_DEFENSIVE_TEAM": 0,
+        "REBOUND_OFFENSIVE_TEAM": 0,
+        "REPLAY": 0,
+        "STEAL": 0,
+        "SUBSTITUTION": 0,
+        "TIMEOUT": 0,
+        "TURNOVER": 0,
+        "TURNOVER_3_SECOND": 0,
+        "TURNOVER_BAD_PASS": 0,  # steal
+        "TURNOVER_BAD_PASS_OUT_OF_BOUNDS": 0,
+        "TURNOVER_KICK_BALL": 0,
+        "TURNOVER_LANE_VIOLATION": 0,
+        "TURNOVER_LOST_BALL": 0,  # steal
+        "TURNOVER_LOST_BALL_OUT_OF_BOUNDS": 0,
+        "TURNOVER_OFFENSIVE_GOALTENDING": 0,
+        "TURNOVER_SHOT_CLOCK": 0,
+        "TURNOVER_STEP_OUT_OF_BOUNDS": 0,
+        "TURNOVER_TRAVEL": 0,
+        "VIOLATION": 0,
+        "VIOLATION_DELAY_OF_GAME": 0,  # FG after usually
+        "VIOLATION_DOUBLE_LANE": 0,  # FREE THROW
+        "VIOLATION_DEFENSIVE_GOALTENDING": 0,  # POSSESSION - FG awarded
+        "VIOLATION_JUMP_BALL": 0,  # JUMP BALL
+        "VIOLATION_DEFENSIVE_KICK_BALL": 0,  # POSSESSION - Defense kicked ball
+        "VIOLATION_LANE": 0,  # FREE THROW
     }
 
     for item in game.boxscore.player_items:
         if item["player_id"] not in master_player_dict:
             master_player_dict[item["player_id"]] = {
-                "assist": 0,
-                "assistChance": 0,
-                "defBlock": 0,
-                "defBlockChance": 0,
-                "defSteal": 0,
-                "defStealChance": 0,
-                "fgArc3Attempt": 0,
-                "fgArc3Block": 0,
-                "fgArc3Chance": 0,
-                "fgArc3DefChance": 0,
-                "fgArc3Made": 0,
-                "fgArc3MadeFoul": 0,
-                "fgAtRimAttempt": 0,
-                "fgAtRimBlock": 0,
-                "fgAtRimChance": 0,
-                "fgAtRimDefChance": 0,
-                "fgAtRimMade": 0,
-                "fgAtRimMadeFoul": 0,
-                "fgCorner3Attempt": 0,
-                "fgCorner3Block": 0,
-                "fgCorner3Chance": 0,
-                "fgCorner3DefChance": 0,
-                "fgCorner3Made": 0,
-                "fgCorner3MadeFoul": 0,
-                "fgLongMidRangeAttempt": 0,
-                "fgLongMidRangeBlock": 0,
-                "fgLongMidRangeChance": 0,
-                "fgLongMidRangeDefChance": 0,
-                "fgLongMidRangeMade": 0,
-                "fgLongMidRangeMadeFoul": 0,
-                "fgShortMidRangeAttempt": 0,
-                "fgShortMidRangeBlock": 0,
-                "fgShortMidRangeChance": 0,
-                "fgShortMidRangeDefChance": 0,
-                "fgShortMidRangeMade": 0,
-                "fgShortMidRangeMadeFoul": 0,
-                "fgTotalAttempt": 0,
-                "fgTotalBlock": 0,
-                "fgTotalChance": 0,
-                "fgTotalDefChance": 0,
-                "fgTotalMade": 0,
-                "fgTotalMadeFoul": 0,
-                "fgTotalMissFoul2": 0,
-                "fgTotalMissFoul3": 0,
-                "fgXY": {
-                    "Arc3": {},
-                    "AtRim": {},
-                    "Corner3": {},
-                    "LongMidRange": {},
-                    "ShortMidRange": {}
+                "ASSIST": 0,
+                "ASSIST_CHANCE": 0,
+                "BLOCK": 0,
+                "BLOCK_CHANCE": 0,
+                "FG_ARC_3_ATTEMPT": 0,
+                "FG_ARC_3_BLOCK": 0,
+                "FG_ARC_3_CHANCE_OFFENSIVE": 0,
+                "FG_ARC_3_CHANCE_DEFENSIVE": 0,
+                "FG_ARC_3_MADE": 0,
+                "FG_ARC_3_MADE_FOUL": 0,
+                "FG_AT_RIM_ATTEMPT": 0,
+                "FG_AT_RIM_BLOCK": 0,
+                "FG_AT_RIM_CHANCE_OFFENSIVE": 0,
+                "FG_AT_RIM_CHANCE_DEFENSIVE": 0,
+                "FG_AT_RIM_MADE": 0,
+                "FG_AT_RIM_MADE_FOUL": 0,
+                "FG_CORNER_3_ATTEMPT": 0,
+                "FG_CORNER_3_BLOCK": 0,
+                "FG_CORNER_3_CHANCE_OFFENSIVE": 0,
+                "FG_CORNER_3_CHANCE_DEFENSIVE": 0,
+                "FG_CORNER_3_MADE": 0,
+                "FG_CORNER_3_MADE_FOUL": 0,
+                "FG_LONG_MID_RANGE_ATTEMPT": 0,
+                "FG_LONG_MID_RANGE_BLOCK": 0,
+                "FG_LONG_MID_RANGE_CHANCE_OFFENSIVE": 0,
+                "FG_LONG_MID_RANGE_CHANCE_DEFENSIVE": 0,
+                "FG_LONG_MID_RANGE_MADE": 0,
+                "FG_LONG_MID_RANGE_MADE_FOUL": 0,
+                "FG_SHORT_MID_RANGE_ATTEMPT": 0,
+                "FG_SHORT_MID_RANGE_BLOCK": 0,
+                "FG_SHORT_MID_RANGE_CHANCE_OFFENSIVE": 0,
+                "FG_SHORT_MID_RANGE_CHANCE_DEFENSIVE": 0,
+                "FG_SHORT_MID_RANGE_MADE": 0,
+                "FG_SHORT_MID_RANGE_MADE_FOUL": 0,
+                "FG_TOTAL_ATTEMPT": 0,
+                "FG_TOTAL_BLOCK": 0,
+                "FG_TOTAL_CHANCE_OFFENSIVE": 0,
+                "FG_TOTAL_CHANCE_DEFENSIVE": 0,
+                "FG_TOTAL_MADE": 0,
+                "FG_TOTAL_MADE_FOUL": 0,
+                "FG_TOTAL_MISS_FOUL_2": 0,
+                "FG_TOTAL_MISS_FOUL_3": 0,
+                "FG_XY": {
+                    "ARC_3": {},
+                    "AT_RIM": {},
+                    "CORNER_3": {},
+                    "LONG_MID_RANGE": {},
+                    "SHORT_MID_RANGE": {}
                 },
-                "foul": 0,
-                "foulChance": 0,
-                "foulAwayFromPlay": 0,
-                "foulAwayFromPlayChance": 0,
-                "fouledAwayFromPlay": 0,
-                "fouledAwayFromPlayChance": 0,
-                "foulClearPath": 0,
-                "foulClearPathChance": 0,
-                "fouledClearPath": 0,
-                "fouledClearPathChance": 0,
-                "foulCountAsPersonal": 0,
-                "foulCountAsPersonalChance": 0,
-                "fouledCountAsPersonal": 0,
-                "fouledCountAsPersonalChance": 0,
-                "foulCountTowardPenalty": 0,
-                "foulCountTowardPenaltyChance": 0,
-                "fouledCountTowardPenalty": 0,
-                "fouledCountTowardPenaltyChance": 0,
-                "foulDefNonShooting": 0,
-                "foulDefNonShootingChance": 0,
-                "fouledDefNonShooting": 0,
-                "fouledDefNonShootingChance": 0,
-                "foulDouble": 0,
-                "foulDoubleChance": 0,
-                "foulDoubleTechnical": 0,
-                "foulDoubleTechnicalChance": 0,
-                "foulFlagrant": 0,
-                "foulFlagrantChance": 0,
-                "fouledFlagrant": 0,
-                "fouledFlagrantChance": 0,
-                "foulFlagrant1": 0,
-                "foulFlagrant1Chance": 0,
-                "fouledFlagrant1": 0,
-                "fouledFlagrant1Chance": 0,
-                "foulFlagrant2": 0,
-                "foulFlagrant2Chance": 0,
-                "fouledFlagrant2": 0,
-                "fouledFlagrant2Chance": 0,
-                "foulInbound": 0,
-                "foulInboundChance": 0,
-                "fouledInbound": 0,
-                "fouledInboundChance": 0,
-                "foulLooseBall": 0,
-                "foulLooseBallChance": 0,
-                "fouledLooseBall": 0,
-                "fouledLooseBallChance": 0,
-                "foulOffCharge": 0,
-                "foulOffChargeChance": 0,
-                "fouledOffCharge": 0,
-                "fouledOffChargeChance": 0,
-                "foulOffOther": 0,
-                "foulOffOtherChance": 0,
-                "fouledOffOther": 0,
-                "fouledOffOtherChance": 0,
-                "foulOffTotal": 0,
-                "foulOffTotalChance": 0,
-                "fouledOffTotal": 0,
-                "fouledOffTotalChance": 0,
-                "foulPersonal": 0,
-                "foulPersonalChance": 0,
-                "fouledPersonal": 0,
-                "fouledPersonalChance": 0,
-                "foulPersonalBlock": 0,
-                "foulPersonalBlockChance": 0,
-                "fouledPersonalBlock": 0,
-                "fouledPersonalBlockChance": 0,
-                "foulPersonalTake": 0,
-                "foulPersonalTakeChance": 0,
-                "fouledPersonalTake": 0,
-                "fouledPersonalTakeChance": 0,
-                "foulShooting": 0,
-                "foulShootingChance": 0,
-                "fouledShooting": 0,
-                "fouledShootingChance": 0,
-                "foulShootingBlock": 0,
-                "foulShootingBlockChance": 0,
-                "fouledShootingBlock": 0,
-                "fouledShootingBlockChance": 0,
-                "foulTechnical": 0,
-                "foulTechnicalChance": 0,
-                "ftAttempt": 0,
-                "ftMade": 0,
-                "rebDef": 0,
-                "rebDefChance": 0,
-                "rebOff": 0,
-                "rebOffChance": 0,
-                "turnover": 0,
-                "turnoverChance": 0,
-                "violationDefGoaltend": 0,
-                "violationDefGoaltendChance": 0,
-                "violationDefKickBall": 0,
-                "violationDefKickBallChance": 0,
+                "FOUL": 0,
+                "FOUL_CHANCE": 0,
+                "FOUL_AWAY_FROM_PLAY": 0,
+                "FOUL_AWAY_FROM_PLAY_CHANCE": 0,
+                "FOULED_AWAY_FROM_PLAY": 0,
+                "FOULED_AWAY_FROM_PLAY_CHANCE": 0,
+                "FOUL_CLEAR_PATH": 0,
+                "FOUL_CLEAR_PATH_CHANCE": 0,
+                "FOULED_CLEAR_PATH": 0,
+                "FOULED_CLEAR_PATH_CHANCE": 0,
+                "FOUL_COUNT_AS_PERSONAL": 0,
+                "FOUL_COUNT_AS_PERSONAL_CHANCE": 0,
+                "FOULED_COUNT_AS_PERSONAL": 0,
+                "FOULED_COUNT_AS_PERSONAL_CHANCE": 0,
+                "FOUL_COUNT_TOWARD_PENALTY": 0,
+                "FOUL_COUNT_TOWARD_PENALTY_CHANCE": 0,
+                "FOULED_COUNT_TOWARD_PENALTY": 0,
+                "FOULED_COUNT_TOWARD_PENALTY_CHANCE": 0,
+                "FOUL_DEFENSIVE_NON_SHOOTING": 0,
+                "FOUL_DEFENSIVE_NON_SHOOTING_CHANCE": 0,
+                "FOULED_DEFENSIVE_NON_SHOOTING": 0,
+                "FOULED_DEFENSIVE_NON_SHOOTING_CHANCE": 0,
+                "FOUL_DOUBLE": 0,
+                "FOUL_DOUBLE_CHANCE": 0,
+                "FOUL_DOUBLE_TECHNICAL": 0,
+                "FOUL_DOUBLE_TECHNICAL_CHANCE": 0,
+                "FOUL_FLAGRANT": 0,
+                "FOUL_FLAGRANT_CHANCE": 0,
+                "FOULED_FLAGRANT": 0,
+                "FOULED_FLAGRANT_CHANCE": 0,
+                "FOUL_FLAGRANT_1": 0,
+                "FOUL_FLAGRANT_1_CHANCE": 0,
+                "FOULED_FLAGRANT_1": 0,
+                "FOULED_FLAGRANT_1_CHANCE": 0,
+                "FOUL_FLAGRANT_2": 0,
+                "FOUL_FLAGRANT_2_CHANCE": 0,
+                "FOULED_FLAGRANT_2": 0,
+                "FOULED_FLAGRANT_2_CHANCE": 0,
+                "FOUL_INBOUND": 0,
+                "FOUL_INBOUND_CHANCE": 0,
+                "FOULED_INBOUND": 0,
+                "FOULED_INBOUND_CHANCE": 0,
+                "FOUL_LOOSE_BALL": 0,
+                "FOUL_LOOSE_BALL_CHANCE": 0,
+                "FOULED_LOOSE_BALL": 0,
+                "FOULED_LOOSE_BALL_CHANCE": 0,
+                "FOUL_OFFENSIVE_CHARGE": 0,
+                "FOUL_OFFENSIVE_CHARGE_CHANCE": 0,
+                "FOULED_OFFENSIVE_CHARGE": 0,
+                "FOULED_OFFENSIVE_CHARGE_CHANCE": 0,
+                "FOUL_OFFENSIVE_OTHER": 0,
+                "FOUL_OFFENSIVE_OTHER_CHANCE": 0,
+                "FOULED_OFFENSIVE_OTHER": 0,
+                "FOULED_OFFENSIVE_OTHER_CHANCE": 0,
+                "FOUL_OFFENSIVE_TOTAL": 0,
+                "FOUL_OFFENSIVE_TOTAL_CHANCE": 0,
+                "FOULED_OFFENSIVE_TOTAL": 0,
+                "FOULED_OFFENSIVE_TOTAL_CHANCE": 0,
+                "FOUL_PERSONAL": 0,
+                "FOUL_PERSONAL_CHANCE": 0,
+                "FOULED_PERSONAL": 0,
+                "FOULED_PERSONAL_CHANCE": 0,
+                "FOUL_PERSONAL_BLOCK": 0,
+                "FOUL_PERSONAL_BLOCK_CHANCE": 0,
+                "FOULED_PERSONAL_BLOCK": 0,
+                "FOULED_PERSONAL_BLOCK_CHANCE": 0,
+                "FOUL_PERSONAL_TAKE": 0,
+                "FOUL_PERSONAL_TAKE_CHANCE": 0,
+                "FOULED_PERSONAL_TAKE": 0,
+                "FOULED_PERSONAL_TAKE_CHANCE": 0,
+                "FOUL_SHOOTING": 0,
+                "FOUL_SHOOTING_CHANCE": 0,
+                "FOULED_SHOOTING": 0,
+                "FOULED_SHOOTING_CHANCE": 0,
+                "FOUL_SHOOTING_BLOCK": 0,
+                "FOUL_SHOOTING_BLOCK_CHANCE": 0,
+                "FOULED_SHOOTING_BLOCK": 0,
+                "FOULED_SHOOTING_BLOCK_CHANCE": 0,
+                "FOUL_TECHNICAL": 0,
+                "FOUL_TECHNICAL_CHANCE": 0,
+                "FT_ATTEMPT": 0,
+                "FT_MADE": 0,
+                "REBOUND_DEFENSIVE": 0,
+                "REBOUND_DEFENSIVE_CHANCE": 0,
+                "REBOUND_OFFENSIVE": 0,
+                "REBOUND_OFFENSIVE_CHANCE": 0,
+                "STEAL": 0,
+                "STEAL_CHANCE": 0,
+                "TURNOVER": 0,
+                "TURNOVER_CHANCE": 0,
+                "VIOLATION_DEFENSIVE_GOALTENDING": 0,
+                "VIOLATION_DEFENSIVE_GOALTENDING_CHANCE": 0,
+                "VIOLATION_DEFENSIVE_KICK_BALL": 0,
+                "VIOLATION_DEFENSIVE_KICK_BALL_CHANCE": 0,
             }
 
     for possession in game.possessions.items:
         for possession_event in possession.events:
             possession_event_length = possession_event.seconds_since_previous_event
             if possession_event.count_as_possession:
-                game_update(game_id, master_game_dict, "possession", 1)
+                game_update(game_id, master_game_dict, "POSSESSION", 1)
 
             offense_team_id = possession_event.get_offense_team_id()
             defense_team_id = team_0 if team_0 != offense_team_id else team_1
@@ -360,7 +359,7 @@ for season_game in season.games.items[:games_to_process]:
                 continue
 
             if isinstance(possession_event, Ejection):
-                game_update(game_id, master_game_dict, "ejection", 1)
+                game_update(game_id, master_game_dict, "EJECTION", 1)
                 continue
 
             if isinstance(possession_event, JumpBall):
@@ -369,160 +368,162 @@ for season_game in season.games.items[:games_to_process]:
                     if isinstance(event, StartOfPeriod):
                         is_jump_ball_starts_period = True
                 if is_jump_ball_starts_period != True:
-                    game_update(game_id, master_game_dict, "jumpBall", 1)
+                    game_update(game_id, master_game_dict, "JUMP_BALL", 1)
                     possession_length_update(
-                        "jumpBall", master_play_length_dict, possession_event_length)
+                        "JUMP_BALL", master_play_length_dict, possession_event_length)
                 continue
 
             if isinstance(possession_event, Replay):
-                game_update(game_id, master_game_dict, "replay", 1)
+                game_update(game_id, master_game_dict, "REPLAY", 1)
                 continue
 
             if isinstance(possession_event, Substitution):
-                game_update(game_id, master_game_dict, "substitution", 1)
+                game_update(game_id, master_game_dict, "SUBSTITUTION", 1)
                 continue
 
             if isinstance(possession_event, Timeout):
-                game_update(game_id, master_game_dict, "timeout", 1)
+                game_update(game_id, master_game_dict, "TIMEOUT", 1)
                 continue
 
             if isinstance(possession_event, Violation):
-                game_update(game_id, master_game_dict, "violation", 1)
+                game_update(game_id, master_game_dict, "VIOLATION", 1)
                 if possession_event.is_delay_of_game:
                     game_update(game_id, master_game_dict,
-                                "violationDelayOfGame", 1)
+                                "VIOLATION_DELAY_OF_GAME", 1)
                 if possession_event.is_double_lane_violation:
                     game_update(game_id, master_game_dict,
-                                "violationDoubleLane", 1)
+                                "VIOLATION_DOUBLE_LANE", 1)
                 if possession_event.is_goaltend_violation:
                     game_update(game_id, master_game_dict,
-                                "violationDefGoaltend", 1)
+                                "VIOLATION_DEFENSIVE_GOALTENDING", 1)
                     players_on_court_update(
-                        defense_players, master_player_dict, "violationDefGoaltendChance", 1)
+                        defense_players, master_player_dict, "VIOLATION_DEFENSIVE_GOALTENDING_CHANCE", 1)
                     player = possession_event.player1_id
                     player_update(player, master_player_dict,
-                                  "violationDefGoaltend", 1)
+                                  "VIOLATION_DEFENSIVE_GOALTENDING", 1)
 
                     possession_length_update(
-                        "violation", master_play_length_dict, possession_event_length)
+                        "VIOLATION", master_play_length_dict, possession_event_length)
 
                 if possession_event.is_jumpball_violation:
                     game_update(game_id, master_game_dict,
-                                "violationJumpBall", 1)
+                                "VIOLATION_JUMP_BALL", 1)
                 if possession_event.is_kicked_ball_violation:
                     game_update(game_id, master_game_dict,
-                                "violationDefKickBall", 1)
+                                "VIOLATION_DEFENSIVE_KICK_BALL", 1)
                     players_on_court_update(
-                        defense_players, master_player_dict, "violationDefKickBallChance", 1)
+                        defense_players, master_player_dict, "VIOLATION_DEFENSIVE_KICK_BALL_CHANCE", 1)
                     player = possession_event.player1_id
                     player_update(player, master_player_dict,
-                                  "violationDefKickBall", 1)
+                                  "VIOLATION_DEFENSIVE_KICK_BALL", 1)
                     possession_length_update(
-                        "violation", master_play_length_dict, possession_event_length)
+                        "VIOLATION", master_play_length_dict, possession_event_length)
                 if possession_event.is_lane_violation:
                     game_update(game_id, master_game_dict,
-                                "violationLane", 1)
+                                "VIOLATION_LANE", 1)
 
             if isinstance(possession_event, Turnover) and not possession_event.is_no_turnover:
                 possession_length_update(
-                    "turnover", master_play_length_dict, possession_event_length)
+                    "TURNOVER", master_play_length_dict, possession_event_length)
                 players_on_court_update(
-                    offense_players, master_player_dict, "turnoverChance", 1)
+                    offense_players, master_player_dict, "TURNOVER_CHANCE", 1)
                 offense_player = possession_event.player1_id
                 if offense_player != 0:
                     player_update(offense_player,
-                                  master_player_dict, "turnover", 1)
+                                  master_player_dict, "TURNOVER", 1)
 
-                game_update(game_id, master_game_dict, "turnover", 1)
+                game_update(game_id, master_game_dict, "TURNOVER", 1)
                 if possession_event.is_steal:
                     players_on_court_update(
-                        defense_players, master_player_dict, "defStealChance", 1)
+                        defense_players, master_player_dict, "STEAL_CHANCE", 1)
                     player = possession_event.player3_id
-                    player_update(player, master_player_dict, "defSteal", 1)
+                    player_update(player, master_player_dict, "STEAL", 1)
                     game_update(game_id, master_game_dict,
-                                "steal", 1)
+                                "STEAL", 1)
 
                 if possession_event.is_3_second_violation:
                     game_update(game_id, master_game_dict,
-                                "turnover3Second", 1)
+                                "TURNOVER_3_SECOND", 1)
                 if possession_event.is_bad_pass:
                     game_update(game_id, master_game_dict,
-                                "turnoverBadPass", 1)
+                                "TURNOVER_BAD_PASS", 1)
                 if possession_event.is_bad_pass_out_of_bounds:
                     game_update(game_id, master_game_dict,
-                                "turnoverBadPassOutOfBounds", 1)
+                                "TURNOVER_BAD_PASS_OUT_OF_BOUNDS", 1)
                 if possession_event.is_kicked_ball:
                     game_update(game_id, master_game_dict,
-                                "turnoverKickBall", 1)
+                                "TURNOVER_KICK_BALL", 1)
                 if possession_event.is_lane_violation:
                     game_update(game_id, master_game_dict,
-                                "turnoverLaneViolation", 1)
+                                "TURNOVER_LANE_VIOLATION", 1)
                 if possession_event.is_lost_ball:
                     game_update(game_id, master_game_dict,
-                                "turnoverLostBall", 1)
+                                "TURNOVER_LOST_BALL", 1)
                 if possession_event.is_lost_ball_out_of_bounds:
                     game_update(game_id, master_game_dict,
-                                "turnoverLostBallOutOfBounds", 1)
+                                "TURNOVER_LOST_BALL_OUT_OF_BOUNDS", 1)
                 if possession_event.is_offensive_goaltending:
                     game_update(game_id, master_game_dict,
-                                "turnoverOffGoaltend", 1)
+                                "TURNOVER_OFFENSIVE_GOALTENDING", 1)
                 if possession_event.is_shot_clock_violation:
                     game_update(game_id, master_game_dict,
-                                "turnoverShotClock", 1)
+                                "TURNOVER_SHOT_CLOCK", 1)
                 if possession_event.is_step_out_of_bounds:
                     game_update(game_id, master_game_dict,
-                                "turnoverStepOutOfBounds", 1)
+                                "TURNOVER_STEP_OUT_OF_BOUNDS", 1)
                 if possession_event.is_travel:
                     game_update(game_id, master_game_dict,
-                                "turnoverTravel", 1)
+                                "TURNOVER_TRAVEL", 1)
 
             if isinstance(possession_event, FreeThrow):
                 player = possession_event.player1_id
-                player_update(player, master_player_dict, "ftAttempt", 1)
+                player_update(player, master_player_dict, "FT_ATTEMPT", 1)
                 if possession_event.is_made:
-                    player_update(player, master_player_dict, "ftMade", 1)
+                    player_update(player, master_player_dict, "FT_MADE", 1)
                 if possession_event.foul_that_led_to_ft != None:
                     if possession_event.foul_that_led_to_ft.foul_type_string == "2pt Shooting Foul":
                         player_update(player, master_player_dict,
-                                      "fgTotalMissFoul2", 1)
+                                      "FG_TOTAL_MISS_FOUL_2", 1)
                         game_update(game_id, master_game_dict,
-                                    "fgIncludingShootingFoulsMissed", 1)
+                                    "FG_INCLUDING_SHOOTING_FOULS_MISSED", 1)
 
                     if possession_event.foul_that_led_to_ft.foul_type_string == "3pt Shooting Foul":
                         player_update(player, master_player_dict,
-                                      "fgTotalMissFoul3", 1)
+                                      "FG_TOTAL_MISS_FOUL_3", 1)
                         game_update(game_id, master_game_dict,
-                                    "fgIncludingShootingFoulsMissed", 1)
+                                    "FG_INCLUDING_SHOOTING_FOULS_MISSED", 1)
 
                 continue
 
             if isinstance(possession_event, Rebound):
                 if possession_event.is_real_rebound:
                     possession_length_update(
-                        "rebound", master_play_length_dict, possession_event_length)
+                        "REBOUND", master_play_length_dict, possession_event_length)
                     game_update(
-                        game_id, master_game_dict, "reb", 1)
+                        game_id, master_game_dict, "REBOUND", 1)
                     players_on_court_update(
-                        offense_players, master_player_dict, "rebOffChance", 1)
+                        offense_players, master_player_dict, "REBOUND_OFFENSIVE_CHANCE", 1)
                     players_on_court_update(
-                        defense_players, master_player_dict, "rebDefChance", 1)
+                        defense_players, master_player_dict, "REBOUND_DEFENSIVE_CHANCE", 1)
                     if hasattr(possession_event, 'player1_id') and possession_event.player1_id != 0:
                         player = possession_event.player1_id
                         if possession_event.oreb:
                             player_update(
-                                player, master_player_dict, "rebOff", 1)
-                            game_update(game_id, master_game_dict, "rebOff", 1)
+                                player, master_player_dict, "REBOUND_OFFENSIVE", 1)
+                            game_update(game_id, master_game_dict,
+                                        "REBOUND_OFFENSIVE", 1)
                         else:
                             player_update(
-                                player, master_player_dict, "rebDef", 1)
-                            game_update(game_id, master_game_dict, "rebDef", 1)
+                                player, master_player_dict, "REBOUND_DEFENSIVE", 1)
+                            game_update(game_id, master_game_dict,
+                                        "REBOUND_DEFENSIVE", 1)
                     else:  # is team rebound
                         if possession_event.oreb:
                             game_update(game_id, master_game_dict,
-                                        "rebOffTeam", 1)
+                                        "REBOUND_OFFENSIVE_TEAM", 1)
                         else:
                             game_update(game_id, master_game_dict,
-                                        "rebDefTeam", 1)
+                                        "REBOUND_DEFENSIVE_TEAM", 1)
 
             if isinstance(possession_event, Foul):
                 master_foul_dict["counts_as_personal_foul"].append(
@@ -536,9 +537,9 @@ for season_game in season.games.items[:games_to_process]:
                 master_foul_dict["is_clear_path_foul"].append(
                     possession_event.is_clear_path_foul)
                 master_foul_dict["is_defensive_3_seconds"].append(
-                    possession_event.is_double_foul)
+                    possession_event.is_defensive_3_seconds)
                 master_foul_dict["is_delay_of_game"].append(
-                    possession_event.is_double_foul)
+                    possession_event.is_delay_of_game)
                 master_foul_dict["is_double_foul"].append(
                     possession_event.is_double_foul)
                 master_foul_dict["is_double_technical"].append(
@@ -556,17 +557,17 @@ for season_game in season.games.items[:games_to_process]:
                 master_foul_dict["is_offensive_foul"].append(
                     possession_event.is_offensive_foul)
                 master_foul_dict["is_personal_foul"].append(
-                    possession_event.is_personal_block_foul)
+                    possession_event.is_personal_foul)
                 master_foul_dict["is_personal_block_foul"].append(
                     possession_event.is_personal_block_foul)
                 master_foul_dict["is_personal_take_foul"].append(
-                    possession_event.is_personal_block_foul)
+                    possession_event.is_personal_take_foul)
                 master_foul_dict["is_shooting_foul"].append(
-                    possession_event.is_personal_block_foul)
+                    possession_event.is_shooting_foul)
                 master_foul_dict["is_shooting_block_foul"].append(
-                    possession_event.is_personal_block_foul)
+                    possession_event.is_shooting_block_foul)
                 master_foul_dict["is_technical"].append(
-                    possession_event.is_personal_block_foul)
+                    possession_event.is_technical)
 
                 player1 = possession_event.player1_id
                 player3 = None
@@ -582,310 +583,313 @@ for season_game in season.games.items[:games_to_process]:
                     player3_players_on_court = offense_players if player3 in offense_players else defense_players
 
                 game_update(game_id, master_game_dict,
-                            "foul", 1)
+                            "FOUL", 1)
                 possession_length_update(
-                    "foul", master_play_length_dict, possession_event_length)
+                    "FOUL", master_play_length_dict, possession_event_length)
 
                 players_on_court_update(
-                    player1_players_on_court, master_player_dict, "foulChance", 1)
+                    player1_players_on_court, master_player_dict, "FOUL_CHANCE", 1)
 
                 players_on_court_update(
-                    player3_players_on_court, master_player_dict, "foulChance", 1)
+                    player3_players_on_court, master_player_dict, "FOUL_CHANCE", 1)
 
                 if possession_event.is_away_from_play_foul:
                     game_update(game_id, master_game_dict,
-                                "foulAwayFromPlay", 1)
+                                "FOUL_AWAY_FROM_PLAY", 1)
                     player_update(
-                        player1, master_player_dict, "foulAwayFromPlay", 1)
+                        player1, master_player_dict, "FOUL_AWAY_FROM_PLAY", 1)
                     player_update(
-                        player3, master_player_dict, "fouledAwayFromPlay", 1)
+                        player3, master_player_dict, "FOULED_AWAY_FROM_PLAY", 1)
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulAwayFromPlayChance", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_AWAY_FROM_PLAY_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledAwayFromPlayChance", 1)
+                        player3_players_on_court, master_player_dict, "FOULED_AWAY_FROM_PLAY_CHANCE", 1)
 
                 if possession_event.counts_as_personal_foul:
                     game_update(game_id, master_game_dict,
-                                "foulCountAsPersonal", 1)
+                                "FOUL_COUNT_AS_PERSONAL", 1)
                     player_update(
-                        player1, master_player_dict, "foulCountAsPersonal", 1)
+                        player1, master_player_dict, "FOUL_COUNT_AS_PERSONAL", 1)
                     player_update(
-                        player3, master_player_dict, "fouledCountAsPersonal", 1)
+                        player3, master_player_dict, "FOULED_COUNT_AS_PERSONAL", 1)
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulCountAsPersonalChance", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_COUNT_AS_PERSONAL_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledCountAsPersonalChance", 1)
+                        player3_players_on_court, master_player_dict, "FOULED_COUNT_AS_PERSONAL_CHANCE", 1)
 
                 if possession_event.counts_towards_penalty:
                     game_update(game_id, master_game_dict,
-                                "foulCountTowardPenalty", 1)
+                                "FOUL_COUNT_TOWARD_PENALTY", 1)
                     player_update(
-                        player1, master_player_dict, "foulCountTowardPenalty", 1)
+                        player1, master_player_dict, "FOUL_COUNT_TOWARD_PENALTY", 1)
                     player_update(
-                        player3, master_player_dict, "fouledCountTowardPenalty", 1)
+                        player3, master_player_dict, "FOULED_COUNT_TOWARD_PENALTY", 1)
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulCountTowardPenaltyChance", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_COUNT_TOWARD_PENALTY_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledCountTowardPenaltyChance", 1)
+                        player3_players_on_court, master_player_dict, "FOULED_COUNT_TOWARD_PENALTY_CHANCE", 1)
 
                 if possession_event.is_charge:
                     # Charge and general offensive foul are treated seperately
-                    game_update(game_id, master_game_dict, "foulOffCharge", 1)
-                    game_update(game_id, master_game_dict, "foulOffTotal", 1)
+                    game_update(game_id, master_game_dict,
+                                "FOUL_OFFENSIVE_CHARGE", 1)
+                    game_update(game_id, master_game_dict,
+                                "FOUL_OFFENSIVE_TOTAL", 1)
 
                     player_update(
-                        player1, master_player_dict, "foulOffCharge", 1)
+                        player1, master_player_dict, "FOUL_OFFENSIVE_CHARGE", 1)
                     player_update(
-                        player3, master_player_dict, "fouledOffCharge", 1)
+                        player3, master_player_dict, "FOULED_OFFENSIVE_CHARGE", 1)
                     player_update(
-                        player1, master_player_dict, "foulOffTotal", 1)
+                        player1, master_player_dict, "FOUL_OFFENSIVE_TOTAL", 1)
                     player_update(
-                        player3, master_player_dict, "fouledOffTotal", 1)
+                        player3, master_player_dict, "FOULED_OFFENSIVE_TOTAL", 1)
 
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulOffChargeChance", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_OFFENSIVE_CHARGE_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledOffChargeChance", 1)
+                        player3_players_on_court, master_player_dict, "FOULED_OFFENSIVE_CHARGE_CHANCE", 1)
 
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulOffTotalChance", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_OFFENSIVE_TOTAL_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledOffTotalChance", 1)
+                        player3_players_on_court, master_player_dict, "FOULED_OFFENSIVE_TOTAL_CHANCE", 1)
 
                 if possession_event.is_clear_path_foul:
-                    game_update(game_id, master_game_dict, "foulClearPath", 1)
+                    game_update(game_id, master_game_dict,
+                                "FOUL_CLEAR_PATH", 1)
                     player_update(
-                        player1, master_player_dict, "foulClearPath", 1)
+                        player1, master_player_dict, "FOUL_CLEAR_PATH", 1)
                     player_update(
-                        player3, master_player_dict, "fouledClearPath", 1)
+                        player3, master_player_dict, "FOULED_CLEAR_PATH", 1)
 
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulClearPathChance", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_CLEAR_PATH_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledClearPathChance", 1)
+                        player3_players_on_court, master_player_dict, "FOULED_CLEAR_PATH_CHANCE", 1)
 
                 if possession_event.is_double_foul:
-                    game_update(game_id, master_game_dict, "foulDouble", 1)
+                    game_update(game_id, master_game_dict, "FOUL_DOUBLE", 1)
                     player_update(
-                        player1, master_player_dict, "foulDouble", 1)
+                        player1, master_player_dict, "FOUL_DOUBLE", 1)
                     player_update(
-                        player3, master_player_dict, "foulDouble", 1)
+                        player3, master_player_dict, "FOUL_DOUBLE", 1)
 
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulDoubleChance", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_DOUBLE_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "foulDoubleChance", 1)
+                        player3_players_on_court, master_player_dict, "FOUL_DOUBLE_CHANCE", 1)
 
                 if possession_event.is_double_technical:
                     game_update(game_id, master_game_dict,
-                                "foulDoubleTechnical", 1)
+                                "FOUL_DOUBLE_TECHNICAL", 1)
                     player_update(
-                        player1, master_player_dict, "foulDoubleTechnical", 1)
+                        player1, master_player_dict, "FOUL_DOUBLE_TECHNICAL", 1)
                     player_update(
-                        player3, master_player_dict, "foulDoubleTechnical", 1)
+                        player3, master_player_dict, "FOUL_DOUBLE_TECHNICAL", 1)
 
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulDoubleTechnicalChance", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_DOUBLE_TECHNICAL_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "foulDoubleTechnicalChance", 1)
+                        player3_players_on_court, master_player_dict, "FOUL_DOUBLE_TECHNICAL_CHANCE", 1)
 
                 if possession_event.is_flagrant:
                     game_update(game_id, master_game_dict,
-                                "foulFlagrant", 1)
+                                "FOUL_FLAGRANT", 1)
                     player_update(
-                        player1, master_player_dict, "foulFlagrant", 1)
+                        player1, master_player_dict, "FOUL_FLAGRANT", 1)
                     player_update(
-                        player3, master_player_dict, "fouledFlagrant", 1)
+                        player3, master_player_dict, "FOULED_FLAGRANT", 1)
 
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulFlagrantChance", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_FLAGRANT_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledFlagrantChance", 1)
+                        player3_players_on_court, master_player_dict, "FOULED_FLAGRANT_CHANCE", 1)
 
                 if possession_event.is_flagrant1:
                     game_update(game_id, master_game_dict,
-                                "foulFlagrant1", 1)
+                                "FOUL_FLAGRANT_1", 1)
                     player_update(
-                        player1, master_player_dict, "foulFlagrant1", 1)
+                        player1, master_player_dict, "FOUL_FLAGRANT_1", 1)
                     player_update(
-                        player3, master_player_dict, "fouledFlagrant1", 1)
+                        player3, master_player_dict, "FOULED_FLAGRANT_1", 1)
 
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulFlagrant1Chance", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_FLAGRANT_1_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledFlagrant1Chance", 1)
+                        player3_players_on_court, master_player_dict, "FOULED_FLAGRANT_1_CHANCE", 1)
 
                 if possession_event.is_flagrant2:
                     game_update(game_id, master_game_dict,
-                                "foulFlagrant2", 1)
+                                "FOUL_FLAGRANT_2", 1)
                     player_update(
-                        player1, master_player_dict, "foulFlagrant2", 1)
+                        player1, master_player_dict, "FOUL_FLAGRANT_2", 1)
                     player_update(
-                        player3, master_player_dict, "fouledFlagrant2", 1)
+                        player3, master_player_dict, "FOULED_FLAGRANT_2", 1)
 
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulFlagrant2Chance", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_FLAGRANT_2_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledFlagrant2Chance", 1)
+                        player3_players_on_court, master_player_dict, "FOULED_FLAGRANT_2_CHANCE", 1)
 
                 if possession_event.is_inbound_foul:
                     game_update(game_id, master_game_dict,
-                                "foulInbound", 1)
+                                "FOUL_INBOUND", 1)
                     player_update(
-                        player1, master_player_dict, "foulInbound", 1)
+                        player1, master_player_dict, "FOUL_INBOUND", 1)
                     player_update(
-                        player3, master_player_dict, "fouledInbound", 1)
+                        player3, master_player_dict, "FOULED_INBOUND", 1)
 
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulInboundChance", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_INBOUND_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledInboundChance", 1)
+                        player3_players_on_court, master_player_dict, "FOULED_INBOUND_CHANCE", 1)
 
                 if possession_event.is_loose_ball_foul:
                     game_update(game_id, master_game_dict,
-                                "foulLooseBall", 1)
+                                "FOUL_LOOSE_BALL", 1)
                     player_update(
-                        player1, master_player_dict, "foulLooseBall", 1)
+                        player1, master_player_dict, "FOUL_LOOSE_BALL", 1)
                     player_update(
-                        player3, master_player_dict, "fouledLooseBall", 1)
+                        player3, master_player_dict, "FOULED_LOOSE_BALL", 1)
 
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulLooseBall", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_LOOSE_BALL", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledLooseBallChance", 1)
+                        player3_players_on_court, master_player_dict, "FOULED_LOOSE_BALL_CHANCE", 1)
 
                 if possession_event.is_offensive_foul:
                     # Charge and general offensive foul are treated seperately
                     game_update(game_id, master_game_dict,
-                                "foulOffOther", 1)
+                                "FOUL_OFFENSIVE_OTHER", 1)
                     game_update(game_id, master_game_dict,
-                                "foulOffTotal", 1)
+                                "FOUL_OFFENSIVE_TOTAL", 1)
                     player_update(
-                        player1, master_player_dict, "foulOffOther", 1)
+                        player1, master_player_dict, "FOUL_OFFENSIVE_OTHER", 1)
                     player_update(
-                        player3, master_player_dict, "fouledOffOther", 1)
+                        player3, master_player_dict, "FOULED_OFFENSIVE_OTHER", 1)
                     player_update(
-                        player1, master_player_dict, "foulOffTotal", 1)
+                        player1, master_player_dict, "FOUL_OFFENSIVE_TOTAL", 1)
                     player_update(
-                        player3, master_player_dict, "fouledOffTotal", 1)
+                        player3, master_player_dict, "FOULED_OFFENSIVE_TOTAL", 1)
 
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulOffOther", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_OFFENSIVE_OTHER", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledOffOther", 1)
+                        player3_players_on_court, master_player_dict, "FOULED_OFFENSIVE_OTHER", 1)
 
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulOffTotalChance", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_OFFENSIVE_TOTAL_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledOffTotalChance", 1)
-
-                if possession_event.is_personal_block_foul:
-                    game_update(game_id, master_game_dict,
-                                "foulPersonalBlock", 1)
-                    player_update(
-                        player1, master_player_dict, "foulPersonalBlock", 1)
-                    player_update(
-                        player3, master_player_dict, "fouledPersonalBlock", 1)
-
-                    players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulPersonalBlockChance", 1)
-                    players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledPersonalBlockChance", 1)
+                        player3_players_on_court, master_player_dict, "FOULED_OFFENSIVE_TOTAL_CHANCE", 1)
 
                 if possession_event.is_personal_foul:
                     game_update(game_id, master_game_dict,
-                                "foulPersonal", 1)
+                                "FOUL_PERSONAL", 1)
                     player_update(
-                        player1, master_player_dict, "foulPersonal", 1)
+                        player1, master_player_dict, "FOUL_PERSONAL", 1)
                     player_update(
-                        player3, master_player_dict, "fouledPersonal", 1)
+                        player3, master_player_dict, "FOULED_PERSONAL", 1)
 
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulPersonalChance", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_PERSONAL_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledPersonalChance", 1)
+                        player3_players_on_court, master_player_dict, "FOULED_PERSONAL_CHANCE", 1)
+
+                if possession_event.is_personal_block_foul:
+                    game_update(game_id, master_game_dict,
+                                "FOUL_PERSONAL_BLOCK", 1)
+                    player_update(
+                        player1, master_player_dict, "FOUL_PERSONAL_BLOCK", 1)
+                    player_update(
+                        player3, master_player_dict, "FOULED_PERSONAL_BLOCK", 1)
+
+                    players_on_court_update(
+                        player1_players_on_court, master_player_dict, "FOUL_PERSONAL_BLOCK_CHANCE", 1)
+                    players_on_court_update(
+                        player3_players_on_court, master_player_dict, "FOULED_PERSONAL_BLOCK_CHANCE", 1)
 
                 if possession_event.is_personal_take_foul:
                     game_update(game_id, master_game_dict,
-                                "foulPersonalTake", 1)
+                                "FOUL_PERSONAL_TAKE", 1)
                     player_update(
-                        player1, master_player_dict, "foulPersonalTake", 1)
+                        player1, master_player_dict, "FOUL_PERSONAL_TAKE", 1)
                     player_update(
-                        player3, master_player_dict, "fouledPersonalTake", 1)
+                        player3, master_player_dict, "FOULED_PERSONAL_TAKE", 1)
 
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulPersonalTakeChance", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_PERSONAL_TAKE_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledPersonalTakeChance", 1)
+                        player3_players_on_court, master_player_dict, "FOULED_PERSONAL_TAKE_CHANCE", 1)
 
                 if possession_event.is_shooting_block_foul:
                     game_update(game_id, master_game_dict,
-                                "foulShootingBlock", 1)
+                                "FOUL_SHOOTING_BLOCK", 1)
                     player_update(
-                        player1, master_player_dict, "foulShootingBlock", 1)
+                        player1, master_player_dict, "FOUL_SHOOTING_BLOCK", 1)
                     player_update(
-                        player3, master_player_dict, "fouledShootingBlock", 1)
+                        player3, master_player_dict, "FOULED_SHOOTING_BLOCK", 1)
 
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulShootingBlockChance", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_SHOOTING_BLOCK_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledShootingBlockChance", 1)
+                        player3_players_on_court, master_player_dict, "FOULED_SHOOTING_BLOCK_CHANCE", 1)
 
                 if possession_event.is_shooting_foul:
                     game_update(game_id, master_game_dict,
-                                "foulShooting", 1)
+                                "FOUL_SHOOTING", 1)
                     player_update(
-                        player1, master_player_dict, "foulShooting", 1)
+                        player1, master_player_dict, "FOUL_SHOOTING", 1)
                     player_update(
-                        player3, master_player_dict, "fouledShooting", 1)
+                        player3, master_player_dict, "FOULED_SHOOTING", 1)
 
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "foulShootingChance", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_SHOOTING_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "fouledShootingChance", 1)
+                        player3_players_on_court, master_player_dict, "FOULED_SHOOTING_CHANCE", 1)
 
                 if possession_event.is_technical:
                     if player1 == 0:
                         game_update(game_id, master_game_dict,
-                                    "foulTechnicalNonPlayer", 1)
+                                    "FOUL_TECHNICAL_NON_PLAYER", 1)
                     else:
                         player_update(
-                            player1, master_player_dict, "foulTechnical", 1)
+                            player1, master_player_dict, "FOUL_TECHNICAL", 1)
 
                     game_update(game_id, master_game_dict,
-                                "foulTechnical", 1)
+                                "FOUL_TECHNICAL", 1)
 
                     players_on_court_update(
-                        offense_players, master_player_dict, "foulTechnicalChance", 1)
+                        offense_players, master_player_dict, "FOUL_TECHNICAL_CHANCE", 1)
                     players_on_court_update(
-                        defense_players, master_player_dict, "foulTechnicalChance", 1)
+                        defense_players, master_player_dict, "FOUL_TECHNICAL_CHANCE", 1)
 
                 if possession_event.is_offensive_foul == False and possession_event.is_shooting_foul == False and possession_event.is_shooting_block_foul == False and possession_event.is_charge == False:
-                    if (possession_event.is_away_from_play_foul or possession_event.is_clear_path_foul or possession_event.is_double_foul or possession_event.is_flagrant or possession_event.is_loose_ball_foul or possession_event.is_personal_block_foul or possession_event.is_personal_take_foul or possession_event.is_personal_foul):
+                    if (possession_event.is_clear_path_foul or possession_event.is_double_foul or possession_event.is_flagrant or possession_event.is_loose_ball_foul or possession_event.is_personal_block_foul or possession_event.is_personal_take_foul or possession_event.is_personal_foul):
                         game_update(game_id, master_game_dict,
-                                    "foulDefNonShooting", 1)
+                                    "FOUL_DEFENSIVE_NON_SHOOTING", 1)
 
                         player_update(
-                            player1, master_player_dict, "foulDefNonShooting", 1)
+                            player1, master_player_dict, "FOUL_DEFENSIVE_NON_SHOOTING", 1)
                         player_update(
-                            player3, master_player_dict, "fouledDefNonShooting", 1)
+                            player3, master_player_dict, "FOULED_DEFENSIVE_NON_SHOOTING", 1)
 
                         players_on_court_update(
-                            player1_players_on_court, master_player_dict, "foulDefNonShootingChance", 1)
+                            player1_players_on_court, master_player_dict, "FOUL_DEFENSIVE_NON_SHOOTING_CHANCE", 1)
                         players_on_court_update(
-                            player3_players_on_court, master_player_dict, "fouledDefNonShootingChance", 1)
+                            player3_players_on_court, master_player_dict, "FOULED_DEFENSIVE_NON_SHOOTING_CHANCE", 1)
 
             if isinstance(possession_event, FieldGoal):
                 possession_length_update(
-                    "fg", master_play_length_dict, possession_event_length)
+                    "FG", master_play_length_dict, possession_event_length)
                 players_on_court_update(
-                    offense_players, master_player_dict, "fgTotalChance", 1)
+                    offense_players, master_player_dict, "FG_TOTAL_CHANCE_OFFENSIVE", 1)
                 players_on_court_update(
-                    defense_players, master_player_dict, "fgTotalDefChance", 1)
+                    defense_players, master_player_dict, "FG_TOTAL_CHANCE_DEFENSIVE", 1)
                 game_update(game_id, master_game_dict,
-                            "fg", 1)
+                            "FG", 1)
                 game_update(game_id, master_game_dict,
-                            "fgIncludingShootingFoulsMissed", 1)
+                            "FG_INCLUDING_SHOOTING_FOULS_MISSED", 1)
 
                 if hasattr(possession_event, 'player1_id') and possession_event.player1_id != 0:
                     player = possession_event.player1_id
@@ -903,55 +907,55 @@ for season_game in season.games.items[:games_to_process]:
 
                     if is_assist:
                         game_update(game_id, master_game_dict,
-                                    "assist", 1)
+                                    "ASSIST", 1)
                         players_on_court_update(
-                            offense_players, master_player_dict, "assistChance", 1)
+                            offense_players, master_player_dict, "ASSIST_CHANCE", 1)
                         player = possession_event.player2_id
                         player_update(
-                            player, master_player_dict, "assist", 1)
+                            player, master_player_dict, "ASSIST", 1)
 
                     shot_type_field_string = ""
 
                     if is_arc_3:
-                        shot_type_field_string = "Arc3"
+                        shot_type_field_string = "ARC_3"
                         players_on_court_update(
-                            offense_players, master_player_dict, "fgArc3Chance", 1)
+                            offense_players, master_player_dict, "FG_ARC_3_CHANCE_OFFENSIVE", 1)
                         players_on_court_update(
-                            defense_players, master_player_dict, "fgArc3DefChance", 1)
+                            defense_players, master_player_dict, "FG_ARC_3_CHANCE_DEFENSIVE", 1)
                         game_update(game_id, master_game_dict,
-                                    "fgArc3", 1)
+                                    "FG_ARC_3", 1)
                     elif is_at_rim:
-                        shot_type_field_string = "AtRim"
+                        shot_type_field_string = "AT_RIM"
                         players_on_court_update(
-                            offense_players, master_player_dict, "fgAtRimChance", 1)
+                            offense_players, master_player_dict, "FG_AT_RIM_CHANCE_OFFENSIVE", 1)
                         players_on_court_update(
-                            defense_players, master_player_dict, "fgAtRimDefChance", 1)
+                            defense_players, master_player_dict, "FG_AT_RIM_CHANCE_DEFENSIVE", 1)
                         game_update(game_id, master_game_dict,
-                                    "fgAtRim", 1)
+                                    "FG_AT_RIM", 1)
                     elif is_corner_3:
-                        shot_type_field_string = "Corner3"
+                        shot_type_field_string = "CORNER_3"
                         players_on_court_update(
-                            offense_players, master_player_dict, "fgCorner3Chance", 1)
+                            offense_players, master_player_dict, "FG_CORNER_3_CHANCE_OFFENSIVE", 1)
                         players_on_court_update(
-                            defense_players, master_player_dict, "fgCorner3DefChance", 1)
+                            defense_players, master_player_dict, "FG_CORNER_3_CHANCE_DEFENSIVE", 1)
                         game_update(game_id, master_game_dict,
-                                    "fgCorner3", 1)
+                                    "FG_CORNER_3", 1)
                     elif is_long_mid_range:
-                        shot_type_field_string = "LongMidRange"
+                        shot_type_field_string = "LONG_MID_RANGE"
                         players_on_court_update(
-                            offense_players, master_player_dict, "fgLongMidRangeChance", 1)
+                            offense_players, master_player_dict, "FG_LONG_MID_RANGE_CHANCE_OFFENSIVE", 1)
                         players_on_court_update(
-                            defense_players, master_player_dict, "fgLongMidRangeDefChance", 1)
+                            defense_players, master_player_dict, "FG_LONG_MID_RANGE_CHANCE_DEFENSIVE", 1)
                         game_update(game_id, master_game_dict,
-                                    "fgLongMidRange", 1)
+                                    "FG_LONG_MID_RANGE", 1)
                     elif is_short_mid_range:
-                        shot_type_field_string = "ShortMidRange"
+                        shot_type_field_string = "SHORT_MID_RANGE"
                         players_on_court_update(
-                            offense_players, master_player_dict, "fgShortMidRangeChance", 1)
+                            offense_players, master_player_dict, "FG_SHORT_MID_RANGE_CHANCE_OFFENSIVE", 1)
                         players_on_court_update(
-                            defense_players, master_player_dict, "fgShortMidRangeDefChance", 1)
+                            defense_players, master_player_dict, "FG_SHORT_MID_RANGE_CHANCE_DEFENSIVE", 1)
                         game_update(game_id, master_game_dict,
-                                    "fgShortMidRange", 1)
+                                    "FG_SHORT_MID_RANGE", 1)
                     else:
                         raise("Don't know what this is")
 
@@ -965,49 +969,49 @@ for season_game in season.games.items[:games_to_process]:
                     else:
                         master_x_y_dict[shot_type_field_string][shot_x_y_key] = 1
 
-                    if shot_x_y_key in master_game_dict[game_id]["fgXY"][shot_type_field_string]:
-                        master_game_dict[game_id]["fgXY"][shot_type_field_string][shot_x_y_key] += 1
+                    if shot_x_y_key in master_game_dict[game_id]["FG_XY"][shot_type_field_string]:
+                        master_game_dict[game_id]["FG_XY"][shot_type_field_string][shot_x_y_key] += 1
                     else:
-                        master_game_dict[game_id]["fgXY"][shot_type_field_string][shot_x_y_key] = 1
+                        master_game_dict[game_id]["FG_XY"][shot_type_field_string][shot_x_y_key] = 1
 
-                    if shot_x_y_key in master_player_dict[player]["fgXY"][shot_type_field_string]:
-                        master_player_dict[player]["fgXY"][shot_type_field_string][shot_x_y_key] += 1
+                    if shot_x_y_key in master_player_dict[player]["FG_XY"][shot_type_field_string]:
+                        master_player_dict[player]["FG_XY"][shot_type_field_string][shot_x_y_key] += 1
                     else:
-                        master_player_dict[player]["fgXY"][shot_type_field_string][shot_x_y_key] = 1
+                        master_player_dict[player]["FG_XY"][shot_type_field_string][shot_x_y_key] = 1
 
-                    field_string = "fg" + shot_type_field_string
+                    field_string = "FG_" + shot_type_field_string + "_"
 
                     player_update(player, master_player_dict,
-                                  field_string + "Attempt", 1)
+                                  field_string + "ATTEMPT", 1)
 
                     player_update(player, master_player_dict,
-                                  "fgTotalAttempt", 1)
+                                  "FG_TOTAL_ATTEMPT", 1)
 
                     if is_block:
                         game_update(game_id, master_game_dict,
-                                    "block", 1)
-                        field_string += "Block"
+                                    "BLOCK", 1)
+                        field_string += "BLOCK"
                         player_update(player, master_player_dict,
                                       field_string, 1)
                         players_on_court_update(
-                            defense_players, master_player_dict, "defBlockChance", 1)
+                            defense_players, master_player_dict, "BLOCK_CHANCE", 1)
                         blocking_player = possession_event.player3_id
                         player_update(blocking_player, master_player_dict,
-                                      "defBlock", 1)
+                                      "BLOCK", 1)
 
                     if is_made:
                         game_update(game_id, master_game_dict,
-                                    "fgMade", 1)
-                        field_string += "Made"
+                                    "FG_MADE", 1)
+                        field_string += "MADE"
                         player_update(player, master_player_dict,
                                       field_string, 1)
                         player_update(player, master_player_dict,
-                                      "fgTotalMade", 1)
+                                      "FG_TOTAL_MADE", 1)
                         if is_and_1:
                             player_update(player, master_player_dict,
-                                          field_string + "Foul", 1)
+                                          field_string + "_FOUL", 1)
                             player_update(player, master_player_dict,
-                                          "fgTotalMadeFoul", 1)
+                                          "FG_TOTAL_MADE_FOUL", 1)
 
                 else:
                     raise("We have a field goal with no shooter")
@@ -1084,115 +1088,87 @@ total_violation_def_goaltend = 0
 for game_id in master_game_dict.keys():
     game = master_game_dict[game_id]
 
-    possession_outcome_total += game["fg"] + game["foulOffTotal"] + game["turnover"] + game["foulDefNonShooting"] + \
-        game["jumpBall"] + game["violationDefGoaltend"] + \
-        game["violationDefKickBall"]
+    possession_outcome_total += game["FG"] + game["FOUL_OFFENSIVE_TOTAL"] + game["TURNOVER"] + game["FOUL_DEFENSIVE_NON_SHOOTING"] + \
+        game["JUMP_BALL"] + game["VIOLATION_DEFENSIVE_GOALTENDING"] + \
+        game["VIOLATION_DEFENSIVE_KICK_BALL"]
 
-    possession_outcome_field_goal += game["fg"]
-    possession_outcome_foul_defensive_non_shooting += game["foulDefNonShooting"]
-    possession_outcome_jump_ball += game["jumpBall"]
-    possession_outcome_offensive_foul += game["foulOffTotal"]
-    possession_outcome_turnover += game["turnover"]
-    possession_outcome_violation_def_goaltend += game["violationDefGoaltend"]
-    possession_outcome_violation_def_kick_ball += game["violationDefKickBall"]
+    possession_outcome_field_goal += game["FG"]
+    possession_outcome_foul_defensive_non_shooting += game["FOUL_DEFENSIVE_NON_SHOOTING"]
+    possession_outcome_jump_ball += game["JUMP_BALL"]
+    possession_outcome_offensive_foul += game["FOUL_OFFENSIVE_TOTAL"]
+    possession_outcome_turnover += game["TURNOVER"]
+    possession_outcome_violation_def_goaltend += game["VIOLATION_DEFENSIVE_GOALTENDING"]
+    possession_outcome_violation_def_kick_ball += game["VIOLATION_DEFENSIVE_KICK_BALL"]
 
-    total_foul += game["foul"]
-    total_foul_away_from_play += game["foulAwayFromPlay"]
-    total_foul_clear_path += game["foulClearPath"]
-    total_foul_count_as_personal += game["foulCountAsPersonal"]
-    total_foul_count_toward_penalty += game["foulCountTowardPenalty"]
-    total_foul_def_non_shooting += game["foulDefNonShooting"]
-    total_foul_double += game["foulDouble"]
-    total_foul_double_technical += game["foulTechnical"]
-    total_foul_flagrant += game["foulFlagrant"]
-    total_foul_flagrant_1 += game["foulFlagrant1"]
-    total_foul_flagrant_2 += game["foulFlagrant2"]
-    total_foul_inbound += game["foulInbound"]
-    total_foul_in_play += game["foul"] - game["foulTechnical"]
-    total_foul_loose_ball += game["foulLooseBall"]
-    total_foul_personal += game["foulPersonal"]
-    total_foul_personal_block += game["foulPersonalBlock"]
-    total_foul_personal_take += game["foulPersonalTake"]
-    total_foul_off_total += game["foulOffTotal"]
-    total_foul_off_charge += game["foulOffCharge"]
-    total_foul_off_other += game["foulOffOther"]
-    total_foul_shooting += game["foulShooting"]
-    total_foul_shooting_block += game["foulShootingBlock"]
-    total_foul_technical += game["foulTechnical"]
-    total_foul_technical_non_player += game["foulTechnicalNonPlayer"]
+    total_foul += game["FOUL"]
+    total_foul_away_from_play += game["FOUL_AWAY_FROM_PLAY"]
+    total_foul_clear_path += game["FOUL_CLEAR_PATH"]
+    total_foul_count_as_personal += game["FOUL_COUNT_AS_PERSONAL"]
+    total_foul_count_toward_penalty += game["FOUL_COUNT_TOWARD_PENALTY"]
+    total_foul_def_non_shooting += game["FOUL_DEFENSIVE_NON_SHOOTING"]
+    total_foul_double += game["FOUL_DOUBLE"]
+    total_foul_double_technical += game["FOUL_TECHNICAL"]
+    total_foul_flagrant += game["FOUL_FLAGRANT"]
+    total_foul_flagrant_1 += game["FOUL_FLAGRANT_1"]
+    total_foul_flagrant_2 += game["FOUL_FLAGRANT_2"]
+    total_foul_inbound += game["FOUL_INBOUND"]
+    total_foul_in_play += game["FOUL"] - game["FOUL_TECHNICAL"]
+    total_foul_loose_ball += game["FOUL_LOOSE_BALL"]
+    total_foul_personal += game["FOUL_PERSONAL"]
+    total_foul_personal_block += game["FOUL_PERSONAL_BLOCK"]
+    total_foul_personal_take += game["FOUL_PERSONAL_TAKE"]
+    total_foul_off_total += game["FOUL_OFFENSIVE_TOTAL"]
+    total_foul_off_charge += game["FOUL_OFFENSIVE_CHARGE"]
+    total_foul_off_other += game["FOUL_OFFENSIVE_OTHER"]
+    total_foul_shooting += game["FOUL_SHOOTING"]
+    total_foul_shooting_block += game["FOUL_SHOOTING_BLOCK"]
+    total_foul_technical += game["FOUL_TECHNICAL"]
+    total_foul_technical_non_player += game["FOUL_TECHNICAL_NON_PLAYER"]
 
-    total_fg_including_shooting_foul_missed += game["fgIncludingShootingFoulsMissed"]
+    total_fg_including_shooting_foul_missed += game["FG_INCLUDING_SHOOTING_FOULS_MISSED"]
 
-    total_fg += game["fg"]
-    total_fg_made += game["fgMade"]
-    total_assist += game["assist"]
-    total_arc3 += game["fgArc3"]
-    total_at_rim += game["fgAtRim"]
-    total_corner3 += game["fgCorner3"]
-    total_long_mid_range += game["fgLongMidRange"]
-    total_short_mid_range += game["fgShortMidRange"]
-    total_block += game["block"]
+    total_fg += game["FG"]
+    total_fg_made += game["FG_MADE"]
+    total_assist += game["ASSIST"]
+    total_arc3 += game["FG_ARC_3"]
+    total_at_rim += game["FG_AT_RIM"]
+    total_corner3 += game["FG_CORNER_3"]
+    total_long_mid_range += game["FG_LONG_MID_RANGE"]
+    total_short_mid_range += game["FG_SHORT_MID_RANGE"]
+    total_block += game["BLOCK"]
 
-    total_reb += game["reb"]
-    total_reb_off += game["rebOff"]
-    total_reb_def += game["rebDef"]
-    total_def_team_reb += game["rebDefTeam"]
-    total_off_team_reb += game["rebOffTeam"]
+    total_reb += game["REBOUND"]
+    total_reb_off += game["REBOUND_OFFENSIVE"]
+    total_reb_def += game["REBOUND_DEFENSIVE"]
+    total_def_team_reb += game["REBOUND_DEFENSIVE_TEAM"]
+    total_off_team_reb += game["REBOUND_OFFENSIVE_TEAM"]
 
-    total_steal += game["steal"]
-    total_turnover += game["turnover"]
-    total_turnover_3_second += game["turnover3Second"]
-    total_turnover_bad_pass += game["turnoverBadPass"]
-    total_turnover_bad_pass_out_of_bounds += game["turnoverBadPassOutOfBounds"]
-    total_turnover_kick_ball += game["turnoverKickBall"]
-    total_turnover_lane_violation += game["turnoverLaneViolation"]
-    total_turnover_lost_ball += game["turnoverLostBall"]
-    total_turnover_lost_ball_out_of_bounds += game["turnoverLostBallOutOfBounds"]
-    total_turnover_off_goaltend += game["turnoverOffGoaltend"]
-    total_turnover_shot_clock += game["turnoverShotClock"]
-    total_turnover_step_out_of_bounds += game["turnoverStepOutOfBounds"]
-    total_turnover_travel += game["turnoverTravel"]
+    total_steal += game["STEAL"]
+    total_turnover += game["TURNOVER"]
+    total_turnover_3_second += game["TURNOVER_3_SECOND"]
+    total_turnover_bad_pass += game["TURNOVER_BAD_PASS"]
+    total_turnover_bad_pass_out_of_bounds += game["TURNOVER_BAD_PASS_OUT_OF_BOUNDS"]
+    total_turnover_kick_ball += game["TURNOVER_KICK_BALL"]
+    total_turnover_lane_violation += game["TURNOVER_LANE_VIOLATION"]
+    total_turnover_lost_ball += game["TURNOVER_LOST_BALL"]
+    total_turnover_lost_ball_out_of_bounds += game["TURNOVER_LOST_BALL_OUT_OF_BOUNDS"]
+    total_turnover_off_goaltend += game["TURNOVER_OFFENSIVE_GOALTENDING"]
+    total_turnover_shot_clock += game["TURNOVER_SHOT_CLOCK"]
+    total_turnover_step_out_of_bounds += game["TURNOVER_STEP_OUT_OF_BOUNDS"]
+    total_turnover_travel += game["TURNOVER_TRAVEL"]
 
-    total_violation_possession += game["violationDefKickBall"] + \
-        game["violationDefGoaltend"]
+    total_violation_possession += game["VIOLATION_DEFENSIVE_KICK_BALL"] + \
+        game["VIOLATION_DEFENSIVE_GOALTENDING"]
 
-    total_violation_def_kick_ball += game["violationDefKickBall"]
-    total_violation_def_goaltend += game["violationDefGoaltend"]
-
-    # total_foul_away_from_play += game["foulAwayFromPlay"]
-    # total_foul_clear_path += game["foulClearPath"]
-    # total_foul_count_as_personal += game["foulCountAsPersonal"]
-    # total_foul_count_toward_penalty += game["foulCountTowardPenalty"]
-    # total_foul_def_non_shooting += game["foulDefNonShooting"]
-    # total_foul_double += game["foulDouble"]
-    # total_foul_double_technical += game["foulTechnical"]
-    # total_foul_flagrant += game["foulFlagrant"]
-    # total_foul_flagrant_1 += game["foulFlagrant1"]
-    # total_foul_flagrant_2 += game["foulFlagrant2"]
-    # total_foul_inbound += game["foulInbound"]
-    # total_foul_loose_ball += game["foulLooseBall"]
-    # total_foul_personal += game["foulPersonal"]
-    # total_foul_personal_block += game["foulPersonalBlock"]
-    # total_foul_personal_take += game["foulPersonalTake"]
-    # total_foul_off_total += game["foulOffTotal"]
-    # total_foul_off_charge += game["foulOffCharge"]
-    # total_foul_off_other += game["foulOffOther"]
-    # total_foul_shooting += game["foulShooting"]
-    # total_foul_shooting_block += game["foulShootingBlock"]
-    # total_foul_technical += game["foulTechnical"]
-    # total_foul_technical_non_player += game["foulTechnicalNonPlayer"]
+    total_violation_def_kick_ball += game["VIOLATION_DEFENSIVE_KICK_BALL"]
+    total_violation_def_goaltend += game["VIOLATION_DEFENSIVE_GOALTENDING"]
 
 
 general_probabilities = {
-    "3_SECOND": total_turnover_3_second / total_turnover,
     "ASSIST": total_assist / total_fg_made,
-    "BAD_PASS": total_turnover_bad_pass / total_turnover,
-    "BAD_PASS_OUT_OF_BOUNDS": total_turnover_bad_pass_out_of_bounds / total_turnover,
     "BLOCK": total_block / total_fg,
-    "DEF_REB": total_reb_def / total_reb,
-    "DEF_REB_TEAM": total_def_team_reb / total_reb,
     "FG_SHOOTING_FOUL": total_foul_shooting / total_fg_including_shooting_foul_missed,
-    "FOUL_AWAY_FROM_PLAY": total_foul_away_from_play / total_foul_def_non_shooting,
+    # "FOUL_AWAY_FROM_PLAY": total_foul_away_from_play / total_foul_def_non_shooting,
     "FOUL_CLEAR_PATH": total_foul_clear_path / total_foul_def_non_shooting,
     "FOUL_DOUBLE": total_foul_double / total_foul_def_non_shooting,
     "FOUL_FLAGRANT": total_foul_flagrant / total_foul_in_play,
@@ -1202,23 +1178,29 @@ general_probabilities = {
     "FOUL_LOOSE_BALL": total_foul_loose_ball / total_foul_def_non_shooting,
     "FOUL_OFF_CHARGE": total_foul_off_charge / total_foul_off_total,
     "FOUL_OFF_OTHER": total_foul_off_other / total_foul_off_total,
+    "FOUL_PERSONAL": total_foul_personal / total_foul_def_non_shooting,
     "FOUL_PERSONAL_BLOCK": total_foul_personal_block / total_foul_def_non_shooting,
     "FOUL_PERSONAL_TAKE": total_foul_personal_take / total_foul_def_non_shooting,
     "FOUL_TECHNICAL_PER_POSSESSION_OUTCOME": total_foul_technical / possession_outcome_total,
     "FOUL_TECHNICAL_DOUBLE": total_foul_double_technical / total_foul_technical,
     "FOUL_TECHNICAL_NON_PLAYER": total_foul_technical_non_player / total_foul_technical,
-    "KICK_BALL": total_turnover_kick_ball / total_turnover,
-    "LANE_VIOLATION": total_turnover_lane_violation / total_turnover,
-    "LOST_BALL": total_turnover_lost_ball / total_turnover,
-    "LOST_BALL_OUT_OF_BOUNDS": total_turnover_lost_ball_out_of_bounds / total_turnover,
-    "OFF_REB": total_reb_off / total_reb,
-    "OFF_REB_TEAM": total_off_team_reb / total_reb,
-    "OFF_GOALTEND": total_turnover_off_goaltend / total_turnover,
-    "SHOT_CLOCK": total_turnover_shot_clock / total_turnover,
-    "STEP_OUT_OF_BOUNDS": total_turnover_step_out_of_bounds / total_turnover,
-    "TRAVEL": total_turnover_travel / total_turnover,
-    "VIOLATION_DEF_GOALTEND": total_violation_def_goaltend / total_violation_possession,
-    "VIOLATION_DEF_KICK_BALL": total_violation_def_kick_ball / total_violation_possession,
+    "REBOUND_DEFENSIVE": total_reb_def / total_reb,
+    "REBOUND_DEFENSIVE_TEAM": total_def_team_reb / total_reb,
+    "REBOUND_OFFENSIVE": total_reb_off / total_reb,
+    "REBOUND_OFFENSIVE_TEAM": total_off_team_reb / total_reb,
+    "TURNOVER_3_SECOND": total_turnover_3_second / total_turnover,
+    "TURNOVER_BAD_PASS": total_turnover_bad_pass / total_turnover,
+    "TURNOVER_BAD_PASS_OUT_OF_BOUNDS": total_turnover_bad_pass_out_of_bounds / total_turnover,
+    "TURNOVER_KICK_BALL": total_turnover_kick_ball / total_turnover,
+    "TURNOVER_LANE_VIOLATION": total_turnover_lane_violation / total_turnover,
+    "TURNOVER_LOST_BALL": total_turnover_lost_ball / total_turnover,
+    "TURNOVER_LOST_BALL_OUT_OF_BOUNDS": total_turnover_lost_ball_out_of_bounds / total_turnover,
+    "TURNOVER_OFFENSIVE_GOALTENDING": total_turnover_off_goaltend / total_turnover,
+    "TURNOVER_STEP_OUT_OF_BOUNDS": total_turnover_step_out_of_bounds / total_turnover,
+    "TURNOVER_SHOT_CLOCK": total_turnover_shot_clock / total_turnover,
+    "TURNOVER_TRAVEL": total_turnover_travel / total_turnover,
+    "VIOLATION_DEFENSIVE_GOALTENDING": total_violation_def_goaltend / total_violation_possession,
+    "VIOLATION_DEFENSIVE_KICK_BALL": total_violation_def_kick_ball / total_violation_possession,
 }
 
 
@@ -1227,26 +1209,26 @@ with open('../server/src/data/probabilities/general.json', 'w') as outfile:
 print("Finished general probabilities")
 
 fg_x_y_probabilities = {
-    "Arc3": {},
-    "AtRim": {},
-    "Corner3": {},
-    "LongMidRange": {},
-    "ShortMidRange": {}
+    "ARC_3": {},
+    "AT_RIM": {},
+    "CORNER_3": {},
+    "LONG_MID_RANGE": {},
+    "SHORT_MID_RANGE": {}
 }
 
 for shot_type in master_x_y_dict.keys():
     for x_y in master_x_y_dict[shot_type]:
-        if shot_type == "Arc3":
-            fg_x_y_probabilities["Arc3"][x_y] = master_x_y_dict[shot_type][x_y] / total_arc3
-        elif shot_type == "AtRim":
-            fg_x_y_probabilities["AtRim"][x_y] = master_x_y_dict[shot_type][x_y] / total_at_rim
-        elif shot_type == "Corner3":
-            fg_x_y_probabilities["Corner3"][x_y] = master_x_y_dict[shot_type][x_y] / total_corner3
-        elif shot_type == "LongMidRange":
-            fg_x_y_probabilities["LongMidRange"][x_y] = master_x_y_dict[shot_type][x_y] / \
+        if shot_type == "ARC_3":
+            fg_x_y_probabilities["ARC_3"][x_y] = master_x_y_dict[shot_type][x_y] / total_arc3
+        elif shot_type == "AT_RIM":
+            fg_x_y_probabilities["AT_RIM"][x_y] = master_x_y_dict[shot_type][x_y] / total_at_rim
+        elif shot_type == "CORNER_3":
+            fg_x_y_probabilities["CORNER_3"][x_y] = master_x_y_dict[shot_type][x_y] / total_corner3
+        elif shot_type == "LONG_MID_RANGE":
+            fg_x_y_probabilities["LONG_MID_RANGE"][x_y] = master_x_y_dict[shot_type][x_y] / \
                 total_long_mid_range
-        elif shot_type == "ShortMidRange":
-            fg_x_y_probabilities["ShortMidRange"][x_y] = master_x_y_dict[shot_type][x_y] / \
+        elif shot_type == "SHORT_MID_RANGE":
+            fg_x_y_probabilities["SHORT_MID_RANGE"][x_y] = master_x_y_dict[shot_type][x_y] / \
                 total_short_mid_range
         else:
             raise("Don't know what this is")
@@ -1260,11 +1242,11 @@ print("Finished FG XY probabilities")
 possession_outcome_probabilities = {
     "FIELD_GOAL": possession_outcome_field_goal / possession_outcome_total,
     "FOUL_DEFENSIVE_NON_SHOOTING": possession_outcome_foul_defensive_non_shooting / possession_outcome_total,
+    "FOUL_OFFENSIVE": possession_outcome_offensive_foul / possession_outcome_total,
     "JUMP_BALL": possession_outcome_jump_ball / possession_outcome_total,
-    "OFFENSIVE_FOUL": possession_outcome_offensive_foul / possession_outcome_total,
     "TURNOVER": possession_outcome_turnover / possession_outcome_total,
-    "VIOLATION_DEF_GOALTEND": possession_outcome_violation_def_goaltend / possession_outcome_total,
-    "VIOLATION_DEF_KICK_BALL": possession_outcome_violation_def_kick_ball / possession_outcome_total
+    "VIOLATION_DEFENSIVE_GOALTENDING": possession_outcome_violation_def_goaltend / possession_outcome_total,
+    "VIOLATION_DEFENSIVE_KICK_BALL": possession_outcome_violation_def_kick_ball / possession_outcome_total
 }
 
 with open('../server/src/data/probabilities/possessionOutcomes.json', 'w') as outfile:
@@ -1280,118 +1262,121 @@ for player_id in master_player_dict.keys():
 
     player_stats = master_player_dict[player_id]
     player_probabilities = {
-        "assist": player_stats["assist"] / player_stats["assistChance"] if player_stats["assistChance"] != 0 else 0.0,
-        "block": player_stats["defBlock"] / player_stats["defBlockChance"] if player_stats["defBlockChance"] != 0 else 0.0,
-        "fgArc3Attempt": player_stats["fgArc3Attempt"] / player_stats["fgArc3Chance"] if player_stats["fgArc3Chance"] != 0 else 0.0,
-        "fgArc3Block": player_stats["fgArc3Block"] / player_stats["fgArc3Chance"] if player_stats["fgArc3Chance"] != 0 else 0.0,
-        "fgArc3Made": player_stats["fgArc3Made"] / player_stats["fgArc3Attempt"] if player_stats["fgArc3Attempt"] != 0 else 0.0,
-        "fgArc3MadeFoul": player_stats["fgArc3MadeFoul"] / player_stats["fgArc3Chance"] if player_stats["fgArc3Chance"] != 0 else 0.0,
-        "fgAtRimAttempt": player_stats["fgAtRimAttempt"] / player_stats["fgAtRimChance"] if player_stats["fgAtRimChance"] != 0 else 0.0,
-        "fgAtRimBlock": player_stats["fgAtRimBlock"] / player_stats["fgAtRimChance"] if player_stats["fgAtRimChance"] != 0 else 0.0,
-        "fgAtRimMade": player_stats["fgAtRimMade"] / player_stats["fgAtRimAttempt"] if player_stats["fgAtRimAttempt"] != 0 else 0.0,
-        "fgAtRimMadeFoul": player_stats["fgAtRimMadeFoul"] / player_stats["fgAtRimChance"] if player_stats["fgAtRimChance"] != 0 else 0.0,
-        "fgCorner3Attempt": player_stats["fgCorner3Attempt"] / player_stats["fgCorner3Chance"] if player_stats["fgCorner3Chance"] != 0 else 0.0,
-        "fgCorner3Block": player_stats["fgCorner3Block"] / player_stats["fgCorner3Chance"] if player_stats["fgCorner3Chance"] != 0 else 0.0,
-        "fgCorner3Made": player_stats["fgCorner3Made"] / player_stats["fgCorner3Attempt"] if player_stats["fgCorner3Attempt"] != 0 else 0.0,
-        "fgCorner3MadeFoul": player_stats["fgCorner3MadeFoul"] / player_stats["fgCorner3Chance"] if player_stats["fgCorner3Chance"] != 0 else 0.0,
-        "fgLongMidRangeAttempt": player_stats["fgLongMidRangeAttempt"] / player_stats["fgLongMidRangeChance"] if player_stats["fgLongMidRangeChance"] != 0 else 0.0,
-        "fgLongMidRangeBlock": player_stats["fgLongMidRangeBlock"] / player_stats["fgLongMidRangeChance"] if player_stats["fgLongMidRangeChance"] != 0 else 0.0,
-        "fgLongMidRangeMade": player_stats["fgLongMidRangeMade"] / player_stats["fgLongMidRangeAttempt"] if player_stats["fgLongMidRangeAttempt"] != 0 else 0.0,
-        "fgLongMidRangeMadeFoul": player_stats["fgLongMidRangeMadeFoul"] / player_stats["fgLongMidRangeChance"] if player_stats["fgLongMidRangeChance"] != 0 else 0.0,
-        "fgShortMidRangeAttempt": player_stats["fgShortMidRangeAttempt"] / player_stats["fgShortMidRangeChance"] if player_stats["fgShortMidRangeChance"] != 0 else 0.0,
-        "fgShortMidRangeBlock": player_stats["fgShortMidRangeBlock"] / player_stats["fgShortMidRangeChance"] if player_stats["fgShortMidRangeChance"] != 0 else 0.0,
-        "fgShortMidRangeMade": player_stats["fgShortMidRangeMade"] / player_stats["fgShortMidRangeAttempt"] if player_stats["fgShortMidRangeAttempt"] != 0 else 0.0,
-        "fgShortMidRangeMadeFoul": player_stats["fgShortMidRangeMadeFoul"] / player_stats["fgShortMidRangeChance"] if player_stats["fgShortMidRangeChance"] != 0 else 0.0,
-        "fgXY": {
-            "Arc3": {},
-            "AtRim": {},
-            "Corner3": {},
-            "LongMidRange": {},
-            "ShortMidRange": {}
+        "ASSIST": player_stats["ASSIST"] / player_stats["ASSIST_CHANCE"] if player_stats["ASSIST_CHANCE"] != 0 else 0.0,
+        "BLOCK": player_stats["BLOCK"] / player_stats["BLOCK_CHANCE"] if player_stats["BLOCK_CHANCE"] != 0 else 0.0,
+        "FG_ARC_3_ATTEMPT": player_stats["FG_ARC_3_ATTEMPT"] / player_stats["FG_ARC_3_CHANCE_OFFENSIVE"] if player_stats["FG_ARC_3_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "FG_ARC_3_BLOCK": player_stats["FG_ARC_3_BLOCK"] / player_stats["FG_ARC_3_CHANCE_OFFENSIVE"] if player_stats["FG_ARC_3_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "FG_ARC_3_MADE": player_stats["FG_ARC_3_MADE"] / player_stats["FG_ARC_3_ATTEMPT"] if player_stats["FG_ARC_3_ATTEMPT"] != 0 else 0.0,
+        "FG_ARC_3_MADE_FOUL": player_stats["FG_ARC_3_MADE_FOUL"] / player_stats["FG_ARC_3_CHANCE_OFFENSIVE"] if player_stats["FG_ARC_3_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "FG_AT_RIM_ATTEMPT": player_stats["FG_AT_RIM_ATTEMPT"] / player_stats["FG_AT_RIM_CHANCE_OFFENSIVE"] if player_stats["FG_AT_RIM_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "FG_AT_RIM_BLOCK": player_stats["FG_AT_RIM_BLOCK"] / player_stats["FG_AT_RIM_CHANCE_OFFENSIVE"] if player_stats["FG_AT_RIM_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "FG_AT_RIM_MADE": player_stats["FG_AT_RIM_MADE"] / player_stats["FG_AT_RIM_ATTEMPT"] if player_stats["FG_AT_RIM_ATTEMPT"] != 0 else 0.0,
+        "FG_AT_RIM_MADE_FOUL": player_stats["FG_AT_RIM_MADE_FOUL"] / player_stats["FG_AT_RIM_CHANCE_OFFENSIVE"] if player_stats["FG_AT_RIM_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "FG_CORNER_3_ATTEMPT": player_stats["FG_CORNER_3_ATTEMPT"] / player_stats["FG_CORNER_3_CHANCE_OFFENSIVE"] if player_stats["FG_CORNER_3_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "FG_CORNER_3_BLOCK": player_stats["FG_CORNER_3_BLOCK"] / player_stats["FG_CORNER_3_CHANCE_OFFENSIVE"] if player_stats["FG_CORNER_3_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "FG_CORNER_3_MADE": player_stats["FG_CORNER_3_MADE"] / player_stats["FG_CORNER_3_ATTEMPT"] if player_stats["FG_CORNER_3_ATTEMPT"] != 0 else 0.0,
+        "FG_CORNER_3_MADE_FOUL": player_stats["FG_CORNER_3_MADE_FOUL"] / player_stats["FG_CORNER_3_CHANCE_OFFENSIVE"] if player_stats["FG_CORNER_3_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "FG_LONG_MID_RANGE_ATTEMPT": player_stats["FG_LONG_MID_RANGE_ATTEMPT"] / player_stats["FG_LONG_MID_RANGE_CHANCE_OFFENSIVE"] if player_stats["FG_LONG_MID_RANGE_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "FG_LONG_MID_RANGE_BLOCK": player_stats["FG_LONG_MID_RANGE_BLOCK"] / player_stats["FG_LONG_MID_RANGE_CHANCE_OFFENSIVE"] if player_stats["FG_LONG_MID_RANGE_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "FG_LONG_MID_RANGE_MADE": player_stats["FG_LONG_MID_RANGE_MADE"] / player_stats["FG_LONG_MID_RANGE_ATTEMPT"] if player_stats["FG_LONG_MID_RANGE_ATTEMPT"] != 0 else 0.0,
+        "FG_LONG_MID_RANGE_MADE_FOUL": player_stats["FG_LONG_MID_RANGE_MADE_FOUL"] / player_stats["FG_LONG_MID_RANGE_CHANCE_OFFENSIVE"] if player_stats["FG_LONG_MID_RANGE_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "FG_SHORT_MID_RANGE_ATTEMPT": player_stats["FG_SHORT_MID_RANGE_ATTEMPT"] / player_stats["FG_SHORT_MID_RANGE_CHANCE_OFFENSIVE"] if player_stats["FG_SHORT_MID_RANGE_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "FG_SHORT_MID_RANGE_BLOCK": player_stats["FG_SHORT_MID_RANGE_BLOCK"] / player_stats["FG_SHORT_MID_RANGE_CHANCE_OFFENSIVE"] if player_stats["FG_SHORT_MID_RANGE_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "FG_SHORT_MID_RANGE_MADE": player_stats["FG_SHORT_MID_RANGE_MADE"] / player_stats["FG_SHORT_MID_RANGE_ATTEMPT"] if player_stats["FG_SHORT_MID_RANGE_ATTEMPT"] != 0 else 0.0,
+        "FG_SHORT_MID_RANGE_MADE_FOUL": player_stats["FG_SHORT_MID_RANGE_MADE_FOUL"] / player_stats["FG_SHORT_MID_RANGE_CHANCE_OFFENSIVE"] if player_stats["FG_SHORT_MID_RANGE_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "FG_XY": {
+            "ARC_3": {},
+            "AT_RIM": {},
+            "CORNER_3": {},
+            "LONG_MID_RANGE": {},
+            "SHORT_MID_RANGE": {}
         },
-        "foulAwayFromPlay": player_stats["foulAwayFromPlay"] / player_stats["foulAwayFromPlayChance"] if player_stats["foulAwayFromPlayChance"] != 0 else 0.0,
-        "fouledAwayFromPlay": player_stats["fouledAwayFromPlay"] / player_stats["fouledAwayFromPlayChance"] if player_stats["fouledAwayFromPlayChance"] != 0 else 0.0,
-        "foulClearPath": player_stats["foulClearPath"] / player_stats["foulClearPathChance"] if player_stats["foulClearPathChance"] != 0 else 0.0,
-        "fouledClearPath": player_stats["fouledClearPath"] / player_stats["fouledClearPathChance"] if player_stats["fouledClearPathChance"] != 0 else 0.0,
-        "foulCountAsPersonal": player_stats["foulCountAsPersonal"] / player_stats["foulCountAsPersonalChance"] if player_stats["foulCountAsPersonalChance"] != 0 else 0.0,
-        "fouledCountAsPersonal": player_stats["fouledCountAsPersonal"] / player_stats["fouledCountAsPersonalChance"] if player_stats["fouledCountAsPersonalChance"] != 0 else 0.0,
-        "foulCountTowardPenalty": player_stats["foulCountTowardPenalty"] / player_stats["foulCountTowardPenaltyChance"] if player_stats["foulCountTowardPenaltyChance"] != 0 else 0.0,
-        "fouledCountTowardPenalty": player_stats["fouledCountTowardPenalty"] / player_stats["fouledCountTowardPenaltyChance"] if player_stats["fouledCountTowardPenaltyChance"] != 0 else 0.0,
-        "foulDefNonShooting": player_stats["foulDefNonShooting"] / player_stats["foulDefNonShootingChance"] if player_stats["foulDefNonShootingChance"] != 0 else 0.0,
-        "fouledDefNonShooting": player_stats["fouledDefNonShooting"] / player_stats["fouledDefNonShootingChance"] if player_stats["fouledDefNonShootingChance"] != 0 else 0.0,
-        "foulDouble": player_stats["foulDouble"] / player_stats["foulDoubleChance"] if player_stats["foulDoubleChance"] != 0 else 0.0,
-        "foulDoubleTechnical": player_stats["foulDoubleTechnical"] / player_stats["foulDoubleTechnicalChance"] if player_stats["foulDoubleTechnicalChance"] != 0 else 0.0,
-        "foulFlagrant": player_stats["foulFlagrant"] / player_stats["foulFlagrantChance"] if player_stats["foulFlagrantChance"] != 0 else 0.0,
-        "fouledFlagrant": player_stats["fouledFlagrant"] / player_stats["fouledFlagrantChance"] if player_stats["fouledFlagrantChance"] != 0 else 0.0,
-        "foulFlagrant1": player_stats["foulFlagrant1"] / player_stats["foulFlagrant1Chance"] if player_stats["foulFlagrant1Chance"] != 0 else 0.0,
-        "fouledFlagrant1": player_stats["fouledFlagrant1"] / player_stats["fouledFlagrant1Chance"] if player_stats["fouledFlagrant1Chance"] != 0 else 0.0,
-        "foulFlagrant2": player_stats["foulFlagrant2"] / player_stats["foulFlagrant2Chance"] if player_stats["foulFlagrant2Chance"] != 0 else 0.0,
-        "fouledFlagrant2": player_stats["fouledFlagrant2"] / player_stats["fouledFlagrant2Chance"] if player_stats["fouledFlagrant2Chance"] != 0 else 0.0,
-        "foulInbound": player_stats["foulInbound"] / player_stats["foulInboundChance"] if player_stats["foulInboundChance"] != 0 else 0.0,
-        "fouledInbound": player_stats["fouledInbound"] / player_stats["fouledInboundChance"] if player_stats["fouledInboundChance"] != 0 else 0.0,
-        "foulLooseBall": player_stats["foulLooseBall"] / player_stats["foulLooseBallChance"] if player_stats["foulLooseBallChance"] != 0 else 0.0,
-        "fouledLooseBall": player_stats["fouledLooseBall"] / player_stats["fouledLooseBallChance"] if player_stats["fouledLooseBallChance"] != 0 else 0.0,
-        "foulOffCharge": player_stats["foulOffCharge"] / player_stats["foulOffChargeChance"] if player_stats["foulOffChargeChance"] != 0 else 0.0,
-        "fouledOffCharge": player_stats["fouledOffCharge"] / player_stats["fouledOffChargeChance"] if player_stats["fouledOffChargeChance"] != 0 else 0.0,
-        "foulOffOther": player_stats["foulOffOther"] / player_stats["foulOffOtherChance"] if player_stats["foulOffOtherChance"] != 0 else 0.0,
-        "fouledOffOther": player_stats["fouledOffOther"] / player_stats["fouledOffOtherChance"] if player_stats["fouledOffOtherChance"] != 0 else 0.0,
-        "foulOffTotal": player_stats["foulOffTotal"] / player_stats["foulOffTotalChance"] if player_stats["foulOffTotalChance"] != 0 else 0.0,
-        "fouledOffTotal": player_stats["fouledOffTotal"] / player_stats["fouledOffTotalChance"] if player_stats["fouledOffTotalChance"] != 0 else 0.0,
-        "foulPersonal": player_stats["foulPersonal"] / player_stats["foulPersonalChance"] if player_stats["foulPersonalChance"] != 0 else 0.0,
-        "fouledPersonal": player_stats["fouledPersonal"] / player_stats["fouledPersonalChance"] if player_stats["fouledPersonalChance"] != 0 else 0.0,
-        "foulPersonalBlock": player_stats["foulPersonalBlock"] / player_stats["foulPersonalBlockChance"] if player_stats["foulPersonalBlockChance"] != 0 else 0.0,
-        "fouledPersonalBlock": player_stats["fouledPersonalBlock"] / player_stats["fouledPersonalBlockChance"] if player_stats["fouledPersonalBlockChance"] != 0 else 0.0,
-        "foulPersonalTake": player_stats["foulPersonalTake"] / player_stats["foulPersonalTakeChance"] if player_stats["foulPersonalTakeChance"] != 0 else 0.0,
-        "fouledPersonalTake": player_stats["fouledPersonalTake"] / player_stats["fouledPersonalTakeChance"] if player_stats["fouledPersonalTakeChance"] != 0 else 0.0,
-        "foulShooting": player_stats["foulShooting"] / player_stats["foulShootingChance"] if player_stats["foulShootingChance"] != 0 else 0.0,
-        "fouledShooting": player_stats["fouledShooting"] / player_stats["fouledShootingChance"] if player_stats["fouledShootingChance"] != 0 else 0.0,
-        "foulShootingBlock": player_stats["foulShootingBlock"] / player_stats["foulShootingBlockChance"] if player_stats["foulShootingBlockChance"] != 0 else 0.0,
-        "fouledShootingBlock": player_stats["fouledShootingBlock"] / player_stats["fouledShootingBlockChance"] if player_stats["fouledShootingBlockChance"] != 0 else 0.0,
-        "foulTechnical": player_stats["foulTechnical"] / player_stats["foulTechnicalChance"] if player_stats["foulTechnicalChance"] != 0 else 0.0,
-        "freeThrow": player_stats["ftMade"] / player_stats["ftAttempt"] if player_stats["ftAttempt"] != 0 else 0.0,
-        "rebDef": player_stats["rebDef"] / player_stats["rebDefChance"] if player_stats["rebDefChance"] != 0 else 0.0,
-        "rebOff": player_stats["rebOff"] / player_stats["rebOffChance"] if player_stats["rebOffChance"] != 0 else 0.0,
-        "steal": player_stats["defSteal"] / player_stats["defStealChance"] if player_stats["defStealChance"] != 0 else 0.0,
-        "shotTypeArc3": player_stats["fgArc3Chance"] / player_stats["fgTotalChance"] if player_stats["fgArc3Chance"] != 0 else 0.0,
-        "shotTypeArc3Def": player_stats["fgArc3DefChance"] / player_stats["fgTotalDefChance"] if player_stats["fgArc3DefChance"] != 0 else 0.0,
-        "shotTypeAtRim": player_stats["fgAtRimChance"] / player_stats["fgTotalChance"] if player_stats["fgAtRimChance"] != 0 else 0.0,
-        "shotTypeAtRimDef": player_stats["fgAtRimDefChance"] / player_stats["fgTotalDefChance"] if player_stats["fgAtRimDefChance"] != 0 else 0.0,
-        "shotTypeCorner3": player_stats["fgCorner3Chance"] / player_stats["fgTotalChance"] if player_stats["fgCorner3Chance"] != 0 else 0.0,
-        "shotTypeCorner3Def": player_stats["fgCorner3DefChance"] / player_stats["fgTotalDefChance"] if player_stats["fgCorner3DefChance"] != 0 else 0.0,
-        "shotTypeLongMidRange": player_stats["fgLongMidRangeChance"] / player_stats["fgTotalChance"] if player_stats["fgLongMidRangeChance"] != 0 else 0.0,
-        "shotTypeLongMidRangeDef": player_stats["fgLongMidRangeDefChance"] / player_stats["fgTotalDefChance"] if player_stats["fgLongMidRangeDefChance"] != 0 else 0.0,
-        "shotTypeShortMidRange": player_stats["fgShortMidRangeChance"] / player_stats["fgTotalChance"] if player_stats["fgShortMidRangeChance"] != 0 else 0.0,
-        "shotTypeShortMidRangeDef": player_stats["fgShortMidRangeDefChance"] / player_stats["fgTotalDefChance"] if player_stats["fgShortMidRangeDefChance"] != 0 else 0.0,
-        "turnover": player_stats["turnover"] / player_stats["turnoverChance"] if player_stats["turnoverChance"] != 0 else 0.0,
-        "violationDefGoaltend": player_stats["violationDefGoaltend"] / player_stats["violationDefGoaltendChance"] if player_stats["violationDefGoaltendChance"] != 0 else 0.0,
-        "violationDefKickBall": player_stats["violationDefKickBall"] / player_stats["violationDefKickBallChance"] if player_stats["violationDefKickBallChance"] != 0 else 0.0,
-        "totals": {
-            **player_stats
-        }
+        "FOUL_AWAY_FROM_PLAY": player_stats["FOUL_AWAY_FROM_PLAY"] / player_stats["FOUL_AWAY_FROM_PLAY_CHANCE"] if player_stats["FOUL_AWAY_FROM_PLAY_CHANCE"] != 0 else 0.0,
+        "FOULED_AWAY_FROM_PLAY": player_stats["FOULED_AWAY_FROM_PLAY"] / player_stats["FOULED_AWAY_FROM_PLAY_CHANCE"] if player_stats["FOULED_AWAY_FROM_PLAY_CHANCE"] != 0 else 0.0,
+        "FOUL_CLEAR_PATH": player_stats["FOUL_CLEAR_PATH"] / player_stats["FOUL_CLEAR_PATH_CHANCE"] if player_stats["FOUL_CLEAR_PATH_CHANCE"] != 0 else 0.0,
+        "FOULED_CLEAR_PATH": player_stats["FOULED_CLEAR_PATH"] / player_stats["FOULED_CLEAR_PATH_CHANCE"] if player_stats["FOULED_CLEAR_PATH_CHANCE"] != 0 else 0.0,
+        "FOUL_COUNT_AS_PERSONAL": player_stats["FOUL_COUNT_AS_PERSONAL"] / player_stats["FOUL_COUNT_AS_PERSONAL_CHANCE"] if player_stats["FOUL_COUNT_AS_PERSONAL_CHANCE"] != 0 else 0.0,
+        "FOULED_COUNT_AS_PERSONAL": player_stats["FOULED_COUNT_AS_PERSONAL"] / player_stats["FOULED_COUNT_AS_PERSONAL_CHANCE"] if player_stats["FOULED_COUNT_AS_PERSONAL_CHANCE"] != 0 else 0.0,
+        "FOUL_COUNT_TOWARD_PENALTY": player_stats["FOUL_COUNT_TOWARD_PENALTY"] / player_stats["FOUL_COUNT_TOWARD_PENALTY_CHANCE"] if player_stats["FOUL_COUNT_TOWARD_PENALTY_CHANCE"] != 0 else 0.0,
+        "FOULED_COUNT_TOWARD_PENALTY": player_stats["FOULED_COUNT_TOWARD_PENALTY"] / player_stats["FOULED_COUNT_TOWARD_PENALTY_CHANCE"] if player_stats["FOULED_COUNT_TOWARD_PENALTY_CHANCE"] != 0 else 0.0,
+        "FOUL_DEFENSIVE_NON_SHOOTING": player_stats["FOUL_DEFENSIVE_NON_SHOOTING"] / player_stats["FOUL_DEFENSIVE_NON_SHOOTING_CHANCE"] if player_stats["FOUL_DEFENSIVE_NON_SHOOTING_CHANCE"] != 0 else 0.0,
+        "FOULED_DEFENSIVE_NON_SHOOTING": player_stats["FOULED_DEFENSIVE_NON_SHOOTING"] / player_stats["FOULED_DEFENSIVE_NON_SHOOTING_CHANCE"] if player_stats["FOULED_DEFENSIVE_NON_SHOOTING_CHANCE"] != 0 else 0.0,
+        "FOUL_DOUBLE": player_stats["FOUL_DOUBLE"] / player_stats["FOUL_DOUBLE_CHANCE"] if player_stats["FOUL_DOUBLE_CHANCE"] != 0 else 0.0,
+        "FOUL_DOUBLE_TECHNICAL": player_stats["FOUL_DOUBLE_TECHNICAL"] / player_stats["FOUL_DOUBLE_TECHNICAL_CHANCE"] if player_stats["FOUL_DOUBLE_TECHNICAL_CHANCE"] != 0 else 0.0,
+        "FOUL_FLAGRANT": player_stats["FOUL_FLAGRANT"] / player_stats["FOUL_FLAGRANT_CHANCE"] if player_stats["FOUL_FLAGRANT_CHANCE"] != 0 else 0.0,
+        "FOULED_FLAGRANT": player_stats["FOULED_FLAGRANT"] / player_stats["FOULED_FLAGRANT_CHANCE"] if player_stats["FOULED_FLAGRANT_CHANCE"] != 0 else 0.0,
+        "FOUL_FLAGRANT_1": player_stats["FOUL_FLAGRANT_1"] / player_stats["FOUL_FLAGRANT_1_CHANCE"] if player_stats["FOUL_FLAGRANT_1_CHANCE"] != 0 else 0.0,
+        "FOULED_FLAGRANT_1": player_stats["FOULED_FLAGRANT_1"] / player_stats["FOULED_FLAGRANT_1_CHANCE"] if player_stats["FOULED_FLAGRANT_1_CHANCE"] != 0 else 0.0,
+        "FOUL_FLAGRANT_2": player_stats["FOUL_FLAGRANT_2"] / player_stats["FOUL_FLAGRANT_2_CHANCE"] if player_stats["FOUL_FLAGRANT_2_CHANCE"] != 0 else 0.0,
+        "FOULED_FLAGRANT_2": player_stats["FOULED_FLAGRANT_2"] / player_stats["FOULED_FLAGRANT_2_CHANCE"] if player_stats["FOULED_FLAGRANT_2_CHANCE"] != 0 else 0.0,
+        "FOUL_INBOUND": player_stats["FOUL_INBOUND"] / player_stats["FOUL_INBOUND_CHANCE"] if player_stats["FOUL_INBOUND_CHANCE"] != 0 else 0.0,
+        "FOULED_INBOUND": player_stats["FOULED_INBOUND"] / player_stats["FOULED_INBOUND_CHANCE"] if player_stats["FOULED_INBOUND_CHANCE"] != 0 else 0.0,
+        "FOUL_LOOSE_BALL": player_stats["FOUL_LOOSE_BALL"] / player_stats["FOUL_LOOSE_BALL_CHANCE"] if player_stats["FOUL_LOOSE_BALL_CHANCE"] != 0 else 0.0,
+        "FOULED_LOOSE_BALL": player_stats["FOULED_LOOSE_BALL"] / player_stats["FOULED_LOOSE_BALL_CHANCE"] if player_stats["FOULED_LOOSE_BALL_CHANCE"] != 0 else 0.0,
+        "FOUL_OFFENSIVE_CHARGE": player_stats["FOUL_OFFENSIVE_CHARGE"] / player_stats["FOUL_OFFENSIVE_CHARGE_CHANCE"] if player_stats["FOUL_OFFENSIVE_CHARGE_CHANCE"] != 0 else 0.0,
+        "FOULED_OFFENSIVE_CHARGE": player_stats["FOULED_OFFENSIVE_CHARGE"] / player_stats["FOULED_OFFENSIVE_CHARGE_CHANCE"] if player_stats["FOULED_OFFENSIVE_CHARGE_CHANCE"] != 0 else 0.0,
+        "FOUL_OFFENSIVE_OTHER": player_stats["FOUL_OFFENSIVE_OTHER"] / player_stats["FOUL_OFFENSIVE_OTHER_CHANCE"] if player_stats["FOUL_OFFENSIVE_OTHER_CHANCE"] != 0 else 0.0,
+        "FOULED_OFFENSIVE_OTHER": player_stats["FOULED_OFFENSIVE_OTHER"] / player_stats["FOULED_OFFENSIVE_OTHER_CHANCE"] if player_stats["FOULED_OFFENSIVE_OTHER_CHANCE"] != 0 else 0.0,
+        "FOUL_OFFENSIVE_TOTAL": player_stats["FOUL_OFFENSIVE_TOTAL"] / player_stats["FOUL_OFFENSIVE_TOTAL_CHANCE"] if player_stats["FOUL_OFFENSIVE_TOTAL_CHANCE"] != 0 else 0.0,
+        "FOULED_OFFENSIVE_TOTAL": player_stats["FOULED_OFFENSIVE_TOTAL"] / player_stats["FOULED_OFFENSIVE_TOTAL_CHANCE"] if player_stats["FOULED_OFFENSIVE_TOTAL_CHANCE"] != 0 else 0.0,
+        "FOUL_PERSONAL": player_stats["FOUL_PERSONAL"] / player_stats["FOUL_PERSONAL_CHANCE"] if player_stats["FOUL_PERSONAL_CHANCE"] != 0 else 0.0,
+        "FOULED_PERSONAL": player_stats["FOULED_PERSONAL"] / player_stats["FOULED_PERSONAL_CHANCE"] if player_stats["FOULED_PERSONAL_CHANCE"] != 0 else 0.0,
+        "FOUL_PERSONAL_BLOCK": player_stats["FOUL_PERSONAL_BLOCK"] / player_stats["FOUL_PERSONAL_BLOCK_CHANCE"] if player_stats["FOUL_PERSONAL_BLOCK_CHANCE"] != 0 else 0.0,
+        "FOULED_PERSONAL_BLOCK": player_stats["FOULED_PERSONAL_BLOCK"] / player_stats["FOULED_PERSONAL_BLOCK_CHANCE"] if player_stats["FOULED_PERSONAL_BLOCK_CHANCE"] != 0 else 0.0,
+        "FOUL_PERSONAL_TAKE": player_stats["FOUL_PERSONAL_TAKE"] / player_stats["FOUL_PERSONAL_TAKE_CHANCE"] if player_stats["FOUL_PERSONAL_TAKE_CHANCE"] != 0 else 0.0,
+        "FOULED_PERSONAL_TAKE": player_stats["FOULED_PERSONAL_TAKE"] / player_stats["FOULED_PERSONAL_TAKE_CHANCE"] if player_stats["FOULED_PERSONAL_TAKE_CHANCE"] != 0 else 0.0,
+        "FOUL_SHOOTING": player_stats["FOUL_SHOOTING"] / player_stats["FOUL_SHOOTING_CHANCE"] if player_stats["FOUL_SHOOTING_CHANCE"] != 0 else 0.0,
+        "FOULED_SHOOTING": player_stats["FOULED_SHOOTING"] / player_stats["FOULED_SHOOTING_CHANCE"] if player_stats["FOULED_SHOOTING_CHANCE"] != 0 else 0.0,
+        "FOUL_SHOOTING_BLOCK": player_stats["FOUL_SHOOTING_BLOCK"] / player_stats["FOUL_SHOOTING_BLOCK_CHANCE"] if player_stats["FOUL_SHOOTING_BLOCK_CHANCE"] != 0 else 0.0,
+        "FOULED_SHOOTING_BLOCK": player_stats["FOULED_SHOOTING_BLOCK"] / player_stats["FOULED_SHOOTING_BLOCK_CHANCE"] if player_stats["FOULED_SHOOTING_BLOCK_CHANCE"] != 0 else 0.0,
+        "FOUL_TECHNICAL": player_stats["FOUL_TECHNICAL"] / player_stats["FOUL_TECHNICAL_CHANCE"] if player_stats["FOUL_TECHNICAL_CHANCE"] != 0 else 0.0,
+        "FT": player_stats["FT_MADE"] / player_stats["FT_ATTEMPT"] if player_stats["FT_ATTEMPT"] != 0 else 0.0,
+        "REBOUND_DEFENSIVE": player_stats["REBOUND_DEFENSIVE"] / player_stats["REBOUND_DEFENSIVE_CHANCE"] if player_stats["REBOUND_DEFENSIVE_CHANCE"] != 0 else 0.0,
+        "REBOUND_OFFENSIVE": player_stats["REBOUND_OFFENSIVE"] / player_stats["REBOUND_OFFENSIVE_CHANCE"] if player_stats["REBOUND_OFFENSIVE_CHANCE"] != 0 else 0.0,
+        "STEAL": player_stats["STEAL"] / player_stats["STEAL_CHANCE"] if player_stats["STEAL_CHANCE"] != 0 else 0.0,
+        "SHOT_TYPE_ARC_3_OFFENSIVE": player_stats["FG_ARC_3_CHANCE_OFFENSIVE"] / player_stats["FG_TOTAL_CHANCE_OFFENSIVE"] if player_stats["FG_ARC_3_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "SHOT_TYPE_ARC_3_DEFENSIVE": player_stats["FG_ARC_3_CHANCE_DEFENSIVE"] / player_stats["FG_TOTAL_CHANCE_DEFENSIVE"] if player_stats["FG_ARC_3_CHANCE_DEFENSIVE"] != 0 else 0.0,
+        "SHOT_TYPE_AT_RIM_OFFENSIVE": player_stats["FG_AT_RIM_CHANCE_OFFENSIVE"] / player_stats["FG_TOTAL_CHANCE_OFFENSIVE"] if player_stats["FG_AT_RIM_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "SHOT_TYPE_AT_RIM_DEFENSIVE": player_stats["FG_AT_RIM_CHANCE_DEFENSIVE"] / player_stats["FG_TOTAL_CHANCE_DEFENSIVE"] if player_stats["FG_AT_RIM_CHANCE_DEFENSIVE"] != 0 else 0.0,
+        "SHOT_TYPE_CORNER_3_OFFENSIVE": player_stats["FG_CORNER_3_CHANCE_OFFENSIVE"] / player_stats["FG_TOTAL_CHANCE_OFFENSIVE"] if player_stats["FG_CORNER_3_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "SHOT_TYPE_CORNER_3_DEFENSIVE": player_stats["FG_CORNER_3_CHANCE_DEFENSIVE"] / player_stats["FG_TOTAL_CHANCE_DEFENSIVE"] if player_stats["FG_CORNER_3_CHANCE_DEFENSIVE"] != 0 else 0.0,
+        "SHOT_TYPE_LONG_MID_RANGE_OFFENSIVE": player_stats["FG_LONG_MID_RANGE_CHANCE_OFFENSIVE"] / player_stats["FG_TOTAL_CHANCE_OFFENSIVE"] if player_stats["FG_LONG_MID_RANGE_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "SHOT_TYPE_LONG_MID_RANGE_DEFENSIVE": player_stats["FG_LONG_MID_RANGE_CHANCE_DEFENSIVE"] / player_stats["FG_TOTAL_CHANCE_DEFENSIVE"] if player_stats["FG_LONG_MID_RANGE_CHANCE_DEFENSIVE"] != 0 else 0.0,
+        "SHOT_TYPE_SHORT_MID_RANGE_OFFENSIVE": player_stats["FG_SHORT_MID_RANGE_CHANCE_OFFENSIVE"] / player_stats["FG_TOTAL_CHANCE_OFFENSIVE"] if player_stats["FG_SHORT_MID_RANGE_CHANCE_OFFENSIVE"] != 0 else 0.0,
+        "SHOT_TYPE_SHORT_MID_RANGE_DEFENSIVE": player_stats["FG_SHORT_MID_RANGE_CHANCE_DEFENSIVE"] / player_stats["FG_TOTAL_CHANCE_DEFENSIVE"] if player_stats["FG_SHORT_MID_RANGE_CHANCE_DEFENSIVE"] != 0 else 0.0,
+        "TURNOVER": player_stats["TURNOVER"] / player_stats["TURNOVER_CHANCE"] if player_stats["TURNOVER_CHANCE"] != 0 else 0.0,
+        "VIOLATION_DEFENSIVE_GOALTENDING": player_stats["VIOLATION_DEFENSIVE_GOALTENDING"] / player_stats["VIOLATION_DEFENSIVE_GOALTENDING_CHANCE"] if player_stats["VIOLATION_DEFENSIVE_GOALTENDING_CHANCE"] != 0 else 0.0,
+        "VIOLATION_DEFENSIVE_KICK_BALL": player_stats["VIOLATION_DEFENSIVE_KICK_BALL"] / player_stats["VIOLATION_DEFENSIVE_KICK_BALL_CHANCE"] if player_stats["VIOLATION_DEFENSIVE_KICK_BALL_CHANCE"] != 0 else 0.0,
+        # "TOTALS": {
+        #     **player_stats
+        # }
     }
 
-    for shot_type in player_stats["fgXY"].keys():
-        for x_y in player_stats["fgXY"][shot_type]:
-            if shot_type == "Arc3":
-                player_probabilities["fgXY"]["Arc3"][x_y] = player_stats["fgXY"][shot_type][x_y] / \
-                    player_stats["fgArc3Attempt"]
-            elif shot_type == "AtRim":
-                player_probabilities["fgXY"]["AtRim"][x_y] = player_stats["fgXY"][shot_type][x_y] / \
-                    player_stats["fgAtRimAttempt"]
-            elif shot_type == "Corner3":
-                player_probabilities["fgXY"]["Corner3"][x_y] = player_stats["fgXY"][shot_type][x_y] / \
-                    player_stats["fgCorner3Attempt"]
-            elif shot_type == "LongMidRange":
-                player_probabilities["fgXY"]["LongMidRange"][x_y] = player_stats["fgXY"][shot_type][x_y] / \
-                    player_stats["fgLongMidRangeAttempt"]
-            elif shot_type == "ShortMidRange":
-                player_probabilities["fgXY"]["ShortMidRange"][x_y] = player_stats["fgXY"][shot_type][x_y] / \
-                    player_stats["fgShortMidRangeAttempt"]
+    for shot_type in player_stats["FG_XY"].keys():
+        for x_y in player_stats["FG_XY"][shot_type]:
+            if shot_type == "ARC_3":
+                player_probabilities["FG_XY"]["ARC_3"][x_y] = player_stats["FG_XY"][shot_type][x_y] / \
+                    player_stats["FG_ARC_3_ATTEMPT"]
+            elif shot_type == "AT_RIM":
+                player_probabilities["FG_XY"]["AT_RIM"][x_y] = player_stats["FG_XY"][shot_type][x_y] / \
+                    player_stats["FG_AT_RIM_ATTEMPT"]
+            elif shot_type == "CORNER_3":
+                player_probabilities["FG_XY"]["CORNER_3"][x_y] = player_stats["FG_XY"][shot_type][x_y] / \
+                    player_stats["FG_CORNER_3_ATTEMPT"]
+            elif shot_type == "LONG_MID_RANGE":
+                player_probabilities["FG_XY"]["LONG_MID_RANGE"][x_y] = player_stats["FG_XY"][shot_type][x_y] / \
+                    player_stats["FG_LONG_MID_RANGE_ATTEMPT"]
+            elif shot_type == "SHORT_MID_RANGE":
+                player_probabilities["FG_XY"]["SHORT_MID_RANGE"][x_y] = player_stats["FG_XY"][shot_type][x_y] / \
+                    player_stats["FG_SHORT_MID_RANGE_ATTEMPT"]
             else:
                 raise("Don't know what this is")
 
     with open(f'../server/src/data/probabilities-player/{player_id}.json', 'w') as outfile:
         json.dump(player_probabilities, outfile)
+
+    with open(f'../server/src/data/totals-player/{player_id}.json', 'w') as outfile:
+        json.dump(player_stats, outfile)
 
 
 play_length_output = {}
@@ -1406,3 +1391,8 @@ for key in master_play_length_dict.keys():
 
 with open(f'../server/src/data/probabilities/possessionLength.json', 'w') as outfile:
     json.dump(play_length_output, outfile)
+
+
+df = pd.DataFrame.from_dict(master_foul_dict)
+df.to_pickle("./output/foul-explorer.pkl")
+df.to_json("./output/foul-explorer.json", orient="index")

@@ -54,6 +54,12 @@ export const startGameSim = mutationField("startGameSim", {
                   `./src/data/probabilities-player/${player.id}.json`,
                   "utf-8"
                 )
+              ),
+              JSON.parse(
+                fs.readFileSync(
+                  `./src/data/totals-player/${player.id}.json`,
+                  "utf-8"
+                )
               )
             );
           } catch (error) {
@@ -90,7 +96,7 @@ export const startGameSim = mutationField("startGameSim", {
           },
           id: counter,
           numFoulsForPlayerFoulOut: 6,
-          possessionTossupMethod: "jumpBall",
+          possessionTossupMethod: "JUMP_BALL",
           shotClock: ShotClockLength.NBA,
           socket,
           teams: [teams[0], teams[1]],

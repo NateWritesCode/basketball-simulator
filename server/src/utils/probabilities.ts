@@ -1,5 +1,6 @@
 import { randomWeightedChoice } from ".";
 import {
+  FoulTypesDefensiveNonShooting,
   GameEventPossessionOutcomes,
   ShotTypes,
   TurnoverTypes,
@@ -13,15 +14,38 @@ import Player from "../entities/Player";
 import getAverage from "./getAverage";
 import random from "random";
 
+export const convertShotType = (shotType: ShotTypes) => {
+  switch (shotType) {
+    case "ARC_3": {
+      return "Arc3";
+    }
+    case "AT_RIM": {
+      return "AtRim";
+    }
+    case "CORNER_3": {
+      return "Corner3";
+    }
+    case "LONG_MID_RANGE": {
+      return "LongMidRange";
+    }
+    case "SHORT_MID_RANGE": {
+      return "ShortMidRange";
+    }
+    default:
+      const exhaustiveCheck: never = shotType;
+      throw new Error(exhaustiveCheck);
+  }
+};
+
 export const get2or3Pointer = (shotType: ShotTypes): 2 | 3 => {
   switch (shotType) {
-    case "Arc3":
-    case "Corner3": {
+    case "ARC_3":
+    case "CORNER_3": {
       return 3;
     }
-    case "AtRim":
-    case "LongMidRange":
-    case "ShortMidRange": {
+    case "AT_RIM":
+    case "LONG_MID_RANGE":
+    case "SHORT_MID_RANGE": {
       return 2;
     }
     default:
@@ -30,27 +54,43 @@ export const get2or3Pointer = (shotType: ShotTypes): 2 | 3 => {
   }
 };
 
-export const getShotType = ([offPlayersOnCourt, defPlayersOnCourt]: [
-  Player[],
-  Player[]
-]): ShotTypes => {
-  const shotTypes = ShotTypes.options;
-  const probabilityArray: [ShotTypes, number][] = [];
+export const getAssistPlayer = (offPlayersOnCourt: Player[]) => {
+  return getPlayerFromUnevenChoiceByField(offPlayersOnCourt, `assist`);
+};
 
-  shotTypes.forEach((shotType: ShotTypes) => {
-    const holder: number[] = [];
+export const getBlockPlayer = (defPlayersOnCourt: Player[]) => {
+  return getPlayerFromUnevenChoiceByField(defPlayersOnCourt, `block`);
+};
 
-    offPlayersOnCourt.forEach((player) =>
-      holder.push(player[`shotType${shotType}`])
-    );
-    defPlayersOnCourt.forEach((player) =>
-      holder.push(player[`shotType${shotType}Def`])
-    );
+export const getDefensiveReboundPlayer = (defPlayersOnCourt: Player[]) => {
+  return getPlayerFromUnevenChoiceByField(defPlayersOnCourt, `rebDef`);
+};
 
-    probabilityArray.push([shotType, getAverage(holder)]);
-  });
+export const getFgAttemptPlayer = (
+  offPlayersOnCourt: Player[],
+  shotType: ShotTypes
+): Player => {
+  return getPlayerFromUnevenChoiceByField(
+    offPlayersOnCourt,
+    `fg${shotType}Attempt`
+  );
+};
 
-  return randomWeightedChoice(probabilityArray) as ShotTypes;
+export const getFgIsMadeByPlayer = (
+  player: Player,
+  shotType: ShotTypes
+): Boolean => {
+  //lower probability goes to team 0, higher probablity goes to team 1
+
+  let value = player[`fg${convertShotType(shotType)}Made`];
+
+  if (value === 1) {
+    value = 0.99;
+  }
+
+  const isMade = random.bernoulli(value);
+
+  return isMade() === 1;
 };
 
 export const getFgXYByShotType = (shotType: ShotTypes): [number, number] => {
@@ -66,6 +106,93 @@ export const getFgXYByShotType = (shotType: ShotTypes): [number, number] => {
   const choiceSplit = choice.split("|");
 
   return [Number(choiceSplit[0]), Number(choiceSplit[1])];
+};
+
+export const getFoulTypeDefensiveNonShooting =
+  (): FoulTypesDefensiveNonShooting => {
+    return randomWeightedChoice(
+      FoulTypesDefensiveNonShooting.options.map((foulType) => {
+        return [foulType, general[foulType as keyof typeof general]];
+      })
+    );
+  };
+
+export const getFtIsMadeByPlayer = (player: Player) => {
+  let value = player.freeThrow;
+
+  if (value === 1) {
+    value = 0.99;
+  }
+
+  const isMade = random.bernoulli(value);
+
+  return isMade() === 1;
+};
+
+export const getIsAssist = (): boolean => {
+  const isAssist = random.bernoulli(general["ASSIST"]);
+
+  return isAssist() === 1;
+};
+
+export const getIsBlock = (): boolean => {
+  const isBlock = random.bernoulli(general["BLOCK"]);
+
+  return isBlock() === 1;
+};
+
+export const getIsCharge = (): boolean => {
+  const isCharge = random.bernoulli(general["FOUL_OFF_CHARGE"]);
+
+  return isCharge() === 1;
+};
+
+export const getIsOffensiveRebound = (): Boolean => {
+  const isOffensiveRebound = random.bernoulli(general["REBOUND_OFFENSIVE"]);
+
+  return isOffensiveRebound() === 1;
+};
+
+export const getIsShootingFoul = () => {
+  const isShootingFoul = random.bernoulli(general["FG_SHOOTING_FOUL"]);
+
+  return isShootingFoul() === 1;
+};
+
+export const getIsTeamRebound = (isOffensiveRebound: Boolean): Boolean => {
+  const isTeamRebound = random.bernoulli(
+    general[
+      isOffensiveRebound ? "REBOUND_OFFENSIVE_TEAM" : "REBOUND_DEFENSIVE_TEAM"
+    ]
+  );
+
+  return isTeamRebound() === 1;
+};
+
+export const getOffensiveFoulPlayer = ({
+  isCharge,
+  offPlayersOnCourt,
+}: {
+  isCharge: boolean;
+  offPlayersOnCourt: Player[];
+}): Player => {
+  const field = isCharge ? "foulOffCharge" : "foulOffOther";
+  return getPlayerFromUnevenChoiceByField(offPlayersOnCourt, field);
+};
+
+export const getOffensiveFouledPlayer = ({
+  isCharge,
+  defPlayersOnCourt,
+}: {
+  isCharge: boolean;
+  defPlayersOnCourt: Player[];
+}): Player => {
+  const field = isCharge ? "fouledOffCharge" : "fouledOffOther";
+  return getPlayerFromUnevenChoiceByField(defPlayersOnCourt, field);
+};
+
+export const getOffensiveReboundPlayer = (offPlayersOnCourt: Player[]) => {
+  return getPlayerFromUnevenChoiceByField(offPlayersOnCourt, `rebOff`);
 };
 
 const getPlayerFromUnevenChoiceByField = (
@@ -86,78 +213,18 @@ const getPlayerFromUnevenChoiceByField = (
   return randomWeightedChoice(probabilityArray);
 };
 
-export const getFgAttemptPlayer = (
-  offPlayersOnCourt: Player[],
-  shotType: ShotTypes
-): Player => {
-  return getPlayerFromUnevenChoiceByField(
-    offPlayersOnCourt,
-    `fg${shotType}Attempt`
-  );
-};
-
-export const getFgIsMadeByPlayer = (
-  player: Player,
-  shotType: ShotTypes
-): Boolean => {
-  //lower probability goes to team 0, higher probablity goes to team 1
-
-  let value = player[`fg${shotType}Made`];
-
-  if (value === 1) {
-    value = 0.99;
-  }
-
-  const isMade = random.bernoulli(value);
-
-  return isMade() === 1;
-};
-
-export const getIsOffensiveRebound = (): Boolean => {
-  const isOffensiveRebound = random.bernoulli(general["OFF_REB"]);
-
-  return isOffensiveRebound() === 1;
-};
-
-export const getOffensiveReboundPlayer = (offPlayersOnCourt: Player[]) => {
-  return getPlayerFromUnevenChoiceByField(offPlayersOnCourt, `rebOff`);
-};
-export const getDefensiveReboundPlayer = (defPlayersOnCourt: Player[]) => {
-  return getPlayerFromUnevenChoiceByField(defPlayersOnCourt, `rebDef`);
-};
-
-export const getIsTeamRebound = (isOffensiveRebound: Boolean): Boolean => {
-  const isTeamRebound = random.bernoulli(
-    general[isOffensiveRebound ? "OFF_REB_TEAM" : "DEF_REB_TEAM"]
-  );
-
-  return isTeamRebound() === 1;
-};
-
-export const getFtIsMadeByPlayer = (player: Player) => {
-  let value = player.freeThrow;
-
-  if (value === 1) {
-    value = 0.99;
-  }
-
-  const isMade = random.bernoulli(value);
-
-  return isMade() === 1;
-};
-
 export const getPossessionLength = (
   possessionType:
-    | "fg"
-    | "foul"
-    | "jumpBall"
-    | "rebound"
-    | "turnover"
-    | "violation"
+    | "FG"
+    | "FOUL"
+    | "JUMP_BALL"
+    | "REBOUND"
+    | "TURNOVER"
+    | "VIOLATION"
 ): number => {
   switch (possessionType) {
-    case "fg": {
-      const probabilityObj = possessionLength["fg"];
+    case "FG": {
+      const probabilityObj = possessionLength["FG"];
 
       const choice = randomWeightedChoice(
         Object.keys(probabilityObj).map((key) => [
@@ -167,8 +234,8 @@ export const getPossessionLength = (
       );
       return Math.round((choice + Number.EPSILON) * 100) / 100;
     }
-    case "foul": {
-      const probabilityObj = possessionLength["foul"];
+    case "FOUL": {
+      const probabilityObj = possessionLength["FOUL"];
       const choice = randomWeightedChoice(
         Object.keys(probabilityObj).map((key) => [
           Number(key),
@@ -177,8 +244,8 @@ export const getPossessionLength = (
       );
       return Math.round((choice + Number.EPSILON) * 100) / 100;
     }
-    case "jumpBall": {
-      const probabilityObj = possessionLength["jumpBall"];
+    case "JUMP_BALL": {
+      const probabilityObj = possessionLength["JUMP_BALL"];
       const choice = randomWeightedChoice(
         Object.keys(probabilityObj).map((key) => [
           Number(key),
@@ -187,8 +254,8 @@ export const getPossessionLength = (
       );
       return Math.round((choice + Number.EPSILON) * 100) / 100;
     }
-    case "rebound": {
-      const probabilityObj = possessionLength["rebound"];
+    case "REBOUND": {
+      const probabilityObj = possessionLength["REBOUND"];
       const choice = randomWeightedChoice(
         Object.keys(probabilityObj).map((key) => [
           Number(key),
@@ -197,8 +264,8 @@ export const getPossessionLength = (
       );
       return Math.round((choice + Number.EPSILON) * 100) / 100;
     }
-    case "turnover": {
-      const probabilityObj = possessionLength["turnover"];
+    case "TURNOVER": {
+      const probabilityObj = possessionLength["TURNOVER"];
       const choice = randomWeightedChoice(
         Object.keys(probabilityObj).map((key) => [
           Number(key),
@@ -207,8 +274,8 @@ export const getPossessionLength = (
       );
       return Math.round((choice + Number.EPSILON) * 100) / 100;
     }
-    case "violation": {
-      const probabilityObj = possessionLength["violation"];
+    case "VIOLATION": {
+      const probabilityObj = possessionLength["VIOLATION"];
       const choice = randomWeightedChoice(
         Object.keys(probabilityObj).map((key) => [
           Number(key),
@@ -223,39 +290,6 @@ export const getPossessionLength = (
   }
 };
 
-export const getIsAssist = (): Boolean => {
-  const isAssist = random.bernoulli(general["ASSIST"]);
-
-  return isAssist() === 1;
-};
-
-export const getAssistPlayer = (offPlayersOnCourt: Player[]) => {
-  return getPlayerFromUnevenChoiceByField(offPlayersOnCourt, `assist`);
-};
-
-export const getIsBlock = (): Boolean => {
-  const isBlock = random.bernoulli(general["BLOCK"]);
-
-  return isBlock() === 1;
-};
-
-export const getBlockPlayer = (defPlayersOnCourt: Player[]) => {
-  return getPlayerFromUnevenChoiceByField(defPlayersOnCourt, `block`);
-};
-export const getTurnoverPlayer = (offPlayersOnCourt: Player[]) => {
-  return getPlayerFromUnevenChoiceByField(offPlayersOnCourt, `turnover`);
-};
-
-export const getStealPlayer = (defPlayersOnCourt: Player[]) => {
-  return getPlayerFromUnevenChoiceByField(defPlayersOnCourt, `steal`);
-};
-
-export const getIsShootingFoul = () => {
-  const isShootingFoul = random.bernoulli(general["FG_SHOOTING_FOUL"]);
-
-  return isShootingFoul() === 1;
-};
-
 export const getPossessionOutcome = (): GameEventPossessionOutcomes => {
   return randomWeightedChoice(
     GameEventPossessionOutcomes.options.map((possessionOutcome) => {
@@ -267,6 +301,37 @@ export const getPossessionOutcome = (): GameEventPossessionOutcomes => {
       ];
     })
   );
+};
+
+export const getShotType = ([offPlayersOnCourt, defPlayersOnCourt]: [
+  Player[],
+  Player[]
+]): ShotTypes => {
+  const shotTypes = ShotTypes.options;
+  const probabilityArray: [ShotTypes, number][] = [];
+
+  shotTypes.forEach((shotType: ShotTypes) => {
+    const holder: number[] = [];
+
+    offPlayersOnCourt.forEach((player) =>
+      holder.push(player[`shotType${convertShotType(shotType)}`])
+    );
+    defPlayersOnCourt.forEach((player) =>
+      holder.push(player[`shotType${convertShotType(shotType)}Def`])
+    );
+
+    probabilityArray.push([shotType, getAverage(holder)]);
+  });
+
+  return randomWeightedChoice(probabilityArray) as ShotTypes;
+};
+
+export const getStealPlayer = (defPlayersOnCourt: Player[]) => {
+  return getPlayerFromUnevenChoiceByField(defPlayersOnCourt, `steal`);
+};
+
+export const getTurnoverPlayer = (offPlayersOnCourt: Player[]) => {
+  return getPlayerFromUnevenChoiceByField(offPlayersOnCourt, `turnover`);
 };
 
 export const getTurnoverType = (): TurnoverTypes => {

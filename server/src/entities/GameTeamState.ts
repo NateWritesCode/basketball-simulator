@@ -15,7 +15,7 @@ import {
   GameSimStatFields,
   GameSimStats,
   IObserver,
-  GameEventOffensiveFoul,
+  GameEventFoulOffensive,
   GameEventSubstitution,
   GameEventTimeout,
   GameEventViolation,
@@ -380,8 +380,8 @@ class GameTeamState implements IObserver {
         break;
       }
 
-      case "OFFENSIVE_FOUL": {
-        const { isCharge, offTeam } = gameEventData as GameEventOffensiveFoul;
+      case "FOUL_OFFENSIVE": {
+        const { isCharge, offTeam } = gameEventData as GameEventFoulOffensive;
 
         if (offTeam.id === this.id) {
           if (isCharge) {
@@ -412,7 +412,7 @@ class GameTeamState implements IObserver {
 
         break;
       }
-      case "POSSESSION_ARROW_WON": {
+      case "POSSESSION_ARROW": {
         break;
       }
       case "SEGMENT_START": {

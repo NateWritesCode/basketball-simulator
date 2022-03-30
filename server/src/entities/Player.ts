@@ -1,4 +1,5 @@
 import { Player as DbPlayer } from "@prisma/client";
+import { PlayerProbability, PlayerTotal } from "../types/player";
 
 class Player {
   assist: number;
@@ -83,81 +84,42 @@ class Player {
       turnoverProne,
       weight,
     }: DbPlayer,
-    {
-      assist,
-      block,
-      fgArc3Attempt,
-      fgArc3Block,
-      fgArc3Made,
-      fgArc3MadeFoul,
-      fgAtRimAttempt,
-      fgAtRimBlock,
-      fgAtRimMade,
-      fgAtRimMadeFoul,
-      fgCorner3Attempt,
-      fgCorner3Block,
-      fgCorner3Made,
-      fgCorner3MadeFoul,
-      fgLongMidRangeAttempt,
-      fgLongMidRangeBlock,
-      fgLongMidRangeMade,
-      fgLongMidRangeMadeFoul,
-      fgShortMidRangeAttempt,
-      fgShortMidRangeBlock,
-      fgShortMidRangeMade,
-      fgShortMidRangeMadeFoul,
-      freeThrow,
-      rebDef,
-      rebOff,
-      steal,
-      shotTypeArc3,
-      shotTypeArc3Def,
-      shotTypeAtRim,
-      shotTypeAtRimDef,
-      shotTypeCorner3,
-      shotTypeCorner3Def,
-      shotTypeLongMidRange,
-      shotTypeLongMidRangeDef,
-      shotTypeShortMidRange,
-      shotTypeShortMidRangeDef,
-      totals,
-      turnover,
-      violationDefGoaltend,
-      violationDefKickBall,
-    }: any
+    playerProbability: PlayerProbability,
+    playerTotal: PlayerTotal
   ) {
     this.arc3 = arc3;
-    this.assist = assist;
+    this.assist = playerProbability.ASSIST;
     this.atRim = atRim;
-    this.block = block;
+    this.block = playerProbability.BLOCK;
     this.blocking = blocking;
     this.corner3 = corner3;
     this.familyName = familyName;
-    this.fgArc3Attempt = fgArc3Attempt;
-    this.fgArc3Block = fgArc3Block;
-    this.fgArc3Made = fgArc3Made;
-    this.fgArc3MadeFoul = fgArc3MadeFoul;
-    this.fgAtRimAttempt = fgAtRimAttempt;
-    this.fgAtRimBlock = fgAtRimBlock;
-    this.fgAtRimMade = fgAtRimMade;
-    this.fgAtRimMadeFoul = fgAtRimMadeFoul;
-    this.fgCorner3Attempt = fgCorner3Attempt;
-    this.fgCorner3Block = fgCorner3Block;
-    this.fgCorner3Made = fgCorner3Made;
-    this.fgCorner3MadeFoul = fgCorner3MadeFoul;
-    this.fgLongMidRangeAttempt = fgLongMidRangeAttempt;
-    this.fgLongMidRangeBlock = fgLongMidRangeBlock;
-    this.fgLongMidRangeMade = fgLongMidRangeMade;
-    this.fgLongMidRangeMadeFoul = fgLongMidRangeMadeFoul;
-    this.fgShortMidRangeAttempt = fgShortMidRangeAttempt;
-    this.fgShortMidRangeBlock = fgShortMidRangeBlock;
-    this.fgShortMidRangeMade = fgShortMidRangeMade;
-    this.fgShortMidRangeMadeFoul = fgShortMidRangeMadeFoul;
-    this.fgTotalChance = totals.fgTotalChance;
-    this.freeThrow = freeThrow;
-    this.rebDef = rebDef;
-    this.rebOff = rebOff;
-    this.steal = steal;
+    this.fgArc3Attempt = playerProbability.FG_ARC_3_ATTEMPT;
+    this.fgArc3Block = playerProbability.FG_ARC_3_BLOCK;
+    this.fgArc3Made = playerProbability.FG_ARC_3_MADE;
+    this.fgArc3MadeFoul = playerProbability.FG_ARC_3_MADE_FOUL;
+    this.fgAtRimAttempt = playerProbability.FG_AT_RIM_ATTEMPT;
+    this.fgAtRimBlock = playerProbability.FG_AT_RIM_BLOCK;
+    this.fgAtRimMade = playerProbability.FG_AT_RIM_MADE;
+    this.fgAtRimMadeFoul = playerProbability.FG_AT_RIM_MADE_FOUL;
+    this.fgCorner3Attempt = playerProbability.FG_CORNER_3_ATTEMPT;
+    this.fgCorner3Block = playerProbability.FG_CORNER_3_BLOCK;
+    this.fgCorner3Made = playerProbability.FG_CORNER_3_MADE;
+    this.fgCorner3MadeFoul = playerProbability.FG_CORNER_3_MADE_FOUL;
+    this.fgLongMidRangeAttempt = playerProbability.FG_LONG_MID_RANGE_ATTEMPT;
+    this.fgLongMidRangeBlock = playerProbability.FG_LONG_MID_RANGE_BLOCK;
+    this.fgLongMidRangeMade = playerProbability.FG_LONG_MID_RANGE_MADE;
+    this.fgLongMidRangeMadeFoul = playerProbability.FG_LONG_MID_RANGE_MADE_FOUL;
+    this.fgShortMidRangeAttempt = playerProbability.FG_SHORT_MID_RANGE_ATTEMPT;
+    this.fgShortMidRangeBlock = playerProbability.FG_SHORT_MID_RANGE_BLOCK;
+    this.fgShortMidRangeMade = playerProbability.FG_SHORT_MID_RANGE_MADE;
+    this.fgShortMidRangeMadeFoul =
+      playerProbability.FG_SHORT_MID_RANGE_MADE_FOUL;
+    this.fgTotalChance = playerTotal.FG_TOTAL_CHANCE_OFFENSIVE;
+    this.freeThrow = playerProbability.FT;
+    this.rebDef = playerProbability.REBOUND_DEFENSIVE;
+    this.rebOff = playerProbability.REBOUND_OFFENSIVE;
+    this.steal = playerProbability.STEAL;
     this.givenName = givenName;
     this.height = height;
     this.id = id;
@@ -167,23 +129,28 @@ class Player {
     this.midRangeShort = midRangeShort;
     this.position = position;
     this.rebounding = rebounding;
-    this.shotTypeArc3 = shotTypeArc3;
-    this.shotTypeArc3Def = shotTypeArc3Def;
-    this.shotTypeAtRim = shotTypeAtRim;
-    this.shotTypeAtRimDef = shotTypeAtRimDef;
-    this.shotTypeCorner3 = shotTypeCorner3;
-    this.shotTypeCorner3Def = shotTypeCorner3Def;
-    this.shotTypeLongMidRange = shotTypeLongMidRange;
-    this.shotTypeLongMidRangeDef = shotTypeLongMidRangeDef;
-    this.shotTypeShortMidRange = shotTypeShortMidRange;
-    this.shotTypeShortMidRangeDef = shotTypeShortMidRangeDef;
+    this.shotTypeArc3 = playerProbability.SHOT_TYPE_ARC_3_OFFENSIVE;
+    this.shotTypeArc3Def = playerProbability.SHOT_TYPE_ARC_3_DEFENSIVE;
+    this.shotTypeAtRim = playerProbability.SHOT_TYPE_AT_RIM_OFFENSIVE;
+    this.shotTypeAtRimDef = playerProbability.SHOT_TYPE_AT_RIM_DEFENSIVE;
+    this.shotTypeCorner3 = playerProbability.SHOT_TYPE_CORNER_3_OFFENSIVE;
+    this.shotTypeCorner3Def = playerProbability.SHOT_TYPE_CORNER_3_DEFENSIVE;
+    this.shotTypeLongMidRange =
+      playerProbability.SHOT_TYPE_LONG_MID_RANGE_OFFENSIVE;
+    this.shotTypeLongMidRangeDef =
+      playerProbability.SHOT_TYPE_LONG_MID_RANGE_DEFENSIVE;
+    this.shotTypeShortMidRange =
+      playerProbability.SHOT_TYPE_SHORT_MID_RANGE_OFFENSIVE;
+    this.shotTypeShortMidRangeDef =
+      playerProbability.SHOT_TYPE_SHORT_MID_RANGE_DEFENSIVE;
     this.slug = slug;
     this.stealing = stealing;
     this.teamId = teamId;
     this.turnoverProne = turnoverProne;
-    this.turnover = turnover;
-    this.violationDefGoaltend = violationDefGoaltend;
-    this.violationDefKickBall = violationDefKickBall;
+    this.turnover = playerProbability.TURNOVER;
+    this.violationDefGoaltend =
+      playerProbability.VIOLATION_DEFENSIVE_GOALTENDING;
+    this.violationDefKickBall = playerProbability.VIOLATION_DEFENSIVE_KICK_BALL;
     this.weight = weight;
   }
 

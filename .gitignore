@@ -7,6 +7,7 @@ __pycache__
 game_id_errors.txt
 yarn-error.log
 probabilities-player
+totals-player
 game-event-store
 relationships
 game-logs

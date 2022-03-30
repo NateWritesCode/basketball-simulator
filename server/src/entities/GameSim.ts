@@ -30,12 +30,16 @@ import {
   getFgAttemptPlayer,
   getFgIsMadeByPlayer,
   getFgXYByShotType,
+  getFoulTypeDefensiveNonShooting,
   getFtIsMadeByPlayer,
   getIsAssist,
   getIsBlock,
+  getIsCharge,
   getIsOffensiveRebound,
   getIsShootingFoul,
   getIsTeamRebound,
+  getOffensiveFouledPlayer,
+  getOffensiveFoulPlayer,
   getOffensiveReboundPlayer,
   getPossessionLength,
   getPossessionOutcome,
@@ -429,12 +433,12 @@ class GameSim {
 
   handleTime = (
     possessionType:
-      | "fg"
-      | "foul"
-      | "jumpBall"
-      | "rebound"
-      | "turnover"
-      | "violation"
+      | "FG"
+      | "FOUL"
+      | "JUMP_BALL"
+      | "REBOUND"
+      | "TURNOVER"
+      | "VIOLATION"
   ): number => {
     let possessionLength = getPossessionLength(possessionType);
 
@@ -724,7 +728,7 @@ class GameSim {
       });
 
       if (isLastShot && !shotMade) {
-        const possessionLength = this.handleTime("rebound");
+        const possessionLength = this.handleTime("REBOUND");
         const isOffensiveRebound = getIsOffensiveRebound();
         const isReboundedByTeam = getIsTeamRebound(isOffensiveRebound);
         if (isOffensiveRebound) {
@@ -883,7 +887,7 @@ class GameSim {
 
     switch (outcome) {
       case "FIELD_GOAL": {
-        const possessionLength = this.handleTime("fg");
+        const possessionLength = this.handleTime("FG");
         const shotType = getShotType([offPlayersOnCourt, defPlayersOnCourt]);
         const offPlayer1 = getFgAttemptPlayer(offPlayersOnCourt, shotType);
         const isMade = getFgIsMadeByPlayer(offPlayer1, shotType);
@@ -970,7 +974,7 @@ class GameSim {
             y,
           });
         } else {
-          const possessionLengthRebound = this.handleTime("rebound");
+          const possessionLengthRebound = this.handleTime("REBOUND");
           this.notifyObservers(`${pts}FG_MISS`, {
             offPlayer1,
             shotType,
@@ -1025,10 +1029,66 @@ class GameSim {
         }
         break;
       }
+      case "FOUL_DEFENSIVE_NON_SHOOTING": {
+        const possessionLength = this.handleTime("FOUL");
+        const defTeam = this.teams[this.d];
+        this.isPossessionEventsComplete = false;
+        const foulType = getFoulTypeDefensiveNonShooting();
+        const foulingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
+        const fouledPlayer = this.pickRandomPlayerOnCourtByTeam(this.o);
+
+        this.notifyObservers("FOUL_DEFENSIVE_NON_SHOOTING", {
+          defPlayer1: foulingPlayer,
+          foulPenaltySettings: this.foulPenaltySettings,
+          offPlayer1: fouledPlayer,
+          possessionLength,
+          segment:
+            this.timeSegmentIndex !== undefined
+              ? this.timeSegmentIndex
+              : undefined,
+        });
+
+        this.handleTimeout({ isDeadBall: true });
+        this.handleSubstitution();
+
+        if (this.teamStates[defTeam.id].penalty) {
+          this.simFreeThrows({
+            isBonus: true,
+            offPlayer1: fouledPlayer,
+            totalShots: 2,
+          });
+        }
+
+        break;
+      }
+
+      case "FOUL_OFFENSIVE": {
+        const possessionLength = this.handleTime("FOUL");
+        const isCharge = getIsCharge();
+        const offPlayer1 = getOffensiveFoulPlayer({
+          isCharge,
+          offPlayersOnCourt,
+        });
+        const defPlayer1 = getOffensiveFouledPlayer({
+          isCharge,
+          defPlayersOnCourt,
+        });
+        this.notifyObservers("FOUL_OFFENSIVE", {
+          defPlayer1,
+          isCharge,
+          offPlayer1,
+          possessionLength,
+        });
+
+        this.handleTimeout({ isDeadBall: true });
+        this.handleSubstitution();
+
+        break;
+      }
       case "JUMP_BALL": {
-        const possessionLength = this.handleTime("jumpBall");
+        const possessionLength = this.handleTime("JUMP_BALL");
         switch (this.possessionTossupMethod) {
-          case "jumpBall": {
+          case "JUMP_BALL": {
             this.handleTimeout({ isDeadBall: true });
 
             const offensePlayer = this.pickRandomPlayerOnCourtByTeam(this.o);
@@ -1068,15 +1128,15 @@ class GameSim {
 
             break;
           }
-          case "possessionArrow": {
+          case "POSSESSION_ARROW": {
             if (this.possessionArrow === this.o) {
-              this.notifyObservers("POSSESSION_ARROW_WON", {
+              this.notifyObservers("POSSESSION_ARROW", {
                 possessionLength,
               });
               this.possessionArrow = this.d;
               this.isPossessionEventsComplete = false;
             } else {
-              this.notifyObservers("POSSESSION_ARROW_WON", {
+              this.notifyObservers("POSSESSION_ARROW", {
                 possessionLength,
               });
               this.possessionArrow = this.o;
@@ -1090,57 +1150,9 @@ class GameSim {
         }
         break;
       }
-      case "FOUL_DEFENSIVE_NON_SHOOTING": {
-        const possessionLength = this.handleTime("foul");
-        const offPlayer1 = this.pickRandomPlayerOnCourtByTeam(this.o);
-        const defTeam = this.teams[this.d];
-        const foulingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
-        this.isPossessionEventsComplete = false;
-
-        this.notifyObservers("FOUL_DEFENSIVE_NON_SHOOTING", {
-          defPlayer1: foulingPlayer,
-          foulPenaltySettings: this.foulPenaltySettings,
-          offPlayer1,
-          possessionLength,
-          segment:
-            this.timeSegmentIndex !== undefined
-              ? this.timeSegmentIndex
-              : undefined,
-        });
-
-        this.handleTimeout({ isDeadBall: true });
-        this.handleSubstitution();
-
-        if (this.teamStates[defTeam.id].penalty) {
-          this.simFreeThrows({
-            isBonus: true,
-            offPlayer1,
-            totalShots: 2,
-          });
-        }
-
-        break;
-      }
-
-      case "OFFENSIVE_FOUL": {
-        const possessionLength = this.handleTime("foul");
-        const offPlayer1 = this.pickRandomPlayerOnCourtByTeam(this.o);
-        const isCharge = random.bool();
-        this.notifyObservers("OFFENSIVE_FOUL", {
-          isCharge,
-          offPlayer1,
-          possessionLength,
-        });
-
-        this.handleTimeout({ isDeadBall: true });
-
-        this.handleSubstitution();
-
-        break;
-      }
 
       case "TURNOVER": {
-        const possessionLength = this.handleTime("turnover");
+        const possessionLength = this.handleTime("TURNOVER");
         const offPlayer1 = getTurnoverPlayer(offPlayersOnCourt);
         const turnoverType = getTurnoverType();
 
@@ -1165,11 +1177,11 @@ class GameSim {
         }
         break;
       }
-      case "VIOLATION_DEF_GOALTEND": {
-        const possessionLength = this.handleTime("violation");
+      case "VIOLATION_DEFENSIVE_GOALTENDING": {
+        const possessionLength = this.handleTime("VIOLATION");
         this.notifyObservers("VIOLATION", {
           possessionLength,
-          violationType: "DEF_GOALTEND",
+          violationType: "DEFENSIVE_GOALTENDING",
         });
 
         this.handleSubstitution();
@@ -1177,11 +1189,11 @@ class GameSim {
 
         break;
       }
-      case "VIOLATION_DEF_KICK_BALL": {
-        const possessionLength = this.handleTime("violation");
+      case "VIOLATION_DEFENSIVE_KICK_BALL": {
+        const possessionLength = this.handleTime("VIOLATION");
         this.notifyObservers("VIOLATION", {
           possessionLength,
-          violationType: "DEF_KICK_BALL",
+          violationType: "DEFENSIVE_KICK_BALL",
         });
 
         this.handleSubstitution();
