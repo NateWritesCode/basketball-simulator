@@ -1,3 +1,4 @@
+export { default as camelCaseAndCapitalize } from "./camelCaseAndCapitalize";
 export { default as errors } from "./errors";
 export { default as generateSchedule } from "./generateSchedule";
 export { default as getAverage } from "./getAverage";

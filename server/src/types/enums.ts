@@ -66,7 +66,6 @@ export type GameEventEnum = z.infer<typeof GameEventEnum>;
 export const FoulTypesDefensiveNonShooting = z.enum([
   "CLEAR_PATH",
   "DOUBLE",
-  "FLAGRANT",
   "FLAGRANT_1",
   "FLAGRANT_2",
   "INBOUND",

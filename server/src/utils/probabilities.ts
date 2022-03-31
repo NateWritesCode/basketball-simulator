@@ -13,6 +13,7 @@ import fgXY from "../data/probabilities/fgXY.json";
 import Player from "../entities/Player";
 import getAverage from "./getAverage";
 import random from "random";
+import camelCaseAndCapitalize from "./camelCaseAndCapitalize";
 
 export const convertShotType = (shotType: ShotTypes) => {
   switch (shotType) {
@@ -116,6 +117,32 @@ export const getFoulTypeDefensiveNonShooting =
       })
     );
   };
+
+export const getFoulingPlayerDefensiveNonShooting = ({
+  defPlayersOnCourt,
+  foulType,
+}: {
+  defPlayersOnCourt: Player[];
+  foulType: FoulTypesDefensiveNonShooting;
+}) => {
+  return getPlayerFromUnevenChoiceByField(
+    defPlayersOnCourt,
+    `foul${camelCaseAndCapitalize(foulType)}`
+  );
+};
+
+export const getFouledPlayerDefensiveNonShooting = ({
+  offPlayersOnCourt,
+  foulType,
+}: {
+  offPlayersOnCourt: Player[];
+  foulType: FoulTypesDefensiveNonShooting;
+}) => {
+  return getPlayerFromUnevenChoiceByField(
+    offPlayersOnCourt,
+    `fouled${camelCaseAndCapitalize(foulType)}`
+  );
+};
 
 export const getFtIsMadeByPlayer = (player: Player) => {
   let value = player.freeThrow;

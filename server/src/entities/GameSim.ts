@@ -20,7 +20,6 @@ import {
   PossessionTossupMethodEnum,
   TeamIndex,
   TimeoutOptions,
-  TurnoverTypes,
   TwoPlayers,
 } from "../types";
 import {
@@ -30,6 +29,8 @@ import {
   getFgAttemptPlayer,
   getFgIsMadeByPlayer,
   getFgXYByShotType,
+  getFouledPlayerDefensiveNonShooting,
+  getFoulingPlayerDefensiveNonShooting,
   getFoulTypeDefensiveNonShooting,
   getFtIsMadeByPlayer,
   getIsAssist,
@@ -380,57 +381,6 @@ class GameSim {
     return incomingPlayer;
   };
 
-  handleSubstitution = (ineligibleOutcomingPlayers?: Player[]) => {
-    let ineligibleOutcomingPlayersIds = ineligibleOutcomingPlayers?.map(
-      (player) => player.id
-    );
-
-    const allEligibleBenchPlayers = this.getEligibleBenchPlayers();
-
-    this.playersOnCourt.forEach((players, teamIndex) => {
-      const benchPlayers = allEligibleBenchPlayers[teamIndex];
-
-      players.forEach((player, playerIndex) => {
-        if (ineligibleOutcomingPlayersIds?.includes(player.id)) {
-          return;
-        }
-
-        const playerState = this.getPlayerState(player);
-        let incomingPlayer, outgoingPlayer;
-        let isPlayerFouledOut = false;
-
-        if (
-          this.numFoulsForPlayerFoulOut &&
-          playerState &&
-          playerState.fouls === this.numFoulsForPlayerFoulOut
-        ) {
-          isPlayerFouledOut = true;
-          outgoingPlayer = player;
-          //TODO: Account for when the bench is empty
-
-          incomingPlayer = this.getIncomingPlayer(benchPlayers, outgoingPlayer);
-
-          this.playersOnCourt[teamIndex][playerIndex] = incomingPlayer;
-        }
-
-        if (!isPlayerFouledOut && playerState && playerState.fatigue >= 80) {
-          outgoingPlayer = player;
-          incomingPlayer = this.getIncomingPlayer(benchPlayers, outgoingPlayer);
-
-          this.playersOnCourt[teamIndex][playerIndex] = incomingPlayer;
-        }
-
-        if (incomingPlayer && outgoingPlayer) {
-          this.notifyObservers("SUBSTITUTION", {
-            incomingPlayer,
-            outgoingPlayer,
-            isPlayerFouledOut,
-          });
-        }
-      });
-    });
-  };
-
   handleTime = (
     possessionType:
       | "FG"
@@ -460,63 +410,6 @@ class GameSim {
     this.possessionLengthTest.push(possessionLength);
 
     return possessionLength;
-  };
-
-  handleTimeout = ({ isDeadBall }: { isDeadBall: boolean }) => {
-    let reason: string | undefined = undefined;
-    let isTimeoutCalled = false;
-    let teamCallingTimeout: number | undefined = undefined; //team that is calling the timeout
-    if (this.timeoutOptions.timeoutRules === "NBA") {
-      if (
-        this.timeoutSegments &&
-        this.timeSegments &&
-        this.timeSegmentIndex !== undefined
-      ) {
-        const currentTime = this.timeSegments[this.timeSegmentIndex];
-        const currentTimeoutSegment =
-          this.timeoutSegments[this.timeSegmentIndex];
-
-        if (currentTimeoutSegment && currentTimeoutSegment.length > 0) {
-          for (let i = 0; i < currentTimeoutSegment.length; i++) {
-            const timeoutSegment = currentTimeoutSegment[i];
-
-            if (isDeadBall && currentTime <= timeoutSegment.time) {
-              // call a mandatory timeout (TV)
-              isTimeoutCalled = true;
-              teamCallingTimeout = timeoutSegment.teamChargedForTimeout;
-              currentTimeoutSegment.splice(i, 1);
-              reason = "TV Timeout - Mandatory";
-
-              break;
-            }
-          }
-        }
-      }
-    } else {
-      throw new Error("Don't know how to handle these timeout options");
-    }
-
-    if (!isTimeoutCalled) {
-      const [team0, team1] = this.getGameTeamStates();
-      const momentumDifference = Math.abs(team0.momentum - team1.momentum);
-
-      if (momentumDifference && momentumDifference > 10) {
-        if (team0.momentum > team1.momentum) {
-          teamCallingTimeout = 1;
-        } else {
-          teamCallingTimeout = 0;
-        }
-      }
-      isTimeoutCalled = true;
-      reason = "Momentum";
-    }
-
-    if (isTimeoutCalled && reason && teamCallingTimeout !== undefined) {
-      this.notifyObservers("TIMEOUT", {
-        reason,
-        team0: this.teams[teamCallingTimeout],
-      });
-    }
   };
 
   headToHead = ({
@@ -612,6 +505,18 @@ class GameSim {
     );
   };
 
+  pickFreeThrowShooterFromPlayersOnCourt = (players: Player[]) => {
+    let playerToReturn = 0;
+
+    players.forEach((player, i) => {
+      if (player.freeThrow > players[playerToReturn].freeThrow) {
+        playerToReturn = i;
+      }
+    });
+
+    return players[playerToReturn];
+  };
+
   pickRandomPlayerOnCourt = (): Player => {
     const [randomPlayer] = sample(
       [...this.playersOnCourt[0], ...this.playersOnCourt[1]],
@@ -688,12 +593,124 @@ class GameSim {
     ];
   };
 
+  shouldWeSubstitution = (ineligibleOutcomingPlayers?: Player[]) => {
+    let ineligibleOutcomingPlayersIds = ineligibleOutcomingPlayers?.map(
+      (player) => player.id
+    );
+
+    const allEligibleBenchPlayers = this.getEligibleBenchPlayers();
+
+    this.playersOnCourt.forEach((players, teamIndex) => {
+      const benchPlayers = allEligibleBenchPlayers[teamIndex];
+
+      players.forEach((player, playerIndex) => {
+        if (ineligibleOutcomingPlayersIds?.includes(player.id)) {
+          return;
+        }
+
+        const playerState = this.getPlayerState(player);
+        let incomingPlayer, outgoingPlayer;
+        let isPlayerFouledOut = false;
+
+        if (
+          this.numFoulsForPlayerFoulOut &&
+          playerState &&
+          playerState.fouls === this.numFoulsForPlayerFoulOut
+        ) {
+          isPlayerFouledOut = true;
+          outgoingPlayer = player;
+          //TODO: Account for when the bench is empty
+
+          incomingPlayer = this.getIncomingPlayer(benchPlayers, outgoingPlayer);
+
+          this.playersOnCourt[teamIndex][playerIndex] = incomingPlayer;
+        }
+
+        if (!isPlayerFouledOut && playerState && playerState.fatigue >= 80) {
+          outgoingPlayer = player;
+          incomingPlayer = this.getIncomingPlayer(benchPlayers, outgoingPlayer);
+
+          this.playersOnCourt[teamIndex][playerIndex] = incomingPlayer;
+        }
+
+        if (incomingPlayer && outgoingPlayer) {
+          this.notifyObservers("SUBSTITUTION", {
+            incomingPlayer,
+            outgoingPlayer,
+            isPlayerFouledOut,
+          });
+        }
+      });
+    });
+  };
+
+  shouldWeTechnical = () => {};
+
+  shouldWeTimeout = ({ isDeadBall }: { isDeadBall: boolean }) => {
+    let reason: string | undefined = undefined;
+    let isTimeoutCalled = false;
+    let teamCallingTimeout: number | undefined = undefined; //team that is calling the timeout
+    if (this.timeoutOptions.timeoutRules === "NBA") {
+      if (
+        this.timeoutSegments &&
+        this.timeSegments &&
+        this.timeSegmentIndex !== undefined
+      ) {
+        const currentTime = this.timeSegments[this.timeSegmentIndex];
+        const currentTimeoutSegment =
+          this.timeoutSegments[this.timeSegmentIndex];
+
+        if (currentTimeoutSegment && currentTimeoutSegment.length > 0) {
+          for (let i = 0; i < currentTimeoutSegment.length; i++) {
+            const timeoutSegment = currentTimeoutSegment[i];
+
+            if (isDeadBall && currentTime <= timeoutSegment.time) {
+              // call a mandatory timeout (TV)
+              isTimeoutCalled = true;
+              teamCallingTimeout = timeoutSegment.teamChargedForTimeout;
+              currentTimeoutSegment.splice(i, 1);
+              reason = "TV Timeout - Mandatory";
+
+              break;
+            }
+          }
+        }
+      }
+    } else {
+      throw new Error("Don't know how to handle these timeout options");
+    }
+
+    if (!isTimeoutCalled) {
+      const [team0, team1] = this.getGameTeamStates();
+      const momentumDifference = Math.abs(team0.momentum - team1.momentum);
+
+      if (momentumDifference && momentumDifference > 10) {
+        if (team0.momentum > team1.momentum) {
+          teamCallingTimeout = 1;
+        } else {
+          teamCallingTimeout = 0;
+        }
+      }
+      isTimeoutCalled = true;
+      reason = "Momentum";
+    }
+
+    if (isTimeoutCalled && reason && teamCallingTimeout !== undefined) {
+      this.notifyObservers("TIMEOUT", {
+        reason,
+        team0: this.teams[teamCallingTimeout],
+      });
+    }
+  };
+
   simFreeThrows = ({
     isBonus,
+    isNoPossessionChange,
     offPlayer1,
     totalShots,
   }: {
     isBonus: boolean;
+    isNoPossessionChange: boolean;
     totalShots: 1 | 2 | 3;
     offPlayer1: Player;
   }) => {
@@ -710,11 +727,11 @@ class GameSim {
 
       if (!isFirstShot) {
         //allow timeouts before each shot. timeouts before the first shot are handled in simPossessionEvents method
-        this.handleTimeout({ isDeadBall: true });
+        this.shouldWeTimeout({ isDeadBall: true });
       }
 
       if (isLastShot) {
-        this.handleSubstitution([offPlayer1]);
+        this.shouldWeSubstitution([offPlayer1]);
       }
 
       this.notifyObservers("FREE_THROW", {
@@ -739,7 +756,9 @@ class GameSim {
             offPlayer1,
             possessionLength,
           });
-          this.isPossessionEventsComplete = false;
+          if (!isNoPossessionChange) {
+            this.isPossessionEventsComplete = false;
+          }
         } else {
           //isReboundedByDefense
           const defPlayer1 = isReboundedByTeam
@@ -879,7 +898,7 @@ class GameSim {
   };
 
   simPossessionEvents = () => {
-    this.handleTimeout({ isDeadBall: false });
+    this.shouldWeTimeout({ isDeadBall: false });
     const outcome = getPossessionOutcome();
     this.isPossessionEventsComplete = true;
     const offPlayersOnCourt = this.playersOnCourt[this.o];
@@ -929,10 +948,11 @@ class GameSim {
             y,
           });
 
-          this.handleTimeout({ isDeadBall: true });
+          this.shouldWeTimeout({ isDeadBall: true });
 
           this.simFreeThrows({
             isBonus: false,
+            isNoPossessionChange: false,
             offPlayer1,
             totalShots: 1,
           });
@@ -952,10 +972,11 @@ class GameSim {
             y,
           });
 
-          this.handleTimeout({ isDeadBall: true });
+          this.shouldWeTimeout({ isDeadBall: true });
 
           this.simFreeThrows({
             isBonus: false,
+            isNoPossessionChange: false,
             totalShots: pts,
             offPlayer1,
           });
@@ -1034,8 +1055,54 @@ class GameSim {
         const defTeam = this.teams[this.d];
         this.isPossessionEventsComplete = false;
         const foulType = getFoulTypeDefensiveNonShooting();
-        const foulingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
-        const fouledPlayer = this.pickRandomPlayerOnCourtByTeam(this.o);
+        const foulingPlayer = getFoulingPlayerDefensiveNonShooting({
+          defPlayersOnCourt,
+          foulType,
+        });
+        const fouledPlayer = getFouledPlayerDefensiveNonShooting({
+          offPlayersOnCourt,
+          foulType,
+        });
+
+        switch (foulType) {
+          case "CLEAR_PATH": {
+            this.simFreeThrows({
+              isBonus: false,
+              isNoPossessionChange: true,
+              offPlayer1: fouledPlayer,
+              totalShots: 1,
+            });
+            break;
+          }
+          case "DOUBLE": {
+            break;
+          }
+          case "FLAGRANT_1": {
+            break;
+          }
+          case "FLAGRANT_2": {
+            break;
+          }
+          case "INBOUND": {
+            this.simFreeThrows({
+              isBonus: false,
+              isNoPossessionChange: true,
+              offPlayer1:
+                this.pickFreeThrowShooterFromPlayersOnCourt(offPlayersOnCourt),
+              totalShots: 1,
+            });
+            break;
+          }
+          case "PERSONAL":
+          case "PERSONAL_BLOCK":
+          case "PERSONAL_TAKE":
+          case "LOOSE_BALL": {
+            break;
+          }
+          default:
+            const exhaustiveCheck: never = foulType;
+            throw new Error(exhaustiveCheck);
+        }
 
         this.notifyObservers("FOUL_DEFENSIVE_NON_SHOOTING", {
           defPlayer1: foulingPlayer,
@@ -1048,12 +1115,13 @@ class GameSim {
               : undefined,
         });
 
-        this.handleTimeout({ isDeadBall: true });
-        this.handleSubstitution();
+        this.shouldWeTimeout({ isDeadBall: true });
+        this.shouldWeSubstitution();
 
         if (this.teamStates[defTeam.id].penalty) {
           this.simFreeThrows({
             isBonus: true,
+            isNoPossessionChange: false,
             offPlayer1: fouledPlayer,
             totalShots: 2,
           });
@@ -1080,8 +1148,8 @@ class GameSim {
           possessionLength,
         });
 
-        this.handleTimeout({ isDeadBall: true });
-        this.handleSubstitution();
+        this.shouldWeTimeout({ isDeadBall: true });
+        this.shouldWeSubstitution();
 
         break;
       }
@@ -1089,13 +1157,13 @@ class GameSim {
         const possessionLength = this.handleTime("JUMP_BALL");
         switch (this.possessionTossupMethod) {
           case "JUMP_BALL": {
-            this.handleTimeout({ isDeadBall: true });
+            this.shouldWeTimeout({ isDeadBall: true });
 
             const offensePlayer = this.pickRandomPlayerOnCourtByTeam(this.o);
             const defensePlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
 
             const players: [Player, Player] = [offensePlayer, defensePlayer];
-            this.handleSubstitution(players);
+            this.shouldWeSubstitution(players);
 
             const isOffenseWinner = this.jumpBall({
               players,
@@ -1172,8 +1240,8 @@ class GameSim {
             turnoverType,
             valueToAdd: 1,
           });
-          this.handleTimeout({ isDeadBall: true });
-          this.handleSubstitution();
+          this.shouldWeTimeout({ isDeadBall: true });
+          this.shouldWeSubstitution();
         }
         break;
       }
@@ -1184,8 +1252,8 @@ class GameSim {
           violationType: "DEFENSIVE_GOALTENDING",
         });
 
-        this.handleSubstitution();
-        this.handleTimeout({ isDeadBall: true });
+        this.shouldWeSubstitution();
+        this.shouldWeTimeout({ isDeadBall: true });
 
         break;
       }
@@ -1196,8 +1264,8 @@ class GameSim {
           violationType: "DEFENSIVE_KICK_BALL",
         });
 
-        this.handleSubstitution();
-        this.handleTimeout({ isDeadBall: true });
+        this.shouldWeSubstitution();
+        this.shouldWeTimeout({ isDeadBall: true });
 
         break;
       }

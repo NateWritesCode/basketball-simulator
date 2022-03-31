@@ -39,6 +39,8 @@ class GamePlayerState implements IObserver {
   fatigueFactor: number;
   fga: number;
   fgm: number;
+  flagrant1: number;
+  flagrant2: number;
   fta: number;
   ftm: number;
   fouls: number;
@@ -93,6 +95,8 @@ class GamePlayerState implements IObserver {
     this.fatigueFactor = fatigueFactor;
     this.fga = 0;
     this.fgm = 0;
+    this.flagrant1 = 0;
+    this.flagrant2 = 0;
     this.fouls = 0;
     this.foulsShooting = 0;
     this.foulsOffensive = 0;
