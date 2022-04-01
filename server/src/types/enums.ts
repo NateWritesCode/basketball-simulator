@@ -44,8 +44,10 @@ export const GameEventEnum = z.enum([
   "3FG_MADE_FOUL",
   "3FG_MISS_FOUL",
   "DEFENSIVE_REBOUND",
+  "EJECTION",
   "FOUL_DEFENSIVE_NON_SHOOTING",
   "FOUL_OFFENSIVE",
+  "FOUL_TECHNICAL",
   "FREE_THROW",
   "GAME_END",
   "GAME_START",
@@ -77,6 +79,16 @@ export const FoulTypesDefensiveNonShooting = z.enum([
 export type FoulTypesDefensiveNonShooting = z.infer<
   typeof FoulTypesDefensiveNonShooting
 >;
+
+export const EjectionReasons = z.enum([
+  "FLAGRANT_1",
+  "FLAGRANT_2",
+  "TECHNICAL",
+]);
+export type EjectionReasons = z.infer<typeof EjectionReasons>;
+
+export const TechnicalReasons = z.enum(["ARGUING_WITH_OFFICIAL", "FIGHTING"]);
+export type TechnicalReasons = z.infer<typeof TechnicalReasons>;
 
 export const GameEventPossessionOutcomes = z.enum([
   "FIELD_GOAL",

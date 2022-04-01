@@ -28,12 +28,14 @@ class GameTeamState implements IObserver {
   blkd: number;
   drb: number;
   dunks: number;
+  ejections: number;
   fga: number;
   fgm: number;
   fouls: number;
   foulsOffensive: number;
   foulsShooting: number;
   foulsBySegment: number[];
+  foulsTechnical: number;
   fta: number;
   ftm: number;
   gameSimStats: GameSimStats | null;
@@ -68,12 +70,14 @@ class GameTeamState implements IObserver {
     this.blkd = 0;
     this.dunks = 0;
     this.drb = 0;
+    this.ejections = 0;
     this.fga = 0;
     this.fgm = 0;
     this.fouls = 0;
     this.foulsOffensive = 0;
     this.foulsShooting = 0;
     this.foulsBySegment = [];
+    this.foulsTechnical = 0;
     this.fta = 0;
     this.ftm = 0;
     this.gameSimSegmentData = [];
@@ -319,6 +323,12 @@ class GameTeamState implements IObserver {
           }
         }
 
+        break;
+      }
+      case "EJECTION": {
+        break;
+      }
+      case "FOUL_TECHNICAL": {
         break;
       }
       case "FREE_THROW": {

@@ -113,7 +113,7 @@ export const getFoulTypeDefensiveNonShooting =
   (): FoulTypesDefensiveNonShooting => {
     return randomWeightedChoice(
       FoulTypesDefensiveNonShooting.options.map((foulType) => {
-        return [foulType, general[foulType as keyof typeof general]];
+        return [foulType, general[`FOUL_${foulType}`]];
       })
     );
   };
@@ -174,6 +174,12 @@ export const getIsCharge = (): boolean => {
   return isCharge() === 1;
 };
 
+export const getIsDoubleTechnical = () => {
+  const isDoubleTechnical = random.bernoulli(general["FOUL_TECHNICAL_DOUBLE"]);
+
+  return isDoubleTechnical() === 1;
+};
+
 export const getIsOffensiveRebound = (): Boolean => {
   const isOffensiveRebound = random.bernoulli(general["REBOUND_OFFENSIVE"]);
 
@@ -184,6 +190,14 @@ export const getIsShootingFoul = () => {
   const isShootingFoul = random.bernoulli(general["FG_SHOOTING_FOUL"]);
 
   return isShootingFoul() === 1;
+};
+
+export const getIsTechnical = () => {
+  const isTechnical = random.bernoulli(
+    general["FOUL_TECHNICAL_PER_POSSESSION_OUTCOME"]
+  );
+
+  return isTechnical() === 1;
 };
 
 export const getIsTeamRebound = (isOffensiveRebound: Boolean): Boolean => {

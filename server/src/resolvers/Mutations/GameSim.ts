@@ -78,46 +78,71 @@ export const startGameSim = mutationField("startGameSim", {
 
       let counter = 1;
 
-      while (counter < 2) {
-        const gameSim = new GameSim({
-          foulPenaltySettings: {
-            doublePenaltyThreshold: 10,
-            penaltyThreshold: 6,
-          },
-          gameType: {
-            overtimeOptions: {
-              overtimeLength: OvertimeLength.NBA,
-              timeouts: 2,
-              type: "time",
-            },
-            segment: GameTypeTimeSegments.Quarter,
-            totalTime: GameTotalTime.NBA,
+      // while (counter < 2) {
+      //   const gameSim = new GameSim({
+      //     foulPenaltySettings: {
+      //       doublePenaltyThreshold: 10,
+      //       penaltyThreshold: 6,
+      //     },
+      //     gameType: {
+      //       overtimeOptions: {
+      //         overtimeLength: OvertimeLength.NBA,
+      //         timeouts: 2,
+      //         type: "time",
+      //       },
+      //       segment: GameTypeTimeSegments.Quarter,
+      //       totalTime: GameTotalTime.NBA,
+      //       type: "time",
+      //     },
+      //     id: counter,
+      //     numFoulsForPlayerFoulOut: 6,
+      //     possessionTossupMethod: "JUMP_BALL",
+      //     shotClock: ShotClockLength.NBA,
+      //     socket,
+      //     teams: [teams[0], teams[1]],
+      //     timeoutOptions: {
+      //       timeouts: 7,
+      //       timeoutRules: "NBA",
+      //     },
+      //   });
+      //   gameSim.start();
+      //   counter++;
+      // }
+
+      const gameSim = new GameSim({
+        foulPenaltySettings: {
+          doublePenaltyThreshold: 10,
+          penaltyThreshold: 6,
+        },
+        gameType: {
+          overtimeOptions: {
+            overtimeLength: OvertimeLength.NBA,
+            timeouts: 2,
             type: "time",
           },
-          id: counter,
-          numFoulsForPlayerFoulOut: 6,
-          possessionTossupMethod: "JUMP_BALL",
-          shotClock: ShotClockLength.NBA,
-          socket,
-          teams: [teams[0], teams[1]],
-          timeoutOptions: {
-            timeouts: 7,
-            timeoutRules: "NBA",
-          },
-        });
-        gameSim.start();
-        counter++;
-      }
+          segment: GameTypeTimeSegments.Quarter,
+          totalTime: GameTotalTime.NBA,
+          type: "time",
+        },
+        id: counter,
+        numFoulsForPlayerFoulOut: 6,
+        possessionTossupMethod: "JUMP_BALL",
+        shotClock: ShotClockLength.NBA,
+        socket,
+        teams: [teams[0], teams[1]],
+        timeoutOptions: {
+          timeouts: 7,
+          timeoutRules: "NBA",
+        },
+      });
 
-      return null;
+      const { playerStats, teamStats } = gameSim.start();
 
-      // const { playerStats, teamStats } = gameSim.start();
-
-      // return {
-      //   playerStats: [playerStats[0], playerStats[1]],
-      //   teams: [team0, team1],
-      //   teamStats: [teamStats[0], teamStats[1]],
-      // };
+      return {
+        playerStats: [playerStats[0], playerStats[1]],
+        teams: [team0, team1],
+        teamStats: [teamStats[0], teamStats[1]],
+      };
     } catch (error) {
       console.error(error);
       throw new Error(error);

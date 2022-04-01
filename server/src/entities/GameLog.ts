@@ -26,6 +26,8 @@ import {
   GameEventSubstitution,
   GameEventTimeout,
   GameEventFoulOffensive,
+  GameEventFoulTechnical,
+  GameEventEjection,
 } from "../types";
 import { log } from "../utils";
 import ordinal from "ordinal";
@@ -206,7 +208,24 @@ class GameLog implements IObserver {
         ]);
         break;
       }
+      case "EJECTION": {
+        const { player0, ejectionReason } = gameEventData as GameEventEjection;
+        this.logInfo([`EJECTION - ${player0.getFullName()} ${ejectionReason}`]);
+        break;
+      }
+      case "FOUL_TECHNICAL": {
+        const { player0, player1, technicalReason } =
+          gameEventData as GameEventFoulTechnical;
+        this.logInfo([
+          `${
+            player0 && player1 ? "DOUBLE " : ""
+          }TECHNICAL FOUL - ${player0.getFullName()}${
+            player1 ? ` ${player1.getFullName()}` : ""
+          } ${technicalReason}`,
+        ]);
 
+        break;
+      }
       case "FREE_THROW": {
         const { isBonus, offPlayer1, valueToAdd, shotNumber, totalShots } =
           gameEventData as GameEventFreeThrow;
@@ -241,10 +260,10 @@ class GameLog implements IObserver {
         break;
       }
       case "FOUL_DEFENSIVE_NON_SHOOTING": {
-        const { offPlayer1, defPlayer1 } =
+        const { offPlayer1, defPlayer1, foulType } =
           gameEventData as GameEventNonShootingDefensiveFoul;
         this.logInfo([
-          `${offPlayer1.getFullName()} fouled by ${defPlayer1.getFullName()} - non-shooting defensive foul`,
+          `${offPlayer1.getFullName()} fouled by ${defPlayer1.getFullName()} - ${foulType} foul`,
         ]);
 
         break;

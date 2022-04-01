@@ -169,7 +169,7 @@ class Player {
     this.fouledDefensiveNonShooting =
       playerProbability.FOULED_DEFENSIVE_NON_SHOOTING;
     this.foulDouble = playerProbability.FOUL_DOUBLE;
-    this.foulDoubleTechnical = playerProbability.FOUL_DOUBLE_TECHNICAL;
+    this.foulDoubleTechnical = playerProbability.FOUL_TECHNICAL_DOUBLE;
     this.foulFlagrant = playerProbability.FOUL_FLAGRANT;
     this.fouledFlagrant = playerProbability.FOULED_FLAGRANT;
     this.foulFlagrant1 = playerProbability.FOUL_FLAGRANT_1;

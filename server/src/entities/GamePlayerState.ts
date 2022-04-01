@@ -25,6 +25,8 @@ import {
   GameEventViolation,
   GameEventSegment,
   GameEventSubstitution,
+  GameEventFoulTechnical,
+  GameEventEjection,
 } from "../types";
 
 class GamePlayerState implements IObserver {
@@ -41,15 +43,18 @@ class GamePlayerState implements IObserver {
   fgm: number;
   flagrant1: number;
   flagrant2: number;
-  fta: number;
-  ftm: number;
+  fouled: number;
   fouls: number;
   foulsOffensive: number;
   foulsShooting: number;
+  foulsTechnical: number;
+  fta: number;
+  ftm: number;
   gameSimStats: GameSimStats | null;
   gameSimSegmentData: GameSimStats[];
   heaves: number; //shots in front of half court
   id: number;
+  isEjected: boolean;
   isInjuredWithNoReturn: boolean;
   inspiration: number;
   jumpBallsLost: number;
@@ -98,14 +103,17 @@ class GamePlayerState implements IObserver {
     this.flagrant1 = 0;
     this.flagrant2 = 0;
     this.fouls = 0;
-    this.foulsShooting = 0;
     this.foulsOffensive = 0;
+    this.foulsShooting = 0;
+    this.foulsTechnical = 0;
+    this.fouled = 0;
     this.fta = 0;
     this.ftm = 0;
     this.gameSimSegmentData = [];
     this.gameSimStats = null;
     this.heaves = 0;
     this.id = id;
+    this.isEjected = false;
     this.isInjuredWithNoReturn = false;
     this.inspiration = 0;
     this.jumpBallsLost = 0;
@@ -468,7 +476,15 @@ class GamePlayerState implements IObserver {
 
         break;
       }
+      case "EJECTION": {
+        const { player0 } = gameEventData as GameEventEjection;
 
+        if (player0.id === this.id) {
+          this.isEjected = true;
+        }
+
+        break;
+      }
       case "FREE_THROW": {
         const { offPlayer1, valueToAdd, offPlayersOnCourt, defPlayersOnCourt } =
           gameEventData as GameEventFreeThrow;
@@ -541,10 +557,22 @@ class GamePlayerState implements IObserver {
       case "FOUL_DEFENSIVE_NON_SHOOTING": {
         const {
           defPlayer1,
-          offPlayersOnCourt,
           defPlayersOnCourt,
+          foulType,
+          offPlayersOnCourt,
           possessionLength,
+          offPlayer1,
         } = gameEventData as GameEventNonShootingDefensiveFoul;
+
+        if (foulType === "FLAGRANT_1") {
+          this.flagrant1++;
+        } else if (foulType === "FLAGRANT_2") {
+          this.flagrant2++;
+        } else if (foulType === "DOUBLE") {
+          if (offPlayer1.id === this.id) {
+            this.fouls += 1;
+          }
+        }
 
         if (defPlayer1.id === this.id) {
           this.fouls += 1;
@@ -584,6 +612,20 @@ class GamePlayerState implements IObserver {
           "timePlayed",
           possessionLength
         );
+
+        break;
+      }
+
+      case "FOUL_TECHNICAL": {
+        const { player0, player1 } = gameEventData as GameEventFoulTechnical;
+
+        if (player0.id === this.id) {
+          this.foulsTechnical++;
+        }
+
+        if (player1 && player1.id === this.id) {
+          this.foulsTechnical++;
+        }
 
         break;
       }

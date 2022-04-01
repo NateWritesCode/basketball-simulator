@@ -41,7 +41,6 @@ export interface PlayerProbability {
   FOUL_DEFENSIVE_NON_SHOOTING: number;
   FOULED_DEFENSIVE_NON_SHOOTING: number;
   FOUL_DOUBLE: number;
-  FOUL_DOUBLE_TECHNICAL: number;
   FOUL_FLAGRANT: number;
   FOULED_FLAGRANT: number;
   FOUL_FLAGRANT_1: number;
@@ -69,6 +68,7 @@ export interface PlayerProbability {
   FOUL_SHOOTING_BLOCK: number;
   FOULED_SHOOTING_BLOCK: number;
   FOUL_TECHNICAL: number;
+  FOUL_TECHNICAL_DOUBLE: number;
   FT: number;
   REBOUND_DEFENSIVE: number;
   REBOUND_OFFENSIVE: number;
@@ -156,8 +156,8 @@ export interface PlayerTotal {
   FOULED_DEFENSIVE_NON_SHOOTING_CHANCE: number;
   FOUL_DOUBLE_: number;
   FOUL_DOUBLE_CHANCE: number;
-  FOUL_DOUBLE_TECHNICAL: number;
-  FOUL_DOUBLE_TECHNICAL_CHANCE: number;
+  FOUL_TECHNICAL_DOUBLE: number;
+  FOUL_TECHNICAL_DOUBLE_CHANCE: number;
   FOUL_FLAGRANT: number;
   FOUL_FLAGRANT_CHANCE: number;
   FOULED_FLAGRANT: number;

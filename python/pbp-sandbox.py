@@ -15,7 +15,9 @@ from pbpstats.resources.enhanced_pbp.turnover import Turnover
 from pbpstats.resources.enhanced_pbp.violation import Violation
 import pandas as pd
 import json
-games_to_process = 150
+import pprint
+import re
+games_to_process = 100
 
 
 season_settings = {
@@ -73,6 +75,8 @@ master_play_length_dict = {
     "TURNOVER": {},
     "VIOLATION": {}
 }
+
+master_fg_description_dict = {}
 
 
 def players_on_court_update(players_on_court, dict, field, value):
@@ -145,7 +149,6 @@ for season_game in season.games.items[:games_to_process]:
         "FOUL_COUNT_TOWARD_PENALTY": 0,
         "FOUL_DEFENSIVE_NON_SHOOTING": 0,
         "FOUL_DOUBLE": 0,
-        "FOUL_DOUBLE_TECHNICAL": 0,
         "FOUL_FLAGRANT": 0,
         "FOUL_FLAGRANT_1": 0,
         "FOUL_FLAGRANT_2": 0,
@@ -160,6 +163,7 @@ for season_game in season.games.items[:games_to_process]:
         "FOUL_SHOOTING": 0,
         "FOUL_SHOOTING_BLOCK": 0,
         "FOUL_TECHNICAL": 0,
+        "FOUL_TECHNICAL_DOUBLE": 0,
         "FOUL_TECHNICAL_NON_PLAYER": 0,
         "JUMP_BALL": 0,
         "POSSESSION": 0,
@@ -269,8 +273,6 @@ for season_game in season.games.items[:games_to_process]:
                 "FOULED_DEFENSIVE_NON_SHOOTING_CHANCE": 0,
                 "FOUL_DOUBLE": 0,
                 "FOUL_DOUBLE_CHANCE": 0,
-                "FOUL_DOUBLE_TECHNICAL": 0,
-                "FOUL_DOUBLE_TECHNICAL_CHANCE": 0,
                 "FOUL_FLAGRANT": 0,
                 "FOUL_FLAGRANT_CHANCE": 0,
                 "FOULED_FLAGRANT": 0,
@@ -325,6 +327,8 @@ for season_game in season.games.items[:games_to_process]:
                 "FOULED_SHOOTING_BLOCK_CHANCE": 0,
                 "FOUL_TECHNICAL": 0,
                 "FOUL_TECHNICAL_CHANCE": 0,
+                "FOUL_TECHNICAL_DOUBLE": 0,
+                "FOUL_TECHNICAL_DOUBLE_CHANCE": 0,
                 "FT_ATTEMPT": 0,
                 "FT_MADE": 0,
                 "REBOUND_DEFENSIVE": 0,
@@ -351,179 +355,170 @@ for season_game in season.games.items[:games_to_process]:
             defense_team_id = team_0 if team_0 != offense_team_id else team_1
             offense_players = possession_event.current_players[offense_team_id]
             defense_players = possession_event.current_players[defense_team_id]
+            description = possession_event.data["description"]
+            if isinstance(possession_event, Ejection):
+                game_update(game_id, master_game_dict, "EJECTION", 1)
 
             if isinstance(possession_event, EndOfPeriod):
                 continue
 
-            if isinstance(possession_event, StartOfPeriod):
-                continue
+            if isinstance(possession_event, FieldGoal):
+                # fg_description = possession_event.data["description"]
+                # test_string = re.search(
+                #     r"(?<=' ).+?(?= \(|:)", possession_event.data["description"])
+                # if test_string is None:
+                #     test_string = re.search(
+                #         r"(?<=' ).+", possession_event.data["description"])
+                # # pprint.pp(possession_event.data.keys())
+                # # pprint.pp(possession_event.data["event_action_type"])
+                # # pprint.pp(possession_event.data["description"])
+                # if test_string is not None:
+                #     master_fg_description_dict[possession_event.data["event_action_type"]
+                #                                ] = test_string.group()
 
-            if isinstance(possession_event, Ejection):
-                game_update(game_id, master_game_dict, "EJECTION", 1)
-                continue
-
-            if isinstance(possession_event, JumpBall):
-                is_jump_ball_starts_period = False
-                for event in possession_event.get_all_events_at_current_time():
-                    if isinstance(event, StartOfPeriod):
-                        is_jump_ball_starts_period = True
-                if is_jump_ball_starts_period != True:
-                    game_update(game_id, master_game_dict, "JUMP_BALL", 1)
-                    possession_length_update(
-                        "JUMP_BALL", master_play_length_dict, possession_event_length)
-                continue
-
-            if isinstance(possession_event, Replay):
-                game_update(game_id, master_game_dict, "REPLAY", 1)
-                continue
-
-            if isinstance(possession_event, Substitution):
-                game_update(game_id, master_game_dict, "SUBSTITUTION", 1)
-                continue
-
-            if isinstance(possession_event, Timeout):
-                game_update(game_id, master_game_dict, "TIMEOUT", 1)
-                continue
-
-            if isinstance(possession_event, Violation):
-                game_update(game_id, master_game_dict, "VIOLATION", 1)
-                if possession_event.is_delay_of_game:
-                    game_update(game_id, master_game_dict,
-                                "VIOLATION_DELAY_OF_GAME", 1)
-                if possession_event.is_double_lane_violation:
-                    game_update(game_id, master_game_dict,
-                                "VIOLATION_DOUBLE_LANE", 1)
-                if possession_event.is_goaltend_violation:
-                    game_update(game_id, master_game_dict,
-                                "VIOLATION_DEFENSIVE_GOALTENDING", 1)
-                    players_on_court_update(
-                        defense_players, master_player_dict, "VIOLATION_DEFENSIVE_GOALTENDING_CHANCE", 1)
-                    player = possession_event.player1_id
-                    player_update(player, master_player_dict,
-                                  "VIOLATION_DEFENSIVE_GOALTENDING", 1)
-
-                    possession_length_update(
-                        "VIOLATION", master_play_length_dict, possession_event_length)
-
-                if possession_event.is_jumpball_violation:
-                    game_update(game_id, master_game_dict,
-                                "VIOLATION_JUMP_BALL", 1)
-                if possession_event.is_kicked_ball_violation:
-                    game_update(game_id, master_game_dict,
-                                "VIOLATION_DEFENSIVE_KICK_BALL", 1)
-                    players_on_court_update(
-                        defense_players, master_player_dict, "VIOLATION_DEFENSIVE_KICK_BALL_CHANCE", 1)
-                    player = possession_event.player1_id
-                    player_update(player, master_player_dict,
-                                  "VIOLATION_DEFENSIVE_KICK_BALL", 1)
-                    possession_length_update(
-                        "VIOLATION", master_play_length_dict, possession_event_length)
-                if possession_event.is_lane_violation:
-                    game_update(game_id, master_game_dict,
-                                "VIOLATION_LANE", 1)
-
-            if isinstance(possession_event, Turnover) and not possession_event.is_no_turnover:
                 possession_length_update(
-                    "TURNOVER", master_play_length_dict, possession_event_length)
+                    "FG", master_play_length_dict, possession_event_length)
                 players_on_court_update(
-                    offense_players, master_player_dict, "TURNOVER_CHANCE", 1)
-                offense_player = possession_event.player1_id
-                if offense_player != 0:
-                    player_update(offense_player,
-                                  master_player_dict, "TURNOVER", 1)
+                    offense_players, master_player_dict, "FG_TOTAL_CHANCE_OFFENSIVE", 1)
+                players_on_court_update(
+                    defense_players, master_player_dict, "FG_TOTAL_CHANCE_DEFENSIVE", 1)
+                game_update(game_id, master_game_dict,
+                            "FG", 1)
+                game_update(game_id, master_game_dict,
+                            "FG_INCLUDING_SHOOTING_FOULS_MISSED", 1)
 
-                game_update(game_id, master_game_dict, "TURNOVER", 1)
-                if possession_event.is_steal:
-                    players_on_court_update(
-                        defense_players, master_player_dict, "STEAL_CHANCE", 1)
-                    player = possession_event.player3_id
-                    player_update(player, master_player_dict, "STEAL", 1)
-                    game_update(game_id, master_game_dict,
-                                "STEAL", 1)
+                if hasattr(possession_event, 'player1_id') and possession_event.player1_id != 0:
+                    player = possession_event.player1_id
+                    is_2 = possession_event.shot_value == 2
+                    is_3 = possession_event.shot_value == 3
+                    is_and_1 = possession_event.is_and1
+                    is_arc_3 = possession_event.shot_type == "Arc3"
+                    is_at_rim = possession_event.shot_type == "AtRim"
+                    is_corner_3 = possession_event.shot_type == "Corner3"
+                    is_long_mid_range = possession_event.shot_type == "LongMidRange"
+                    is_made = possession_event.is_made
+                    is_short_mid_range = possession_event.shot_type == "ShortMidRange"
+                    is_block = possession_event.is_blocked
+                    is_assist = possession_event.is_assisted
 
-                if possession_event.is_3_second_violation:
-                    game_update(game_id, master_game_dict,
-                                "TURNOVER_3_SECOND", 1)
-                if possession_event.is_bad_pass:
-                    game_update(game_id, master_game_dict,
-                                "TURNOVER_BAD_PASS", 1)
-                if possession_event.is_bad_pass_out_of_bounds:
-                    game_update(game_id, master_game_dict,
-                                "TURNOVER_BAD_PASS_OUT_OF_BOUNDS", 1)
-                if possession_event.is_kicked_ball:
-                    game_update(game_id, master_game_dict,
-                                "TURNOVER_KICK_BALL", 1)
-                if possession_event.is_lane_violation:
-                    game_update(game_id, master_game_dict,
-                                "TURNOVER_LANE_VIOLATION", 1)
-                if possession_event.is_lost_ball:
-                    game_update(game_id, master_game_dict,
-                                "TURNOVER_LOST_BALL", 1)
-                if possession_event.is_lost_ball_out_of_bounds:
-                    game_update(game_id, master_game_dict,
-                                "TURNOVER_LOST_BALL_OUT_OF_BOUNDS", 1)
-                if possession_event.is_offensive_goaltending:
-                    game_update(game_id, master_game_dict,
-                                "TURNOVER_OFFENSIVE_GOALTENDING", 1)
-                if possession_event.is_shot_clock_violation:
-                    game_update(game_id, master_game_dict,
-                                "TURNOVER_SHOT_CLOCK", 1)
-                if possession_event.is_step_out_of_bounds:
-                    game_update(game_id, master_game_dict,
-                                "TURNOVER_STEP_OUT_OF_BOUNDS", 1)
-                if possession_event.is_travel:
-                    game_update(game_id, master_game_dict,
-                                "TURNOVER_TRAVEL", 1)
-
-            if isinstance(possession_event, FreeThrow):
-                player = possession_event.player1_id
-                player_update(player, master_player_dict, "FT_ATTEMPT", 1)
-                if possession_event.is_made:
-                    player_update(player, master_player_dict, "FT_MADE", 1)
-                if possession_event.foul_that_led_to_ft != None:
-                    if possession_event.foul_that_led_to_ft.foul_type_string == "2pt Shooting Foul":
-                        player_update(player, master_player_dict,
-                                      "FG_TOTAL_MISS_FOUL_2", 1)
+                    if is_assist:
                         game_update(game_id, master_game_dict,
-                                    "FG_INCLUDING_SHOOTING_FOULS_MISSED", 1)
+                                    "ASSIST", 1)
+                        players_on_court_update(
+                            offense_players, master_player_dict, "ASSIST_CHANCE", 1)
+                        player = possession_event.player2_id
+                        player_update(
+                            player, master_player_dict, "ASSIST", 1)
 
-                    if possession_event.foul_that_led_to_ft.foul_type_string == "3pt Shooting Foul":
-                        player_update(player, master_player_dict,
-                                      "FG_TOTAL_MISS_FOUL_3", 1)
+                    shot_type_field_string = ""
+
+                    if is_at_rim is False and is_short_mid_range is False and is_long_mid_range is False:
+
+                        if "Dunk" in description:
+                            print(description, "Ut oh We have a dunk!!!!")
+
+                        if "Layup" in description:
+                            print(description, "Ut oh We have a layup!!!!")
+
+                    if is_arc_3:
+                        shot_type_field_string = "ARC_3"
+                        players_on_court_update(
+                            offense_players, master_player_dict, "FG_ARC_3_CHANCE_OFFENSIVE", 1)
+                        players_on_court_update(
+                            defense_players, master_player_dict, "FG_ARC_3_CHANCE_DEFENSIVE", 1)
                         game_update(game_id, master_game_dict,
-                                    "FG_INCLUDING_SHOOTING_FOULS_MISSED", 1)
+                                    "FG_ARC_3", 1)
+                    elif is_at_rim:
+                        shot_type_field_string = "AT_RIM"
+                        players_on_court_update(
+                            offense_players, master_player_dict, "FG_AT_RIM_CHANCE_OFFENSIVE", 1)
+                        players_on_court_update(
+                            defense_players, master_player_dict, "FG_AT_RIM_CHANCE_DEFENSIVE", 1)
+                        game_update(game_id, master_game_dict,
+                                    "FG_AT_RIM", 1)
+                    elif is_corner_3:
+                        shot_type_field_string = "CORNER_3"
+                        players_on_court_update(
+                            offense_players, master_player_dict, "FG_CORNER_3_CHANCE_OFFENSIVE", 1)
+                        players_on_court_update(
+                            defense_players, master_player_dict, "FG_CORNER_3_CHANCE_DEFENSIVE", 1)
+                        game_update(game_id, master_game_dict,
+                                    "FG_CORNER_3", 1)
+                    elif is_long_mid_range:
+                        shot_type_field_string = "LONG_MID_RANGE"
+                        players_on_court_update(
+                            offense_players, master_player_dict, "FG_LONG_MID_RANGE_CHANCE_OFFENSIVE", 1)
+                        players_on_court_update(
+                            defense_players, master_player_dict, "FG_LONG_MID_RANGE_CHANCE_DEFENSIVE", 1)
+                        game_update(game_id, master_game_dict,
+                                    "FG_LONG_MID_RANGE", 1)
+                    elif is_short_mid_range:
+                        shot_type_field_string = "SHORT_MID_RANGE"
+                        players_on_court_update(
+                            offense_players, master_player_dict, "FG_SHORT_MID_RANGE_CHANCE_OFFENSIVE", 1)
+                        players_on_court_update(
+                            defense_players, master_player_dict, "FG_SHORT_MID_RANGE_CHANCE_DEFENSIVE", 1)
+                        game_update(game_id, master_game_dict,
+                                    "FG_SHORT_MID_RANGE", 1)
+                    else:
+                        raise("Don't know what this is")
 
-                continue
+                    shot_x = possession_event.shot_data["X"]
+                    shot_y = possession_event.shot_data["Y"]
 
-            if isinstance(possession_event, Rebound):
-                if possession_event.is_real_rebound:
-                    possession_length_update(
-                        "REBOUND", master_play_length_dict, possession_event_length)
-                    game_update(
-                        game_id, master_game_dict, "REBOUND", 1)
-                    players_on_court_update(
-                        offense_players, master_player_dict, "REBOUND_OFFENSIVE_CHANCE", 1)
-                    players_on_court_update(
-                        defense_players, master_player_dict, "REBOUND_DEFENSIVE_CHANCE", 1)
-                    if hasattr(possession_event, 'player1_id') and possession_event.player1_id != 0:
-                        player = possession_event.player1_id
-                        if possession_event.oreb:
-                            player_update(
-                                player, master_player_dict, "REBOUND_OFFENSIVE", 1)
-                            game_update(game_id, master_game_dict,
-                                        "REBOUND_OFFENSIVE", 1)
-                        else:
-                            player_update(
-                                player, master_player_dict, "REBOUND_DEFENSIVE", 1)
-                            game_update(game_id, master_game_dict,
-                                        "REBOUND_DEFENSIVE", 1)
-                    else:  # is team rebound
-                        if possession_event.oreb:
-                            game_update(game_id, master_game_dict,
-                                        "REBOUND_OFFENSIVE_TEAM", 1)
-                        else:
-                            game_update(game_id, master_game_dict,
-                                        "REBOUND_DEFENSIVE_TEAM", 1)
+                    shot_x_y_key = f'{shot_x}|{shot_y}'
+
+                    if shot_x_y_key in master_x_y_dict[shot_type_field_string]:
+                        master_x_y_dict[shot_type_field_string][shot_x_y_key] += 1
+                    else:
+                        master_x_y_dict[shot_type_field_string][shot_x_y_key] = 1
+
+                    if shot_x_y_key in master_game_dict[game_id]["FG_XY"][shot_type_field_string]:
+                        master_game_dict[game_id]["FG_XY"][shot_type_field_string][shot_x_y_key] += 1
+                    else:
+                        master_game_dict[game_id]["FG_XY"][shot_type_field_string][shot_x_y_key] = 1
+
+                    if shot_x_y_key in master_player_dict[player]["FG_XY"][shot_type_field_string]:
+                        master_player_dict[player]["FG_XY"][shot_type_field_string][shot_x_y_key] += 1
+                    else:
+                        master_player_dict[player]["FG_XY"][shot_type_field_string][shot_x_y_key] = 1
+
+                    field_string = "FG_" + shot_type_field_string + "_"
+
+                    player_update(player, master_player_dict,
+                                  field_string + "ATTEMPT", 1)
+
+                    player_update(player, master_player_dict,
+                                  "FG_TOTAL_ATTEMPT", 1)
+
+                    if is_block:
+                        game_update(game_id, master_game_dict,
+                                    "BLOCK", 1)
+                        field_string += "BLOCK"
+                        player_update(player, master_player_dict,
+                                      field_string, 1)
+                        players_on_court_update(
+                            defense_players, master_player_dict, "BLOCK_CHANCE", 1)
+                        blocking_player = possession_event.player3_id
+                        player_update(blocking_player, master_player_dict,
+                                      "BLOCK", 1)
+
+                    if is_made:
+                        game_update(game_id, master_game_dict,
+                                    "FG_MADE", 1)
+                        field_string += "MADE"
+                        player_update(player, master_player_dict,
+                                      field_string, 1)
+                        player_update(player, master_player_dict,
+                                      "FG_TOTAL_MADE", 1)
+                        if is_and_1:
+                            player_update(player, master_player_dict,
+                                          field_string + "_FOUL", 1)
+                            player_update(player, master_player_dict,
+                                          "FG_TOTAL_MADE_FOUL", 1)
+
+                else:
+                    raise("We have a field goal with no shooter")
 
             if isinstance(possession_event, Foul):
                 master_foul_dict["counts_as_personal_foul"].append(
@@ -682,16 +677,16 @@ for season_game in season.games.items[:games_to_process]:
 
                 if possession_event.is_double_technical:
                     game_update(game_id, master_game_dict,
-                                "FOUL_DOUBLE_TECHNICAL", 1)
+                                "FOUL_TECHNICAL_DOUBLE", 1)
                     player_update(
-                        player1, master_player_dict, "FOUL_DOUBLE_TECHNICAL", 1)
+                        player1, master_player_dict, "FOUL_TECHNICAL_DOUBLE", 1)
                     player_update(
-                        player3, master_player_dict, "FOUL_DOUBLE_TECHNICAL", 1)
+                        player3, master_player_dict, "FOUL_TECHNICAL_DOUBLE", 1)
 
                     players_on_court_update(
-                        player1_players_on_court, master_player_dict, "FOUL_DOUBLE_TECHNICAL_CHANCE", 1)
+                        player1_players_on_court, master_player_dict, "FOUL_TECHNICAL_DOUBLE_CHANCE", 1)
                     players_on_court_update(
-                        player3_players_on_court, master_player_dict, "FOUL_DOUBLE_TECHNICAL_CHANCE", 1)
+                        player3_players_on_court, master_player_dict, "FOUL_TECHNICAL_DOUBLE_CHANCE", 1)
 
                 if possession_event.is_flagrant:
                     game_update(game_id, master_game_dict,
@@ -879,142 +874,165 @@ for season_game in season.games.items[:games_to_process]:
                         players_on_court_update(
                             player3_players_on_court, master_player_dict, "FOULED_DEFENSIVE_NON_SHOOTING_CHANCE", 1)
 
-            if isinstance(possession_event, FieldGoal):
+            if isinstance(possession_event, FreeThrow):
+                player = possession_event.player1_id
+                player_update(player, master_player_dict, "FT_ATTEMPT", 1)
+                if possession_event.is_made:
+                    player_update(player, master_player_dict, "FT_MADE", 1)
+                if possession_event.foul_that_led_to_ft != None:
+                    if possession_event.foul_that_led_to_ft.foul_type_string == "2pt Shooting Foul":
+                        player_update(player, master_player_dict,
+                                      "FG_TOTAL_MISS_FOUL_2", 1)
+                        game_update(game_id, master_game_dict,
+                                    "FG_INCLUDING_SHOOTING_FOULS_MISSED", 1)
+
+                    if possession_event.foul_that_led_to_ft.foul_type_string == "3pt Shooting Foul":
+                        player_update(player, master_player_dict,
+                                      "FG_TOTAL_MISS_FOUL_3", 1)
+                        game_update(game_id, master_game_dict,
+                                    "FG_INCLUDING_SHOOTING_FOULS_MISSED", 1)
+
+            if isinstance(possession_event, JumpBall):
+                is_jump_ball_starts_period = False
+                for event in possession_event.get_all_events_at_current_time():
+                    if isinstance(event, StartOfPeriod):
+                        is_jump_ball_starts_period = True
+                if is_jump_ball_starts_period != True:
+                    game_update(game_id, master_game_dict, "JUMP_BALL", 1)
+                    possession_length_update(
+                        "JUMP_BALL", master_play_length_dict, possession_event_length)
+
+            if isinstance(possession_event, Rebound):
+                if possession_event.is_real_rebound:
+                    possession_length_update(
+                        "REBOUND", master_play_length_dict, possession_event_length)
+                    game_update(
+                        game_id, master_game_dict, "REBOUND", 1)
+                    players_on_court_update(
+                        offense_players, master_player_dict, "REBOUND_OFFENSIVE_CHANCE", 1)
+                    players_on_court_update(
+                        defense_players, master_player_dict, "REBOUND_DEFENSIVE_CHANCE", 1)
+                    if hasattr(possession_event, 'player1_id') and possession_event.player1_id != 0:
+                        player = possession_event.player1_id
+                        if possession_event.oreb:
+                            player_update(
+                                player, master_player_dict, "REBOUND_OFFENSIVE", 1)
+                            game_update(game_id, master_game_dict,
+                                        "REBOUND_OFFENSIVE", 1)
+                        else:
+                            player_update(
+                                player, master_player_dict, "REBOUND_DEFENSIVE", 1)
+                            game_update(game_id, master_game_dict,
+                                        "REBOUND_DEFENSIVE", 1)
+                    else:  # is team rebound
+                        if possession_event.oreb:
+                            game_update(game_id, master_game_dict,
+                                        "REBOUND_OFFENSIVE_TEAM", 1)
+                        else:
+                            game_update(game_id, master_game_dict,
+                                        "REBOUND_DEFENSIVE_TEAM", 1)
+
+            if isinstance(possession_event, Replay):
+                game_update(game_id, master_game_dict, "REPLAY", 1)
+
+            if isinstance(possession_event, StartOfPeriod):
+                continue
+
+            if isinstance(possession_event, Substitution):
+                game_update(game_id, master_game_dict, "SUBSTITUTION", 1)
+
+            if isinstance(possession_event, Timeout):
+                game_update(game_id, master_game_dict, "TIMEOUT", 1)
+
+            if isinstance(possession_event, Turnover) and not possession_event.is_no_turnover:
                 possession_length_update(
-                    "FG", master_play_length_dict, possession_event_length)
+                    "TURNOVER", master_play_length_dict, possession_event_length)
                 players_on_court_update(
-                    offense_players, master_player_dict, "FG_TOTAL_CHANCE_OFFENSIVE", 1)
-                players_on_court_update(
-                    defense_players, master_player_dict, "FG_TOTAL_CHANCE_DEFENSIVE", 1)
-                game_update(game_id, master_game_dict,
-                            "FG", 1)
-                game_update(game_id, master_game_dict,
-                            "FG_INCLUDING_SHOOTING_FOULS_MISSED", 1)
+                    offense_players, master_player_dict, "TURNOVER_CHANCE", 1)
+                offense_player = possession_event.player1_id
+                if offense_player != 0:
+                    player_update(offense_player,
+                                  master_player_dict, "TURNOVER", 1)
 
-                if hasattr(possession_event, 'player1_id') and possession_event.player1_id != 0:
+                game_update(game_id, master_game_dict, "TURNOVER", 1)
+                if possession_event.is_steal:
+                    players_on_court_update(
+                        defense_players, master_player_dict, "STEAL_CHANCE", 1)
+                    player = possession_event.player3_id
+                    player_update(player, master_player_dict, "STEAL", 1)
+                    game_update(game_id, master_game_dict,
+                                "STEAL", 1)
+
+                if possession_event.is_3_second_violation:
+                    game_update(game_id, master_game_dict,
+                                "TURNOVER_3_SECOND", 1)
+                if possession_event.is_bad_pass:
+                    game_update(game_id, master_game_dict,
+                                "TURNOVER_BAD_PASS", 1)
+                if possession_event.is_bad_pass_out_of_bounds:
+                    game_update(game_id, master_game_dict,
+                                "TURNOVER_BAD_PASS_OUT_OF_BOUNDS", 1)
+                if possession_event.is_kicked_ball:
+                    game_update(game_id, master_game_dict,
+                                "TURNOVER_KICK_BALL", 1)
+                if possession_event.is_lane_violation:
+                    game_update(game_id, master_game_dict,
+                                "TURNOVER_LANE_VIOLATION", 1)
+                if possession_event.is_lost_ball:
+                    game_update(game_id, master_game_dict,
+                                "TURNOVER_LOST_BALL", 1)
+                if possession_event.is_lost_ball_out_of_bounds:
+                    game_update(game_id, master_game_dict,
+                                "TURNOVER_LOST_BALL_OUT_OF_BOUNDS", 1)
+                if possession_event.is_offensive_goaltending:
+                    game_update(game_id, master_game_dict,
+                                "TURNOVER_OFFENSIVE_GOALTENDING", 1)
+                if possession_event.is_shot_clock_violation:
+                    game_update(game_id, master_game_dict,
+                                "TURNOVER_SHOT_CLOCK", 1)
+                if possession_event.is_step_out_of_bounds:
+                    game_update(game_id, master_game_dict,
+                                "TURNOVER_STEP_OUT_OF_BOUNDS", 1)
+                if possession_event.is_travel:
+                    game_update(game_id, master_game_dict,
+                                "TURNOVER_TRAVEL", 1)
+
+            if isinstance(possession_event, Violation):
+                game_update(game_id, master_game_dict, "VIOLATION", 1)
+                if possession_event.is_delay_of_game:
+                    game_update(game_id, master_game_dict,
+                                "VIOLATION_DELAY_OF_GAME", 1)
+                if possession_event.is_double_lane_violation:
+                    game_update(game_id, master_game_dict,
+                                "VIOLATION_DOUBLE_LANE", 1)
+                if possession_event.is_goaltend_violation:
+                    game_update(game_id, master_game_dict,
+                                "VIOLATION_DEFENSIVE_GOALTENDING", 1)
+                    players_on_court_update(
+                        defense_players, master_player_dict, "VIOLATION_DEFENSIVE_GOALTENDING_CHANCE", 1)
                     player = possession_event.player1_id
-                    is_2 = possession_event.shot_value == 2
-                    is_3 = possession_event.shot_value == 3
-                    is_and_1 = possession_event.is_and1
-                    is_arc_3 = possession_event.shot_type == "Arc3"
-                    is_at_rim = possession_event.shot_type == "AtRim"
-                    is_corner_3 = possession_event.shot_type == "Corner3"
-                    is_long_mid_range = possession_event.shot_type == "LongMidRange"
-                    is_made = possession_event.is_made
-                    is_short_mid_range = possession_event.shot_type == "ShortMidRange"
-                    is_block = possession_event.is_blocked
-                    is_assist = possession_event.is_assisted
-
-                    if is_assist:
-                        game_update(game_id, master_game_dict,
-                                    "ASSIST", 1)
-                        players_on_court_update(
-                            offense_players, master_player_dict, "ASSIST_CHANCE", 1)
-                        player = possession_event.player2_id
-                        player_update(
-                            player, master_player_dict, "ASSIST", 1)
-
-                    shot_type_field_string = ""
-
-                    if is_arc_3:
-                        shot_type_field_string = "ARC_3"
-                        players_on_court_update(
-                            offense_players, master_player_dict, "FG_ARC_3_CHANCE_OFFENSIVE", 1)
-                        players_on_court_update(
-                            defense_players, master_player_dict, "FG_ARC_3_CHANCE_DEFENSIVE", 1)
-                        game_update(game_id, master_game_dict,
-                                    "FG_ARC_3", 1)
-                    elif is_at_rim:
-                        shot_type_field_string = "AT_RIM"
-                        players_on_court_update(
-                            offense_players, master_player_dict, "FG_AT_RIM_CHANCE_OFFENSIVE", 1)
-                        players_on_court_update(
-                            defense_players, master_player_dict, "FG_AT_RIM_CHANCE_DEFENSIVE", 1)
-                        game_update(game_id, master_game_dict,
-                                    "FG_AT_RIM", 1)
-                    elif is_corner_3:
-                        shot_type_field_string = "CORNER_3"
-                        players_on_court_update(
-                            offense_players, master_player_dict, "FG_CORNER_3_CHANCE_OFFENSIVE", 1)
-                        players_on_court_update(
-                            defense_players, master_player_dict, "FG_CORNER_3_CHANCE_DEFENSIVE", 1)
-                        game_update(game_id, master_game_dict,
-                                    "FG_CORNER_3", 1)
-                    elif is_long_mid_range:
-                        shot_type_field_string = "LONG_MID_RANGE"
-                        players_on_court_update(
-                            offense_players, master_player_dict, "FG_LONG_MID_RANGE_CHANCE_OFFENSIVE", 1)
-                        players_on_court_update(
-                            defense_players, master_player_dict, "FG_LONG_MID_RANGE_CHANCE_DEFENSIVE", 1)
-                        game_update(game_id, master_game_dict,
-                                    "FG_LONG_MID_RANGE", 1)
-                    elif is_short_mid_range:
-                        shot_type_field_string = "SHORT_MID_RANGE"
-                        players_on_court_update(
-                            offense_players, master_player_dict, "FG_SHORT_MID_RANGE_CHANCE_OFFENSIVE", 1)
-                        players_on_court_update(
-                            defense_players, master_player_dict, "FG_SHORT_MID_RANGE_CHANCE_DEFENSIVE", 1)
-                        game_update(game_id, master_game_dict,
-                                    "FG_SHORT_MID_RANGE", 1)
-                    else:
-                        raise("Don't know what this is")
-
-                    shot_x = possession_event.shot_data["X"]
-                    shot_y = possession_event.shot_data["Y"]
-
-                    shot_x_y_key = f'{shot_x}|{shot_y}'
-
-                    if shot_x_y_key in master_x_y_dict[shot_type_field_string]:
-                        master_x_y_dict[shot_type_field_string][shot_x_y_key] += 1
-                    else:
-                        master_x_y_dict[shot_type_field_string][shot_x_y_key] = 1
-
-                    if shot_x_y_key in master_game_dict[game_id]["FG_XY"][shot_type_field_string]:
-                        master_game_dict[game_id]["FG_XY"][shot_type_field_string][shot_x_y_key] += 1
-                    else:
-                        master_game_dict[game_id]["FG_XY"][shot_type_field_string][shot_x_y_key] = 1
-
-                    if shot_x_y_key in master_player_dict[player]["FG_XY"][shot_type_field_string]:
-                        master_player_dict[player]["FG_XY"][shot_type_field_string][shot_x_y_key] += 1
-                    else:
-                        master_player_dict[player]["FG_XY"][shot_type_field_string][shot_x_y_key] = 1
-
-                    field_string = "FG_" + shot_type_field_string + "_"
-
                     player_update(player, master_player_dict,
-                                  field_string + "ATTEMPT", 1)
+                                  "VIOLATION_DEFENSIVE_GOALTENDING", 1)
 
+                    possession_length_update(
+                        "VIOLATION", master_play_length_dict, possession_event_length)
+
+                if possession_event.is_jumpball_violation:
+                    game_update(game_id, master_game_dict,
+                                "VIOLATION_JUMP_BALL", 1)
+                if possession_event.is_kicked_ball_violation:
+                    game_update(game_id, master_game_dict,
+                                "VIOLATION_DEFENSIVE_KICK_BALL", 1)
+                    players_on_court_update(
+                        defense_players, master_player_dict, "VIOLATION_DEFENSIVE_KICK_BALL_CHANCE", 1)
+                    player = possession_event.player1_id
                     player_update(player, master_player_dict,
-                                  "FG_TOTAL_ATTEMPT", 1)
-
-                    if is_block:
-                        game_update(game_id, master_game_dict,
-                                    "BLOCK", 1)
-                        field_string += "BLOCK"
-                        player_update(player, master_player_dict,
-                                      field_string, 1)
-                        players_on_court_update(
-                            defense_players, master_player_dict, "BLOCK_CHANCE", 1)
-                        blocking_player = possession_event.player3_id
-                        player_update(blocking_player, master_player_dict,
-                                      "BLOCK", 1)
-
-                    if is_made:
-                        game_update(game_id, master_game_dict,
-                                    "FG_MADE", 1)
-                        field_string += "MADE"
-                        player_update(player, master_player_dict,
-                                      field_string, 1)
-                        player_update(player, master_player_dict,
-                                      "FG_TOTAL_MADE", 1)
-                        if is_and_1:
-                            player_update(player, master_player_dict,
-                                          field_string + "_FOUL", 1)
-                            player_update(player, master_player_dict,
-                                          "FG_TOTAL_MADE_FOUL", 1)
-
-                else:
-                    raise("We have a field goal with no shooter")
+                                  "VIOLATION_DEFENSIVE_KICK_BALL", 1)
+                    possession_length_update(
+                        "VIOLATION", master_play_length_dict, possession_event_length)
+                if possession_event.is_lane_violation:
+                    game_update(game_id, master_game_dict,
+                                "VIOLATION_LANE", 1)
 
 possession_outcome_total = 0
 possession_outcome_field_goal = 0
@@ -1042,7 +1060,7 @@ total_foul_count_as_personal = 0
 total_foul_count_toward_penalty = 0
 total_foul_def_non_shooting = 0
 total_foul_double = 0
-total_foul_double_technical = 0
+total_foul_TECHNICAL_DOUBLE = 0
 total_foul_flagrant = 0
 total_foul_flagrant_1 = 0
 total_foul_flagrant_2 = 0
@@ -1107,7 +1125,7 @@ for game_id in master_game_dict.keys():
     total_foul_count_toward_penalty += game["FOUL_COUNT_TOWARD_PENALTY"]
     total_foul_def_non_shooting += game["FOUL_DEFENSIVE_NON_SHOOTING"]
     total_foul_double += game["FOUL_DOUBLE"]
-    total_foul_double_technical += game["FOUL_TECHNICAL"]
+    total_foul_TECHNICAL_DOUBLE += game["FOUL_TECHNICAL_DOUBLE"]
     total_foul_flagrant += game["FOUL_FLAGRANT"]
     total_foul_flagrant_1 += game["FOUL_FLAGRANT_1"]
     total_foul_flagrant_2 += game["FOUL_FLAGRANT_2"]
@@ -1181,7 +1199,7 @@ general_probabilities = {
     "FOUL_PERSONAL_BLOCK": total_foul_personal_block / total_foul_def_non_shooting,
     "FOUL_PERSONAL_TAKE": total_foul_personal_take / total_foul_def_non_shooting,
     "FOUL_TECHNICAL_PER_POSSESSION_OUTCOME": total_foul_technical / possession_outcome_total,
-    "FOUL_TECHNICAL_DOUBLE": total_foul_double_technical / total_foul_technical,
+    "FOUL_TECHNICAL_DOUBLE": total_foul_TECHNICAL_DOUBLE / total_foul_technical,
     "FOUL_TECHNICAL_NON_PLAYER": total_foul_technical_non_player / total_foul_technical,
     "REBOUND_DEFENSIVE": total_reb_def / total_reb,
     "REBOUND_DEFENSIVE_TEAM": total_def_team_reb / total_reb,
@@ -1301,7 +1319,7 @@ for player_id in master_player_dict.keys():
         "FOUL_DEFENSIVE_NON_SHOOTING": player_stats["FOUL_DEFENSIVE_NON_SHOOTING"] / player_stats["FOUL_DEFENSIVE_NON_SHOOTING_CHANCE"] if player_stats["FOUL_DEFENSIVE_NON_SHOOTING_CHANCE"] != 0 else 0.0,
         "FOULED_DEFENSIVE_NON_SHOOTING": player_stats["FOULED_DEFENSIVE_NON_SHOOTING"] / player_stats["FOULED_DEFENSIVE_NON_SHOOTING_CHANCE"] if player_stats["FOULED_DEFENSIVE_NON_SHOOTING_CHANCE"] != 0 else 0.0,
         "FOUL_DOUBLE": player_stats["FOUL_DOUBLE"] / player_stats["FOUL_DOUBLE_CHANCE"] if player_stats["FOUL_DOUBLE_CHANCE"] != 0 else 0.0,
-        "FOUL_DOUBLE_TECHNICAL": player_stats["FOUL_DOUBLE_TECHNICAL"] / player_stats["FOUL_DOUBLE_TECHNICAL_CHANCE"] if player_stats["FOUL_DOUBLE_TECHNICAL_CHANCE"] != 0 else 0.0,
+        "FOUL_TECHNICAL_DOUBLE": player_stats["FOUL_TECHNICAL_DOUBLE"] / player_stats["FOUL_TECHNICAL_DOUBLE_CHANCE"] if player_stats["FOUL_TECHNICAL_DOUBLE_CHANCE"] != 0 else 0.0,
         "FOUL_FLAGRANT": player_stats["FOUL_FLAGRANT"] / player_stats["FOUL_FLAGRANT_CHANCE"] if player_stats["FOUL_FLAGRANT_CHANCE"] != 0 else 0.0,
         "FOULED_FLAGRANT": player_stats["FOULED_FLAGRANT"] / player_stats["FOULED_FLAGRANT_CHANCE"] if player_stats["FOULED_FLAGRANT_CHANCE"] != 0 else 0.0,
         "FOUL_FLAGRANT_1": player_stats["FOUL_FLAGRANT_1"] / player_stats["FOUL_FLAGRANT_1_CHANCE"] if player_stats["FOUL_FLAGRANT_1_CHANCE"] != 0 else 0.0,
@@ -1395,3 +1413,6 @@ with open(f'../server/src/data/probabilities/possessionLength.json', 'w') as out
 df = pd.DataFrame.from_dict(master_foul_dict)
 df.to_pickle("./output/foul-explorer.pkl")
 df.to_json("./output/foul-explorer.json", orient="index")
+
+
+pprint.pp(master_fg_description_dict.values())

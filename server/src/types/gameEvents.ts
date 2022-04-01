@@ -6,6 +6,11 @@ import {
   ViolationTypes,
 } from ".";
 import { Player, Team } from "../entities";
+import {
+  EjectionReasons,
+  FoulTypesDefensiveNonShooting,
+  TechnicalReasons,
+} from "./enums";
 
 export const GameEventStartingLineup = z.object({
   defPlayersOnCourt: z.array(z.instanceof(Player)),
@@ -206,14 +211,24 @@ export const GameEventSegment = z.object({
 });
 export type GameEventSegment = z.infer<typeof GameEventSegment>;
 
+export const GameEventEjection = z.object({
+  defPlayersOnCourt: z.array(z.instanceof(Player)),
+  defTeam: z.instanceof(Team),
+  ejectionReason: EjectionReasons,
+  offPlayersOnCourt: z.array(z.instanceof(Player)),
+  offTeam: z.instanceof(Team),
+  player0: z.instanceof(Player),
+});
+export type GameEventEjection = z.infer<typeof GameEventEjection>;
+
 export const GameEventFreeThrow = z.object({
-  isBonus: z.boolean().optional(),
   defTeam: z.instanceof(Team),
   offPlayer1: z.instanceof(Player),
   offTeam: z.instanceof(Team),
   defPlayersOnCourt: z.array(z.instanceof(Player)),
   offPlayersOnCourt: z.array(z.instanceof(Player)),
   shotNumber: z.number().min(1).max(3),
+  isBonus: z.boolean().optional(),
   shotValue: z.number(),
   totalShots: z.number().min(1).max(3),
   valueToAdd: z.number(),
@@ -232,10 +247,22 @@ export const GameEventFoulOffensive = z.object({
 });
 export type GameEventFoulOffensive = z.infer<typeof GameEventFoulOffensive>;
 
+export const GameEventFoulTechnical = z.object({
+  defPlayersOnCourt: z.array(z.instanceof(Player)),
+  defTeam: z.instanceof(Team),
+  offPlayersOnCourt: z.array(z.instanceof(Player)),
+  offTeam: z.instanceof(Team),
+  player0: z.instanceof(Player),
+  player1: z.instanceof(Player).optional(),
+  technicalReason: TechnicalReasons,
+});
+export type GameEventFoulTechnical = z.infer<typeof GameEventFoulTechnical>;
+
 export const GameEventNonShootingDefensiveFoul = z.object({
   defPlayer1: z.instanceof(Player),
   defTeam: z.instanceof(Team),
   foulPenaltySettings: FoulPenaltySettings,
+  foulType: FoulTypesDefensiveNonShooting,
   defPlayersOnCourt: z.array(z.instanceof(Player)),
   offPlayersOnCourt: z.array(z.instanceof(Player)),
   offPlayer1: z.instanceof(Player),
@@ -318,6 +345,8 @@ export const GameEventData = z.union([
   GameEvent3FgMadeFoul,
   GameEvent3FgMiss,
   GameEvent3FgMissFoul,
+  GameEventFoulTechnical,
+  GameEventEjection,
   GameEventBlock,
   GameEventFreeThrow,
   GameEventJumpBall,
