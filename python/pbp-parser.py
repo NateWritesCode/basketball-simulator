@@ -17,7 +17,7 @@ import pandas as pd
 import json
 import pprint
 import re
-games_to_process = 100
+games_to_process = 2
 
 
 season_settings = {
@@ -331,6 +331,7 @@ for season_game in season.games.items[:games_to_process]:
                 "FOUL_TECHNICAL_DOUBLE_CHANCE": 0,
                 "FT_ATTEMPT": 0,
                 "FT_MADE": 0,
+                "GAMES": 0,
                 "REBOUND_DEFENSIVE": 0,
                 "REBOUND_DEFENSIVE_CHANCE": 0,
                 "REBOUND_OFFENSIVE": 0,
@@ -1415,4 +1416,13 @@ df.to_pickle("./output/foul-explorer.pkl")
 df.to_json("./output/foul-explorer.json", orient="index")
 
 
-pprint.pp(master_fg_description_dict.values())
+df = pd.DataFrame.from_dict(master_player_dict, orient="index")
+# df.reset_index(inplace=True)
+# df = df.rename(columns={'index': 'id'})
+
+
+df.to_pickle("./output/player-totals.pkl")
+df.to_json("./output/player-totals.json", orient="index")
+
+
+pprint.pp(df.head())

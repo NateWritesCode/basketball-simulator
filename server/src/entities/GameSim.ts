@@ -920,12 +920,13 @@ class GameSim {
               const overtimeOptions =
                 gameType.overtimeOptions as OvertimeTypeTime;
 
-              console.log("this.teamStates[0]", this.teamStates[0]);
-              console.log("overtimeOptions", overtimeOptions);
-
               //set timeouts in the team state to the number of overtime timeouts allowed
-              this.teamStates[0].setTimeouts(overtimeOptions.timeouts);
-              this.teamStates[1].setTimeouts(overtimeOptions.timeouts);
+              this.teamStates[this.teams[0].id].setTimeouts(
+                overtimeOptions.timeouts
+              );
+              this.teamStates[this.teams[1].id].setTimeouts(
+                overtimeOptions.timeouts
+              );
 
               if (gameType.overtimeOptions.type === "time") {
                 if (!this.isOvertime) {

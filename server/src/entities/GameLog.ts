@@ -243,6 +243,7 @@ class GameLog implements IObserver {
         const file = fs.createWriteStream(
           `./src/data/game-logs/${this.gameId}.txt`
         );
+
         this.gameLog.forEach((v) => file.write(`${v}\r\n`));
         file.end();
         break;

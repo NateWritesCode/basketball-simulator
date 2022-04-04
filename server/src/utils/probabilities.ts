@@ -14,6 +14,7 @@ import Player from "../entities/Player";
 import getAverage from "./getAverage";
 import random from "random";
 import camelCaseAndCapitalize from "./camelCaseAndCapitalize";
+import { isNaN, sample } from "lodash";
 
 export const convertShotType = (shotType: ShotTypes) => {
   switch (shotType) {
@@ -73,7 +74,7 @@ export const getFgAttemptPlayer = (
 ): Player => {
   return getPlayerFromUnevenChoiceByField(
     offPlayersOnCourt,
-    `fg${shotType}Attempt`
+    `fg${convertShotType(shotType)}Attempt`
   );
 };
 
@@ -217,7 +218,7 @@ export const getOffensiveFoulPlayer = ({
   isCharge: boolean;
   offPlayersOnCourt: Player[];
 }): Player => {
-  const field = isCharge ? "foulOffCharge" : "foulOffOther";
+  const field = isCharge ? "foulOffensiveCharge" : "foulOffensiveOther";
   return getPlayerFromUnevenChoiceByField(offPlayersOnCourt, field);
 };
 
@@ -228,7 +229,7 @@ export const getOffensiveFouledPlayer = ({
   isCharge: boolean;
   defPlayersOnCourt: Player[];
 }): Player => {
-  const field = isCharge ? "fouledOffCharge" : "fouledOffOther";
+  const field = isCharge ? "fouledOffensiveCharge" : "fouledOffensiveOther";
   return getPlayerFromUnevenChoiceByField(defPlayersOnCourt, field);
 };
 
@@ -238,7 +239,7 @@ export const getOffensiveReboundPlayer = (offPlayersOnCourt: Player[]) => {
 
 const getPlayerFromUnevenChoiceByField = (
   players: any,
-  field: any //TODO: FIX THIS TO BE A TYPE OF ONLY PROPERTIES OF THE PLAYER CLASS
+  field: any //TODO: FIX THIS TO BE A TYPE OF ONLY PROPERTIES OF THE PLAYER CLASS,
 ): Player => {
   const probabilityArray: [Player, number][] = [];
   let total = 0;
@@ -246,6 +247,17 @@ const getPlayerFromUnevenChoiceByField = (
   players.forEach((player: any) => {
     total += player[field];
   });
+
+  if (isNaN(total)) {
+    throw new Error(
+      `Problem getPlayerFromUnenvenChoiceByField field NAN ${field}`
+    );
+  }
+
+  if (total === 0) {
+    //means no players have a total so just get a random player
+    return sample(players);
+  }
 
   players.forEach((player: any) => {
     probabilityArray.push([player, player[field] / total]);

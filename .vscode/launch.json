@@ -2,6 +2,15 @@
   "version": "0.1.0",
   "configurations": [
     {
+      "name": "Python: Current File",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "cwd": "${fileDirname}"
+    },
+    {
       "type": "node",
       "request": "launch",
       "name": "Debug Server",

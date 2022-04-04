@@ -13,7 +13,7 @@ counter = 0
 for player in all_players:
     counter += 1
     print("Processing player", counter, "of", num_of_players)
-    time.sleep(3)
+    # time.sleep(1)
     player_info = commonplayerinfo.CommonPlayerInfo(player_id=player["id"])
     player_df = player_info.common_player_info.get_data_frame()
     if players_df.empty:
