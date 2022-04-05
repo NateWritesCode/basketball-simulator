@@ -992,7 +992,6 @@ class GameSim {
         const shotType = getShotType([offPlayersOnCourt, defPlayersOnCourt]);
         const offPlayer1 = getFgAttemptPlayer(offPlayersOnCourt, shotType);
         const isMade = getFgIsMadeByPlayer(offPlayer1, shotType);
-
         const pts = get2or3Pointer(shotType);
         const [x, y] = getFgXYByShotType(shotType);
 

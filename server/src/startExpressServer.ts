@@ -12,7 +12,7 @@ import CubeJsServer from "@cubejs-backend/server";
 import PostgresDriver from "@cubejs-backend/postgres-driver";
 import PrestoDriver from "@cubejs-backend/prestodb-driver";
 
-const prisma = new PrismaClient();
+export const prisma = new PrismaClient();
 const presto = new PrestoClient();
 
 export default async () => {
@@ -113,4 +113,6 @@ export default async () => {
         `Server is ready at http://localhost:${port}${apolloServer.graphqlPath}`
       )
   );
+
+  return prisma;
 };

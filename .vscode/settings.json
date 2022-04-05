@@ -13,5 +13,5 @@
   ],
   "python.autoComplete.extraPaths": ["./python"],
   "python.analysis.extraPaths": ["./python"],
-  "python.pythonPath": "venv/bin/python3"
+  "python.defaultInterpreterPath": "venv/bin/python3"
 }
