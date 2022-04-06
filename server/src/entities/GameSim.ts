@@ -248,16 +248,23 @@ class GameSim {
   };
 
   getDefaultEventData = () => {
-    const defTeam = this.teams[this.d];
-    const offTeam = this.teams[this.o];
-    const offPlayersOnCourt = this.playersOnCourt[this.o];
     const defPlayersOnCourt = this.playersOnCourt[this.d];
+    const defTeam = this.teams[this.d];
+    const gameType = this.gameType;
+    const offPlayersOnCourt = this.playersOnCourt[this.o];
+    const offTeam = this.teams[this.o];
+    const segment =
+      this.timeSegmentIndex !== undefined
+        ? this.timeSegmentIndex + 1
+        : undefined;
 
     return {
-      defTeam,
-      offTeam,
-      offPlayersOnCourt,
       defPlayersOnCourt,
+      defTeam,
+      gameType,
+      offPlayersOnCourt,
+      offTeam,
+      segment,
     };
   };
 

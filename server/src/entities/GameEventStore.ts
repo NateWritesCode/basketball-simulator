@@ -33,20 +33,24 @@ class GameEventStore implements IObserver {
     this.team1 = team1;
     this.filePath = `./src/data/game-events/${gameId}.txt`;
     this.pipeSettings = {
+      bool1: {},
+      defPlayersOnCourt: {},
+      defTeam: {},
       gameEvent: {},
       gameType: {},
-      player1: { getId: true },
-      player2: { getId: true },
-      player3: { getId: true },
+      offPlayersOnCourt: {},
+      offTeam: {},
+      player1: {},
+      player2: {},
+      player3: {},
       possessionLength: {},
       segment: {},
-      team1: { getId: true },
-      team1PlayersOnCourt: { getIdArray: true },
-      team2: { getId: true },
-      team2PlayersOnCourt: { getIdArray: true },
+      team1: {},
+      team2: {},
       text1: {},
       value1: {},
       value2: {},
+      value3: {},
       // defPlayer1: { getId: true },
       // defPlayer2: { getId: true },
       // defPlayersOnCourt: { getIdArray: true },
@@ -101,9 +105,117 @@ class GameEventStore implements IObserver {
   }
 
   appendToFile = (gameEvent: GameEventEnum, gameEventData: any) => {
-    let insertString = "";
-
+    const insertObj = {
+      defPlayersOnCourt: gameEventData["defPlayersOnCourt"],
+      defTeam: gameEventData["defTeam"],
+      gameEvent,
+      gameType: gameEventData["gameType"],
+      offPlayersOnCourt: gameEventData["offPlayersOnCourt"],
+      offTeam: gameEventData["offTeam"],
+      segment: gameEventData["segment"],
+    };
     const pipeSettingsKeys = Object.keys(this.pipeSettings);
+
+    switch (gameEvent) {
+      case "2FG_ATTEMPT": {
+        break;
+      }
+      case "2FG_BLOCK": {
+        break;
+      }
+      case "2FG_MADE": {
+        break;
+      }
+      case "2FG_MADE_FOUL": {
+        break;
+      }
+      case "2FG_MISS": {
+        break;
+      }
+      case "2FG_MISS_FOUL": {
+        break;
+      }
+      case "3FG_ATTEMPT": {
+        break;
+      }
+      case "3FG_BLOCK": {
+        break;
+      }
+      case "3FG_MADE": {
+        break;
+      }
+      case "3FG_MADE_FOUL": {
+        break;
+      }
+      case "3FG_MISS": {
+        break;
+      }
+      case "3FG_MISS_FOUL": {
+        break;
+      }
+      case "DEFENSIVE_REBOUND": {
+        break;
+      }
+      case "EJECTION": {
+        break;
+      }
+      case "FOUL_DEFENSIVE_NON_SHOOTING": {
+        break;
+      }
+      case "FOUL_OFFENSIVE": {
+        break;
+      }
+      case "FOUL_TECHNICAL": {
+        break;
+      }
+      case "FREE_THROW": {
+        break;
+      }
+      case "GAME_END": {
+        break;
+      }
+      case "GAME_START": {
+        break;
+      }
+      case "JUMP_BALL": {
+        break;
+      }
+      case "OFFENSIVE_REBOUND": {
+        break;
+      }
+      case "POSSESSION_ARROW": {
+        break;
+      }
+      case "SEGMENT_START": {
+        break;
+      }
+      case "SEGMENT_END": {
+        break;
+      }
+      case "STARTING_LINEUP": {
+        break;
+      }
+      case "STEAL": {
+        break;
+      }
+      case "SUBSTITUTION": {
+        break;
+      }
+      case "TIMEOUT": {
+        break;
+      }
+      case "TURNOVER": {
+        break;
+      }
+      case "VIOLATION": {
+        break;
+      }
+      default:
+        const exhaustiveCheck: never = gameEvent;
+        throw new Error(exhaustiveCheck);
+    }
+
+    let insertString = "";
 
     pipeSettingsKeys.forEach((pipeSettingKey, i) => {
       let value = "";
