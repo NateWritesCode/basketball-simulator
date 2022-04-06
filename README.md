@@ -1,3 +1,3 @@
 # Basketball Simulator
 
-A work-in-progress NBA Basketball Game simulator
+A work-in-progress NBA Basketball Game Simulator
