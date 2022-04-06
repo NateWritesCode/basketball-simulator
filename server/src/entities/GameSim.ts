@@ -795,9 +795,8 @@ class GameSim {
     do {
       const isFirstShot = 1 === i + 1;
       const isLastShot = totalShots === i + 1;
-      const shotMade = getFtIsMadeByPlayer(offPlayer1);
+      const isMade = getFtIsMadeByPlayer(offPlayer1);
       const shotNumber = i + 1;
-      const valueToAdd = shotMade ? 1 : 0;
 
       const offPlayersOnCourt = this.playersOnCourt[this.o];
       const defPlayersOnCourt = this.playersOnCourt[this.d];
@@ -813,15 +812,15 @@ class GameSim {
 
       this.notifyObservers("FREE_THROW", {
         isBonus,
+        isMade,
         offPlayer1,
         shotNumber,
         totalShots,
-        valueToAdd,
         offPlayersOnCourt,
         defPlayersOnCourt,
       });
 
-      if (isLastShot && !shotMade) {
+      if (isLastShot && !isMade) {
         const possessionLength = this.handleTime("REBOUND");
         const isOffensiveRebound = getIsOffensiveRebound();
         const isReboundedByTeam = getIsTeamRebound(isOffensiveRebound);
@@ -1024,7 +1023,6 @@ class GameSim {
                 : undefined,
             shotValue: pts,
             shotType,
-            valueToAdd: pts,
             x,
             y,
           });
@@ -1071,7 +1069,6 @@ class GameSim {
             offPlayer2: assistingPlayer,
             shotType,
             shotValue: pts,
-            valueToAdd: pts,
             x,
             y,
           });
@@ -1096,7 +1093,6 @@ class GameSim {
               defPlayer1: blockingPlayer,
               offPlayer1,
               shotValue: pts,
-              valueToAdd: 1,
             });
           }
 
@@ -1110,7 +1106,6 @@ class GameSim {
             this.notifyObservers(`OFFENSIVE_REBOUND`, {
               offPlayer1: reboundingPlayer,
               possessionLength: possessionLengthRebound,
-              valueToAdd: 1,
             });
 
             this.isPossessionEventsComplete = false;
@@ -1125,7 +1120,6 @@ class GameSim {
             this.notifyObservers(`DEFENSIVE_REBOUND`, {
               defPlayer1: reboundingPlayer,
               possessionLength: possessionLengthRebound,
-              valueToAdd: 1,
             });
           }
         }
@@ -1316,14 +1310,12 @@ class GameSim {
             offPlayer1,
             possessionLength,
             turnoverType,
-            valueToAdd: 1,
           });
         } else {
           this.notifyObservers("TURNOVER", {
             offPlayer1,
             possessionLength,
             turnoverType,
-            valueToAdd: 1,
           });
           this.shouldWeTimeout({ isDeadBall: true });
           this.shouldWeSubstitution();

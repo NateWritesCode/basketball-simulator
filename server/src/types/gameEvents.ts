@@ -229,9 +229,9 @@ export const GameEventFreeThrow = z.object({
   offPlayersOnCourt: z.array(z.instanceof(Player)),
   shotNumber: z.number().min(1).max(3),
   isBonus: z.boolean().optional(),
+  isMade: z.boolean(),
   shotValue: z.number(),
   totalShots: z.number().min(1).max(3),
-  valueToAdd: z.number(),
 });
 export type GameEventFreeThrow = z.infer<typeof GameEventFreeThrow>;
 

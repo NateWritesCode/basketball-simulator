@@ -1,5 +1,6 @@
 import moment from "moment";
-import { prisma, Team } from "@prisma/client";
+import { Team } from "@prisma/client";
+import random from "random";
 
 export default ({
   scheduleType,
@@ -106,10 +107,13 @@ export default ({
           console.log(teamAbbrev, numOfGames);
         });
 
-        const yesterday = [];
-        const twoDaysAgo = [];
+        let yesterday = [];
+        let twoDaysAgo = [];
 
         while (currentDate <= regularSeasonEnd) {
+          //West coast and east coast trip
+
+          const numOfGames = random.integer(3, 12);
           const currentDateMoment = moment(currentDate).add(1, "day");
           currentDate = currentDateMoment.format("YYYY-MM-DD");
         }

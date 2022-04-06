@@ -227,9 +227,9 @@ class GameLog implements IObserver {
         break;
       }
       case "FREE_THROW": {
-        const { isBonus, offPlayer1, valueToAdd, shotNumber, totalShots } =
+        const { isBonus, offPlayer1, isMade, shotNumber, totalShots } =
           gameEventData as GameEventFreeThrow;
-        const shotResultText = valueToAdd ? "MADE" : "MISS";
+        const shotResultText = isMade ? "MADE" : "MISS";
         this.logInfo([
           `${
             isBonus ? "BONUS - " : ""

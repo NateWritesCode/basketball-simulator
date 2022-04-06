@@ -1,6 +1,5 @@
 import { GameEventEnum, IObserver } from "../types";
 import fs from "fs";
-import { getMappedKey } from "../utils";
 
 class GameEventStore implements IObserver {
   eventIdIterator: number;
@@ -34,35 +33,48 @@ class GameEventStore implements IObserver {
     this.team1 = team1;
     this.filePath = `./src/data/game-events/${gameId}.txt`;
     this.pipeSettings = {
-      defPlayer1: { getId: true },
-      defPlayer2: { getId: true },
-      defPlayersOnCourt: { getIdArray: true },
-      defTeam: { getId: true },
       gameEvent: {},
-      gameId: { alwaysThis: true },
-      gameType: { alwaysThis: true },
-      id: { isId: true },
-      incomingPlayer: { getId: true },
-      isBonus: {},
-      isCharge: {},
-      isNeutralFloor: { alwaysThis: true },
-      isPlayerFouledOut: {},
-      offPlayer1: { getId: true },
-      offPlayer2: { getId: true },
-      offPlayersOnCourt: { getIdArray: true },
-      offTeam: { getId: true },
-      outgoingPlayer: { getId: true },
+      gameType: {},
+      player1: { getId: true },
+      player2: { getId: true },
+      player3: { getId: true },
       possessionLength: {},
       segment: {},
-      shotType: {},
-      shotValue: {},
-      team0: { alwaysThis: true },
-      team1: { alwaysThis: true },
-      turnoverType: {},
-      valueToAdd: {},
-      violationType: {},
-      x: {},
-      y: {},
+      team1: { getId: true },
+      team1PlayersOnCourt: { getIdArray: true },
+      team2: { getId: true },
+      team2PlayersOnCourt: { getIdArray: true },
+      text1: {},
+      value1: {},
+      value2: {},
+      // defPlayer1: { getId: true },
+      // defPlayer2: { getId: true },
+      // defPlayersOnCourt: { getIdArray: true },
+      // defTeam: { getId: true },
+      // gameEvent: {},
+      // gameId: { alwaysThis: true },
+      // gameType: { alwaysThis: true },
+      // id: { isId: true },
+      // incomingPlayer: { getId: true },
+      // isBonus: {},
+      // isCharge: {},
+      // isNeutralFloor: { alwaysThis: true },
+      // isPlayerFouledOut: {},
+      // offPlayer1: { getId: true },
+      // offPlayer2: { getId: true },
+      // offPlayersOnCourt: { getIdArray: true },
+      // offTeam: { getId: true },
+      // outgoingPlayer: { getId: true },
+      // possessionLength: {},
+      // segment: {},
+      // shotType: {},
+      // shotValue: {},
+      // team0: { alwaysThis: true },
+      // team1: { alwaysThis: true },
+      // turnoverType: {},
+      // violationType: {},
+      // x: {},
+      // y: {},
     };
 
     //create file
@@ -88,7 +100,7 @@ class GameEventStore implements IObserver {
     fs.appendFileSync(this.filePath, `${headerString}\n`);
   }
 
-  appendToFile = (gameEvent: string, gameEventData: any) => {
+  appendToFile = (gameEvent: GameEventEnum, gameEventData: any) => {
     let insertString = "";
 
     const pipeSettingsKeys = Object.keys(this.pipeSettings);
@@ -181,9 +193,11 @@ class GameEventStore implements IObserver {
         break;
       }
       case "EJECTION": {
+        this.appendToFile(gameEvent, gameEventData);
         break;
       }
       case "FOUL_TECHNICAL": {
+        this.appendToFile(gameEvent, gameEventData);
         break;
       }
       case "FREE_THROW": {
@@ -235,9 +249,11 @@ class GameEventStore implements IObserver {
         break;
       }
       case "SUBSTITUTION": {
+        this.appendToFile(gameEvent, gameEventData);
         break;
       }
       case "TIMEOUT": {
+        this.appendToFile(gameEvent, gameEventData);
         break;
       }
       case "TURNOVER": {

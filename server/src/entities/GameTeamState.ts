@@ -332,11 +332,11 @@ class GameTeamState implements IObserver {
         break;
       }
       case "FREE_THROW": {
-        const { valueToAdd, offTeam } = gameEventData as GameEventFreeThrow;
+        const { isMade, offTeam } = gameEventData as GameEventFreeThrow;
 
         if (offTeam.id === this.id) {
           this.fta += 1;
-          if (valueToAdd) {
+          if (isMade) {
             this.ftm += 1;
             this.momentum += 1;
             this.pts += 1;

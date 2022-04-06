@@ -486,18 +486,18 @@ class GamePlayerState implements IObserver {
         break;
       }
       case "FREE_THROW": {
-        const { offPlayer1, valueToAdd, offPlayersOnCourt, defPlayersOnCourt } =
+        const { offPlayer1, isMade, offPlayersOnCourt, defPlayersOnCourt } =
           gameEventData as GameEventFreeThrow;
 
         if (offPlayer1.id === this.id) {
           this.fta += 1;
-          if (valueToAdd) {
+          if (isMade) {
             this.ftm += 1;
             this.pts += 1;
           }
         }
 
-        if (valueToAdd) {
+        if (isMade) {
           offPlayersOnCourt.forEach((player) => {
             if (player.id === this.id) {
               this.plusMinus += 1;

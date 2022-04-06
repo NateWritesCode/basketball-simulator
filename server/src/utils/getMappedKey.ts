@@ -34,7 +34,6 @@ export default ({
         team0: "team_0",
         team1: "team_1",
         turnoverType: "turnover_type",
-        valueToAdd: "value_to_add",
         violationType: "violation_type",
       };
 
