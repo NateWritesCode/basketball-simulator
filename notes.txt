@@ -13,12 +13,6 @@ To install packages:
  pip3 install -r requirements.txt
 
 
-TODO
-
-Not resimulating possession after offensive rebound
-offensive/defensive players on court with jump balls and possession arrows could be messed up
-
-
 PBP PARSE NOTES
 pbp-parse.py fails on is_heave sometimes '>' not supported between instances of 'NoneType' and 'int'. Because I think shot distance is not there
 
