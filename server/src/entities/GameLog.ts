@@ -9,16 +9,16 @@ import {
   GameEvent3FgMadeFoul,
   GameEvent3FgMiss,
   GameEventBlock,
-  GameEventDefensiveRebound,
+  GameEventReboundDefensive,
   GameEventEnum,
   GameEventFreeThrow,
   GameEventJumpBall,
-  GameEventOffensiveRebound,
+  GameEventReboundOffensive,
   GameEventSegment,
   GameEventStartingLineup,
   GameEvent3FgMissFoul,
   GameTypeTimeSegments,
-  GameEventNonShootingDefensiveFoul,
+  GameEventFoulNonShootingDefensive,
   GameEventSteal,
   GameEventTurnover,
   IObserver,
@@ -105,105 +105,105 @@ class GameLog implements IObserver {
   notifyGameEvent(gameEvent: GameEventEnum, gameEventData: unknown): void {
     switch (gameEvent) {
       case "2FG_ATTEMPT": {
-        const { offPlayer1, offTeam, shotType, x, y } =
+        const { offPlayer0, offTeam, shotType, x, y } =
           gameEventData as GameEvent2FgAttempt;
         this.logInfo([
-          `${offPlayer1.getFullName()} is attempting a 2-point shot for ${offTeam.getFullName()} ${shotType} x:${x} y:${y}`,
+          `${offPlayer0.getFullName()} is attempting a 2-point shot for ${offTeam.getFullName()} ${shotType} x:${x} y:${y}`,
         ]);
         break;
       }
       case "2FG_BLOCK": {
-        const { offPlayer1, defPlayer1 } = gameEventData as GameEventBlock;
+        const { offPlayer0, defPlayer0 } = gameEventData as GameEventBlock;
         this.logInfo([
-          `${offPlayer1.getFullName()} had a 2-point shot blocked by ${defPlayer1.getFullName()}`,
+          `${offPlayer0.getFullName()} had a 2-point shot blocked by ${defPlayer0.getFullName()}`,
         ]);
         break;
       }
       case "2FG_MADE": {
-        const { offPlayer1, offTeam, shotType, x, y } =
+        const { offPlayer0, offTeam, shotType, x, y } =
           gameEventData as GameEvent2FgMade;
         this.logInfo([
-          `${offPlayer1.getFullName()} made a 2-point shot for ${offTeam.getFullName()} ${shotType} x:${x} y:${y}`,
+          `${offPlayer0.getFullName()} made a 2-point shot for ${offTeam.getFullName()} ${shotType} x:${x} y:${y}`,
         ]);
         break;
       }
       case "2FG_MADE_FOUL": {
-        const { defPlayer1, offPlayer1, offTeam, shotType, x, y } =
+        const { defPlayer0, offPlayer0, offTeam, shotType, x, y } =
           gameEventData as GameEvent2FgMadeFoul;
         this.logInfo([
-          `${offPlayer1.getFullName()} made a 2-point shot for ${offTeam.getFullName()} and was fouled by ${defPlayer1.getFullName()} ${shotType} x:${x} y:${y}`,
+          `${offPlayer0.getFullName()} made a 2-point shot for ${offTeam.getFullName()} and was fouled by ${defPlayer0.getFullName()} ${shotType} x:${x} y:${y}`,
         ]);
         break;
       }
       case "2FG_MISS": {
-        const { offPlayer1, offTeam, shotType, x, y } =
+        const { offPlayer0, offTeam, shotType, x, y } =
           gameEventData as GameEvent2FgMiss;
         this.logInfo([
-          `${offPlayer1.getFullName()} missed a 2-point shot for ${offTeam.getFullName()} ${shotType} x:${x} y:${y}`,
+          `${offPlayer0.getFullName()} missed a 2-point shot for ${offTeam.getFullName()} ${shotType} x:${x} y:${y}`,
         ]);
         break;
       }
       case "2FG_MISS_FOUL": {
-        const { offPlayer1, offTeam, defPlayer1, shotType, x, y } =
+        const { offPlayer0, offTeam, defPlayer0, shotType, x, y } =
           gameEventData as GameEvent2FgMissFoul;
         this.logInfo([
-          `${offPlayer1.getFullName()} missed a 2-point shot for ${offTeam.getFullName()} and was fouled by ${defPlayer1.getFullName()} ${shotType} x:${x} y:${y}`,
+          `${offPlayer0.getFullName()} missed a 2-point shot for ${offTeam.getFullName()} and was fouled by ${defPlayer0.getFullName()} ${shotType} x:${x} y:${y}`,
         ]);
         break;
       }
       case "3FG_ATTEMPT": {
-        const { offPlayer1, offTeam, shotType, x, y } =
+        const { offPlayer0, offTeam, shotType, x, y } =
           gameEventData as GameEvent3FgAttempt;
         this.logInfo([
-          `${offPlayer1.getFullName()} is attempting a 3-point shot for ${offTeam.getFullName()} ${shotType} x:${x} y:${y}`,
+          `${offPlayer0.getFullName()} is attempting a 3-point shot for ${offTeam.getFullName()} ${shotType} x:${x} y:${y}`,
         ]);
         break;
       }
       case "3FG_BLOCK": {
-        const { offPlayer1, defPlayer1 } = gameEventData as GameEventBlock;
+        const { offPlayer0, defPlayer0 } = gameEventData as GameEventBlock;
         this.logInfo([
-          `${offPlayer1.getFullName()} had a 3-point shot blocked by ${defPlayer1.getFullName()}`,
+          `${offPlayer0.getFullName()} had a 3-point shot blocked by ${defPlayer0.getFullName()}`,
         ]);
         break;
       }
       case "3FG_MADE": {
-        const { offPlayer1, offTeam, shotType, x, y } =
+        const { offPlayer0, offTeam, shotType, x, y } =
           gameEventData as GameEvent3FgMade;
         this.logInfo([
-          `${offPlayer1.getFullName()} made a 3-point shot for ${offTeam.getFullName()} ${shotType} x:${x} y:${y}`,
+          `${offPlayer0.getFullName()} made a 3-point shot for ${offTeam.getFullName()} ${shotType} x:${x} y:${y}`,
         ]);
         break;
       }
       case "3FG_MADE_FOUL": {
-        const { defPlayer1, offPlayer1, offTeam, shotType, x, y } =
+        const { defPlayer0, offPlayer0, offTeam, shotType, x, y } =
           gameEventData as GameEvent3FgMadeFoul;
         this.logInfo([
-          `${offPlayer1.getFullName()} made a 3-point shot for ${offTeam.getFullName()} and was fouled by ${defPlayer1.getFullName()} ${shotType} x:${x} y:${y}`,
+          `${offPlayer0.getFullName()} made a 3-point shot for ${offTeam.getFullName()} and was fouled by ${defPlayer0.getFullName()} ${shotType} x:${x} y:${y}`,
         ]);
         break;
       }
       case "3FG_MISS": {
-        const { offPlayer1, offTeam, shotType, x, y } =
+        const { offPlayer0, offTeam, shotType, x, y } =
           gameEventData as GameEvent3FgMiss;
         this.logInfo([
-          `${offPlayer1.getFullName()} missed a 3-point shot for ${offTeam.getFullName()} ${shotType} x:${x} y:${y}`,
+          `${offPlayer0.getFullName()} missed a 3-point shot for ${offTeam.getFullName()} ${shotType} x:${x} y:${y}`,
         ]);
         break;
       }
       case "3FG_MISS_FOUL": {
-        const { offPlayer1, offTeam, defPlayer1, shotType, x, y } =
+        const { offPlayer0, offTeam, defPlayer0, shotType, x, y } =
           gameEventData as GameEvent3FgMissFoul;
         this.logInfo([
-          `${offPlayer1.getFullName()} missed a 3-point shot for ${offTeam.getFullName()} and was fouled by ${defPlayer1.getFullName()} ${shotType} x:${x} y:${y}`,
+          `${offPlayer0.getFullName()} missed a 3-point shot for ${offTeam.getFullName()} and was fouled by ${defPlayer0.getFullName()} ${shotType} x:${x} y:${y}`,
         ]);
         break;
       }
       case "DEFENSIVE_REBOUND": {
-        const { defPlayer1, defTeam } =
-          gameEventData as GameEventDefensiveRebound;
+        const { defPlayer0, defTeam } =
+          gameEventData as GameEventReboundDefensive;
         this.logInfo([
           `${defTeam.getFullName()} ${
-            defPlayer1 ? defPlayer1.getFullName() : ""
+            defPlayer0 ? defPlayer0.getFullName() : ""
           } has rebounded the ball for the defense`,
         ]);
         break;
@@ -227,13 +227,13 @@ class GameLog implements IObserver {
         break;
       }
       case "FREE_THROW": {
-        const { isBonus, offPlayer1, isMade, shotNumber, totalShots } =
+        const { isBonus, offPlayer0, isMade, shotNumber, totalShots } =
           gameEventData as GameEventFreeThrow;
         const shotResultText = isMade ? "MADE" : "MISS";
         this.logInfo([
           `${
             isBonus ? "BONUS - " : ""
-          }Free throw ${shotNumber} of ${totalShots} - ${offPlayer1.getFullName()} ${shotResultText}`,
+          }Free throw ${shotNumber} of ${totalShots} - ${offPlayer0.getFullName()} ${shotResultText}`,
         ]);
         break;
       }
@@ -253,39 +253,39 @@ class GameLog implements IObserver {
         break;
       }
       case "JUMP_BALL": {
-        const { offPlayer1, offTeam } = gameEventData as GameEventJumpBall;
+        const { offPlayer0, offTeam } = gameEventData as GameEventJumpBall;
         this.logInfo([
-          `${offPlayer1.getFullName()} wins the tip for the ${offTeam.getFullName()}`,
+          `${offPlayer0.getFullName()} wins the tip for the ${offTeam.getFullName()}`,
         ]);
 
         break;
       }
       case "FOUL_DEFENSIVE_NON_SHOOTING": {
-        const { offPlayer1, defPlayer1, foulType } =
-          gameEventData as GameEventNonShootingDefensiveFoul;
+        const { offPlayer0, defPlayer0, foulType } =
+          gameEventData as GameEventFoulNonShootingDefensive;
         this.logInfo([
-          `${offPlayer1.getFullName()} fouled by ${defPlayer1.getFullName()} - ${foulType} foul`,
+          `${offPlayer0.getFullName()} fouled by ${defPlayer0.getFullName()} - ${foulType} foul`,
         ]);
 
         break;
       }
       case "FOUL_OFFENSIVE": {
-        const { defPlayer1, isCharge, offPlayer1 } =
+        const { defPlayer0, isCharge, offPlayer0 } =
           gameEventData as GameEventFoulOffensive;
         this.logInfo([
           `OFFENSIVE FOUL${
             isCharge ? " CHARGE " : ""
-          }-${offPlayer1.getFullName()} fouled ${defPlayer1.getFullName()}`,
+          }-${offPlayer0.getFullName()} fouled ${defPlayer0.getFullName()}`,
         ]);
 
         break;
       }
       case "OFFENSIVE_REBOUND": {
-        const { offPlayer1, offTeam } =
-          gameEventData as GameEventOffensiveRebound;
+        const { offPlayer0, offTeam } =
+          gameEventData as GameEventReboundOffensive;
         this.logInfo([
           `${offTeam.getFullName()} ${
-            offPlayer1 ? offPlayer1.getFullName() : ""
+            offPlayer0 ? offPlayer0.getFullName() : ""
           } has rebounded the ball for the offense`,
         ]);
         break;
@@ -340,10 +340,10 @@ class GameLog implements IObserver {
         break;
       }
       case "STEAL": {
-        const { offPlayer1, defPlayer1 } = gameEventData as GameEventSteal;
+        const { offPlayer0, defPlayer0 } = gameEventData as GameEventSteal;
 
         this.logInfo([
-          `TURNOVER - ${offPlayer1.getFullName()} had the ball stolen by ${defPlayer1.getFullName()}`,
+          `TURNOVER - ${offPlayer0.getFullName()} had the ball stolen by ${defPlayer0.getFullName()}`,
         ]);
 
         break;
@@ -368,10 +368,10 @@ class GameLog implements IObserver {
         break;
       }
       case "TURNOVER": {
-        const { offPlayer1, turnoverType } = gameEventData as GameEventTurnover;
+        const { offPlayer0, turnoverType } = gameEventData as GameEventTurnover;
 
         this.logInfo([
-          `TURNOVER - ${turnoverType} by ${offPlayer1.getFullName()} `,
+          `TURNOVER - ${turnoverType} by ${offPlayer0.getFullName()} `,
         ]);
 
         break;

@@ -713,7 +713,7 @@ class GameSim {
         this.simFreeThrows({
           isBonus: false,
           isPossessionChange: isTechOnOffensiveTeam ? true : false,
-          offPlayer1: this.pickFreeThrowShooterFromPlayersOnCourt(
+          offPlayer0: this.pickFreeThrowShooterFromPlayersOnCourt(
             this.getPlayersOnCourtFromTeam(player0Team)
           ),
           totalShots: 1,
@@ -790,19 +790,19 @@ class GameSim {
   simFreeThrows = ({
     isBonus,
     isPossessionChange,
-    offPlayer1,
+    offPlayer0,
     totalShots,
   }: {
     isBonus: boolean;
     isPossessionChange: boolean;
     totalShots: 1 | 2 | 3;
-    offPlayer1: Player;
+    offPlayer0: Player;
   }) => {
     let i = 0;
     do {
       const isFirstShot = 1 === i + 1;
       const isLastShot = totalShots === i + 1;
-      const isMade = getFtIsMadeByPlayer(offPlayer1);
+      const isMade = getFtIsMadeByPlayer(offPlayer0);
       const shotNumber = i + 1;
 
       const offPlayersOnCourt = this.playersOnCourt[this.o];
@@ -814,13 +814,13 @@ class GameSim {
       }
 
       if (isLastShot) {
-        this.shouldWeSubstitution([offPlayer1]);
+        this.shouldWeSubstitution([offPlayer0]);
       }
 
       this.notifyObservers("FREE_THROW", {
         isBonus,
         isMade,
-        offPlayer1,
+        offPlayer0,
         shotNumber,
         totalShots,
         offPlayersOnCourt,
@@ -832,11 +832,11 @@ class GameSim {
         const isOffensiveRebound = getIsOffensiveRebound();
         const isReboundedByTeam = getIsTeamRebound(isOffensiveRebound);
         if (isOffensiveRebound) {
-          const offPlayer1 = isReboundedByTeam
+          const offPlayer0 = isReboundedByTeam
             ? null
             : getOffensiveReboundPlayer(this.playersOnCourt[this.o]);
           this.notifyObservers("OFFENSIVE_REBOUND", {
-            offPlayer1,
+            offPlayer0,
             possessionLength,
           });
           if (isPossessionChange) {
@@ -844,11 +844,11 @@ class GameSim {
           }
         } else {
           //isReboundedByDefense
-          const defPlayer1 = isReboundedByTeam
+          const defPlayer0 = isReboundedByTeam
             ? null
             : getOffensiveReboundPlayer(this.playersOnCourt[this.d]);
           this.notifyObservers("DEFENSIVE_REBOUND", {
-            defPlayer1,
+            defPlayer0,
             possessionLength,
           });
         }
@@ -896,9 +896,9 @@ class GameSim {
         const winningPlayer = players[this.o];
 
         this.notifyObservers("JUMP_BALL", {
-          defPlayer1: losingPlayer,
+          defPlayer0: losingPlayer,
           isStartSegmentTip: true,
-          offPlayer1: winningPlayer,
+          offPlayer0: winningPlayer,
         });
       }
     }
@@ -996,13 +996,13 @@ class GameSim {
       case "FIELD_GOAL": {
         const possessionLength = this.handleTime("FG");
         const shotType = getShotType([offPlayersOnCourt, defPlayersOnCourt]);
-        const offPlayer1 = getFgAttemptPlayer(offPlayersOnCourt, shotType);
-        const isMade = getFgIsMadeByPlayer(offPlayer1, shotType);
+        const offPlayer0 = getFgAttemptPlayer(offPlayersOnCourt, shotType);
+        const isMade = getFgIsMadeByPlayer(offPlayer0, shotType);
         const pts = get2or3Pointer(shotType);
         const [x, y] = getFgXYByShotType(shotType);
 
         this.notifyObservers(`${pts}FG_ATTEMPT`, {
-          offPlayer1,
+          offPlayer0,
           possessionLength,
           shotType,
           shotValue: pts,
@@ -1020,10 +1020,10 @@ class GameSim {
             : null;
           const foulingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
           this.notifyObservers(`${pts}FG_MADE_FOUL`, {
-            defPlayer1: foulingPlayer,
+            defPlayer0: foulingPlayer,
             foulPenaltySettings: this.foulPenaltySettings,
-            offPlayer1,
-            offPlayer2: assistingPlayer,
+            offPlayer0,
+            offPlayer1: assistingPlayer,
             segment:
               this.timeSegmentIndex !== undefined
                 ? this.timeSegmentIndex
@@ -1039,15 +1039,15 @@ class GameSim {
           this.simFreeThrows({
             isBonus: false,
             isPossessionChange: true,
-            offPlayer1,
+            offPlayer0,
             totalShots: 1,
           });
         } else if (!isMade && isFouled) {
           const foulingPlayer = this.pickRandomPlayerOnCourtByTeam(this.d);
           this.notifyObservers(`${pts}FG_MISS_FOUL`, {
-            defPlayer1: foulingPlayer,
+            defPlayer0: foulingPlayer,
             foulPenaltySettings: this.foulPenaltySettings,
-            offPlayer1,
+            offPlayer0,
             segment:
               this.timeSegmentIndex !== undefined
                 ? this.timeSegmentIndex
@@ -1064,7 +1064,7 @@ class GameSim {
             isBonus: false,
             isPossessionChange: true,
             totalShots: pts,
-            offPlayer1,
+            offPlayer0,
           });
         } else if (isMade && !isFouled) {
           const isAssist = getIsAssist();
@@ -1072,8 +1072,8 @@ class GameSim {
             ? getAssistPlayer(offPlayersOnCourt)
             : null;
           this.notifyObservers(`${pts}FG_MADE`, {
-            offPlayer1,
-            offPlayer2: assistingPlayer,
+            offPlayer0,
+            offPlayer1: assistingPlayer,
             shotType,
             shotValue: pts,
             x,
@@ -1082,7 +1082,7 @@ class GameSim {
         } else {
           const possessionLengthRebound = this.handleTime("REBOUND");
           this.notifyObservers(`${pts}FG_MISS`, {
-            offPlayer1,
+            offPlayer0,
             shotType,
             shotValue: pts,
             x,
@@ -1097,9 +1097,12 @@ class GameSim {
           if (isBlock) {
             const blockingPlayer = getBlockPlayer(defPlayersOnCourt);
             this.notifyObservers(`${pts}FG_BLOCK`, {
-              defPlayer1: blockingPlayer,
-              offPlayer1,
+              defPlayer0: blockingPlayer,
+              offPlayer0,
               shotValue: pts,
+              shotType,
+              x,
+              y,
             });
           }
 
@@ -1111,7 +1114,7 @@ class GameSim {
             }
 
             this.notifyObservers(`OFFENSIVE_REBOUND`, {
-              offPlayer1: reboundingPlayer,
+              offPlayer0: reboundingPlayer,
               possessionLength: possessionLengthRebound,
             });
 
@@ -1125,7 +1128,7 @@ class GameSim {
             }
 
             this.notifyObservers(`DEFENSIVE_REBOUND`, {
-              defPlayer1: reboundingPlayer,
+              defPlayer0: reboundingPlayer,
               possessionLength: possessionLengthRebound,
             });
           }
@@ -1147,10 +1150,10 @@ class GameSim {
         });
 
         this.notifyObservers("FOUL_DEFENSIVE_NON_SHOOTING", {
-          defPlayer1: foulingPlayer,
+          defPlayer0: foulingPlayer,
           foulPenaltySettings: this.foulPenaltySettings,
           foulType,
-          offPlayer1: fouledPlayer,
+          offPlayer0: fouledPlayer,
           possessionLength,
           segment:
             this.timeSegmentIndex !== undefined
@@ -1163,7 +1166,7 @@ class GameSim {
             this.simFreeThrows({
               isBonus: false,
               isPossessionChange: false,
-              offPlayer1: fouledPlayer,
+              offPlayer0: fouledPlayer,
               totalShots: 2,
             });
             break;
@@ -1174,7 +1177,7 @@ class GameSim {
             this.simFreeThrows({
               isBonus: false,
               isPossessionChange: false,
-              offPlayer1: fouledPlayer,
+              offPlayer0: fouledPlayer,
               totalShots: 2,
             });
             break;
@@ -1183,7 +1186,7 @@ class GameSim {
             this.simFreeThrows({
               isBonus: false,
               isPossessionChange: false,
-              offPlayer1:
+              offPlayer0:
                 this.pickFreeThrowShooterFromPlayersOnCourt(offPlayersOnCourt),
               totalShots: 1,
             });
@@ -1208,7 +1211,7 @@ class GameSim {
           this.simFreeThrows({
             isBonus: true,
             isPossessionChange: true,
-            offPlayer1: fouledPlayer,
+            offPlayer0: fouledPlayer,
             totalShots: 2,
           });
         }
@@ -1219,18 +1222,18 @@ class GameSim {
       case "FOUL_OFFENSIVE": {
         const possessionLength = this.handleTime("FOUL");
         const isCharge = getIsCharge();
-        const offPlayer1 = getOffensiveFoulPlayer({
+        const offPlayer0 = getOffensiveFoulPlayer({
           isCharge,
           offPlayersOnCourt,
         });
-        const defPlayer1 = getOffensiveFouledPlayer({
+        const defPlayer0 = getOffensiveFouledPlayer({
           isCharge,
           defPlayersOnCourt,
         });
         this.notifyObservers("FOUL_OFFENSIVE", {
-          defPlayer1,
+          defPlayer0,
           isCharge,
-          offPlayer1,
+          offPlayer0,
           possessionLength,
         });
 
@@ -1273,9 +1276,9 @@ class GameSim {
 
             this.notifyObservers("JUMP_BALL", {
               defTeam: losingTeam,
-              defPlayer1: losingPlayer,
+              defPlayer0: losingPlayer,
               isStartSegmentTip: false,
-              offPlayer1: winningPlayer,
+              offPlayer0: winningPlayer,
               offTeam: winningTeam,
               possessionLength,
             });
@@ -1307,20 +1310,20 @@ class GameSim {
 
       case "TURNOVER": {
         const possessionLength = this.handleTime("TURNOVER");
-        const offPlayer1 = getTurnoverPlayer(offPlayersOnCourt);
+        const offPlayer0 = getTurnoverPlayer(offPlayersOnCourt);
         const turnoverType = getTurnoverType();
 
         if (turnoverType === "BAD_PASS" || turnoverType === "LOST_BALL") {
-          const defPlayer1 = getStealPlayer(defPlayersOnCourt);
+          const defPlayer0 = getStealPlayer(defPlayersOnCourt);
           this.notifyObservers("STEAL", {
-            defPlayer1,
-            offPlayer1,
+            defPlayer0,
+            offPlayer0,
             possessionLength,
             turnoverType,
           });
         } else {
           this.notifyObservers("TURNOVER", {
-            offPlayer1,
+            offPlayer0,
             possessionLength,
             turnoverType,
           });

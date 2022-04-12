@@ -1,4 +1,34 @@
-import { GameEventEnum, IObserver } from "../types";
+import {
+  GameEvent2FgAttempt,
+  GameEvent2FgMade,
+  GameEvent2FgMadeFoul,
+  GameEvent2FgMiss,
+  GameEvent2FgMissFoul,
+  GameEvent3FgAttempt,
+  GameEvent3FgMade,
+  GameEvent3FgMadeFoul,
+  GameEvent3FgMiss,
+  GameEvent3FgMissFoul,
+  GameEventBlock,
+  GameEventEjection,
+  GameEventEnum,
+  GameEventFoulNonShootingDefensive,
+  GameEventFoulOffensive,
+  GameEventFoulTechnical,
+  GameEventFreeThrow,
+  GameEventJumpBall,
+  GameEventPossessionArrow,
+  GameEventReboundDefensive,
+  GameEventReboundOffensive,
+  GameEventSegment,
+  GameEventStartingLineup,
+  GameEventSteal,
+  GameEventSubstitution,
+  GameEventTimeout,
+  GameEventTurnover,
+  GameEventViolation,
+  IObserver,
+} from "../types";
 import fs from "fs";
 
 class GameEventStore implements IObserver {
@@ -33,6 +63,7 @@ class GameEventStore implements IObserver {
     this.team1 = team1;
     this.filePath = `./src/data/game-events/${gameId}.txt`;
     this.pipeSettings = {
+      bool0: {},
       bool1: {},
       defPlayersOnCourt: {},
       defTeam: {},
@@ -40,17 +71,17 @@ class GameEventStore implements IObserver {
       gameType: {},
       offPlayersOnCourt: {},
       offTeam: {},
+      player0: {},
       player1: {},
       player2: {},
-      player3: {},
       possessionLength: {},
       segment: {},
+      team0: {},
       team1: {},
-      team2: {},
-      text1: {},
+      text0: {},
+      value0: {},
       value1: {},
       value2: {},
-      value3: {},
       // defPlayer1: { getId: true },
       // defPlayer2: { getId: true },
       // defPlayersOnCourt: { getIdArray: true },
@@ -102,10 +133,20 @@ class GameEventStore implements IObserver {
     });
 
     fs.appendFileSync(this.filePath, `${headerString}\n`);
+
+    // let insertString = "";
+
+    // fs.appendFileSync(this.filePath, `${insertString}\n`);
+    // this.eventIdIterator++;
   }
 
   appendToFile = (gameEvent: GameEventEnum, gameEventData: any) => {
-    const insertObj = {
+    const pipeSettingsKeys = Object.keys(this.pipeSettings);
+  };
+
+  getAppendObj = (gameEvent: GameEventEnum, gameEventData: any) => {
+    const appendObj: any = {
+      //mandatory below
       defPlayersOnCourt: gameEventData["defPlayersOnCourt"],
       defTeam: gameEventData["defTeam"],
       gameEvent,
@@ -113,62 +154,235 @@ class GameEventStore implements IObserver {
       offPlayersOnCourt: gameEventData["offPlayersOnCourt"],
       offTeam: gameEventData["offTeam"],
       segment: gameEventData["segment"],
+      //optional below
+      possessionLength: gameEventData["possessionLength"]
+        ? gameEventData["possessionLength"]
+        : "",
     };
-    const pipeSettingsKeys = Object.keys(this.pipeSettings);
 
     switch (gameEvent) {
       case "2FG_ATTEMPT": {
+        const { offPlayer0, shotType, shotValue, x, y } =
+          gameEventData as GameEvent2FgAttempt;
+        appendObj.player0 = offPlayer0;
+        appendObj.text1 = shotType;
+        appendObj.value0 = shotValue;
+        appendObj.value1 = x;
+        appendObj.value2 = y;
         break;
       }
       case "2FG_BLOCK": {
+        const { offPlayer0, shotType, shotValue, defPlayer0, x, y } =
+          gameEventData as GameEventBlock;
+        appendObj.player0 = offPlayer0;
+        appendObj.player1 = defPlayer0;
+        appendObj.text0 = shotType;
+        appendObj.value0 = shotValue;
+        appendObj.value1 = x;
+        appendObj.value2 = y;
         break;
       }
       case "2FG_MADE": {
+        const { offPlayer0, shotType, shotValue, offPlayer1, x, y } =
+          gameEventData as GameEvent2FgMade;
+
+        appendObj.player0 = offPlayer0;
+        appendObj.player1 = offPlayer1;
+        appendObj.text0 = shotType;
+        appendObj.value0 = shotValue;
+        appendObj.value1 = x;
+        appendObj.value2 = y;
+
         break;
       }
       case "2FG_MADE_FOUL": {
+        const {
+          defPlayer0,
+          offPlayer0,
+          shotType,
+          shotValue,
+          offPlayer1,
+          x,
+          y,
+        } = gameEventData as GameEvent2FgMadeFoul;
+
+        appendObj.player0 = offPlayer0; //shooter
+        appendObj.player1 = defPlayer0; //fouler
+        appendObj.player2 = offPlayer1; //assister
+        appendObj.text0 = shotType;
+        appendObj.value0 = shotValue;
+        appendObj.value1 = x;
+        appendObj.value2 = y;
+
         break;
       }
       case "2FG_MISS": {
+        const { offPlayer0, shotType, shotValue, x, y } =
+          gameEventData as GameEvent2FgMiss;
+
+        appendObj.player0 = offPlayer0;
+        appendObj.text0 = shotType;
+        appendObj.value0 = shotValue;
+        appendObj.value1 = x;
+        appendObj.value2 = y;
+
         break;
       }
       case "2FG_MISS_FOUL": {
+        const { defPlayer0, offPlayer0, shotType, shotValue, x, y } =
+          gameEventData as GameEvent2FgMissFoul;
+
+        appendObj.player0 = offPlayer0;
+        appendObj.player1 = defPlayer0;
+        appendObj.text0 = shotType;
+        appendObj.value0 = shotValue;
+        appendObj.value1 = x;
+        appendObj.value2 = y;
+
         break;
       }
       case "3FG_ATTEMPT": {
+        const { offPlayer0, shotType, shotValue, x, y } =
+          gameEventData as GameEvent3FgAttempt;
+        appendObj.player0 = offPlayer0;
+        appendObj.text0 = shotType;
+        appendObj.value0 = shotValue;
+        appendObj.value1 = x;
+        appendObj.value2 = y;
         break;
       }
       case "3FG_BLOCK": {
+        const { offPlayer0, shotType, shotValue, defPlayer0, x, y } =
+          gameEventData as GameEventBlock;
+        appendObj.player0 = offPlayer0;
+        appendObj.player1 = defPlayer0;
+        appendObj.text0 = shotType;
+        appendObj.value0 = shotValue;
+        appendObj.value1 = x;
+        appendObj.value2 = y;
         break;
       }
       case "3FG_MADE": {
+        const { offPlayer0, shotType, shotValue, offPlayer1, x, y } =
+          gameEventData as GameEvent3FgMade;
+
+        appendObj.player0 = offPlayer0;
+        appendObj.player1 = offPlayer1;
+        appendObj.text0 = shotType;
+        appendObj.value0 = shotValue;
+        appendObj.value1 = x;
+        appendObj.value2 = y;
         break;
       }
       case "3FG_MADE_FOUL": {
+        const {
+          defPlayer0,
+          offPlayer0,
+          shotType,
+          shotValue,
+          offPlayer1,
+          x,
+          y,
+        } = gameEventData as GameEvent3FgMadeFoul;
+
+        appendObj.player0 = offPlayer0; //shooter
+        appendObj.player1 = defPlayer0; //fouler
+        appendObj.player2 = offPlayer1; //assister
+        appendObj.text0 = shotType;
+        appendObj.value0 = shotValue;
+        appendObj.value1 = x;
+        appendObj.value2 = y;
         break;
       }
       case "3FG_MISS": {
+        const { offPlayer0, shotType, shotValue, x, y } =
+          gameEventData as GameEvent3FgMiss;
+
+        appendObj.player0 = offPlayer0;
+        appendObj.text0 = shotType;
+        appendObj.value0 = shotValue;
+        appendObj.value1 = x;
+        appendObj.value2 = y;
         break;
       }
       case "3FG_MISS_FOUL": {
+        const { defPlayer0, offPlayer0, shotType, shotValue, x, y } =
+          gameEventData as GameEvent3FgMissFoul;
+
+        appendObj.player0 = offPlayer0;
+        appendObj.player1 = defPlayer0;
+        appendObj.text0 = shotType;
+        appendObj.value0 = shotValue;
+        appendObj.value1 = x;
+        appendObj.value2 = y;
         break;
       }
       case "DEFENSIVE_REBOUND": {
+        const { defPlayer0 } = gameEventData as GameEventReboundDefensive;
+        if (defPlayer0) {
+          appendObj.player0 = defPlayer0;
+        }
+
         break;
       }
       case "EJECTION": {
+        const { ejectionReason, player0 } = gameEventData as GameEventEjection;
+
+        appendObj.player0 = player0;
+        appendObj.text0 = ejectionReason;
+
         break;
       }
       case "FOUL_DEFENSIVE_NON_SHOOTING": {
+        const { foulType, offPlayer0, defPlayer0 } =
+          gameEventData as GameEventFoulNonShootingDefensive;
+
+        appendObj.text0 = foulType;
+        appendObj.player0 = defPlayer0;
+        appendObj.player1 = offPlayer0;
+
         break;
       }
       case "FOUL_OFFENSIVE": {
+        const { offPlayer0, defPlayer0, isCharge } =
+          gameEventData as GameEventFoulOffensive;
+
+        appendObj.bool0 = isCharge;
+        appendObj.player0 = offPlayer0;
+        appendObj.player1 = defPlayer0;
+
         break;
       }
       case "FOUL_TECHNICAL": {
+        const { player0, player1, technicalReason } =
+          gameEventData as GameEventFoulTechnical;
+
+        appendObj.player0 = player0;
+        appendObj.text0 = technicalReason;
+
+        if (player1) {
+          appendObj.player1 = player1;
+        }
+
         break;
       }
       case "FREE_THROW": {
+        const {
+          isBonus,
+          isMade,
+          offPlayer0,
+          shotNumber,
+          shotValue,
+          totalShots,
+        } = gameEventData as GameEventFreeThrow;
+
+        appendObj.bool0 = isBonus;
+        appendObj.bool1 = isMade;
+        appendObj.player0 = offPlayer0;
+        appendObj.value0 = shotValue;
+        appendObj.value1 = shotNumber;
+        appendObj.value2 = totalShots;
+
         break;
       }
       case "GAME_END": {
@@ -178,36 +392,80 @@ class GameEventStore implements IObserver {
         break;
       }
       case "JUMP_BALL": {
+        const { defPlayer0, offPlayer0, isStartSegmentTip } =
+          gameEventData as GameEventJumpBall;
+
+        appendObj.bool0 = isStartSegmentTip;
+        appendObj.player0 = offPlayer0;
+        appendObj.player1 = defPlayer0;
+
         break;
       }
       case "OFFENSIVE_REBOUND": {
+        const { offPlayer0 } = gameEventData as GameEventReboundOffensive;
+
+        if (offPlayer0) {
+          appendObj.player0 = offPlayer0;
+        }
+
         break;
       }
       case "POSSESSION_ARROW": {
+        const {} = gameEventData as GameEventPossessionArrow;
+
         break;
       }
       case "SEGMENT_START": {
+        const {} = gameEventData as GameEventSegment;
         break;
       }
       case "SEGMENT_END": {
+        const {} = gameEventData as GameEventSegment;
         break;
       }
       case "STARTING_LINEUP": {
+        const {} = gameEventData as GameEventStartingLineup;
         break;
       }
       case "STEAL": {
+        const { defPlayer0, offPlayer0 } = gameEventData as GameEventSteal;
+
+        appendObj.player0 = defPlayer0;
+        appendObj.player1 = offPlayer0;
+
         break;
       }
       case "SUBSTITUTION": {
+        const { incomingPlayer, outgoingPlayer, isPlayerFouledOut } =
+          gameEventData as GameEventSubstitution;
+
+        appendObj.player0 = incomingPlayer;
+        appendObj.player1 = outgoingPlayer;
+        appendObj.bool0 = isPlayerFouledOut;
+
         break;
       }
       case "TIMEOUT": {
+        const { reason, team0 } = gameEventData as GameEventTimeout;
+
+        appendObj.team0 = team0;
+        appendObj.text0 = reason;
+
         break;
       }
       case "TURNOVER": {
+        const { offPlayer0, turnoverType } = gameEventData as GameEventTurnover;
+
+        appendObj.player0 = offPlayer0;
+        appendObj.text0 = turnoverType;
+
         break;
       }
       case "VIOLATION": {
+        const { violationType } = gameEventData as GameEventViolation;
+
+        appendObj.text0 = violationType;
+
         break;
       }
       default:
@@ -215,39 +473,7 @@ class GameEventStore implements IObserver {
         throw new Error(exhaustiveCheck);
     }
 
-    let insertString = "";
-
-    pipeSettingsKeys.forEach((pipeSettingKey, i) => {
-      let value = "";
-      const isLastKey = i + 1 === pipeSettingsKeys.length;
-      const { alwaysThis, getId, getIdArray, isId } =
-        this.pipeSettings[pipeSettingKey];
-
-      if (alwaysThis) {
-        //means this value will always be in the this object
-        const self: any = this;
-        value = self[pipeSettingKey];
-      } else if (pipeSettingKey === "gameEvent") {
-        value = gameEvent;
-      } else if (isId) {
-        value = `${this.gameId}-${this.eventIdIterator}`;
-      } else if (gameEventData[pipeSettingKey] !== undefined) {
-        if (getId) {
-          if (gameEventData[pipeSettingKey]) {
-            value = gameEventData[pipeSettingKey]["id"];
-          }
-        } else if (getIdArray) {
-          value = gameEventData[pipeSettingKey].map((v: any) => v.id).join(",");
-        } else {
-          value = gameEventData[pipeSettingKey];
-        }
-      }
-
-      insertString += `${value}${isLastKey ? "" : "|"}`;
-    });
-
-    fs.appendFileSync(this.filePath, `${insertString}\n`);
-    this.eventIdIterator++;
+    return appendObj;
   };
 
   notifyGameEvent(gameEvent: GameEventEnum, gameEventData: object): void {

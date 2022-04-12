@@ -22,23 +22,8 @@ const DefaultGameEvent = z.object({
   segment: z.number(),
 });
 
-const BaseGameEventStartingLineup = z.object({});
-const GameEventStartingLineup = DefaultGameEvent.merge(
-  BaseGameEventStartingLineup
-);
-export type GameEventStartingLineup = z.infer<typeof GameEventStartingLineup>;
-
-export const BaseGameEventJumpBall = z.object({
-  defPlayer1: z.instanceof(Player),
-  isStartSegmentTip: z.boolean(),
-  offPlayer1: z.instanceof(Player),
-  possessionLength: z.number(),
-});
-const GameEventJumpBall = DefaultGameEvent.merge(BaseGameEventJumpBall);
-export type GameEventJumpBall = z.infer<typeof GameEventJumpBall>;
-
 const BaseGameEvent2FgAttempt = z.object({
-  offPlayer1: z.instanceof(Player),
+  offPlayer0: z.instanceof(Player),
   possessionLength: z.number(),
   shotType: ShotTypes,
   shotValue: z.number(),
@@ -50,8 +35,8 @@ const GameEvent2FgAttempt = DefaultGameEvent.merge(BaseGameEvent2FgAttempt);
 export type GameEvent2FgAttempt = z.infer<typeof GameEvent2FgAttempt>;
 
 const BaseGameEvent2FgMade = z.object({
+  offPlayer0: z.instanceof(Player),
   offPlayer1: z.instanceof(Player),
-  offPlayer2: z.instanceof(Player),
   shotType: ShotTypes,
   shotValue: z.number(),
   x: z.number(),
@@ -61,7 +46,7 @@ const GameEvent2FgMade = DefaultGameEvent.merge(BaseGameEvent2FgMade);
 export type GameEvent2FgMade = z.infer<typeof GameEvent2FgMade>;
 
 const BaseGameEvent2FgMiss = z.object({
-  offPlayer1: z.instanceof(Player),
+  offPlayer0: z.instanceof(Player),
   shotType: ShotTypes,
   shotValue: z.number(),
   x: z.number(),
@@ -71,22 +56,22 @@ const GameEvent2FgMiss = DefaultGameEvent.merge(BaseGameEvent2FgMiss);
 export type GameEvent2FgMiss = z.infer<typeof GameEvent2FgMiss>;
 
 const BaseGameEvent2FgMadeFoul = z.object({
-  defPlayer1: z.instanceof(Player),
+  defPlayer0: z.instanceof(Player),
   foulPenaltySettings: FoulPenaltySettings,
+  offPlayer0: z.instanceof(Player),
   offPlayer1: z.instanceof(Player),
-  offPlayer2: z.instanceof(Player),
   shotType: ShotTypes,
   shotValue: z.number(),
   x: z.number(),
   y: z.number(),
 });
 const GameEvent2FgMadeFoul = DefaultGameEvent.merge(BaseGameEvent2FgMadeFoul);
-export type GameEvent2FgMadeFoul = z.infer<typeof GameEvent2FgMiss>;
+export type GameEvent2FgMadeFoul = z.infer<typeof GameEvent2FgMadeFoul>;
 
-export const BaseGameEvent2FgMissFoul = z.object({
-  defPlayer1: z.instanceof(Player),
+const BaseGameEvent2FgMissFoul = z.object({
+  defPlayer0: z.instanceof(Player),
   foulPenaltySettings: FoulPenaltySettings,
-  offPlayer1: z.instanceof(Player),
+  offPlayer0: z.instanceof(Player),
   shotType: ShotTypes,
   shotValue: z.number(),
   x: z.number(),
@@ -95,9 +80,9 @@ export const BaseGameEvent2FgMissFoul = z.object({
 const GameEvent2FgMissFoul = DefaultGameEvent.merge(BaseGameEvent2FgMissFoul);
 export type GameEvent2FgMissFoul = z.infer<typeof GameEvent2FgMissFoul>;
 
-export const BaseGameEvent3FgMade = z.object({
+const BaseGameEvent3FgMade = z.object({
+  offPlayer0: z.instanceof(Player),
   offPlayer1: z.instanceof(Player),
-  offPlayer2: z.instanceof(Player),
   shotType: ShotTypes,
   shotValue: z.number(),
   x: z.number(),
@@ -106,8 +91,8 @@ export const BaseGameEvent3FgMade = z.object({
 const GameEvent3FgMade = DefaultGameEvent.merge(BaseGameEvent3FgMade);
 export type GameEvent3FgMade = z.infer<typeof GameEvent3FgMade>;
 
-export const BaseGameEvent3FgMiss = z.object({
-  offPlayer1: z.instanceof(Player),
+const BaseGameEvent3FgMiss = z.object({
+  offPlayer0: z.instanceof(Player),
   shotType: ShotTypes,
   shotValue: z.number(),
   x: z.number(),
@@ -116,211 +101,200 @@ export const BaseGameEvent3FgMiss = z.object({
 const GameEvent3FgMiss = DefaultGameEvent.merge(BaseGameEvent3FgMiss);
 export type GameEvent3FgMiss = z.infer<typeof GameEvent3FgMiss>;
 
-export const GameEvent3FgMadeFoul = z.object({
-  defPlayer1: z.instanceof(Player),
-  defPlayersOnCourt: z.array(z.instanceof(Player)),
-  defTeam: z.instanceof(Team),
+const BaseGameEvent3FgMadeFoul = z.object({
+  defPlayer0: z.instanceof(Player),
   foulPenaltySettings: FoulPenaltySettings,
+  offPlayer0: z.instanceof(Player),
   offPlayer1: z.instanceof(Player),
-  offPlayer2: z.instanceof(Player),
-  offPlayersOnCourt: z.array(z.instanceof(Player)),
-  offTeam: z.instanceof(Team),
-  segment: z.number().optional(),
   shotType: ShotTypes,
   shotValue: z.number(),
   x: z.number(),
   y: z.number(),
 });
+const GameEvent3FgMadeFoul = DefaultGameEvent.merge(BaseGameEvent3FgMadeFoul);
 export type GameEvent3FgMadeFoul = z.infer<typeof GameEvent3FgMadeFoul>;
 
-export const GameEvent3FgMissFoul = z.object({
-  defPlayer1: z.instanceof(Player),
-  defTeam: z.instanceof(Team),
+const BaseGameEvent3FgMissFoul = z.object({
+  defPlayer0: z.instanceof(Player),
   foulPenaltySettings: FoulPenaltySettings,
-  offPlayer1: z.instanceof(Player),
-  offTeam: z.instanceof(Team),
-  segment: z.number().optional(),
+  offPlayer0: z.instanceof(Player),
   shotType: ShotTypes,
   shotValue: z.number(),
   x: z.number(),
   y: z.number(),
 });
+const GameEvent3FgMissFoul = DefaultGameEvent.merge(BaseGameEvent3FgMissFoul);
 export type GameEvent3FgMissFoul = z.infer<typeof GameEvent3FgMissFoul>;
 
-export const GameEvent3FgAttempt = z.object({
-  defPlayersOnCourt: z.array(z.instanceof(Player)),
-  defTeam: z.instanceof(Team),
-  offPlayer1: z.instanceof(Player),
-  offPlayersOnCourt: z.array(z.instanceof(Player)),
-  offTeam: z.instanceof(Team),
+const BaseGameEvent3FgAttempt = z.object({
+  offPlayer0: z.instanceof(Player),
   possessionLength: z.number(),
   shotType: ShotTypes,
   shotValue: z.number(),
   x: z.number(),
   y: z.number(),
 });
+const GameEvent3FgAttempt = DefaultGameEvent.merge(BaseGameEvent3FgAttempt);
 export type GameEvent3FgAttempt = z.infer<typeof GameEvent3FgAttempt>;
 
-export const GameEventBlock = z.object({
-  defPlayer1: z.instanceof(Player),
-  defTeam: z.instanceof(Team),
-  offPlayer1: z.instanceof(Player),
-  offTeam: z.instanceof(Team),
+const BaseGameEventBlock = z.object({
+  defPlayer0: z.instanceof(Player),
+  offPlayer0: z.instanceof(Player),
+  shotType: ShotTypes,
   shotValue: z.number(),
+  x: z.number(),
+  y: z.number(),
 });
+const GameEventBlock = DefaultGameEvent.merge(BaseGameEventBlock);
 export type GameEventBlock = z.infer<typeof GameEventBlock>;
 
-export const GameEventOffensiveRebound = z.object({
-  defPlayersOnCourt: z.array(z.instanceof(Player)),
-  defTeam: z.instanceof(Team),
-  offPlayer1: z.instanceof(Player).optional(),
-  offPlayersOnCourt: z.array(z.instanceof(Player)),
-  offTeam: z.instanceof(Team),
-  possessionLength: z.number(),
-});
-export type GameEventOffensiveRebound = z.infer<
-  typeof GameEventOffensiveRebound
->;
-
-export const GameEventDefensiveRebound = z.object({
-  defPlayer1: z.instanceof(Player).optional(),
-  defPlayersOnCourt: z.array(z.instanceof(Player)),
-  defTeam: z.instanceof(Team),
-  offPlayersOnCourt: z.array(z.instanceof(Player)),
-  offTeam: z.instanceof(Team),
-  possessionLength: z.number(),
-});
-export type GameEventDefensiveRebound = z.infer<
-  typeof GameEventDefensiveRebound
->;
-
-export const GameEventSegment = z.object({
-  segment: z.number(),
-  timeSegmentIndex: z.number(),
-});
-export type GameEventSegment = z.infer<typeof GameEventSegment>;
-
-export const GameEventEjection = z.object({
-  defPlayersOnCourt: z.array(z.instanceof(Player)),
-  defTeam: z.instanceof(Team),
+const BaseGameEventEjection = z.object({
   ejectionReason: EjectionReasons,
-  offPlayersOnCourt: z.array(z.instanceof(Player)),
-  offTeam: z.instanceof(Team),
   player0: z.instanceof(Player),
 });
+const GameEventEjection = DefaultGameEvent.merge(BaseGameEventEjection);
 export type GameEventEjection = z.infer<typeof GameEventEjection>;
 
-export const GameEventFreeThrow = z.object({
-  defPlayersOnCourt: z.array(z.instanceof(Player)),
-  defTeam: z.instanceof(Team),
+const BaseGameEventFreeThrow = z.object({
   isBonus: z.boolean().optional(),
   isMade: z.boolean(),
-  offPlayer1: z.instanceof(Player),
-  offTeam: z.instanceof(Team),
-  offPlayersOnCourt: z.array(z.instanceof(Player)),
+  offPlayer0: z.instanceof(Player),
   shotNumber: z.number().min(1).max(3),
   shotValue: z.number(),
   totalShots: z.number().min(1).max(3),
 });
+const GameEventFreeThrow = DefaultGameEvent.merge(BaseGameEventFreeThrow);
 export type GameEventFreeThrow = z.infer<typeof GameEventFreeThrow>;
 
-export const GameEventFoulOffensive = z.object({
-  defPlayersOnCourt: z.array(z.instanceof(Player)),
-  defPlayer1: z.instanceof(Player),
-  defTeam: z.instanceof(Team),
+const BaseGameEventFoulOffensive = z.object({
+  defPlayer0: z.instanceof(Player),
   isCharge: z.boolean(),
-  offPlayersOnCourt: z.array(z.instanceof(Player)),
-  offPlayer1: z.instanceof(Player),
-  offTeam: z.instanceof(Team),
+  offPlayer0: z.instanceof(Player),
   possessionLength: z.number(),
 });
+const GameEventFoulOffensive = DefaultGameEvent.merge(
+  BaseGameEventFoulOffensive
+);
 export type GameEventFoulOffensive = z.infer<typeof GameEventFoulOffensive>;
 
-export const GameEventFoulTechnical = z.object({
-  defPlayersOnCourt: z.array(z.instanceof(Player)),
-  defTeam: z.instanceof(Team),
-  offPlayersOnCourt: z.array(z.instanceof(Player)),
-  offTeam: z.instanceof(Team),
+const BaseGameEventFoulTechnical = z.object({
   player0: z.instanceof(Player),
   player1: z.instanceof(Player).optional(),
   technicalReason: TechnicalReasons,
 });
+const GameEventFoulTechnical = DefaultGameEvent.merge(
+  BaseGameEventFoulTechnical
+);
 export type GameEventFoulTechnical = z.infer<typeof GameEventFoulTechnical>;
 
-export const GameEventNonShootingDefensiveFoul = z.object({
-  defPlayer1: z.instanceof(Player),
-  defTeam: z.instanceof(Team),
+const BaseGameEventFoulNonShootingDefensive = z.object({
+  defPlayer0: z.instanceof(Player),
   foulPenaltySettings: FoulPenaltySettings,
   foulType: FoulTypesDefensiveNonShooting,
-  defPlayersOnCourt: z.array(z.instanceof(Player)),
-  offPlayersOnCourt: z.array(z.instanceof(Player)),
-  offPlayer1: z.instanceof(Player),
-  offTeam: z.instanceof(Team),
-  possessionLength: z.number(),
-  segment: z.number().optional(),
-});
-export type GameEventNonShootingDefensiveFoul = z.infer<
-  typeof GameEventNonShootingDefensiveFoul
->;
-
-export const GameEventPossessionArrowWon = z.object({
-  defTeam: z.instanceof(Team),
-  offTeam: z.instanceof(Team),
+  offPlayer0: z.instanceof(Player),
   possessionLength: z.number(),
 });
-export type GameEventPossessionArrowWon = z.infer<
-  typeof GameEventPossessionArrowWon
+const GameEventFoulNonShootingDefensive = DefaultGameEvent.merge(
+  BaseGameEventFoulNonShootingDefensive
+);
+export type GameEventFoulNonShootingDefensive = z.infer<
+  typeof GameEventFoulNonShootingDefensive
 >;
 
-export const GameEventSegmentEnd = z.object({
+export const BaseGameEventJumpBall = z.object({
+  defPlayer0: z.instanceof(Player),
+  isStartSegmentTip: z.boolean(),
+  offPlayer0: z.instanceof(Player),
+  possessionLength: z.number(),
+});
+const GameEventJumpBall = DefaultGameEvent.merge(BaseGameEventJumpBall);
+export type GameEventJumpBall = z.infer<typeof GameEventJumpBall>;
+
+const BaseGameEventPossessionArrow = z.object({
+  possessionLength: z.number(),
+});
+const GameEventPossessionArrow = DefaultGameEvent.merge(
+  BaseGameEventPossessionArrow
+);
+export type GameEventPossessionArrow = z.infer<typeof GameEventPossessionArrow>;
+
+export const BaseGameEventReboundDefensive = z.object({
+  defPlayer0: z.instanceof(Player).optional(),
+  possessionLength: z.number(),
+});
+const GameEventReboundDefensive = DefaultGameEvent.merge(
+  BaseGameEventReboundDefensive
+);
+export type GameEventReboundDefensive = z.infer<
+  typeof GameEventReboundDefensive
+>;
+
+const BaseGameEventReboundOffensive = z.object({
+  offPlayer0: z.instanceof(Player).optional(),
+  possessionLength: z.number(),
+});
+const GameEventReboundOffensive = DefaultGameEvent.merge(
+  BaseGameEventReboundOffensive
+);
+export type GameEventReboundOffensive = z.infer<
+  typeof GameEventReboundOffensive
+>;
+
+const BaseGameEventSegment = z.object({
+  timeSegmentIndex: z.number(),
+});
+const GameEventSegment = DefaultGameEvent.merge(BaseGameEventSegment);
+export type GameEventSegment = z.infer<typeof GameEventSegment>;
+
+const BaseGameEventSegmentEnd = z.object({
   isHalftime: z.boolean(),
 });
+const GameEventSegmentEnd = DefaultGameEvent.merge(BaseGameEventSegmentEnd);
 export type GameEventSegmentEnd = z.infer<typeof GameEventSegmentEnd>;
 
-export const GameEventSteal = z.object({
-  defPlayer1: z.instanceof(Player),
-  defTeam: z.instanceof(Team),
-  offPlayer1: z.instanceof(Player),
-  defPlayersOnCourt: z.array(z.instanceof(Player)),
-  offPlayersOnCourt: z.array(z.instanceof(Player)),
-  offTeam: z.instanceof(Team),
+const BaseGameEventStartingLineup = z.object({});
+const GameEventStartingLineup = DefaultGameEvent.merge(
+  BaseGameEventStartingLineup
+);
+export type GameEventStartingLineup = z.infer<typeof GameEventStartingLineup>;
+
+const BaseGameEventSteal = z.object({
+  defPlayer0: z.instanceof(Player),
+  offPlayer0: z.instanceof(Player),
   possessionLength: z.number(),
 });
+const GameEventSteal = DefaultGameEvent.merge(BaseGameEventSteal);
 export type GameEventSteal = z.infer<typeof GameEventSteal>;
 
-export const GameEventSubstitution = z.object({
+const BaseGameEventSubstitution = z.object({
   isPlayerFouledOut: z.boolean(),
   incomingPlayer: z.instanceof(Player),
   outgoingPlayer: z.instanceof(Player),
 });
+const GameEventSubstitution = DefaultGameEvent.merge(BaseGameEventSubstitution);
 export type GameEventSubstitution = z.infer<typeof GameEventSubstitution>;
 
-export const GameEventTimeout = z.object({
+const BaseGameEventTimeout = z.object({
   reason: z.string(),
   team0: z.instanceof(Team),
 });
+const GameEventTimeout = DefaultGameEvent.merge(BaseGameEventTimeout);
 export type GameEventTimeout = z.infer<typeof GameEventTimeout>;
 
-export const GameEventTurnover = z.object({
-  defPlayersOnCourt: z.array(z.instanceof(Player)),
-  offPlayersOnCourt: z.array(z.instanceof(Player)),
-  defTeam: z.instanceof(Team),
-  offPlayer1: z.instanceof(Player),
-  offTeam: z.instanceof(Team),
+const BaseGameEventTurnover = z.object({
+  offPlayer0: z.instanceof(Player),
   possessionLength: z.number(),
   turnoverType: TurnoverTypes,
 });
+const GameEventTurnover = DefaultGameEvent.merge(BaseGameEventTurnover);
 export type GameEventTurnover = z.infer<typeof GameEventTurnover>;
 
-export const GameEventViolation = z.object({
-  defPlayersOnCourt: z.array(z.instanceof(Player)),
-  offPlayersOnCourt: z.array(z.instanceof(Player)),
-  defTeam: z.instanceof(Team),
-  offTeam: z.instanceof(Team),
-  violationType: ViolationTypes,
+const BaseGameEventViolation = z.object({
+  player0: z.instanceof(Player),
   possessionLength: z.number(),
+  violationType: ViolationTypes,
 });
-
+const GameEventViolation = DefaultGameEvent.merge(BaseGameEventViolation);
 export type GameEventViolation = z.infer<typeof GameEventViolation>;
 
 export const GameEventData = z.union([
@@ -334,15 +308,15 @@ export const GameEventData = z.union([
   GameEvent3FgMadeFoul,
   GameEvent3FgMiss,
   GameEvent3FgMissFoul,
-  GameEventFoulTechnical,
-  GameEventEjection,
   GameEventBlock,
+  GameEventEjection,
+  GameEventFoulNonShootingDefensive,
+  GameEventFoulTechnical,
   GameEventFreeThrow,
   GameEventJumpBall,
-  GameEventNonShootingDefensiveFoul,
-  GameEventPossessionArrowWon,
-  GameEventOffensiveRebound,
-  GameEventDefensiveRebound,
+  GameEventPossessionArrow,
+  GameEventReboundDefensive,
+  GameEventReboundOffensive,
   GameEventSegment,
   GameEventStartingLineup,
   GameEventSteal,
