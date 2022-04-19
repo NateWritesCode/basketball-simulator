@@ -250,7 +250,6 @@ class GameSim {
   getDefaultEventData = () => {
     const defPlayersOnCourt = this.playersOnCourt[this.d];
     const defTeam = this.teams[this.d];
-    const gameType = this.gameType;
     const offPlayersOnCourt = this.playersOnCourt[this.o];
     const offTeam = this.teams[this.o];
     const segment =
@@ -261,7 +260,6 @@ class GameSim {
     return {
       defPlayersOnCourt,
       defTeam,
-      gameType,
       offPlayersOnCourt,
       offTeam,
       segment,

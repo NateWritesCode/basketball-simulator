@@ -126,29 +126,33 @@ async function main() {
     }).fromFile(`./src/data/game-events/${file}`);
 
     gameEvents = gameEvents.map((gameEvent) => {
-      if (gameEvent.defPlayer1) {
-        gameEvent.defPlayer1Id = gameEvent.defPlayer1;
-        delete gameEvent.defPlayer1;
+      if (gameEvent.player0) {
+        gameEvent.player0Id = gameEvent.player0;
+        delete gameEvent.player0;
       }
-      if (gameEvent.defPlayer2) {
-        gameEvent.defPlayer2Id = gameEvent.defPlayer2;
-        delete gameEvent.defPlayer2;
+      if (gameEvent.player1) {
+        gameEvent.player1Id = gameEvent.player1;
+        delete gameEvent.player1;
+      }
+      if (gameEvent.player2) {
+        gameEvent.player2Id = gameEvent.player2;
+        delete gameEvent.player2;
       }
       if (gameEvent.defTeam) {
         gameEvent.defTeamId = gameEvent.defTeam;
         delete gameEvent.defTeam;
       }
-      if (gameEvent.offPlayer1) {
-        gameEvent.offPlayer1Id = gameEvent.offPlayer1;
-        delete gameEvent.offPlayer1;
-      }
-      if (gameEvent.offPlayer2) {
-        gameEvent.offPlayer2Id = gameEvent.offPlayer2;
-        delete gameEvent.offPlayer2;
-      }
       if (gameEvent.offTeam) {
         gameEvent.offTeamId = gameEvent.offTeam;
         delete gameEvent.offTeam;
+      }
+      if (gameEvent.homeTeam) {
+        gameEvent.homeTeamId = gameEvent.homeTeam;
+        delete gameEvent.homeTeam;
+      }
+      if (gameEvent.awayTeam) {
+        gameEvent.awayTeamId = gameEvent.awayTeam;
+        delete gameEvent.awayTeam;
       }
       if (gameEvent.team0) {
         gameEvent.team0Id = gameEvent.team0;
@@ -169,27 +173,27 @@ async function main() {
       data: gameEvents,
     });
 
-    // for (const [_, testItem] of test.entries()) {
-    //   const { offPlayersOnCourt, defPlayersOnCourt, id } = testItem;
+    //   // for (const [_, testItem] of test.entries()) {
+    //   //   const { offPlayersOnCourt, defPlayersOnCourt, id } = testItem;
 
-    //   await prisma.gameEvent.update({
-    //     data: {
-    //       offPlayersOnCourt: {
-    //         connect: offPlayersOnCourt.map((id: number) => {
-    //           return { id };
-    //         }),
-    //       },
-    //       defPlayersOnCourt: {
-    //         connect: defPlayersOnCourt.map((id: number) => {
-    //           return { id };
-    //         }),
-    //       },
-    //     },
-    //     where: {
-    //       id,
-    //     },
-    //   });
-    // }
+    //   //   await prisma.gameEvent.update({
+    //   //     data: {
+    //   //       offPlayersOnCourt: {
+    //   //         connect: offPlayersOnCourt.map((id: number) => {
+    //   //           return { id };
+    //   //         }),
+    //   //       },
+    //   //       defPlayersOnCourt: {
+    //   //         connect: defPlayersOnCourt.map((id: number) => {
+    //   //           return { id };
+    //   //         }),
+    //   //       },
+    //   //     },
+    //   //     where: {
+    //   //       id,
+    //   //     },
+    //   //   });
+    //   // }
   }
 }
 

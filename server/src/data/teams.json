@@ -9,7 +9,9 @@
     "yearFounded": "1949-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/hawks",
     "instagram": "https://instagram.com/atlhawks",
-    "twitter": "https://twitter.com/ATLHawks"
+    "twitter": "https://twitter.com/ATLHawks",
+    "lat": 33.75729,
+    "lng": -84.397331
   },
   {
     "abbrev": "BOS",
@@ -21,7 +23,9 @@
     "yearFounded": "1946-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/bostonceltics",
     "instagram": "https://instagram.com/celtics",
-    "twitter": "https://twitter.com/celtics"
+    "twitter": "https://twitter.com/celtics",
+    "lat": 42.366291,
+    "lng": -71.06263
   },
   {
     "abbrev": "CLE",
@@ -33,7 +37,9 @@
     "yearFounded": "1970-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/Cavs",
     "instagram": "https://instagram.com/cavs",
-    "twitter": "https://twitter.com/cavs"
+    "twitter": "https://twitter.com/cavs",
+    "lat": 41.49662,
+    "lng": -81.688431
   },
   {
     "abbrev": "NOP",
@@ -45,7 +51,9 @@
     "yearFounded": "2002-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/PelicansNBA",
     "instagram": "https://instagram.com/pelicansnba",
-    "twitter": "https://twitter.com/PelicansNBA"
+    "twitter": "https://twitter.com/PelicansNBA",
+    "lat": 29.949035,
+    "lng": -90.082057
   },
   {
     "abbrev": "CHI",
@@ -57,7 +65,9 @@
     "yearFounded": "1966-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/chicagobulls",
     "instagram": "https://instagram.com/chicagobulls",
-    "twitter": "https://twitter.com/chicagobulls"
+    "twitter": "https://twitter.com/chicagobulls",
+    "lat": 41.880692,
+    "lng": -87.67437
   },
   {
     "abbrev": "DAL",
@@ -69,7 +79,9 @@
     "yearFounded": "1980-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/dallasmavs",
     "instagram": "https://instagram.com/dallasmavs",
-    "twitter": "https://twitter.com/dallasmavs"
+    "twitter": "https://twitter.com/dallasmavs",
+    "lat": 32.790527,
+    "lng": -96.810883
   },
   {
     "abbrev": "DEN",
@@ -81,7 +93,9 @@
     "yearFounded": "1976-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/DenverNuggets",
     "instagram": "https://instagram.com/nuggets",
-    "twitter": "https://twitter.com/nuggets"
+    "twitter": "https://twitter.com/nuggets",
+    "lat": 39.74892,
+    "lng": -105.0084
   },
   {
     "abbrev": "GSW",
@@ -93,7 +107,9 @@
     "yearFounded": "1946-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/warriors",
     "instagram": "https://instagram.com/warriors",
-    "twitter": "https://twitter.com/warriors"
+    "twitter": "https://twitter.com/warriors",
+    "lat": 37.768009,
+    "lng": -122.387787
   },
   {
     "abbrev": "HOU",
@@ -105,7 +121,9 @@
     "yearFounded": "1967-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/houstonrockets",
     "instagram": "https://instagram.com/houstonrockets",
-    "twitter": "https://twitter.com/HoustonRockets"
+    "twitter": "https://twitter.com/HoustonRockets",
+    "lat": 29.7524505,
+    "lng": -95.3618826
   },
   {
     "abbrev": "LAC",
@@ -117,7 +135,9 @@
     "yearFounded": "1970-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/LAClippers",
     "instagram": "https://instagram.com/laclippers",
-    "twitter": "https://twitter.com/LAClippers"
+    "twitter": "https://twitter.com/LAClippers",
+    "lat": 34.043087,
+    "lng": -118.267616
   },
   {
     "abbrev": "LAL",
@@ -129,7 +149,9 @@
     "yearFounded": "1948-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/losangeleslakers",
     "instagram": "https://instagram.com/lakers",
-    "twitter": "https://twitter.com/Lakers"
+    "twitter": "https://twitter.com/Lakers",
+    "lat": 34.043087,
+    "lng": -118.267616
   },
   {
     "abbrev": "MIA",
@@ -141,7 +163,9 @@
     "yearFounded": "1988-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/MiamiHeat",
     "instagram": "https://instagram.com/miamiheat",
-    "twitter": "https://twitter.com/MiamiHEAT"
+    "twitter": "https://twitter.com/MiamiHEAT",
+    "lat": 25.781441,
+    "lng": -80.188332
   },
   {
     "abbrev": "MIL",
@@ -153,7 +177,9 @@
     "yearFounded": "1968-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/milwaukeebucks",
     "instagram": "https://instagram.com/bucks",
-    "twitter": "https://twitter.com/Bucks"
+    "twitter": "https://twitter.com/Bucks",
+    "lat": 43.045231,
+    "lng": -87.917923
   },
   {
     "abbrev": "MIN",
@@ -165,7 +191,9 @@
     "yearFounded": "1989-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/MNTimberwolves",
     "instagram": "https://instagram.com/timberwolves",
-    "twitter": "https://twitter.com/Timberwolves"
+    "twitter": "https://twitter.com/Timberwolves",
+    "lat": 44.979528,
+    "lng": -93.275989
   },
   {
     "abbrev": "BKN",
@@ -177,7 +205,9 @@
     "yearFounded": "1976-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/BrooklynNets",
     "instagram": "https://instagram.com/brooklynnets",
-    "twitter": "https://twitter.com/BrooklynNets"
+    "twitter": "https://twitter.com/BrooklynNets",
+    "lat": 40.682732,
+    "lng": -73.975876
   },
   {
     "abbrev": "NYK",
@@ -189,7 +219,9 @@
     "yearFounded": "1946-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/NYKnicks",
     "instagram": "https://instagram.com/nyknicks",
-    "twitter": "https://twitter.com/nyknicks"
+    "twitter": "https://twitter.com/nyknicks",
+    "lat": 40.750298,
+    "lng": -73.993324
   },
   {
     "abbrev": "ORL",
@@ -201,7 +233,9 @@
     "yearFounded": "1989-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/OrlandoMagic",
     "instagram": "https://instagram.com/orlandomagic",
-    "twitter": "https://twitter.com/OrlandoMagic"
+    "twitter": "https://twitter.com/OrlandoMagic",
+    "lat": 28.538336,
+    "lng": -81.379236
   },
   {
     "abbrev": "IND",
@@ -213,7 +247,9 @@
     "yearFounded": "1976-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/pacers",
     "instagram": "https://instagram.com/pacers",
-    "twitter": "https://twitter.com/Pacers"
+    "twitter": "https://twitter.com/Pacers",
+    "lat": 39.763924,
+    "lng": -86.155807
   },
   {
     "abbrev": "PHI",
@@ -225,7 +261,9 @@
     "yearFounded": "1949-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/Sixers",
     "instagram": "https://instagram.com/sixers",
-    "twitter": "https://twitter.com/Sixers"
+    "twitter": "https://twitter.com/Sixers",
+    "lat": 39.901333,
+    "lng": -75.172592
   },
   {
     "abbrev": "PHX",
@@ -237,7 +275,9 @@
     "yearFounded": "1968-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/suns",
     "instagram": "https://instagram.com/suns",
-    "twitter": "https://twitter.com/Suns"
+    "twitter": "https://twitter.com/Suns",
+    "lat": 33.445938,
+    "lng": -112.071487
   },
   {
     "abbrev": "POR",
@@ -249,7 +289,9 @@
     "yearFounded": "1970-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/trailblazers",
     "instagram": "https://instagram.com/trailblazers",
-    "twitter": "https://twitter.com/trailblazers"
+    "twitter": "https://twitter.com/trailblazers",
+    "lat": 45.531609,
+    "lng": -122.667236
   },
   {
     "abbrev": "SAC",
@@ -261,7 +303,9 @@
     "yearFounded": "1948-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/sacramentokings",
     "instagram": "https://instagram.com/sacramentokings",
-    "twitter": "https://twitter.com/SacramentoKings"
+    "twitter": "https://twitter.com/SacramentoKings",
+    "lat": 38.580368028215126,
+    "lng": -121.49930615053546
   },
   {
     "abbrev": "SAS",
@@ -273,7 +317,9 @@
     "yearFounded": "1976-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/Spurs",
     "instagram": "https://instagram.com/spurs",
-    "twitter": "https://twitter.com/spurs"
+    "twitter": "https://twitter.com/spurs",
+    "lat": 29.426931,
+    "lng": -98.437599
   },
   {
     "abbrev": "OKC",
@@ -285,7 +331,9 @@
     "yearFounded": "1967-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/OKCThunder",
     "instagram": "https://instagram.com/okcthunder",
-    "twitter": "https://twitter.com/okcthunder"
+    "twitter": "https://twitter.com/okcthunder",
+    "lat": 35.463608,
+    "lng": -97.51564
   },
   {
     "abbrev": "TOR",
@@ -297,7 +345,9 @@
     "yearFounded": "1995-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/TorontoRaptors",
     "instagram": "https://instagram.com/raptors",
-    "twitter": "https://twitter.com/Raptors"
+    "twitter": "https://twitter.com/Raptors",
+    "lat": 43.643475,
+    "lng": -79.379379
   },
   {
     "abbrev": "UTA",
@@ -309,7 +359,9 @@
     "yearFounded": "1974-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/utahjazz",
     "instagram": "https://instagram.com/utahjazz",
-    "twitter": "https://twitter.com/utahjazz"
+    "twitter": "https://twitter.com/utahjazz",
+    "lat": 40.76890189042454,
+    "lng": -111.89962827830881
   },
   {
     "abbrev": "MEM",
@@ -321,7 +373,9 @@
     "yearFounded": "1995-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/MemphisGrizzlies",
     "instagram": "https://instagram.com/memgrizz",
-    "twitter": "https://twitter.com/memgrizz"
+    "twitter": "https://twitter.com/memgrizz",
+    "lat": 35.138351,
+    "lng": -90.051025
   },
   {
     "abbrev": "WAS",
@@ -333,7 +387,9 @@
     "yearFounded": "1961-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/Wizards",
     "instagram": "https://instagram.com/washwizards",
-    "twitter": "https://twitter.com/WashWizards"
+    "twitter": "https://twitter.com/WashWizards",
+    "lat": 38.898129,
+    "lng": -77.021172
   },
   {
     "abbrev": "DET",
@@ -345,7 +401,9 @@
     "yearFounded": "1948-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/detroitpistons",
     "instagram": "https://instagram.com/detroitpistons",
-    "twitter": "https://twitter.com/DetroitPistons"
+    "twitter": "https://twitter.com/DetroitPistons",
+    "lat": 42.34172115245251,
+    "lng": -83.0547523158737
   },
   {
     "abbrev": "CHA",
@@ -357,6 +415,8 @@
     "yearFounded": "1988-01-01T00:00:00.000Z",
     "facebook": "https://www.facebook.com/hornets",
     "instagram": "https://instagram.com/hornets",
-    "twitter": "https://twitter.com/hornets"
+    "twitter": "https://twitter.com/hornets",
+    "lat": 35.22587056923433,
+    "lng": -80.83745990952639
   }
 ]

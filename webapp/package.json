@@ -4,6 +4,9 @@
   "scripts": {
     "build": "tsc && vite build",
     "dev": "vite",
+    "flow:chain": "flow emulator start -v --persist",
+    "flow:deploy": "flow project deploy --network=emulator",
+    "flow:wallet": "flow dev-wallet",
     "preview": "vite preview",
     "types:graphql": "npx apollo client:codegen src/types --target typescript --localSchemaFile=../server/graphql/schema.graphql --outputFlat"
   },
@@ -14,6 +17,8 @@
     "@emotion/react": "^11.8.0",
     "@emotion/styled": "^11.8.0",
     "@monaco-editor/react": "^4.3.1",
+    "@onflow/fcl": "^0.0.78",
+    "@onflow/types": "^0.0.6",
     "framer-motion": "^6.2.6",
     "moment": "^2.29.2",
     "numeral": "^2.0.6",
@@ -26,6 +31,8 @@
     "zustand": "^3.7.0"
   },
   "devDependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
+    "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
     "@types/numeral": "^2.0.2",
     "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.10",

@@ -32,11 +32,13 @@ import {
 import fs from "fs";
 
 class GameEventStore implements IObserver {
+  [key: string]: any;
+  awayTeam: number | string;
   eventIdIterator: number;
   filePath: string;
   gameId: number;
   gameType: string;
-  isNeutralFloor: boolean;
+  homeTeam: number | string;
   pipeSettings: { [key: string]: any };
   team0: number;
   team1: number;
@@ -55,61 +57,39 @@ class GameEventStore implements IObserver {
     team1: number;
   }) {
     // always this means the field will always be there
+    this.awayTeam = isNeutralFloor ? "" : team1;
     this.eventIdIterator = 1;
     this.gameId = gameId;
     this.gameType = gameType;
-    this.isNeutralFloor = isNeutralFloor;
+    this.homeTeam = isNeutralFloor ? "" : team0;
     this.team0 = team0; //home team if not neutral floor
     this.team1 = team1;
     this.filePath = `./src/data/game-events/${gameId}.txt`;
     this.pipeSettings = {
-      bool0: {},
-      bool1: {},
-      defPlayersOnCourt: {},
-      defTeam: {},
+      awayTeam: {},
+      bool0: { getBool: true },
+      bool1: { getBool: true },
+      defPlayersOnCourt: { getIdArray: true },
+      defTeam: { getId: true },
+      float0: {},
       gameEvent: {},
+      gameId: {},
       gameType: {},
-      offPlayersOnCourt: {},
-      offTeam: {},
-      player0: {},
-      player1: {},
-      player2: {},
+      homeTeam: {},
+      id: { isId: true },
+      int0: {},
+      int1: {},
+      int2: {},
+      offPlayersOnCourt: { getIdArray: true },
+      offTeam: { getId: true },
+      player0: { getId: true },
+      player1: { getId: true },
+      player2: { getId: true },
       possessionLength: {},
       segment: {},
-      team0: {},
-      team1: {},
+      team0: { getId: true },
+      team1: { getId: true },
       text0: {},
-      value0: {},
-      value1: {},
-      value2: {},
-      // defPlayer1: { getId: true },
-      // defPlayer2: { getId: true },
-      // defPlayersOnCourt: { getIdArray: true },
-      // defTeam: { getId: true },
-      // gameEvent: {},
-      // gameId: { alwaysThis: true },
-      // gameType: { alwaysThis: true },
-      // id: { isId: true },
-      // incomingPlayer: { getId: true },
-      // isBonus: {},
-      // isCharge: {},
-      // isNeutralFloor: { alwaysThis: true },
-      // isPlayerFouledOut: {},
-      // offPlayer1: { getId: true },
-      // offPlayer2: { getId: true },
-      // offPlayersOnCourt: { getIdArray: true },
-      // offTeam: { getId: true },
-      // outgoingPlayer: { getId: true },
-      // possessionLength: {},
-      // segment: {},
-      // shotType: {},
-      // shotValue: {},
-      // team0: { alwaysThis: true },
-      // team1: { alwaysThis: true },
-      // turnoverType: {},
-      // violationType: {},
-      // x: {},
-      // y: {},
     };
 
     //create file
@@ -133,24 +113,52 @@ class GameEventStore implements IObserver {
     });
 
     fs.appendFileSync(this.filePath, `${headerString}\n`);
-
-    // let insertString = "";
-
-    // fs.appendFileSync(this.filePath, `${insertString}\n`);
-    // this.eventIdIterator++;
   }
 
   appendToFile = (gameEvent: GameEventEnum, gameEventData: any) => {
+    const appendObj = this.getAppendObj(gameEvent, gameEventData);
     const pipeSettingsKeys = Object.keys(this.pipeSettings);
+    let appendString = "";
+    pipeSettingsKeys.forEach((pipeSettingKey, i) => {
+      let value = "";
+      const isLastKey = i + 1 === pipeSettingsKeys.length;
+
+      const { getBool, getId, getIdArray, isId } =
+        this.pipeSettings[pipeSettingKey];
+
+      if (isId) {
+        value = `${this.gameId}-${this.eventIdIterator}`;
+      } else if (appendObj[pipeSettingKey] !== undefined) {
+        if (getId) {
+          if (appendObj[pipeSettingKey]) {
+            value = appendObj[pipeSettingKey]["id"];
+          }
+        } else if (getIdArray) {
+          value = appendObj[pipeSettingKey].map((v: any) => v.id).join(",");
+        } else if (getBool) {
+          value = appendObj[pipeSettingKey];
+        } else {
+          value = appendObj[pipeSettingKey];
+        }
+      }
+
+      appendString += `${value}${isLastKey ? "" : "|"}`;
+    });
+
+    fs.appendFileSync(this.filePath, `${appendString}\n`);
+    this.eventIdIterator++;
   };
 
   getAppendObj = (gameEvent: GameEventEnum, gameEventData: any) => {
     const appendObj: any = {
       //mandatory below
+      awayTeam: this["awayTeam"],
       defPlayersOnCourt: gameEventData["defPlayersOnCourt"],
       defTeam: gameEventData["defTeam"],
       gameEvent,
-      gameType: gameEventData["gameType"],
+      gameId: this["gameId"],
+      gameType: this["gameType"],
+      homeTeam: this["homeTeam"],
       offPlayersOnCourt: gameEventData["offPlayersOnCourt"],
       offTeam: gameEventData["offTeam"],
       segment: gameEventData["segment"],
@@ -166,9 +174,9 @@ class GameEventStore implements IObserver {
           gameEventData as GameEvent2FgAttempt;
         appendObj.player0 = offPlayer0;
         appendObj.text1 = shotType;
-        appendObj.value0 = shotValue;
-        appendObj.value1 = x;
-        appendObj.value2 = y;
+        appendObj.int0 = shotValue;
+        appendObj.int1 = x;
+        appendObj.int2 = y;
         break;
       }
       case "2FG_BLOCK": {
@@ -177,9 +185,9 @@ class GameEventStore implements IObserver {
         appendObj.player0 = offPlayer0;
         appendObj.player1 = defPlayer0;
         appendObj.text0 = shotType;
-        appendObj.value0 = shotValue;
-        appendObj.value1 = x;
-        appendObj.value2 = y;
+        appendObj.int0 = shotValue;
+        appendObj.int1 = x;
+        appendObj.int2 = y;
         break;
       }
       case "2FG_MADE": {
@@ -189,9 +197,9 @@ class GameEventStore implements IObserver {
         appendObj.player0 = offPlayer0;
         appendObj.player1 = offPlayer1;
         appendObj.text0 = shotType;
-        appendObj.value0 = shotValue;
-        appendObj.value1 = x;
-        appendObj.value2 = y;
+        appendObj.int0 = shotValue;
+        appendObj.int1 = x;
+        appendObj.int2 = y;
 
         break;
       }
@@ -210,9 +218,9 @@ class GameEventStore implements IObserver {
         appendObj.player1 = defPlayer0; //fouler
         appendObj.player2 = offPlayer1; //assister
         appendObj.text0 = shotType;
-        appendObj.value0 = shotValue;
-        appendObj.value1 = x;
-        appendObj.value2 = y;
+        appendObj.int0 = shotValue;
+        appendObj.int1 = x;
+        appendObj.int2 = y;
 
         break;
       }
@@ -222,9 +230,9 @@ class GameEventStore implements IObserver {
 
         appendObj.player0 = offPlayer0;
         appendObj.text0 = shotType;
-        appendObj.value0 = shotValue;
-        appendObj.value1 = x;
-        appendObj.value2 = y;
+        appendObj.int0 = shotValue;
+        appendObj.int1 = x;
+        appendObj.int2 = y;
 
         break;
       }
@@ -235,9 +243,9 @@ class GameEventStore implements IObserver {
         appendObj.player0 = offPlayer0;
         appendObj.player1 = defPlayer0;
         appendObj.text0 = shotType;
-        appendObj.value0 = shotValue;
-        appendObj.value1 = x;
-        appendObj.value2 = y;
+        appendObj.int0 = shotValue;
+        appendObj.int1 = x;
+        appendObj.int2 = y;
 
         break;
       }
@@ -246,9 +254,9 @@ class GameEventStore implements IObserver {
           gameEventData as GameEvent3FgAttempt;
         appendObj.player0 = offPlayer0;
         appendObj.text0 = shotType;
-        appendObj.value0 = shotValue;
-        appendObj.value1 = x;
-        appendObj.value2 = y;
+        appendObj.int0 = shotValue;
+        appendObj.int1 = x;
+        appendObj.int2 = y;
         break;
       }
       case "3FG_BLOCK": {
@@ -257,9 +265,9 @@ class GameEventStore implements IObserver {
         appendObj.player0 = offPlayer0;
         appendObj.player1 = defPlayer0;
         appendObj.text0 = shotType;
-        appendObj.value0 = shotValue;
-        appendObj.value1 = x;
-        appendObj.value2 = y;
+        appendObj.int0 = shotValue;
+        appendObj.int1 = x;
+        appendObj.int2 = y;
         break;
       }
       case "3FG_MADE": {
@@ -269,9 +277,9 @@ class GameEventStore implements IObserver {
         appendObj.player0 = offPlayer0;
         appendObj.player1 = offPlayer1;
         appendObj.text0 = shotType;
-        appendObj.value0 = shotValue;
-        appendObj.value1 = x;
-        appendObj.value2 = y;
+        appendObj.int0 = shotValue;
+        appendObj.int1 = x;
+        appendObj.int2 = y;
         break;
       }
       case "3FG_MADE_FOUL": {
@@ -289,9 +297,9 @@ class GameEventStore implements IObserver {
         appendObj.player1 = defPlayer0; //fouler
         appendObj.player2 = offPlayer1; //assister
         appendObj.text0 = shotType;
-        appendObj.value0 = shotValue;
-        appendObj.value1 = x;
-        appendObj.value2 = y;
+        appendObj.int0 = shotValue;
+        appendObj.int1 = x;
+        appendObj.int2 = y;
         break;
       }
       case "3FG_MISS": {
@@ -300,9 +308,9 @@ class GameEventStore implements IObserver {
 
         appendObj.player0 = offPlayer0;
         appendObj.text0 = shotType;
-        appendObj.value0 = shotValue;
-        appendObj.value1 = x;
-        appendObj.value2 = y;
+        appendObj.int0 = shotValue;
+        appendObj.int1 = x;
+        appendObj.int2 = y;
         break;
       }
       case "3FG_MISS_FOUL": {
@@ -312,9 +320,9 @@ class GameEventStore implements IObserver {
         appendObj.player0 = offPlayer0;
         appendObj.player1 = defPlayer0;
         appendObj.text0 = shotType;
-        appendObj.value0 = shotValue;
-        appendObj.value1 = x;
-        appendObj.value2 = y;
+        appendObj.int0 = shotValue;
+        appendObj.int1 = x;
+        appendObj.int2 = y;
         break;
       }
       case "DEFENSIVE_REBOUND": {
@@ -379,9 +387,9 @@ class GameEventStore implements IObserver {
         appendObj.bool0 = isBonus;
         appendObj.bool1 = isMade;
         appendObj.player0 = offPlayer0;
-        appendObj.value0 = shotValue;
-        appendObj.value1 = shotNumber;
-        appendObj.value2 = totalShots;
+        appendObj.int0 = shotValue;
+        appendObj.int1 = shotNumber;
+        appendObj.int2 = totalShots;
 
         break;
       }

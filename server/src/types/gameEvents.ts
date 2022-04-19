@@ -9,14 +9,12 @@ import { Player, Team } from "../entities";
 import {
   EjectionReasons,
   FoulTypesDefensiveNonShooting,
-  GameTypeEnum,
   TechnicalReasons,
 } from "./enums";
 
 const DefaultGameEvent = z.object({
   defPlayersOnCourt: z.array(z.instanceof(Player)),
   defTeam: z.instanceof(Team),
-  gameType: GameTypeEnum,
   offPlayersOnCourt: z.array(z.instanceof(Player)),
   offTeam: z.instanceof(Team),
   segment: z.number(),

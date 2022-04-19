@@ -1,0 +1,27 @@
+{
+  "emulators": {
+    "default": {
+      "port": 3569,
+      "serviceAccount": "emulator-account"
+    }
+  },
+  "contracts": {
+    "Stuff": "./cadence/Stuff.cdc"
+  },
+  "networks": {
+    "emulator": "127.0.0.1:3569",
+    "mainnet": "access.mainnet.nodes.onflow.org:9000",
+    "testnet": "access.devnet.nodes.onflow.org:9000"
+  },
+  "accounts": {
+    "emulator-account": {
+      "address": "f8d6e0586b0a20c7",
+      "key": "ae351c52fd90cc9c7260c6873c432ca3b561fbe1aa6023f4f181abd120af49eb"
+    }
+  },
+  "deployments": {
+    "emulator": {
+      "emulator-account": ["Stuff"]
+    }
+  }
+}
