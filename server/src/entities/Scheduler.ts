@@ -2,7 +2,7 @@ import { Conference, Division, Team } from "@prisma/client";
 import { groupBy, set } from "lodash";
 import commons from "../utils/commons";
 
-// With help from this Python project by humblehwang, publicly available here: https://github.com/humblehwang/nab_schedule/blob/master/Project/scheduler.py
+// Translated from this Python project by humblehwang, publicly available here: https://github.com/humblehwang/nab_schedule/blob/master/Project
 class Scheduler {
   commonNonDivisionOpponents: any;
   rareNonDivisionOpponents: any;
@@ -32,6 +32,9 @@ class Scheduler {
         ha1: commons[team.abbrev].slice(2, 4),
       };
     });
+
+    // HA[0] is the group of rareNonDivOpps that a team should play 2 home games against
+    // HA[1] is the group that a team should play 2 away games against, (and 1 home game)
 
     console.log("schedulerTeamObj", this.schedulerTeamObj);
 
@@ -123,55 +126,55 @@ class Scheduler {
   }
 
   createNbaSchedule = () => {
-    // this.teams.forEach((team) => {
-    //   let otherConference = 1;
-    //   if (team.conferenceId === 1) {
-    //     otherConference = 2;
-    //   }
-    //   const nonConferenceOpponents = this.conferences[otherConference];
-    //   const divisionOpponents = this.divisions[team.divisionId];
-    //   const commonNonDivisionOpponents =
-    //     this.commonNonDivisionOpponents[team.abbrev];
-    //   const rareNonDivisionOpponents =
-    //     this.rareNonDivisionOpponents[team.abbrev];
-    //   divisionOpponents.forEach((divisionOpponent: Team) => {
-    //     if (team.id === divisionOpponent.id) return;
-    //     let i = 0;
-    //     while (i < 2) {
-    //       this.schedule.push([divisionOpponent, team]);
-    //       this.scheduleName.push([divisionOpponent.abbrev, team.abbrev]);
-    //       this.homeTeam.push(team);
-    //       i++;
-    //     }
-    //   });
-    //   nonConferenceOpponents.forEach((nonConferenceOpponent: Team) => {
-    //     let i = 0;
-    //     while (i < 1) {
-    //       this.schedule.push([nonConferenceOpponent, team]);
-    //       this.scheduleName.push([nonConferenceOpponent.abbrev, team.abbrev]);
-    //       this.homeTeam.push(team);
-    //       i++;
-    //     }
-    //   });
-    //   commonNonDivisionOpponents.forEach((commonNonDivOpp: Team) => {
-    //     let i = 0;
-    //     while (i < 2) {
-    //       this.schedule.push([commonNonDivOpp, team]);
-    //       this.scheduleName.push([commonNonDivOpp.abbrev, team.abbrev]);
-    //       this.homeTeam.push(team);
-    //       i++;
-    //     }
-    //   });
-    //   rareNonDivisionOpponents.forEach((rareNonDivisionOpp: Team) => {
-    //     let i = 0;
-    //     while (i < 1) {
-    //       this.schedule.push([rareNonDivisionOpp, team]);
-    //       this.scheduleName.push([rareNonDivisionOpp.abbrev, team.abbrev]);
-    //       this.homeTeam.push(team);
-    //       i++;
-    //     }
-    //   });
-    // });
+    this.teams.forEach((team) => {
+      let otherConference = 1;
+      if (team.conferenceId === 1) {
+        otherConference = 2;
+      }
+      const nonConferenceOpponents = this.conferences[otherConference];
+      const divisionOpponents = this.divisions[team.divisionId];
+      const commonNonDivisionOpponents =
+        this.commonNonDivisionOpponents[team.abbrev];
+      const rareNonDivisionOpponents =
+        this.rareNonDivisionOpponents[team.abbrev];
+      divisionOpponents.forEach((divisionOpponent: Team) => {
+        if (team.id === divisionOpponent.id) return;
+        let i = 0;
+        while (i < 2) {
+          this.schedule.push([divisionOpponent, team]);
+          this.scheduleName.push([divisionOpponent.abbrev, team.abbrev]);
+          this.homeTeam.push(team);
+          i++;
+        }
+      });
+      nonConferenceOpponents.forEach((nonConferenceOpponent: Team) => {
+        let i = 0;
+        while (i < 1) {
+          this.schedule.push([nonConferenceOpponent, team]);
+          this.scheduleName.push([nonConferenceOpponent.abbrev, team.abbrev]);
+          this.homeTeam.push(team);
+          i++;
+        }
+      });
+      commonNonDivisionOpponents.forEach((commonNonDivOpp: Team) => {
+        let i = 0;
+        while (i < 2) {
+          this.schedule.push([commonNonDivOpp, team]);
+          this.scheduleName.push([commonNonDivOpp.abbrev, team.abbrev]);
+          this.homeTeam.push(team);
+          i++;
+        }
+      });
+      rareNonDivisionOpponents.forEach((rareNonDivisionOpp: Team) => {
+        let i = 0;
+        while (i < 1) {
+          this.schedule.push([rareNonDivisionOpp, team]);
+          this.scheduleName.push([rareNonDivisionOpp.abbrev, team.abbrev]);
+          this.homeTeam.push(team);
+          i++;
+        }
+      });
+    });
   };
 }
 
