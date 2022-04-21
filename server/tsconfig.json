@@ -13,5 +13,5 @@
     "resolveJsonModule": true,
     "useUnknownInCatchVariables": false
   },
-  "include": ["src/**/*.ts", "prisma/**/*.ts", "src/**/*.js"]
+  "include": ["src/**/*.ts", "prisma/**/*.ts", "src/**/*.js", "jest.config.ts"]
 }
