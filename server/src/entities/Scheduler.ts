@@ -1,35 +1,39 @@
 import { Conference, Division, Team } from "@prisma/client";
-import { groupBy, set } from "lodash";
+import { range, sample, set } from "lodash";
 import commons from "../utils/commons";
+import gameDates from "../data/gameDates.json";
 
-// Translated from this Python project by humblehwang, publicly available here: https://github.com/humblehwang/nab_schedule/blob/master/Project
 class Scheduler {
   commonNonDivisionOpponents: any;
   rareNonDivisionOpponents: any;
-  conferences: any;
-  divisions: any;
+  conferences: Conference[];
+  divisions: Division[];
   public homeTeam: any[];
   rareOpponents: any;
   public schedule: any[];
   public scheduleName: any[];
-  schedulerTeamObj: any;
+  teamSchedulerObj: any;
   teams: Team[];
   constructor(conferences: Conference[], divisions: Division[], teams: Team[]) {
-    this.conferences = groupBy(teams, "conferenceId");
-    this.divisions = groupBy(teams, "divisionId");
+    this.conferences = conferences;
+    this.divisions = divisions;
     this.homeTeam = [];
     this.schedule = [];
     this.scheduleName = [];
-    this.schedulerTeamObj = {};
+    this.teamSchedulerObj = {};
     this.teams = teams;
 
     const distances = this.getDistances(teams);
 
     teams.forEach((team) => {
-      this.schedulerTeamObj[team.abbrev] = {
+      this.teamSchedulerObj[team.abbrev] = {
+        commonNonDivisionOpponents: [],
+        rareNonDivisionOpponents: [],
         common: commons[team.abbrev].slice(4),
         ha0: commons[team.abbrev].slice(0, 2),
         ha1: commons[team.abbrev].slice(2, 4),
+        schedule: [],
+        teamCalendar: {},
       };
     });
 
@@ -85,6 +89,109 @@ class Scheduler {
     }
   }
 
+  getNonDivisionOpponents = (team: Team) => {
+    return this.teams.filter((oppTeam) => {
+      team.conferenceId === oppTeam.conferenceId &&
+        team.divisionId !== oppTeam.divisionId;
+    });
+  };
+
+  scheduleGame = ({
+    homeTeam,
+    awayTeam,
+  }: {
+    homeTeam: Team;
+    awayTeam: Team;
+  }) => {
+    const randomDate = sample(gameDates);
+
+    if (randomDate) {
+      if (
+        !this.teamSchedulerObj[homeTeam.abbrev].teamCalendar[randomDate] &&
+        !this.teamSchedulerObj[awayTeam.abbrev].teamCalendar[randomDate]
+      ) {
+        this.teamSchedulerObj[homeTeam.abbrev].teamCalendar[randomDate] = true;
+        this.teamSchedulerObj[awayTeam.abbrev].teamCalendar[randomDate] = true;
+
+        this.teamSchedulerObj[homeTeam.abbrev].schedule.push(
+          new Game({
+            randomDate,
+            opponent: awayTeam,
+            isHome: true,
+          })
+        );
+
+        this.teamSchedulerObj[awayTeam.abbrev].schedule.push(
+          new Game({
+            randomDate,
+            opponent: homeTeam,
+            isHome: false,
+          })
+        );
+
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  setCommonNonDivisionOpponents = (team: Team) => {
+    const commonNonDivisionOpponents: Team[] =
+      this.teamSchedulerObj[team.abbrev].commonNonDivisionOpponents;
+    const nonDivisionOpponents = this.getNonDivisionOpponents(team);
+
+    if (commonNonDivisionOpponents.length > 6) {
+      const randomCommonOpponent = sample(commonNonDivisionOpponents)!;
+      this.teamSchedulerObj[team.abbrev].commonNonDivisionOpponents.filter(
+        (oppTeam: any) => oppTeam.id !== randomCommonOpponent.id
+      );
+
+      this.teamSchedulerObj[
+        randomCommonOpponent.abbrev
+      ].commonNonDivisionOpponents.filter(
+        (oppTeam: any) => oppTeam.id !== team.id
+      );
+
+      this.setCommonNonDivisionOpponents(team);
+      this.setCommonNonDivisionOpponents(randomCommonOpponent);
+    } else if (commonNonDivisionOpponents.length < 6) {
+      const frontier: any[] = [];
+
+      nonDivisionOpponents.forEach((nonDivisionOpponent) => {
+        if (
+          !commonNonDivisionOpponents
+            .map((t) => t.id)
+            .includes(nonDivisionOpponent.id)
+        ) {
+          frontier.push([
+            nonDivisionOpponent,
+            this.teamSchedulerObj[nonDivisionOpponent.abbrev]
+              .commonNonDivisionOpponents,
+          ]);
+        }
+
+        let minLen = 100;
+        let minIndex = -1;
+
+        range(frontier.length).forEach((f, i) => {
+          if (frontier[f][1] <= minLen) {
+            minLen = frontier[f][1];
+            minIndex = f;
+          }
+        });
+        let rand1 = frontier[minIndex][0];
+        this.teamSchedulerObj[team.abbrev].commonNonDivisionOpponents.push(
+          rand1
+        );
+        this.setCommonNonDivisionOpponents(team);
+        this.setCommonNonDivisionOpponents(rand1);
+      });
+    }
+  };
+
+  setRareNonDivisionOpponents = () => {};
+
   createNbaSchedule = () => {
     this.teams.forEach((team, i) => {
       let otherConference = 1;
@@ -95,7 +202,7 @@ class Scheduler {
       const divisionOpponents = this.divisions[team.divisionId];
       const commonNonDivisionOpponents = this.teams.filter((oppTeam) => {
         if (
-          this.schedulerTeamObj[team.abbrev].common.includes(oppTeam.abbrev)
+          this.teamSchedulerObj[team.abbrev].common.includes(oppTeam.abbrev)
         ) {
           return true;
         } else {
@@ -103,7 +210,7 @@ class Scheduler {
         }
       });
       const rareNonDivisionOpponents = this.teams.filter((oppTeam) => {
-        if (this.schedulerTeamObj[team.abbrev].ha0.includes(oppTeam.abbrev)) {
+        if (this.teamSchedulerObj[team.abbrev].ha0.includes(oppTeam.abbrev)) {
           return true;
         } else {
           return false;
@@ -114,21 +221,31 @@ class Scheduler {
         if (team.id === divisionOpponent.id) return;
         let i = 0;
         while (i < 2) {
-          this.schedule.push([divisionOpponent, team]);
-          this.scheduleName.push([divisionOpponent.abbrev, team.abbrev]);
-          this.homeTeam.push(team);
-          i++;
+          const isGameScheduled = this.scheduleGame({
+            homeTeam: team,
+            awayTeam: divisionOpponent,
+          });
+
+          if (isGameScheduled) {
+            i++;
+          }
         }
       });
+
       nonConferenceOpponents.forEach((nonConferenceOpponent: Team) => {
         let i = 0;
         while (i < 1) {
-          this.schedule.push([nonConferenceOpponent, team]);
-          this.scheduleName.push([nonConferenceOpponent.abbrev, team.abbrev]);
-          this.homeTeam.push(team);
-          i++;
+          const isGameScheduled = this.scheduleGame({
+            homeTeam: team,
+            awayTeam: nonConferenceOpponent,
+          });
+
+          if (isGameScheduled) {
+            i++;
+          }
         }
       });
+
       commonNonDivisionOpponents.forEach((commonNonDivOpp: Team) => {
         let i = 0;
         while (i < 2) {
@@ -153,3 +270,22 @@ class Scheduler {
 }
 
 export default Scheduler;
+
+class Game {
+  randomDate: string;
+  opponent: Team;
+  isHome: boolean;
+  constructor({
+    randomDate,
+    opponent,
+    isHome,
+  }: {
+    randomDate: string;
+    opponent: Team;
+    isHome: boolean;
+  }) {
+    this.randomDate = randomDate;
+    this.opponent = opponent;
+    this.isHome = isHome;
+  }
+}

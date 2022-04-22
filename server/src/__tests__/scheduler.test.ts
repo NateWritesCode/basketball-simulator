@@ -4,7 +4,7 @@ import Scheduler from "../entities/Scheduler";
 const prisma = new PrismaClient();
 
 describe("Scheduler tets", () => {
-  test("Scheduler test", async () => {
+  test("NBA Scheduler test", async () => {
     const conferences = await prisma.conference.findMany({});
     const divisions = await prisma.division.findMany({});
     const teams = await prisma.team.findMany({});
