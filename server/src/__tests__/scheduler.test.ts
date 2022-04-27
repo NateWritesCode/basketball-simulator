@@ -13,15 +13,25 @@ describe("Scheduler tets", () => {
 
     scheduler.createNbaSchedule();
 
-    const NUM_GAMES_IN_SEASON = (82 * teams.length) / 2;
+    const { teamSchedulerObj } = scheduler;
 
-    const { scheduleName, homeTeam, schedule } = scheduler;
-    expect(scheduleName.length).toBe(NUM_GAMES_IN_SEASON);
-    expect(homeTeam.length).toBe(NUM_GAMES_IN_SEASON);
-    expect(schedule.length).toBe(NUM_GAMES_IN_SEASON);
+    const teamSchedulerObjKeys = Object.keys(teamSchedulerObj);
+    teamSchedulerObjKeys.forEach((key) => {
+      const { commonNonDivisionOpponents, rareNonDivisionOpponents, schedule } =
+        teamSchedulerObj[key];
+      expect(commonNonDivisionOpponents.length).toBe(6);
+      expect(rareNonDivisionOpponents.length).toBe(4);
+      // expect(schedule.length).toBe(82);
 
-    console.log("scheduleName.length", scheduleName.length);
-    console.log("schedule.length", schedule.length);
-    console.log("homeTeam.length", homeTeam.length);
+      // console.log("schedule.length", schedule.length);
+    });
+
+    // expect(scheduleName.length).toBe(NUM_GAMES_IN_SEASON);
+    // expect(homeTeam.length).toBe(NUM_GAMES_IN_SEASON);
+    // expect(schedule.length).toBe(NUM_GAMES_IN_SEASON);
+
+    // console.log("scheduleName.length", scheduleName.length);
+    // console.log("schedule.length", schedule.length);
+    // console.log("homeTeam.length", homeTeam.length);
   });
 });
