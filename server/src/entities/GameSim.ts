@@ -613,6 +613,7 @@ class GameSim {
       let shouldWeEject = false;
       let ejectionReason: EjectionReasons = "TECHNICAL";
       if (playerState.flagrant1 === 2) {
+        debugger;
         ejectionReason = "FLAGRANT_1";
         shouldWeEject = true;
       } else if (playerState.flagrant2 === 1) {

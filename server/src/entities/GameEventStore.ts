@@ -117,6 +117,7 @@ class GameEventStore implements IObserver {
 
   appendToFile = (gameEvent: GameEventEnum, gameEventData: any) => {
     const appendObj = this.getAppendObj(gameEvent, gameEventData);
+    console.log("appendObj.gameEvent", appendObj.gameEvent);
     const pipeSettingsKeys = Object.keys(this.pipeSettings);
     let appendString = "";
     pipeSettingsKeys.forEach((pipeSettingKey, i) => {

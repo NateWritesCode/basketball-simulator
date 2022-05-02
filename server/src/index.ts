@@ -5,16 +5,16 @@ import { generateSchedule } from "./utils";
 
 (async () => {
   try {
-    // await startHive();
+    // await startHive();SELECT * FROM "Game";
     const prisma = await startExpressServer();
 
-    const conferences = await prisma.conference.findMany({});
-    const divisions = await prisma.division.findMany({});
-    const teams = await prisma.team.findMany({});
+    // const conferences = await prisma.conference.findMany({});
+    // const divisions = await prisma.division.findMany({});
+    // const teams = await prisma.team.findMany({});
 
-    const scheduler = new Scheduler(conferences, divisions, teams);
+    // const scheduler = new Scheduler(conferences, divisions, teams);
 
-    scheduler.createNbaSchedule();
+    // scheduler.createNbaSchedule();
 
     // generateSchedule({ scheduleType: "nba", teams });
   } catch (e) {

@@ -564,18 +564,17 @@ class GamePlayerState implements IObserver {
           offPlayer0,
         } = gameEventData as GameEventFoulNonShootingDefensive;
 
-        if (foulType === "FLAGRANT_1") {
-          this.flagrant1++;
-        } else if (foulType === "FLAGRANT_2") {
-          this.flagrant2++;
-        } else if (foulType === "DOUBLE") {
-          if (offPlayer0.id === this.id) {
-            this.fouls += 1;
-          }
-        }
-
         if (defPlayer0.id === this.id) {
           this.fouls += 1;
+          if (foulType === "FLAGRANT_1") {
+            this.flagrant1++;
+          } else if (foulType === "FLAGRANT_2") {
+            this.flagrant2++;
+          } else if (foulType === "DOUBLE") {
+            if (offPlayer0.id === this.id) {
+              this.fouls += 1;
+            }
+          }
         }
 
         this.incrementFieldForOffAndDefPlayersOnCourt(

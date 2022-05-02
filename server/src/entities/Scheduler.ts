@@ -1,13 +1,10 @@
-import { Conference, Division, Team } from "@prisma/client";
+import { Conference, Division, Game as DBGame, Team } from "@prisma/client";
 import { keys, range, sample, set } from "lodash";
 import commons from "../utils/commons";
 import gameDates from "../data/gameDates.json";
 import { log } from "../utils";
-
-function popRandom(array: any[]) {
-  let i = (Math.random() * array.length) | 0;
-  return array.splice(i, 1)[0];
-}
+import { sample as simpleStatSample } from "simple-statistics";
+import random from "random";
 
 class Scheduler {
   commonNonDivisionOpponents: any;
@@ -34,6 +31,7 @@ class Scheduler {
     teams.forEach((team) => {
       this.teamSchedulerObj[team.abbrev] = {
         commonNonDivisionOpponents: [],
+        ha: [],
         rareNonDivisionOpponents: [],
         schedule: [],
         teamCalendar: {},
@@ -135,6 +133,13 @@ class Scheduler {
       this.teamSchedulerObj[homeTeam.abbrev].teamCalendar[gameDate] = true;
       this.teamSchedulerObj[awayTeam.abbrev].teamCalendar[gameDate] = true;
 
+      this.schedule.push({
+        date: new Date(gameDate),
+        id: this.schedule.length + 1,
+        team0Id: homeTeam.id,
+        team1Id: awayTeam.id,
+      });
+
       this.teamSchedulerObj[homeTeam.abbrev].schedule.push(
         new Game({
           gameDate,
@@ -172,6 +177,72 @@ class Scheduler {
 
   getTeamByAbbrev = (abbrev: string): Team => {
     return this.teams.find((team) => team.abbrev === abbrev)!;
+  };
+
+  initializeHa = (team: Team) => {
+    this.teamSchedulerObj[team.abbrev].ha[0] = simpleStatSample(
+      this.teamSchedulerObj[team.abbrev].rareNonDivisionOpponents,
+      2,
+      () => random.float(0, 1)
+    );
+    this.teamSchedulerObj[team.abbrev].ha[1] = this.teamSchedulerObj[
+      team.abbrev
+    ].rareNonDivisionOpponents.filter((teamAbbrev: string) => {
+      return !this.teamSchedulerObj[team.abbrev].ha[0].includes(teamAbbrev);
+    });
+  };
+
+  makeHaConsistent = (team: Team) => {
+    this.teamSchedulerObj[team.abbrev].ha[0].forEach((team2: string) => {
+      this.swapHa(team, this.getTeamByAbbrev(team2));
+    });
+    this.teamSchedulerObj[team.abbrev].ha[1].forEach((team3: string) => {
+      this.swapHa(team, this.getTeamByAbbrev(team3));
+    });
+
+    let i = 0;
+    this.teams.forEach((team4: Team) => {
+      if (this.teamSchedulerObj[team.abbrev].ha[0].includes(team4.abbrev)) {
+        i++;
+      }
+    });
+
+    if (i !== 2) {
+      console.log("Make HA Consistent error", team.abbrev);
+    }
+  };
+
+  swapHa = (team1: Team, team2: Team) => {
+    while (
+      this.teamSchedulerObj[team1.abbrev].ha[0].includes(team2.abbrev) &&
+      !this.teamSchedulerObj[team2.abbrev].ha[1].includes(team1.abbrev)
+    ) {
+      this.teamSchedulerObj[team2.abbrev].ha[1].push(team1.abbrev);
+      this.teamSchedulerObj[team2.abbrev].ha[0] = this.teamSchedulerObj[
+        team2.abbrev
+      ].ha[0].filter((teamAbbrev: string) => teamAbbrev !== team1.abbrev);
+
+      const r = sample(this.teamSchedulerObj[team2.abbrev].ha[1]);
+      this.teamSchedulerObj[team2.abbrev].ha[1] = this.teamSchedulerObj[
+        team2.abbrev
+      ].ha[1].filter((teamAbbrev: string) => teamAbbrev !== r);
+      this.teamSchedulerObj[team2.abbrev].ha[0].push(r);
+    }
+
+    while (
+      this.teamSchedulerObj[team1.abbrev].ha[1].includes(team2.abbrev) &&
+      !this.teamSchedulerObj[team2.abbrev].ha[0].includes(team1.abbrev)
+    ) {
+      this.teamSchedulerObj[team2.abbrev].ha[0].push(team1.abbrev);
+      this.teamSchedulerObj[team2.abbrev].ha[1] = this.teamSchedulerObj[
+        team2.abbrev
+      ].ha[1].filter((teamAbbrev: string) => teamAbbrev !== team1.abbrev);
+      const r = sample(this.teamSchedulerObj[team2.abbrev].ha[0]);
+      this.teamSchedulerObj[team2.abbrev].ha[0] = this.teamSchedulerObj[
+        team2.abbrev
+      ].ha[0].filter((teamAbbrev: string) => teamAbbrev !== r);
+      this.teamSchedulerObj[team2.abbrev].ha[1].push(r);
+    }
   };
 
   setRareNonDivisionOpponents = (team: Team) => {
@@ -248,7 +319,14 @@ class Scheduler {
 
   createNbaSchedule = () => {
     log.info("Creating NBA Schedule");
+
     this.teams.forEach((team) => {
+      this.setRareNonDivisionOpponents(team);
+      this.setCommonNonDivisionOpponents(team);
+    });
+
+    this.teams.forEach((team) => {
+      const { schedule } = this.teamSchedulerObj[team.abbrev];
       const divisionOpponents = this.teams.filter(
         (oppTeam) =>
           oppTeam.divisionId === team.divisionId && team.id !== oppTeam.id
@@ -287,8 +365,6 @@ class Scheduler {
         }
       });
 
-      this.setRareNonDivisionOpponents(team);
-
       this.teamSchedulerObj[team.abbrev].rareNonDivisionOpponents.forEach(
         (rareNonDivisionOpponent: string) => {
           let i = 0;
@@ -314,8 +390,6 @@ class Scheduler {
           }
         }
       );
-
-      this.setCommonNonDivisionOpponents(team);
 
       this.teamSchedulerObj[team.abbrev].commonNonDivisionOpponents.forEach(
         (commonNonDivisionOpponent: string) => {
@@ -344,7 +418,62 @@ class Scheduler {
       );
     });
 
-    debugger;
+    this.teams.forEach((team) => {
+      this.initializeHa(team);
+    });
+
+    this.teams.forEach((team) => {
+      this.makeHaConsistent(team);
+    });
+
+    let isHaListsConsistent = false;
+
+    while (!isHaListsConsistent) {
+      let j = 0;
+
+      this.teams.forEach((team) => {
+        let i = 0;
+
+        this.teams.forEach((team2) => {
+          if (this.teamSchedulerObj[team2.abbrev].ha[1].includes(team.abbrev)) {
+            i += 1;
+          }
+        });
+
+        if (i !== 2) {
+          this.makeHaConsistent(team);
+          j += 1;
+        }
+      });
+
+      if (j === 0) {
+        isHaListsConsistent = true;
+      }
+    }
+
+    this.teams.forEach((team) => {
+      this.teamSchedulerObj[team.abbrev].ha[0].forEach((h: string) => {
+        let i = 0;
+
+        while (i < 1) {
+          const homeTeam = this.teams.find((oppTeam) => oppTeam.abbrev === h);
+          if (!homeTeam) {
+            throw new Error(
+              "Can't make non conference opponent without away team"
+            );
+          }
+
+          const isGameScheduled = this.scheduleGame({
+            homeTeam,
+            awayTeam: team,
+          });
+
+          if (isGameScheduled) {
+            i++;
+          }
+        }
+      });
+    });
   };
 }
 

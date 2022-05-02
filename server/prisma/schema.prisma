@@ -34,6 +34,15 @@ model Division {
   teams        Team[]
 }
 
+model Game {
+  date    DateTime
+  id      Int      @id
+  team0   Team     @relation(name: "Team0Games", fields: [team0Id], references: [id])
+  team1   Team     @relation(name: "Team1Games", fields: [team1Id], references: [id])
+  team0Id Int
+  team1Id Int
+}
+
 model GameEvent {
   awayTeam         Team?    @relation(name: "AwayTeamGameEvents", fields: [awayTeamId], references: [id])
   awayTeamId       Int?     @map("away_team_id")
@@ -158,4 +167,6 @@ model Team {
   divisionId         Int
   Conference         Conference? @relation(fields: [conferenceId], references: [id])
   conferenceId       Int?
+  team0Games         Game[]      @relation("Team0Games")
+  team1Games         Game[]      @relation("Team1Games")
 }

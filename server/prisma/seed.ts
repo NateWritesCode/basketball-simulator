@@ -3,7 +3,7 @@ import players from "../src/data/players.json";
 import teams from "../src/data/teams.json";
 import csvtojson from "csvtojson";
 import fs from "fs";
-import { generateSchedule } from "../src/utils";
+import Scheduler from "../src/entities/Scheduler";
 
 const prisma = new PrismaClient();
 const nbaLeagueId = 1;
@@ -109,7 +109,19 @@ async function main() {
     }),
   });
 
-  const gameEventFiles = fs.readdirSync("./src/data/game-events");
+  const dbConferences = await prisma.conference.findMany({});
+  const dbDivisions = await prisma.division.findMany({});
+  const dbTeams = await prisma.team.findMany({});
+
+  const scheduler = new Scheduler(dbConferences, dbDivisions, dbTeams);
+
+  scheduler.createNbaSchedule();
+
+  await prisma.game.createMany({
+    data: scheduler.schedule,
+  });
+
+  const gameEventFiles = fs.readdirSync("./src/data/game-events").slice(0, 20);
   for (const [_, file] of gameEventFiles.entries()) {
     let gameEvents = await csvtojson({
       checkType: true,
@@ -173,27 +185,27 @@ async function main() {
       data: gameEvents,
     });
 
-    //   // for (const [_, testItem] of test.entries()) {
-    //   //   const { offPlayersOnCourt, defPlayersOnCourt, id } = testItem;
+    // for (const [_, testItem] of test.entries()) {
+    //   const { offPlayersOnCourt, defPlayersOnCourt, id } = testItem;
 
-    //   //   await prisma.gameEvent.update({
-    //   //     data: {
-    //   //       offPlayersOnCourt: {
-    //   //         connect: offPlayersOnCourt.map((id: number) => {
-    //   //           return { id };
-    //   //         }),
-    //   //       },
-    //   //       defPlayersOnCourt: {
-    //   //         connect: defPlayersOnCourt.map((id: number) => {
-    //   //           return { id };
-    //   //         }),
-    //   //       },
-    //   //     },
-    //   //     where: {
-    //   //       id,
-    //   //     },
-    //   //   });
-    //   // }
+    //   await prisma.gameEvent.update({
+    //     data: {
+    //       offPlayersOnCourt: {
+    //         connect: offPlayersOnCourt.map((id: number) => {
+    //           return { id };
+    //         }),
+    //       },
+    //       defPlayersOnCourt: {
+    //         connect: defPlayersOnCourt.map((id: number) => {
+    //           return { id };
+    //         }),
+    //       },
+    //     },
+    //     where: {
+    //       id,
+    //     },
+    //   });
+    // }
   }
 }
 
