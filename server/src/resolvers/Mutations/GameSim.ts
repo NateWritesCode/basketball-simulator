@@ -7,7 +7,6 @@ import {
   GameTotalTime,
   ShotClockLength,
 } from "../../types";
-import { generateSchedule } from "../../utils";
 
 export const startGameSim = mutationField("startGameSim", {
   type: "SimResult",
@@ -15,7 +14,7 @@ export const startGameSim = mutationField("startGameSim", {
     try {
       const games = await prisma.game.findMany({});
 
-      for await (const game of games) {
+      for await (const game of games.slice(0, 100)) {
         const team0 = await prisma.team.findUnique({
           where: {
             id: game.team0Id,

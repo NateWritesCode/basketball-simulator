@@ -138,6 +138,7 @@ class GameSim {
         const playerState = new GamePlayerState(
           player.id,
           random.int(80, 99),
+          id,
           player.getFullName(),
           player.position,
           player.slug,
@@ -150,7 +151,7 @@ class GameSim {
     });
 
     // INIT OTHER OBSERVERS
-    this.observers.push(new GameLog(id));
+    // this.observers.push(new GameLog(id));
     this.observers.push(
       new GameEventStore({
         gameId: id,
