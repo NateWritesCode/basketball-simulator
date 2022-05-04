@@ -29,7 +29,6 @@ import {
   GameEventEjection,
 } from "../types";
 import fs from "fs";
-import csvtojson from "csvtojson";
 
 class GamePlayerState implements IObserver {
   [index: string]: any;
@@ -242,8 +241,6 @@ class GamePlayerState implements IObserver {
       });
       fs.appendFileSync(this.playerGameGroupFilePath, `${headerString}\n`);
     }
-
-    console.log("fileExists", fileExists);
 
     if (fileExists) {
       const data = fs
@@ -678,11 +675,11 @@ class GamePlayerState implements IObserver {
       }
 
       case "GAME_END": {
-        this.gameSimStats = this.gatherGameSimStats([
-          "jumpBallsLost",
-          "jumpBallsWon",
-          "pts",
-        ]);
+        // this.gameSimStats = this.gatherGameSimStats([
+        //   "jumpBallsLost",
+        //   "jumpBallsWon",
+        //   "pts",
+        // ]);
         this.closePlayerState();
         break;
       }

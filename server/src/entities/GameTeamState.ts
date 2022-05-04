@@ -20,8 +20,10 @@ import {
   GameEventViolation,
   IObserver,
 } from "../types";
+import fs from "fs";
 
 class GameTeamState implements IObserver {
+  [index: string]: any;
   andOne: number;
   ast: number;
   blk: number;
@@ -33,11 +35,15 @@ class GameTeamState implements IObserver {
   fgm: number;
   fouls: number;
   foulsOffensive: number;
+  foulsOffensiveCharge: number;
+  foulsOffensiveOther: number;
   foulsShooting: number;
   foulsBySegment: number[];
   foulsTechnical: number;
   fta: number;
   ftm: number;
+  gameGroupId: number;
+  gameId: number;
   gameSimStats: GameSimStats | null;
   gameSimSegmentData: GameSimStats[];
   heaves: number;
@@ -46,16 +52,16 @@ class GameTeamState implements IObserver {
   jumpBallsWon: number;
   momentum: number;
   name: string;
-  offensiveFoul: number;
-  offensiveFoulCharge: number;
-  offensiveFoulOther: number;
   orb: number;
   penalty: boolean;
   pf: number;
   pga: number;
   pts: number;
+  statsToRecord: string[];
   stl: number;
   substitutions: number;
+  teamGameFilePath: string;
+  teamGameGroupFilePath: string;
   teamDrb: number;
   teamOrb: number;
   timeouts: number;
@@ -63,7 +69,7 @@ class GameTeamState implements IObserver {
   tpa: number;
   tpm: number;
 
-  constructor(id: number, name: string, timeouts: number) {
+  constructor(id: number, gameId: number, name: string, timeouts: number) {
     this.andOne = 0;
     this.ast = 0;
     this.blk = 0;
@@ -75,11 +81,15 @@ class GameTeamState implements IObserver {
     this.fgm = 0;
     this.fouls = 0;
     this.foulsOffensive = 0;
+    this.foulsOffensiveCharge = 0;
+    this.foulsOffensiveOther = 0;
     this.foulsShooting = 0;
     this.foulsBySegment = [];
     this.foulsTechnical = 0;
     this.fta = 0;
     this.ftm = 0;
+    this.gameGroupId = 1;
+    this.gameId = gameId;
     this.gameSimSegmentData = [];
     this.gameSimStats = null;
     this.heaves = 0;
@@ -88,9 +98,6 @@ class GameTeamState implements IObserver {
     this.jumpBallsWon = 0;
     this.momentum = 0;
     this.name = name;
-    this.offensiveFoul = 0;
-    this.offensiveFoulCharge = 0;
-    this.offensiveFoulOther = 0;
     this.orb = 0;
     this.penalty = false;
     this.pf = 0;
@@ -99,12 +106,161 @@ class GameTeamState implements IObserver {
     this.stl = 0;
     this.substitutions = 0;
     this.teamDrb = 0;
+    this.teamGameFilePath = `./src/data/team-game/${id}.txt`;
+    this.teamGameGroupFilePath = `./src/data/team-game-group/${id}.txt`;
     this.teamOrb = 0;
     this.timeouts = timeouts;
     this.tov = 0;
     this.tpa = 0;
     this.tpm = 0;
+    this.statsToRecord = [
+      "gameId",
+      "gameGroupId",
+      "andOne",
+      "ast",
+      "blk",
+      "blkd",
+      "drb",
+      "dunks",
+      "ejections",
+      "fga",
+      "fgm",
+      "fouls",
+      "foulsOffensive",
+      "foulsOffensiveCharge",
+      "foulsOffensiveOther",
+      "foulsShooting",
+      "foulsTechnical",
+      "fta",
+      "ftm",
+      "heaves",
+      "jumpBallsLost",
+      "jumpBallsWon",
+      "orb",
+      "pf",
+      "pts",
+      "stl",
+      "substitutions",
+      "teamDrb",
+      "teamOrb",
+      "tov",
+      "tpa",
+      "tpm",
+    ];
   }
+
+  closeTeamState = () => {
+    this.writeToTeamGame();
+    this.writeToTeamGameGroup();
+  };
+
+  writeToTeamGame = () => {
+    try {
+      if (fs.existsSync(this.teamGameFilePath)) {
+      }
+    } catch (err) {
+      fs.writeFileSync(this.teamGameFilePath, "");
+      let headerString = "";
+      this.statsToRecord.forEach((statToRecord, i) => {
+        const isLastKey = i + 1 === this.statsToRecord.length;
+        const value = statToRecord;
+        headerString += `${value}${isLastKey ? "" : "|"}`;
+      });
+      fs.appendFileSync(this.teamGameFilePath, `${headerString}\n`);
+    }
+
+    let rowString = "";
+    this.statsToRecord.forEach((statToRecord, i) => {
+      const isLastKey = i + 1 === this.statsToRecord.length;
+      let value = this[statToRecord];
+
+      if (typeof value === "boolean") {
+        value = Number(value);
+      }
+
+      rowString += `${value}${isLastKey ? "" : "|"}`;
+    });
+    fs.appendFileSync(this.teamGameFilePath, `${rowString}\n`);
+  };
+
+  writeToTeamGameGroup = () => {
+    let fileExists = true;
+    if (fs.existsSync(this.teamGameGroupFilePath)) {
+    } else {
+      fileExists = false;
+      fs.writeFileSync(this.teamGameGroupFilePath, "");
+      let headerString = "";
+      this.statsToRecord.forEach((statToRecord, i) => {
+        const isLastKey = i + 1 === this.statsToRecord.length;
+        let value = statToRecord;
+
+        if (statToRecord === "gameId") {
+          value = "gp"; //change gameId to gamesPlayed
+        }
+
+        headerString += `${value}${isLastKey ? "" : "|"}`;
+      });
+      fs.appendFileSync(this.teamGameGroupFilePath, `${headerString}\n`);
+    }
+
+    if (fileExists) {
+      const data = fs
+        .readFileSync(this.teamGameGroupFilePath, {
+          encoding: "utf8",
+          flag: "r",
+        })
+        .trim()
+        .split("\n");
+
+      let lineToOverwrite = data.length - 1;
+      let rowString = "";
+
+      for (let i = data.length - 1; i >= 0; i--) {
+        const line = data[i].split("|");
+        const [_, gameGroupId] = line;
+
+        if (Number(gameGroupId) === this.gameGroupId) {
+          this.statsToRecord.forEach((statToRecord, i) => {
+            const isLastKey = i + 1 === this.statsToRecord.length;
+            let value = Number(line[i]);
+            if (statToRecord === "gameId") {
+              value = value + 1;
+            } else if (statToRecord === "gameGroupId") {
+            } else {
+              value += Number(this[statToRecord]);
+            }
+
+            rowString += `${value}${isLastKey ? "" : "|"}`;
+          });
+
+          lineToOverwrite = i;
+
+          break;
+        }
+      }
+
+      data[lineToOverwrite] = rowString;
+
+      fs.writeFileSync(this.teamGameGroupFilePath, data.join("\n"));
+    } else {
+      let rowString = "";
+      this.statsToRecord.forEach((statToRecord, i) => {
+        const isLastKey = i + 1 === this.statsToRecord.length;
+        let value = this[statToRecord];
+
+        if (statToRecord === "gameId") {
+          value = 1;
+        }
+
+        if (typeof value === "boolean") {
+          value = Number(value);
+        }
+
+        rowString += `${value}${isLastKey ? "" : "|"}`;
+      });
+      fs.appendFileSync(this.teamGameGroupFilePath, `${rowString}\n`);
+    }
+  };
 
   gatherGameSimSegmentData = (
     statFields: GameSimStatFields[]
@@ -346,11 +502,12 @@ class GameTeamState implements IObserver {
         break;
       }
       case "GAME_END": {
-        this.gameSimStats = this.gatherGameSimStats([
-          "jumpBallsLost",
-          "jumpBallsWon",
-          "pts",
-        ]);
+        // this.gameSimStats = this.gatherGameSimStats([
+        //   "jumpBallsLost",
+        //   "jumpBallsWon",
+        //   "pts",
+        // ]);
+        this.closeTeamState();
         break;
       }
       case "GAME_START": {
@@ -395,11 +552,11 @@ class GameTeamState implements IObserver {
 
         if (offTeam.id === this.id) {
           if (isCharge) {
-            this.offensiveFoulCharge++;
+            this.foulsOffensiveCharge++;
           } else {
-            this.offensiveFoulOther++;
+            this.foulsOffensiveOther++;
           }
-          this.offensiveFoul++;
+          this.foulsOffensive++;
         } else {
           this.momentum += 1;
         }

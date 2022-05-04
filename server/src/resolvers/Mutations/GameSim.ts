@@ -7,14 +7,28 @@ import {
   GameTotalTime,
   ShotClockLength,
 } from "../../types";
+import { csvDbClient } from "../../csvDbClient";
 
 export const startGameSim = mutationField("startGameSim", {
   type: "SimResult",
   async resolve(_parent, _args, { prisma, socket }) {
     try {
-      const games = await prisma.game.findMany({});
+      let teams: any = await prisma.team.findMany({});
+      teams = teams.map((team) => {
+        return {
+          id: team.id,
+          w: 0,
+          l: 0,
+        };
+      });
 
-      for await (const game of games.slice(0, 100)) {
+      await csvDbClient.add("./src/data/standings/1.txt", "standings", teams);
+
+      return;
+
+      const games = await prisma.game.findMany({ orderBy: [{ date: "asc" }] });
+
+      for await (const game of games) {
         const team0 = await prisma.team.findUnique({
           where: {
             id: game.team0Id,

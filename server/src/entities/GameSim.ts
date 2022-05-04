@@ -2,6 +2,7 @@ import { errors, getTypeGuardSafeData, isTypeGuardSafeObj } from "../utils";
 import { GameTeamState, GamePlayerState, Player, GameLog } from ".";
 import random from "random";
 import { sample } from "simple-statistics";
+import fs from "fs";
 import {
   EjectionReasons,
   FoulPenaltySettings,
@@ -60,6 +61,7 @@ class GameSim {
   private d: TeamIndex;
   private foulPenaltySettings: FoulPenaltySettings;
   private fullSegmentTime: number | undefined;
+  private gameSummaryFilePath: string;
   private gameType: GameType;
   private id: number;
   private isEndOfSegment: boolean;
@@ -104,6 +106,7 @@ class GameSim {
 
     this.d = 1;
     this.foulPenaltySettings = foulPenaltySettings;
+    this.gameSummaryFilePath = `./src/data/game-summary/${id}.txt`;
     this.id = id;
     this.isEndOfSegment = false;
     this.isGameTied = false;
@@ -126,6 +129,7 @@ class GameSim {
     this.teams.forEach((team, teamIndex) => {
       const teamState = new GameTeamState(
         team.id,
+        id,
         team.getFullName(),
         timeoutOptions.timeouts
       );
@@ -1366,6 +1370,14 @@ class GameSim {
     console.info("Simming shootout");
   };
 
+  closeGameSim = () => {
+    // //create file
+    // fs.writeFileSync(this.gameSummaryFilePath, "");
+    // //add headers
+    // let headerString = "team0Score|";
+    // fs.appendFileSync(this.filePath, `${headerString}\n`);
+  };
+
   start = () => {
     this.notifyObservers("GAME_START");
 
@@ -1398,6 +1410,8 @@ class GameSim {
     }
 
     this.notifyObservers("GAME_END");
+
+    this.closeGameSim();
 
     return {
       playerStats: [
