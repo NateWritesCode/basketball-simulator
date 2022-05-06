@@ -21,6 +21,7 @@ import {
   IObserver,
 } from "../types";
 import fs from "fs";
+import { csvDbClient } from "../csvDbClient";
 
 class GameTeamState implements IObserver {
   [index: string]: any;
@@ -155,111 +156,33 @@ class GameTeamState implements IObserver {
   };
 
   writeToTeamGame = () => {
-    try {
-      if (fs.existsSync(this.teamGameFilePath)) {
-      }
-    } catch (err) {
-      fs.writeFileSync(this.teamGameFilePath, "");
-      let headerString = "";
-      this.statsToRecord.forEach((statToRecord, i) => {
-        const isLastKey = i + 1 === this.statsToRecord.length;
-        const value = statToRecord;
-        headerString += `${value}${isLastKey ? "" : "|"}`;
-      });
-      fs.appendFileSync(this.teamGameFilePath, `${headerString}\n`);
-    }
-
-    let rowString = "";
+    const data: any = {};
     this.statsToRecord.forEach((statToRecord, i) => {
-      const isLastKey = i + 1 === this.statsToRecord.length;
       let value = this[statToRecord];
 
-      if (typeof value === "boolean") {
-        value = Number(value);
-      }
-
-      rowString += `${value}${isLastKey ? "" : "|"}`;
+      data[statToRecord] = value;
     });
-    fs.appendFileSync(this.teamGameFilePath, `${rowString}\n`);
+
+    csvDbClient.add(this.id.toString(), "team-game", data);
   };
 
   writeToTeamGameGroup = () => {
-    let fileExists = true;
-    if (fs.existsSync(this.teamGameGroupFilePath)) {
-    } else {
-      fileExists = false;
-      fs.writeFileSync(this.teamGameGroupFilePath, "");
-      let headerString = "";
-      this.statsToRecord.forEach((statToRecord, i) => {
-        const isLastKey = i + 1 === this.statsToRecord.length;
-        let value = statToRecord;
+    const data: any = {};
 
-        if (statToRecord === "gameId") {
-          value = "gp"; //change gameId to gamesPlayed
-        }
-
-        headerString += `${value}${isLastKey ? "" : "|"}`;
-      });
-      fs.appendFileSync(this.teamGameGroupFilePath, `${headerString}\n`);
-    }
-
-    if (fileExists) {
-      const data = fs
-        .readFileSync(this.teamGameGroupFilePath, {
-          encoding: "utf8",
-          flag: "r",
-        })
-        .trim()
-        .split("\n");
-
-      let lineToOverwrite = data.length - 1;
-      let rowString = "";
-
-      for (let i = data.length - 1; i >= 0; i--) {
-        const line = data[i].split("|");
-        const [_, gameGroupId] = line;
-
-        if (Number(gameGroupId) === this.gameGroupId) {
-          this.statsToRecord.forEach((statToRecord, i) => {
-            const isLastKey = i + 1 === this.statsToRecord.length;
-            let value = Number(line[i]);
-            if (statToRecord === "gameId") {
-              value = value + 1;
-            } else if (statToRecord === "gameGroupId") {
-            } else {
-              value += Number(this[statToRecord]);
-            }
-
-            rowString += `${value}${isLastKey ? "" : "|"}`;
-          });
-
-          lineToOverwrite = i;
-
-          break;
-        }
+    this.statsToRecord.forEach((statToRecord, i) => {
+      if (statToRecord === "gameId") {
+        data["gp"] = 1;
+      } else {
+        data[statToRecord] = this[statToRecord];
       }
+    });
 
-      data[lineToOverwrite] = rowString;
-
-      fs.writeFileSync(this.teamGameGroupFilePath, data.join("\n"));
-    } else {
-      let rowString = "";
-      this.statsToRecord.forEach((statToRecord, i) => {
-        const isLastKey = i + 1 === this.statsToRecord.length;
-        let value = this[statToRecord];
-
-        if (statToRecord === "gameId") {
-          value = 1;
-        }
-
-        if (typeof value === "boolean") {
-          value = Number(value);
-        }
-
-        rowString += `${value}${isLastKey ? "" : "|"}`;
-      });
-      fs.appendFileSync(this.teamGameGroupFilePath, `${rowString}\n`);
-    }
+    csvDbClient.incrementOneRow(
+      this.id.toString(),
+      "team-game-group",
+      { gameGroupId: this.gameGroupId },
+      data
+    );
   };
 
   gatherGameSimSegmentData = (

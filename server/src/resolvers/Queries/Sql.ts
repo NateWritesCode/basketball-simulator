@@ -10,8 +10,6 @@ export const sqlSandbox = queryField("sqlSandbox", {
   },
   async resolve(_parent, { dbType, sqlString, values }, { presto, prisma }) {
     if (dbType === "presto") {
-      console.log("Hello world");
-
       let data: any = await presto.query(getSqlFile("test"), ["3FG_MADE"]);
 
       if (!data) {

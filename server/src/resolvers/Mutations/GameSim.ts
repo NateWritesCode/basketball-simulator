@@ -22,13 +22,9 @@ export const startGameSim = mutationField("startGameSim", {
         };
       });
 
-      fs.unlinkSync("./src/data/standings/1.txt");
-
-      await csvDbClient.add("1", "standings", teams);
-
       const games = await prisma.game.findMany({ orderBy: [{ date: "asc" }] });
 
-      for await (const game of games.slice(0, 100)) {
+      for await (const game of games.slice(0, 30)) {
         const team0 = await prisma.team.findUnique({
           where: {
             id: game.team0Id,
