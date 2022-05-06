@@ -56,6 +56,7 @@ import {
 } from "../utils/probabilities";
 import Socket from "../Socket";
 import GameEventStore from "./GameEventStore";
+import { csvDbClient } from "../csvDbClient";
 
 class GameSim {
   private d: TeamIndex;
@@ -1370,15 +1371,44 @@ class GameSim {
     console.info("Simming shootout");
   };
 
-  closeGameSim = () => {
+  closeGameSim = async () => {
     // //create file
     // fs.writeFileSync(this.gameSummaryFilePath, "");
     // //add headers
     // let headerString = "team0Score|";
     // fs.appendFileSync(this.filePath, `${headerString}\n`);
+    // return {
+    //   playerStats: [
+    //     this.teams[0].players.map((player) => this.playerStates[player.id]),
+    //     this.teams[1].players.map((player) => this.playerStates[player.id]),
+    //   ],
+    //   teamStats: [
+    //     this.teamStates[this.teams[0].id],
+    //     this.teamStates[this.teams[1].id],
+    //   ],
+    // };
+
+    const team0Won =
+      this.teamStates[this.teams[0].id].pts >
+      this.teamStates[this.teams[1].id].pts;
+
+    console.log("team0Won", team0Won);
+
+    await csvDbClient.incrementOneRow(
+      `1`,
+      "standings",
+      { teamId: this.teams[0].id },
+      team0Won ? { w: 1 } : { l: 1 }
+    );
+    await csvDbClient.incrementOneRow(
+      `1`,
+      "standings",
+      { teamId: this.teams[1].id },
+      team0Won ? { l: 1 } : { w: 1 }
+    );
   };
 
-  start = () => {
+  start = async () => {
     this.notifyObservers("GAME_START");
 
     let simPossessionIsOver = false;
@@ -1411,18 +1441,9 @@ class GameSim {
 
     this.notifyObservers("GAME_END");
 
-    this.closeGameSim();
+    console.log("GAME IS ENDED!!!");
 
-    return {
-      playerStats: [
-        this.teams[0].players.map((player) => this.playerStates[player.id]),
-        this.teams[1].players.map((player) => this.playerStates[player.id]),
-      ],
-      teamStats: [
-        this.teamStates[this.teams[0].id],
-        this.teamStates[this.teams[1].id],
-      ],
-    };
+    await this.closeGameSim();
   };
 }
 

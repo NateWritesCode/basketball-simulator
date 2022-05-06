@@ -14,21 +14,21 @@ export const startGameSim = mutationField("startGameSim", {
   async resolve(_parent, _args, { prisma, socket }) {
     try {
       let teams: any = await prisma.team.findMany({});
-      teams = teams.map((team) => {
+      teams = teams.map((team: Team) => {
         return {
-          id: team.id,
+          teamId: team.id,
           w: 0,
           l: 0,
         };
       });
 
-      await csvDbClient.add("./src/data/standings/1.txt", "standings", teams);
+      fs.unlinkSync("./src/data/standings/1.txt");
 
-      return;
+      await csvDbClient.add("1", "standings", teams);
 
       const games = await prisma.game.findMany({ orderBy: [{ date: "asc" }] });
 
-      for await (const game of games) {
+      for await (const game of games.slice(0, 100)) {
         const team0 = await prisma.team.findUnique({
           where: {
             id: game.team0Id,
@@ -117,7 +117,7 @@ export const startGameSim = mutationField("startGameSim", {
           },
         });
 
-        gameSim.start();
+        await gameSim.start();
       }
 
       return null;
