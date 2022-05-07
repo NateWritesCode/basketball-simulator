@@ -135,6 +135,24 @@ export const PlayerObjectType = objectType({
   },
 });
 
+export const StandingsObjectType = objectType({
+  name: "Standings",
+  description: "Standings description",
+  definition(t) {
+    t.field("l", { type: nonNull("Int") });
+    t.nonNull.list.field("team", { type: nonNull(TeamObjectType) });
+    t.field("w", { type: nonNull("Int") });
+  },
+});
+
+export const TacoObjectType = objectType({
+  name: "Taco",
+  description: "Taco description",
+  definition(t) {
+    t.field("isEdible", { type: "Boolean" });
+  },
+});
+
 export const TeamObjectType = objectType({
   name: Team.$name,
   description: Team.$description,

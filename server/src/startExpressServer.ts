@@ -11,6 +11,9 @@ import PrestoClient from "./PrestoClient";
 import CubeJsServer from "@cubejs-backend/server";
 import PostgresDriver from "@cubejs-backend/postgres-driver";
 import PrestoDriver from "@cubejs-backend/prestodb-driver";
+import { csvDbClient } from "./csvDbClient";
+import * as dataForge from "data-forge";
+import "data-forge-fs";
 
 export const prisma = new PrismaClient();
 const presto = new PrestoClient();
@@ -31,6 +34,8 @@ export default async () => {
   app.use(cors(corsOptions));
 
   const context = {
+    csvDbClient,
+    dataForge,
     presto,
     prisma,
     socket,

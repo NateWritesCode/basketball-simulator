@@ -3,11 +3,7 @@ import { PlayerProbability, PlayerTotal } from "../types/player";
 
 class Player {
   assist: number;
-  arc3: number;
-  atRim: number;
   block: number;
-  blocking: number;
-  corner3: number;
   familyName: string;
   fgArc3Attempt: number;
   fgArc3Block: number;
@@ -72,13 +68,9 @@ class Player {
   freeThrow: number;
   givenName: string;
   height: number;
-  irritability: number;
-  jumping: number;
   id: number;
-  midRangeLong: number;
-  midRangeShort: number;
+  irritability: number;
   position: string;
-  rebounding: number;
   rebDef: number;
   rebOff: number;
   steal: number;
@@ -93,45 +85,28 @@ class Player {
   shotTypeShortMidRange: number;
   shotTypeShortMidRangeDef: number;
   slug: string;
-  stealing: number;
   teamId: number;
   turnover: number;
-  turnoverProne: number;
   violationDefGoaltend: number;
   violationDefKickBall: number;
   weight: number;
 
   constructor(
     {
-      arc3,
-      atRim,
-      blocking,
-      corner3,
       familyName,
       givenName,
       height,
       id,
-      irritability,
-      jumping,
-      midRangeLong,
-      midRangeShort,
       position,
-      rebounding,
       slug,
-      stealing,
       teamId,
-      turnoverProne,
       weight,
     }: DbPlayer,
     playerProbability: PlayerProbability,
     playerTotal: PlayerTotal
   ) {
-    this.arc3 = arc3;
     this.assist = playerProbability.ASSIST;
-    this.atRim = atRim;
     this.block = playerProbability.BLOCK;
-    this.blocking = blocking;
-    this.corner3 = corner3;
     this.familyName = familyName;
     this.fgArc3Attempt = playerProbability.FG_ARC_3_ATTEMPT;
     this.fgArc3Block = playerProbability.FG_ARC_3_BLOCK;
@@ -204,12 +179,8 @@ class Player {
     this.givenName = givenName;
     this.height = height;
     this.id = id;
-    this.irritability = irritability;
-    this.jumping = jumping;
-    this.midRangeLong = midRangeLong;
-    this.midRangeShort = midRangeShort;
+    this.irritability = 50;
     this.position = position;
-    this.rebounding = rebounding;
     this.shotTypeArc3 = playerProbability.SHOT_TYPE_ARC_3_OFFENSIVE;
     this.shotTypeArc3Def = playerProbability.SHOT_TYPE_ARC_3_DEFENSIVE;
     this.shotTypeAtRim = playerProbability.SHOT_TYPE_AT_RIM_OFFENSIVE;
@@ -225,9 +196,7 @@ class Player {
     this.shotTypeShortMidRangeDef =
       playerProbability.SHOT_TYPE_SHORT_MID_RANGE_DEFENSIVE;
     this.slug = slug;
-    this.stealing = stealing;
     this.teamId = teamId;
-    this.turnoverProne = turnoverProne;
     this.turnover = playerProbability.TURNOVER;
     this.violationDefGoaltend =
       playerProbability.VIOLATION_DEFENSIVE_GOALTENDING;

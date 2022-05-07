@@ -67,6 +67,7 @@ type Query {
   getOnePlayer(slug: String!): Player
   getOneTeam(abbrev: String!): Team
   getOneTest: Boolean
+  getStandings(gameGroupId: ID!): Standings
   sqlSandbox(dbType: String!, sqlString: String!, values: String): String
 }
 
@@ -153,6 +154,18 @@ type SimResultTeam {
   tov: Int!
   tpa: Int!
   tpm: Int!
+}
+
+"""Standings description"""
+type Standings {
+  l: Int!
+  team: [Team!]!
+  w: Int!
+}
+
+"""Taco description"""
+type Taco {
+  isEdible: Boolean
 }
 
 type Team {

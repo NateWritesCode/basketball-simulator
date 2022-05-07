@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const PositivePlayerRatingFieldEnum = z.enum(["height", "jumping"]);
+export const PositivePlayerRatingFieldEnum = z.enum(["height"]);
 export type PositivePlayerRatingFieldEnum = z.infer<
   typeof PositivePlayerRatingFieldEnum
 >;

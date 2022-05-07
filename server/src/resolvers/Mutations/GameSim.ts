@@ -13,7 +13,7 @@ export const startGameSim = mutationField("startGameSim", {
   type: "SimResult",
   async resolve(_parent, _args, { prisma, socket }) {
     try {
-      let teams: any = await prisma.team.findMany({});
+      let teams: any = await csvDbClient.getMany("team", "team");
       teams = teams.map((team: Team) => {
         return {
           teamId: team.id,
@@ -22,40 +22,31 @@ export const startGameSim = mutationField("startGameSim", {
         };
       });
 
-      const games = await prisma.game.findMany({ orderBy: [{ date: "asc" }] });
+      const games: any = (await csvDbClient.getMany("1", "schedule")).sort(
+        (a: any, b: any) => a.date - b.date
+      );
 
-      for await (const game of games.slice(0, 30)) {
-        const team0 = await prisma.team.findUnique({
-          where: {
-            id: game.team0Id,
-          },
+      const playersDb = await csvDbClient.getMany("player", "player");
+
+      for await (const game of games.slice(0, 5)) {
+        const team0 = await csvDbClient.getOne("team", "team", {
+          id: game.team0Id,
         });
-        const team1 = await prisma.team.findUnique({
-          where: {
-            id: game.team1Id,
-          },
+        const team1 = await csvDbClient.getOne("team", "team", {
+          id: game.team1Id,
         });
 
         if (!team0 || !team1) {
           throw new Error("Need two teams to sim");
         }
 
-        const playersFetch = await prisma.player.findMany({
-          where: {
-            teamId: {
-              in: [team0.id, team1.id],
-            },
-            // id: {
-            //   in: [
-            //     201942, 203897, 1629632, 202696, 1628366, 203507, 201950, 203114,
-            //     1626171, 201572,
-            //   ],
-            // },
-          },
-        });
+        const playersFetch = playersDb.filter(
+          (player: any) =>
+            player.teamId === team0.id || player.teamId === team1.id
+        );
 
         const players = playersFetch
-          .map((player) => {
+          .map((player: any) => {
             try {
               return new Player(
                 player,
@@ -76,13 +67,15 @@ export const startGameSim = mutationField("startGameSim", {
               return null;
             }
           })
-          .filter((player) => player !== null) as Player[];
+          .filter((player: any) => player !== null);
 
         const teams = [team0, team1].map(
           (team) =>
             new Team({
               ...team,
-              players: players.filter((player) => player.teamId === team.id),
+              players: players.filter(
+                (player: any) => player.teamId === team.id
+              ),
             })
         );
 

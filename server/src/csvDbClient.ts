@@ -2,7 +2,7 @@ import fs from "fs";
 import fsExtra from "fs-extra";
 import csvdb from "csv-database";
 
-class CsvDb {
+export class CsvDb {
   model: any;
 
   constructor() {
@@ -180,12 +180,14 @@ class CsvDb {
           school: { dataType: "string" },
           seasonsExperience: { dataType: "int" },
           slug: { dataType: "string" },
-          teamId: { dataType: "int" },
+          teamId: {
+            dataType: "id",
+          },
           toYear: { dataType: "dateTime" },
           weight: { dataType: "int" },
         },
         delimiter: "|",
-        filePath: "./src/data/team",
+        filePath: "./src/data/player",
         fileType: "txt",
       },
       standings: {
@@ -196,6 +198,17 @@ class CsvDb {
         },
         delimiter: "|",
         filePath: "./src/data/standings",
+        fileType: "txt",
+      },
+      schedule: {
+        columns: {
+          date: { dataType: "dateTime" },
+          id: { dataType: "id" },
+          team0Id: { dataType: "int" },
+          team1Id: { dataType: "int" },
+        },
+        delimiter: "|",
+        filePath: "./src/data/schedule",
         fileType: "txt",
       },
       "team-game": {
@@ -213,8 +226,25 @@ class CsvDb {
       team: {
         columns: {
           abbrev: { dataType: "string" },
+          conferenceId: {
+            dataType: "relationManyToOne",
+            relationModelType: "conference",
+            optional: true,
+            relationKey: "id",
+          },
+          divisionId: {
+            dataType: "relationManyToOne",
+            relationModelType: "division",
+            optional: true,
+            relationKey: "id",
+          },
           homeName: { dataType: "string" },
           id: { dataType: "id" },
+          leagueId: {
+            dataType: "relationManyToOne",
+            relationModelType: "league",
+            relationKey: "id",
+          },
           nickname: { dataType: "string" },
           venue: { dataType: "string" },
           venueCapacity: { dataType: "int" },
@@ -240,7 +270,6 @@ class CsvDb {
     try {
       const db = await this.getDb(filename, modelType);
       await db.add(data);
-      console.log(`Finished adding ${filename} ${modelType}`);
     } catch (error) {
       throw new Error(error);
     }
@@ -274,10 +303,12 @@ class CsvDb {
                   data[key] = Boolean(data[key]);
                   break;
 
-                case "date":
+                case "dateTime":
+                  data[key] = new Date(data[key]);
                   break;
 
                 case "id":
+                  data[key] = Number(data[key]);
                   break;
 
                 case "int":
@@ -380,7 +411,13 @@ class CsvDb {
     return data;
   };
 
-  getAllDataTest = async (filename: string, modelType: string) => {
+  getOne = async (filename: string, modelType: string, filter: any) => {
+    const db = await this.getDb(filename, modelType);
+
+    return await this.getRowData(db, filter, modelType);
+  };
+
+  getMany = async (filename: string, modelType: string): Promise<any> => {
     const db = await this.getDb(filename, modelType);
 
     return await this.getAllData(db, modelType);

@@ -192,6 +192,14 @@ export interface NexusGenObjects {
     tpa: number; // Int!
     tpm: number; // Int!
   }
+  Standings: { // root type
+    l: number; // Int!
+    team: NexusGenRootTypes['Team'][]; // [Team!]!
+    w: number; // Int!
+  }
+  Taco: { // root type
+    isEdible?: boolean | null; // Boolean
+  }
   Team: { // root type
     abbrev: string; // String!
     facebook: string; // String!
@@ -256,6 +264,7 @@ export interface NexusGenFieldTypes {
     getOnePlayer: NexusGenRootTypes['Player'] | null; // Player
     getOneTeam: NexusGenRootTypes['Team'] | null; // Team
     getOneTest: boolean | null; // Boolean
+    getStandings: NexusGenRootTypes['Standings'] | null; // Standings
     sqlSandbox: string | null; // String
   }
   SimResult: { // field return type
@@ -337,6 +346,14 @@ export interface NexusGenFieldTypes {
     tpa: number; // Int!
     tpm: number; // Int!
   }
+  Standings: { // field return type
+    l: number; // Int!
+    team: NexusGenRootTypes['Team'][]; // [Team!]!
+    w: number; // Int!
+  }
+  Taco: { // field return type
+    isEdible: boolean | null; // Boolean
+  }
   Team: { // field return type
     abbrev: string; // String!
     facebook: string; // String!
@@ -392,6 +409,7 @@ export interface NexusGenFieldTypeNames {
     getOnePlayer: 'Player'
     getOneTeam: 'Team'
     getOneTest: 'Boolean'
+    getStandings: 'Standings'
     sqlSandbox: 'String'
   }
   SimResult: { // field return type name
@@ -473,6 +491,14 @@ export interface NexusGenFieldTypeNames {
     tpa: 'Int'
     tpm: 'Int'
   }
+  Standings: { // field return type name
+    l: 'Int'
+    team: 'Team'
+    w: 'Int'
+  }
+  Taco: { // field return type name
+    isEdible: 'Boolean'
+  }
   Team: { // field return type name
     abbrev: 'String'
     facebook: 'String'
@@ -495,6 +521,9 @@ export interface NexusGenArgTypes {
     }
     getOneTeam: { // args
       abbrev: string; // String!
+    }
+    getStandings: { // args
+      gameGroupId: string; // ID!
     }
     sqlSandbox: { // args
       dbType: string; // String!

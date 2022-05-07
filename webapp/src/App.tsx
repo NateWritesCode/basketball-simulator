@@ -5,6 +5,7 @@ import Flow from "./flow/Flow";
 import Game from "./game/Game";
 import GameSim from "./GameSim";
 import Player from "./player/Player";
+import Standings from "./standings/Standings";
 import Team from "./team/Team";
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
       <Route path="/player/:slug" element={<Player />} />
       <Route path="/team/:abbrev" element={<Team />} />
       <Route path="/sql-sandbox" element={<SqlSandbox />} />
+      <Route path="/standings" element={<Standings />} />
     </Routes>
   );
 };

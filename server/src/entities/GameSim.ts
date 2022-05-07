@@ -156,7 +156,7 @@ class GameSim {
     });
 
     // INIT OTHER OBSERVERS
-    // this.observers.push(new GameLog(id));
+    this.observers.push(new GameLog(id));
     this.observers.push(
       new GameEventStore({
         gameId: id,
@@ -1392,8 +1392,6 @@ class GameSim {
       this.teamStates[this.teams[0].id].pts >
       this.teamStates[this.teams[1].id].pts;
 
-    console.log("team0Won", team0Won);
-
     await csvDbClient.incrementOneRow(
       `1`,
       "standings",
@@ -1441,7 +1439,7 @@ class GameSim {
 
     this.notifyObservers("GAME_END");
 
-    console.log("GAME IS ENDED!!!");
+    console.log(`GAME ${this.id} HAS ENDED`);
 
     await this.closeGameSim();
   };

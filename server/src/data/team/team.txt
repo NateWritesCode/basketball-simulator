@@ -1,31 +1,31 @@
-abbrev|homeName|id|nickname|venue|venueCapacity|yearFounded|facebook|instagram|twitter|lat|lng
-ATL|Atlanta|1610612737|Hawks|State Farm Arena|18729|1949-01-01T00:00:00.000Z|https://www.facebook.com/hawks|https://instagram.com/atlhawks|https://twitter.com/ATLHawks|33.75729|-84.397331
-BOS|Boston|1610612738|Celtics|TD Garden|18624|1946-01-01T00:00:00.000Z|https://www.facebook.com/bostonceltics|https://instagram.com/celtics|https://twitter.com/celtics|42.366291|-71.06263
-CLE|Cleveland|1610612739|Cavaliers|Rocket Mortgage FieldHouse|20562|1970-01-01T00:00:00.000Z|https://www.facebook.com/Cavs|https://instagram.com/cavs|https://twitter.com/cavs|41.49662|-81.688431
-NOP|New Orleans|1610612740|Pelicans|Smoothie King Center|0|2002-01-01T00:00:00.000Z|https://www.facebook.com/PelicansNBA|https://instagram.com/pelicansnba|https://twitter.com/PelicansNBA|29.949035|-90.082057
-CHI|Chicago|1610612741|Bulls|United Center|21711|1966-01-01T00:00:00.000Z|https://www.facebook.com/chicagobulls|https://instagram.com/chicagobulls|https://twitter.com/chicagobulls|41.880692|-87.67437
-DAL|Dallas|1610612742|Mavericks|American Airlines Center|19200|1980-01-01T00:00:00.000Z|https://www.facebook.com/dallasmavs|https://instagram.com/dallasmavs|https://twitter.com/dallasmavs|32.790527|-96.810883
-DEN|Denver|1610612743|Nuggets|Ball Arena|0|1976-01-01T00:00:00.000Z|https://www.facebook.com/DenverNuggets|https://instagram.com/nuggets|https://twitter.com/nuggets|39.74892|-105.0084
-GSW|Golden State|1610612744|Warriors|Chase Center|0|1946-01-01T00:00:00.000Z|https://www.facebook.com/warriors|https://instagram.com/warriors|https://twitter.com/warriors|37.768009|-122.387787
-HOU|Houston|1610612745|Rockets|Toyota Center|18104|1967-01-01T00:00:00.000Z|https://www.facebook.com/houstonrockets|https://instagram.com/houstonrockets|https://twitter.com/HoustonRockets|29.7524505|-95.3618826
-LAC|Los Angeles|1610612746|Clippers|Crypto.com Arena|19060|1970-01-01T00:00:00.000Z|https://www.facebook.com/LAClippers|https://instagram.com/laclippers|https://twitter.com/LAClippers|34.043087|-118.267616
-LAL|Los Angeles|1610612747|Lakers|Crypto.com Arena|19060|1948-01-01T00:00:00.000Z|https://www.facebook.com/losangeleslakers|https://instagram.com/lakers|https://twitter.com/Lakers|34.043087|-118.267616
-MIA|Miami|1610612748|Heat|FTX Arena|19600|1988-01-01T00:00:00.000Z|https://www.facebook.com/MiamiHeat|https://instagram.com/miamiheat|https://twitter.com/MiamiHEAT|25.781441|-80.188332
-MIL|Milwaukee|1610612749|Bucks|Fiserv Forum|17500|1968-01-01T00:00:00.000Z|https://www.facebook.com/milwaukeebucks|https://instagram.com/bucks|https://twitter.com/Bucks|43.045231|-87.917923
-MIN|Minnesota|1610612750|Timberwolves|Target Center|19356|1989-01-01T00:00:00.000Z|https://www.facebook.com/MNTimberwolves|https://instagram.com/timberwolves|https://twitter.com/Timberwolves|44.979528|-93.275989
-BKN|Brooklyn|1610612751|Nets|Barclays Center|0|1976-01-01T00:00:00.000Z|https://www.facebook.com/BrooklynNets|https://instagram.com/brooklynnets|https://twitter.com/BrooklynNets|40.682732|-73.975876
-NYK|New York|1610612752|Knicks|Madison Square Garden|19763|1946-01-01T00:00:00.000Z|https://www.facebook.com/NYKnicks|https://instagram.com/nyknicks|https://twitter.com/nyknicks|40.750298|-73.993324
-ORL|Orlando|1610612753|Magic|Amway Center|0|1989-01-01T00:00:00.000Z|https://www.facebook.com/OrlandoMagic|https://instagram.com/orlandomagic|https://twitter.com/OrlandoMagic|28.538336|-81.379236
-IND|Indiana|1610612754|Pacers|"Gainbridge Fieldhouse "|18345|1976-01-01T00:00:00.000Z|https://www.facebook.com/pacers|https://instagram.com/pacers|https://twitter.com/Pacers|39.763924|-86.155807
-PHI|Philadelphia|1610612755|76ers|Wells Fargo Center|0|1949-01-01T00:00:00.000Z|https://www.facebook.com/Sixers|https://instagram.com/sixers|https://twitter.com/Sixers|39.901333|-75.172592
-PHX|Phoenix|1610612756|Suns|Footprint Center|0|1968-01-01T00:00:00.000Z|https://www.facebook.com/suns|https://instagram.com/suns|https://twitter.com/Suns|33.445938|-112.071487
-POR|Portland|1610612757|Trail Blazers|Moda Center|19980|1970-01-01T00:00:00.000Z|https://www.facebook.com/trailblazers|https://instagram.com/trailblazers|https://twitter.com/trailblazers|45.531609|-122.667236
-SAC|Sacramento|1610612758|Kings|Golden 1 Center|17500|1948-01-01T00:00:00.000Z|https://www.facebook.com/sacramentokings|https://instagram.com/sacramentokings|https://twitter.com/SacramentoKings|38.580368028215126|-121.49930615053546
-SAS|San Antonio|1610612759|Spurs|AT&T Center|18694|1976-01-01T00:00:00.000Z|https://www.facebook.com/Spurs|https://instagram.com/spurs|https://twitter.com/spurs|29.426931|-98.437599
-OKC|Oklahoma City|1610612760|Thunder|Paycom Center|0|1967-01-01T00:00:00.000Z|https://www.facebook.com/OKCThunder|https://instagram.com/okcthunder|https://twitter.com/okcthunder|35.463608|-97.51564
-TOR|Toronto|1610612761|Raptors|Scotiabank Arena|0|1995-01-01T00:00:00.000Z|https://www.facebook.com/TorontoRaptors|https://instagram.com/raptors|https://twitter.com/Raptors|43.643475|-79.379379
-UTA|Utah|1610612762|Jazz|Vivint Arena|0|1974-01-01T00:00:00.000Z|https://www.facebook.com/utahjazz|https://instagram.com/utahjazz|https://twitter.com/utahjazz|40.76890189042454|-111.89962827830881
-MEM|Memphis|1610612763|Grizzlies|FedExForum|18119|1995-01-01T00:00:00.000Z|https://www.facebook.com/MemphisGrizzlies|https://instagram.com/memgrizz|https://twitter.com/memgrizz|35.138351|-90.051025
-WAS|Washington|1610612764|Wizards|Capital One Arena|20647|1961-01-01T00:00:00.000Z|https://www.facebook.com/Wizards|https://instagram.com/washwizards|https://twitter.com/WashWizards|38.898129|-77.021172
-DET|Detroit|1610612765|Pistons|Little Caesars Arena|0|1948-01-01T00:00:00.000Z|https://www.facebook.com/detroitpistons|https://instagram.com/detroitpistons|https://twitter.com/DetroitPistons|42.34172115245251|-83.0547523158737
-CHA|Charlotte|1610612766|Hornets|Spectrum Center|19026|1988-01-01T00:00:00.000Z|https://www.facebook.com/hornets|https://instagram.com/hornets|https://twitter.com/hornets|35.22587056923433|-80.83745990952639
+abbrev|homeName|id|nickname|venue|venueCapacity|yearFounded|facebook|instagram|twitter|lat|lng|leagueId|conferenceId|divisionId
+ATL|Atlanta|1610612737|Hawks|State Farm Arena|18729|1949-01-01T00:00:00.000Z|https://www.facebook.com/hawks|https://instagram.com/atlhawks|https://twitter.com/ATLHawks|33.75729|-84.397331|1|1|3
+BOS|Boston|1610612738|Celtics|TD Garden|18624|1946-01-01T00:00:00.000Z|https://www.facebook.com/bostonceltics|https://instagram.com/celtics|https://twitter.com/celtics|42.366291|-71.06263|1|1|1
+CLE|Cleveland|1610612739|Cavaliers|Rocket Mortgage FieldHouse|20562|1970-01-01T00:00:00.000Z|https://www.facebook.com/Cavs|https://instagram.com/cavs|https://twitter.com/cavs|41.49662|-81.688431|1|1|2
+NOP|New Orleans|1610612740|Pelicans|Smoothie King Center|0|2002-01-01T00:00:00.000Z|https://www.facebook.com/PelicansNBA|https://instagram.com/pelicansnba|https://twitter.com/PelicansNBA|29.949035|-90.082057|1|2|6
+CHI|Chicago|1610612741|Bulls|United Center|21711|1966-01-01T00:00:00.000Z|https://www.facebook.com/chicagobulls|https://instagram.com/chicagobulls|https://twitter.com/chicagobulls|41.880692|-87.67437|1|1|2
+DAL|Dallas|1610612742|Mavericks|American Airlines Center|19200|1980-01-01T00:00:00.000Z|https://www.facebook.com/dallasmavs|https://instagram.com/dallasmavs|https://twitter.com/dallasmavs|32.790527|-96.810883|1|2|6
+DEN|Denver|1610612743|Nuggets|Ball Arena|0|1976-01-01T00:00:00.000Z|https://www.facebook.com/DenverNuggets|https://instagram.com/nuggets|https://twitter.com/nuggets|39.74892|-105.0084|1|2|4
+GSW|Golden State|1610612744|Warriors|Chase Center|0|1946-01-01T00:00:00.000Z|https://www.facebook.com/warriors|https://instagram.com/warriors|https://twitter.com/warriors|37.768009|-122.387787|1|2|5
+HOU|Houston|1610612745|Rockets|Toyota Center|18104|1967-01-01T00:00:00.000Z|https://www.facebook.com/houstonrockets|https://instagram.com/houstonrockets|https://twitter.com/HoustonRockets|29.7524505|-95.3618826|1|2|6
+LAC|Los Angeles|1610612746|Clippers|Crypto.com Arena|19060|1970-01-01T00:00:00.000Z|https://www.facebook.com/LAClippers|https://instagram.com/laclippers|https://twitter.com/LAClippers|34.043087|-118.267616|1|2|5
+LAL|Los Angeles|1610612747|Lakers|Crypto.com Arena|19060|1948-01-01T00:00:00.000Z|https://www.facebook.com/losangeleslakers|https://instagram.com/lakers|https://twitter.com/Lakers|34.043087|-118.267616|1|2|5
+MIA|Miami|1610612748|Heat|FTX Arena|19600|1988-01-01T00:00:00.000Z|https://www.facebook.com/MiamiHeat|https://instagram.com/miamiheat|https://twitter.com/MiamiHEAT|25.781441|-80.188332|1|1|3
+MIL|Milwaukee|1610612749|Bucks|Fiserv Forum|17500|1968-01-01T00:00:00.000Z|https://www.facebook.com/milwaukeebucks|https://instagram.com/bucks|https://twitter.com/Bucks|43.045231|-87.917923|1|1|2
+MIN|Minnesota|1610612750|Timberwolves|Target Center|19356|1989-01-01T00:00:00.000Z|https://www.facebook.com/MNTimberwolves|https://instagram.com/timberwolves|https://twitter.com/Timberwolves|44.979528|-93.275989|1|2|4
+BKN|Brooklyn|1610612751|Nets|Barclays Center|0|1976-01-01T00:00:00.000Z|https://www.facebook.com/BrooklynNets|https://instagram.com/brooklynnets|https://twitter.com/BrooklynNets|40.682732|-73.975876|1|1|1
+NYK|New York|1610612752|Knicks|Madison Square Garden|19763|1946-01-01T00:00:00.000Z|https://www.facebook.com/NYKnicks|https://instagram.com/nyknicks|https://twitter.com/nyknicks|40.750298|-73.993324|1|1|1
+ORL|Orlando|1610612753|Magic|Amway Center|0|1989-01-01T00:00:00.000Z|https://www.facebook.com/OrlandoMagic|https://instagram.com/orlandomagic|https://twitter.com/OrlandoMagic|28.538336|-81.379236|1|1|3
+IND|Indiana|1610612754|Pacers|"Gainbridge Fieldhouse "|18345|1976-01-01T00:00:00.000Z|https://www.facebook.com/pacers|https://instagram.com/pacers|https://twitter.com/Pacers|39.763924|-86.155807|1|1|2
+PHI|Philadelphia|1610612755|76ers|Wells Fargo Center|0|1949-01-01T00:00:00.000Z|https://www.facebook.com/Sixers|https://instagram.com/sixers|https://twitter.com/Sixers|39.901333|-75.172592|1|1|1
+PHX|Phoenix|1610612756|Suns|Footprint Center|0|1968-01-01T00:00:00.000Z|https://www.facebook.com/suns|https://instagram.com/suns|https://twitter.com/Suns|33.445938|-112.071487|1|2|5
+POR|Portland|1610612757|Trail Blazers|Moda Center|19980|1970-01-01T00:00:00.000Z|https://www.facebook.com/trailblazers|https://instagram.com/trailblazers|https://twitter.com/trailblazers|45.531609|-122.667236|1|2|4
+SAC|Sacramento|1610612758|Kings|Golden 1 Center|17500|1948-01-01T00:00:00.000Z|https://www.facebook.com/sacramentokings|https://instagram.com/sacramentokings|https://twitter.com/SacramentoKings|38.580368028215126|-121.49930615053546|1|2|5
+SAS|San Antonio|1610612759|Spurs|AT&T Center|18694|1976-01-01T00:00:00.000Z|https://www.facebook.com/Spurs|https://instagram.com/spurs|https://twitter.com/spurs|29.426931|-98.437599|1|2|6
+OKC|Oklahoma City|1610612760|Thunder|Paycom Center|0|1967-01-01T00:00:00.000Z|https://www.facebook.com/OKCThunder|https://instagram.com/okcthunder|https://twitter.com/okcthunder|35.463608|-97.51564|1|2|4
+TOR|Toronto|1610612761|Raptors|Scotiabank Arena|0|1995-01-01T00:00:00.000Z|https://www.facebook.com/TorontoRaptors|https://instagram.com/raptors|https://twitter.com/Raptors|43.643475|-79.379379|1|1|1
+UTA|Utah|1610612762|Jazz|Vivint Arena|0|1974-01-01T00:00:00.000Z|https://www.facebook.com/utahjazz|https://instagram.com/utahjazz|https://twitter.com/utahjazz|40.76890189042454|-111.89962827830881|1|2|4
+MEM|Memphis|1610612763|Grizzlies|FedExForum|18119|1995-01-01T00:00:00.000Z|https://www.facebook.com/MemphisGrizzlies|https://instagram.com/memgrizz|https://twitter.com/memgrizz|35.138351|-90.051025|1|2|6
+WAS|Washington|1610612764|Wizards|Capital One Arena|20647|1961-01-01T00:00:00.000Z|https://www.facebook.com/Wizards|https://instagram.com/washwizards|https://twitter.com/WashWizards|38.898129|-77.021172|1|1|1
+DET|Detroit|1610612765|Pistons|Little Caesars Arena|0|1948-01-01T00:00:00.000Z|https://www.facebook.com/detroitpistons|https://instagram.com/detroitpistons|https://twitter.com/DetroitPistons|42.34172115245251|-83.0547523158737|1|1|2
+CHA|Charlotte|1610612766|Hornets|Spectrum Center|19026|1988-01-01T00:00:00.000Z|https://www.facebook.com/hornets|https://instagram.com/hornets|https://twitter.com/hornets|35.22587056923433|-80.83745990952639|1|1|3

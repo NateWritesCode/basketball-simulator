@@ -474,6 +474,8 @@ class Scheduler {
         }
       });
     });
+
+    this.schedule.sort((a, b) => a.date - b.date);
   };
 }
 

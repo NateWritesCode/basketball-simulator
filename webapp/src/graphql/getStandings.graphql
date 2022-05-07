@@ -1,0 +1,9 @@
+query getStandings($gameGroupId: ID!) {
+  getStandings(gameGroupId: $gameGroupId) {
+    l
+    team {
+      id
+    }
+    w
+  }
+}
