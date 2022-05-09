@@ -145,11 +145,37 @@ export const StandingsObjectType = objectType({
   },
 });
 
-export const TacoObjectType = objectType({
-  name: "Taco",
-  description: "Taco description",
+export const ConferenceObjectType = objectType({
+  name: "Conference",
+  description: "",
   definition(t) {
-    t.field("isEdible", { type: "Boolean" });
+    t.nonNull.string("abbrev");
+    t.list.field("divisions", { type: nonNull(DivisionObjectType) });
+    t.nonNull.id("id");
+    t.field("league", { type: nonNull(LeagueObjectType) });
+    t.nonNull.string("name");
+  },
+});
+export const DivisionObjectType = objectType({
+  name: "Division",
+  description: "",
+  definition(t) {
+    t.nonNull.string("abbrev");
+    t.field("conference", { type: ConferenceObjectType });
+    t.nonNull.id("id");
+    t.field("league", { type: nonNull(LeagueObjectType) });
+    t.nonNull.string("name");
+  },
+});
+export const LeagueObjectType = objectType({
+  name: "League",
+  description: "",
+  definition(t) {
+    t.nonNull.string("abbrev");
+    t.list.field("conferences", { type: nonNull(ConferenceObjectType) });
+    t.list.field("divisions", { type: nonNull(DivisionObjectType) });
+    t.nonNull.id("id");
+    t.nonNull.string("name");
   },
 });
 

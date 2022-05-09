@@ -34,7 +34,7 @@ const emptyFolders = () => {
     // "league",
     "player-game",
     "player-game-group",
-    // "schedule",
+    "schedule",
     "standings",
     "team-game",
     "team-game-group",

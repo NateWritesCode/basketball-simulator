@@ -8,7 +8,7 @@ export const getStandings = queryField("getStandings", {
   },
   async resolve(_parent, { gameGroupId }, { csvDbClient, dataForge }) {
     try {
-      const conference = dataForge
+      const conferences = dataForge
         .readFileSync("./src/data/conference/conference.txt")
         .parseCSV()
         .toArray();
