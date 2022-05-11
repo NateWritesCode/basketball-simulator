@@ -1,6 +1,8 @@
 import fs from "fs";
 import fsExtra from "fs-extra";
 import csvdb from "csv-database";
+import * as dataForge from "data-forge";
+import "data-forge-fs";
 
 export class CsvDb {
   model: any;
@@ -262,6 +264,40 @@ export class CsvDb {
     };
   }
 
+  getHeadersFromData = (data: any): string => {
+    let headerString = "";
+    const pipeSettingsKeys = Object.keys(data);
+    pipeSettingsKeys.forEach((pipeSettingKey, i) => {
+      const isLastKey = i + 1 === pipeSettingsKeys.length;
+      const value = pipeSettingKey;
+      headerString += `${value}${isLastKey ? "" : "|"}`;
+    });
+
+    return headerString;
+  };
+
+  getHeaders = (filePath: string, delimiter: string) => {
+    const fileContent = fs.readFileSync(filePath, "utf-8");
+    const headerString = (fileContent.match(/(^.*)/) || [])[1] || "";
+
+    if (!headerString) {
+      throw new Error("We need a header string!");
+    }
+
+    return headerString.split(delimiter);
+  };
+
+  addTest = (filename: string, modelType: string, data: Object | Object[]) => {
+    const filePath = `${this.model[modelType].filePath}/${filename}.${this.model[modelType].fileType}`;
+    if (!fs.existsSync(filePath)) {
+      fs.writeFileSync(filePath, this.getHeadersFromData(data));
+    }
+
+    const headers = this.getHeaders(filePath, this.model[modelType].delimiter);
+
+    console.log("headers", headers);
+  };
+
   add = async (
     filename: string,
     modelType: string,
@@ -480,6 +516,8 @@ export class CsvDb {
   ) => {
     const db = await this.getDb(filename, modelType);
     let rowData = await this.getRowData(db, filter, modelType);
+
+    console.log("rowData", rowData);
 
     if (rowData.length === 0) {
       await this.initializeRow(db, modelType, filter);

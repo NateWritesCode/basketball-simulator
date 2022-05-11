@@ -8,6 +8,7 @@ import {
   ShotClockLength,
 } from "../../types";
 import { csvDbClient } from "../../csvDbClient";
+import { emptyFolders } from "../../utils/seedData";
 
 export const startGameSim = mutationField("startGameSim", {
   type: "SimResult",
@@ -22,13 +23,15 @@ export const startGameSim = mutationField("startGameSim", {
         };
       });
 
+      await csvDbClient.add("1", "standings", teams);
+
       const games: any = (await csvDbClient.getMany("1", "schedule")).sort(
         (a: any, b: any) => a.date - b.date
       );
 
       const playersDb = await csvDbClient.getMany("player", "player");
 
-      for await (const game of games.slice(0, 5)) {
+      for await (const game of games.slice(0, 15)) {
         const team0 = await csvDbClient.getOne("team", "team", {
           id: game.team0Id,
         });
@@ -240,6 +243,20 @@ export const startGameSim = mutationField("startGameSim", {
       //   teams: [team0, team1],
       //   teamStats: [teamStats[0], teamStats[1]],
       // };
+    } catch (error) {
+      console.error(error);
+      throw new Error(error);
+    }
+  },
+});
+
+export const resetData = mutationField("resetData", {
+  type: "Boolean",
+  async resolve(_parent, _args) {
+    try {
+      console.log("Resetting data");
+      emptyFolders();
+      return true;
     } catch (error) {
       console.error(error);
       throw new Error(error);

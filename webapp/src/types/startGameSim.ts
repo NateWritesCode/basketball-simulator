@@ -54,17 +54,17 @@ export interface startGameSim_startGameSim_teams_players {
 
 export interface startGameSim_startGameSim_teams {
   __typename: "Team";
-  abbrev: string;
-  facebook: string;
-  homeName: string;
-  id: number;
-  instagram: string;
-  nickname: string;
-  players: startGameSim_startGameSim_teams_players[];
-  twitter: string;
-  venue: string;
-  venueCapacity: number;
-  yearFounded: any;
+  abbrev: string | null;
+  facebook: string | null;
+  homeName: string | null;
+  id: number | null;
+  instagram: string | null;
+  nickname: string | null;
+  players: startGameSim_startGameSim_teams_players[] | null;
+  twitter: string | null;
+  venue: string | null;
+  venueCapacity: number | null;
+  yearFounded: any | null;
 }
 
 export interface startGameSim_startGameSim_teamStats {

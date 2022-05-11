@@ -1,9 +1,35 @@
 query getStandings($gameGroupId: ID!) {
   getStandings(gameGroupId: $gameGroupId) {
-    l
-    team {
+    league {
+      abbrev
+      conferences {
+        abbrev
+        divisions {
+          abbrev
+          id
+          name
+        }
+        id
+        name
+      }
+      divisions {
+        abbrev
+        id
+        name
+      }
       id
+      name
     }
-    w
+    teams {
+      abbrev
+      conferenceId
+      divisionId
+      homeName
+      id
+      l
+      leagueId
+      nickname
+      w
+    }
   }
 }

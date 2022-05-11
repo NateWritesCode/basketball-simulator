@@ -25,7 +25,7 @@ export default async () => {
   // await createSchedule();
 };
 
-const emptyFolders = () => {
+export const emptyFolders = () => {
   const foldersToEmpty = [
     // "conference",
     // "division",
@@ -34,7 +34,7 @@ const emptyFolders = () => {
     // "league",
     "player-game",
     "player-game-group",
-    "schedule",
+    // "schedule",
     "standings",
     "team-game",
     "team-game-group",
@@ -374,7 +374,7 @@ function getOrgIds(team: any): void {
     case "WAS": {
       team.leagueId = nbaLeagueId;
       team.conferenceId = easternConferenceId;
-      team.divisionId = atlanticDivisionId;
+      team.divisionId = southeastDivisionId;
 
       break;
     }

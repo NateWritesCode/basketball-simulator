@@ -163,6 +163,7 @@ class GameTeamState implements IObserver {
       data[statToRecord] = value;
     });
 
+    csvDbClient.addTest(this.id.toString(), "team-game", data);
     csvDbClient.add(this.id.toString(), "team-game", data);
   };
 
@@ -176,6 +177,8 @@ class GameTeamState implements IObserver {
         data[statToRecord] = this[statToRecord];
       }
     });
+
+    console.log("Witing to team game group for team id ", this.id);
 
     csvDbClient.incrementOneRow(
       this.id.toString(),

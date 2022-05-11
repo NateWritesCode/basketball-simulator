@@ -9,10 +9,10 @@
 
 export interface getOnePlayer_getOnePlayer_team {
   __typename: "Team";
-  abbrev: string;
-  homeName: string;
-  id: number;
-  nickname: string;
+  abbrev: string | null;
+  homeName: string | null;
+  id: number | null;
+  nickname: string | null;
 }
 
 export interface getOnePlayer_getOnePlayer {

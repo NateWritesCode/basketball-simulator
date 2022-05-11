@@ -9,7 +9,7 @@
 
 export interface getOneTeam_getOneTeam {
   __typename: "Team";
-  id: number;
+  id: number | null;
 }
 
 export interface getOneTeam {

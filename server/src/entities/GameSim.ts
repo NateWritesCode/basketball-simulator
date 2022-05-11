@@ -156,7 +156,7 @@ class GameSim {
     });
 
     // INIT OTHER OBSERVERS
-    this.observers.push(new GameLog(id));
+    // this.observers.push(new GameLog(id));
     this.observers.push(
       new GameEventStore({
         gameId: id,

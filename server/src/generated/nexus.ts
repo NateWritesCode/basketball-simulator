@@ -82,8 +82,29 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Conference: { // root type
+    abbrev: string; // String!
+    divisions?: NexusGenRootTypes['Division'][] | null; // [Division!]
+    id: number; // Int!
+    league: NexusGenRootTypes['League']; // League!
+    name: string; // String!
+  }
+  Division: { // root type
+    abbrev: string; // String!
+    conference?: NexusGenRootTypes['Conference'] | null; // Conference
+    id: number; // Int!
+    league: NexusGenRootTypes['League']; // League!
+    name: string; // String!
+  }
   Game: { // root type
     id?: number | null; // Int
+  }
+  League: { // root type
+    abbrev: string; // String!
+    conferences?: NexusGenRootTypes['Conference'][] | null; // [Conference!]
+    divisions?: NexusGenRootTypes['Division'][] | null; // [Division!]
+    id: number; // Int!
+    name: string; // String!
   }
   Mutation: {};
   Player: { // root type
@@ -193,24 +214,32 @@ export interface NexusGenObjects {
     tpm: number; // Int!
   }
   Standings: { // root type
-    l: number; // Int!
-    team: NexusGenRootTypes['Team'][]; // [Team!]!
-    w: number; // Int!
+    league: NexusGenRootTypes['League']; // League!
+    teams: NexusGenRootTypes['StandingsTeam'][]; // [StandingsTeam!]!
   }
-  Taco: { // root type
-    isEdible?: boolean | null; // Boolean
-  }
-  Team: { // root type
+  StandingsTeam: { // root type
     abbrev: string; // String!
-    facebook: string; // String!
+    conferenceId?: number | null; // Int
+    divisionId?: number | null; // Int
     homeName: string; // String!
     id: number; // Int!
-    instagram: string; // String!
+    l: number; // Int!
+    leagueId: number; // Int!
     nickname: string; // String!
-    twitter: string; // String!
-    venue: string; // String!
-    venueCapacity: number; // Int!
-    yearFounded: NexusGenScalars['DateTime']; // DateTime!
+    w: number; // Int!
+  }
+  Team: { // root type
+    abbrev?: string | null; // String
+    facebook?: string | null; // String
+    homeName?: string | null; // String
+    id?: number | null; // Int
+    instagram?: string | null; // String
+    nickname?: string | null; // String
+    players?: NexusGenRootTypes['Player'][] | null; // [Player!]
+    twitter?: string | null; // String
+    venue?: string | null; // String
+    venueCapacity?: number | null; // Int
+    yearFounded?: NexusGenScalars['DateTime'] | null; // DateTime
   }
 }
 
@@ -225,11 +254,33 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Conference: { // field return type
+    abbrev: string; // String!
+    divisions: NexusGenRootTypes['Division'][] | null; // [Division!]
+    id: number; // Int!
+    league: NexusGenRootTypes['League']; // League!
+    name: string; // String!
+  }
+  Division: { // field return type
+    abbrev: string; // String!
+    conference: NexusGenRootTypes['Conference'] | null; // Conference
+    id: number; // Int!
+    league: NexusGenRootTypes['League']; // League!
+    name: string; // String!
+  }
   Game: { // field return type
     id: number | null; // Int
   }
+  League: { // field return type
+    abbrev: string; // String!
+    conferences: NexusGenRootTypes['Conference'][] | null; // [Conference!]
+    divisions: NexusGenRootTypes['Division'][] | null; // [Division!]
+    id: number; // Int!
+    name: string; // String!
+  }
   Mutation: { // field return type
     createOneTest: boolean | null; // Boolean
+    resetData: boolean | null; // Boolean
     startGameSim: NexusGenRootTypes['SimResult'] | null; // SimResult
   }
   Player: { // field return type
@@ -264,7 +315,7 @@ export interface NexusGenFieldTypes {
     getOnePlayer: NexusGenRootTypes['Player'] | null; // Player
     getOneTeam: NexusGenRootTypes['Team'] | null; // Team
     getOneTest: boolean | null; // Boolean
-    getStandings: NexusGenRootTypes['Standings'] | null; // Standings
+    getStandings: NexusGenRootTypes['Standings']; // Standings!
     sqlSandbox: string | null; // String
   }
   SimResult: { // field return type
@@ -347,34 +398,63 @@ export interface NexusGenFieldTypes {
     tpm: number; // Int!
   }
   Standings: { // field return type
-    l: number; // Int!
-    team: NexusGenRootTypes['Team'][]; // [Team!]!
-    w: number; // Int!
+    league: NexusGenRootTypes['League']; // League!
+    teams: NexusGenRootTypes['StandingsTeam'][]; // [StandingsTeam!]!
   }
-  Taco: { // field return type
-    isEdible: boolean | null; // Boolean
-  }
-  Team: { // field return type
+  StandingsTeam: { // field return type
     abbrev: string; // String!
-    facebook: string; // String!
+    conferenceId: number | null; // Int
+    divisionId: number | null; // Int
     homeName: string; // String!
     id: number; // Int!
-    instagram: string; // String!
+    l: number; // Int!
+    leagueId: number; // Int!
     nickname: string; // String!
-    players: NexusGenRootTypes['Player'][]; // [Player!]!
-    twitter: string; // String!
-    venue: string; // String!
-    venueCapacity: number; // Int!
-    yearFounded: NexusGenScalars['DateTime']; // DateTime!
+    w: number; // Int!
+  }
+  Team: { // field return type
+    abbrev: string | null; // String
+    facebook: string | null; // String
+    homeName: string | null; // String
+    id: number | null; // Int
+    instagram: string | null; // String
+    nickname: string | null; // String
+    players: NexusGenRootTypes['Player'][] | null; // [Player!]
+    twitter: string | null; // String
+    venue: string | null; // String
+    venueCapacity: number | null; // Int
+    yearFounded: NexusGenScalars['DateTime'] | null; // DateTime
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Conference: { // field return type name
+    abbrev: 'String'
+    divisions: 'Division'
+    id: 'Int'
+    league: 'League'
+    name: 'String'
+  }
+  Division: { // field return type name
+    abbrev: 'String'
+    conference: 'Conference'
+    id: 'Int'
+    league: 'League'
+    name: 'String'
+  }
   Game: { // field return type name
     id: 'Int'
   }
+  League: { // field return type name
+    abbrev: 'String'
+    conferences: 'Conference'
+    divisions: 'Division'
+    id: 'Int'
+    name: 'String'
+  }
   Mutation: { // field return type name
     createOneTest: 'Boolean'
+    resetData: 'Boolean'
     startGameSim: 'SimResult'
   }
   Player: { // field return type name
@@ -492,12 +572,19 @@ export interface NexusGenFieldTypeNames {
     tpm: 'Int'
   }
   Standings: { // field return type name
-    l: 'Int'
-    team: 'Team'
-    w: 'Int'
+    league: 'League'
+    teams: 'StandingsTeam'
   }
-  Taco: { // field return type name
-    isEdible: 'Boolean'
+  StandingsTeam: { // field return type name
+    abbrev: 'String'
+    conferenceId: 'Int'
+    divisionId: 'Int'
+    homeName: 'String'
+    id: 'Int'
+    l: 'Int'
+    leagueId: 'Int'
+    nickname: 'String'
+    w: 'Int'
   }
   Team: { // field return type name
     abbrev: 'String'

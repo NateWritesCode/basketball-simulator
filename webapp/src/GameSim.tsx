@@ -13,18 +13,24 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BoxScorePlayersTable from "./components/BoxScorePlayersTable";
-import { START_GAME_SIM } from "./graphql/constants";
+import { RESET_DATA, START_GAME_SIM } from "./graphql/constants";
 import socket from "./Socket";
+import { resetData } from "./types/resetData";
 import { startGameSim } from "./types/startGameSim";
 
 const GameSim = () => {
+  const navigate = useNavigate();
   const [startGameSim, { data, error }] = useMutation<startGameSim>(
     START_GAME_SIM,
     {
       fetchPolicy: "network-only",
     }
   );
+  const [resetData] = useMutation<resetData>(RESET_DATA, {
+    fetchPolicy: "network-only",
+  });
   const [gameEvents, setGameEvents] = useState([]);
 
   useEffect(() => {
@@ -45,7 +51,13 @@ const GameSim = () => {
   return (
     <Box mx={8} my={8}>
       <Button colorScheme={"blue"} onClick={() => startGameSim()}>
-        Start game
+        Run game sim
+      </Button>
+      <Button colorScheme={"red"} onClick={() => resetData()} mx="4">
+        Reset Data
+      </Button>
+      <Button colorScheme={"purple"} onClick={() => navigate("/standings")}>
+        Standings
       </Button>
       {team0 && team1 && (
         <>

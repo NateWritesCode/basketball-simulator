@@ -67,47 +67,47 @@ export default async () => {
 
   const port = 8081;
 
-  const cubeJsServer = new CubeJsServer({
-    apiSecret: "fc2911c496191214d4fba81f32b1a4d9",
-    dbType: ({ dataSource }) => {
-      return "postgres";
-      // if (dataSource === "analytics") {
-      //   return "prestodb";
-      // } else {
-      //   return "postgres";
-      // }
-    },
-    driverFactory: ({ dataSource }) => {
-      return new PostgresDriver({
-        database: "postgres",
-        host: "localhost",
-        user: "admin",
-        password: "helloworld",
-        port: 5432,
-      });
+  // const cubeJsServer = new CubeJsServer({
+  //   apiSecret: "",
+  //   dbType: ({ dataSource }) => {
+  //     return "postgres";
+  //     // if (dataSource === "analytics") {
+  //     //   return "prestodb";
+  //     // } else {
+  //     //   return "postgres";
+  //     // }
+  //   },
+  //   driverFactory: ({ dataSource }) => {
+  //     return new PostgresDriver({
+  //       database: "postgres",
+  //       host: "localhost",
+  //       user: "admin",
+  //       password: "helloworld",
+  //       port: 5432,
+  //     });
 
-      // if (dataSource === "analytics") {
-      //   return new PrestoDriver({
-      //     host: "localhost",
-      //     port: 8080,
-      //     catalog: "hive",
-      //     user: "root",
-      //     schema: "default",
-      //   });
-      // } else {
-      //   return new PostgresDriver({
-      //     database: "postgres",
-      //     host: "localhost",
-      //     user: "admin",
-      //     password: "helloworld",
-      //     port: 5432,
-      //   });
-      // }
-    },
-    scheduledRefreshTimer: false,
-  });
+  //     // if (dataSource === "analytics") {
+  //     //   return new PrestoDriver({
+  //     //     host: "localhost",
+  //     //     port: 8080,
+  //     //     catalog: "hive",
+  //     //     user: "root",
+  //     //     schema: "default",
+  //     //   });
+  //     // } else {
+  //     //   return new PostgresDriver({
+  //     //     database: "postgres",
+  //     //     host: "localhost",
+  //     //     user: "admin",
+  //     //     password: "helloworld",
+  //     //     port: 5432,
+  //     //   });
+  //     // }
+  //   },
+  //   scheduledRefreshTimer: false,
+  // });
 
-  await cubeJsServer.listen();
+  // await cubeJsServer.listen();
 
   httpServer.listen(
     {

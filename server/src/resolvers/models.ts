@@ -135,13 +135,28 @@ export const PlayerObjectType = objectType({
   },
 });
 
+export const StandingsTeamObjectType = objectType({
+  name: "StandingsTeam",
+  description: "Standings team description",
+  definition(t) {
+    t.nonNull.string("abbrev");
+    t.nonNull.string("homeName");
+    t.nonNull.int("id");
+    t.int("conferenceId");
+    t.int("divisionId");
+    t.nonNull.int("leagueId");
+    t.nonNull.string("nickname");
+    t.nonNull.int("l");
+    t.nonNull.int("w");
+  },
+});
+
 export const StandingsObjectType = objectType({
   name: "Standings",
   description: "Standings description",
   definition(t) {
-    t.field("l", { type: nonNull("Int") });
-    t.nonNull.list.field("team", { type: nonNull(TeamObjectType) });
-    t.field("w", { type: nonNull("Int") });
+    t.nonNull.list.field("teams", { type: nonNull(StandingsTeamObjectType) });
+    t.nonNull.field("league", { type: nonNull(LeagueObjectType) });
   },
 });
 
@@ -151,7 +166,7 @@ export const ConferenceObjectType = objectType({
   definition(t) {
     t.nonNull.string("abbrev");
     t.list.field("divisions", { type: nonNull(DivisionObjectType) });
-    t.nonNull.id("id");
+    t.nonNull.int("id");
     t.field("league", { type: nonNull(LeagueObjectType) });
     t.nonNull.string("name");
   },
@@ -162,8 +177,8 @@ export const DivisionObjectType = objectType({
   definition(t) {
     t.nonNull.string("abbrev");
     t.field("conference", { type: ConferenceObjectType });
-    t.nonNull.id("id");
-    t.field("league", { type: nonNull(LeagueObjectType) });
+    t.nonNull.int("id");
+    t.nonNull.field("league", { type: nonNull(LeagueObjectType) });
     t.nonNull.string("name");
   },
 });
@@ -174,25 +189,25 @@ export const LeagueObjectType = objectType({
     t.nonNull.string("abbrev");
     t.list.field("conferences", { type: nonNull(ConferenceObjectType) });
     t.list.field("divisions", { type: nonNull(DivisionObjectType) });
-    t.nonNull.id("id");
+    t.nonNull.int("id");
     t.nonNull.string("name");
   },
 });
 
 export const TeamObjectType = objectType({
-  name: Team.$name,
-  description: Team.$description,
+  name: "Team",
+  description: "Team Description",
   definition(t) {
-    t.field(Team.abbrev.name, Team.abbrev);
-    t.field(Team.facebook.name, Team.facebook);
-    t.field(Team.homeName.name, Team.homeName);
-    t.field(Team.id.name, Team.id);
-    t.field(Team.instagram.name, Team.instagram);
-    t.field(Team.nickname.name, Team.nickname);
-    t.field(Team.players.name, Team.players);
-    t.field(Team.twitter.name, Team.twitter);
-    t.field(Team.venue.name, Team.venue);
-    t.field(Team.venueCapacity.name, Team.venueCapacity);
-    t.field(Team.yearFounded.name, Team.yearFounded);
+    t.string("abbrev");
+    t.string("facebook");
+    t.string("homeName");
+    t.int("id");
+    t.string("instagram");
+    t.string("nickname");
+    t.list.field("players", { type: nonNull(PlayerObjectType) });
+    t.string("twitter");
+    t.string("venue");
+    t.int("venueCapacity");
+    t.dateTime("yearFounded");
   },
 });
