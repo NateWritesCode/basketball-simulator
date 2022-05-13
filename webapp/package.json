@@ -1,45 +1,36 @@
 {
-  "name": "webapp",
-  "version": "0.0.0",
+  "name": "webapp-bs",
+  "version": "0.0.1",
+  "description": "Basketball simulator webapp",
+  "main": "index.ts",
+  "type": "module",
   "scripts": {
-    "build": "tsc && vite build",
-    "dev": "vite",
-    "flow:chain": "flow emulator start -v --persist",
-    "flow:deploy": "flow project deploy --network=emulator",
-    "flow:wallet": "flow dev-wallet",
-    "preview": "vite preview",
-    "types:graphql": "npx apollo client:codegen src/types --target typescript --localSchemaFile=../server/graphql/schema.graphql --outputFlat"
-  },
-  "dependencies": {
-    "@apollo/client": "^3.5.9",
-    "@chakra-ui/icons": "^1.1.7",
-    "@chakra-ui/react": "^1.8.3",
-    "@emotion/react": "^11.8.0",
-    "@emotion/styled": "^11.8.0",
-    "@monaco-editor/react": "^4.3.1",
-    "@onflow/fcl": "^0.0.78",
-    "@onflow/types": "^0.0.6",
-    "framer-motion": "^6.2.6",
-    "moment": "^2.29.2",
-    "numeral": "^2.0.6",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-json-view": "^1.21.3",
-    "react-router-dom": "^6.2.1",
-    "react-table": "^7.7.0",
-    "socket.io-client": "^4.4.1",
-    "zustand": "^3.7.0"
+    "cloud:build": "vite build",
+    "cloud:dev": "vite",
+    "dev": "cloud dev",
+    "types:graphql": "npx apollo client:codegen src/types --target typescript  --endpoint https://great-project-71r3i.cloud.serverless.com/graphql --outputFlat"
   },
   "devDependencies": {
-    "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
-    "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
-    "@types/numeral": "^2.0.2",
-    "@types/react": "^17.0.33",
-    "@types/react-dom": "^17.0.10",
-    "@types/react-table": "^7.7.9",
-    "@vitejs/plugin-react": "^1.0.7",
-    "apollo": "^2.33.9",
-    "typescript": "^4.4.4",
-    "vite": "^2.7.2"
+    "@serverless/cloud": "^2.0.0",
+    "@types/jest": "^26.0.24",
+    "@vitejs/plugin-react": "^1.3.2",
+    "apollo": "2.33.4",
+    "apollo-codegen-core": "0.40.3",
+    "apollo-language-server": "1.26.3",
+    "vite": "^2.9.9"
+  },
+  "serverless": {
+    "app": "webapp-bs",
+    "org": "saferate"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.6.2",
+    "@chakra-ui/react": "^2.0.0",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "framer-motion": "^6.3.3",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-router-dom": "^6.3.0"
   }
 }

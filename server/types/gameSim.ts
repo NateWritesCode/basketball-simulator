@@ -1,7 +1,12 @@
 import { z } from "zod";
 import { ShotTypes } from ".";
-import { GamePlayerState, GameTeamState, Player, Team } from "../entities";
-import Socket from "../Socket";
+import {
+  GamePlayerState,
+  GameTeamState,
+  Player,
+  Team,
+} from "../../server-old/src/entities";
+import Socket from "../../server-old/src/Socket";
 import {
   GameTotalTimeEnum,
   GameTypeEnum,

@@ -5,7 +5,7 @@ import {
   TurnoverTypes,
   ViolationTypes,
 } from ".";
-import { Player, Team } from "../entities";
+import { Player, Team } from "../../server-old/src/entities";
 import {
   EjectionReasons,
   FoulTypesDefensiveNonShooting,

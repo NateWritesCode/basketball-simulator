@@ -1,20 +1,17 @@
-import "./index.css";
-import { ChakraProvider } from "@chakra-ui/react";
 import React from "react";
 import ReactDOM from "react-dom";
+import { ChakraProvider } from "@chakra-ui/react";
+import "./index.css";
 import App from "./App";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { BrowserRouter } from "react-router-dom";
-import { createRoot } from "react-dom/client";
 
 const client = new ApolloClient({
-  uri: "https://great-project-71r3i.cloud.serverless.com/graphql",
+  uri: "http://localhost:8081/graphql",
   cache: new InMemoryCache(),
 });
 
-const root = createRoot(document.getElementById("root"));
-
-root.render(
+ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider>
       <ApolloProvider client={client}>
@@ -23,5 +20,6 @@ root.render(
         </BrowserRouter>
       </ApolloProvider>
     </ChakraProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById("root")
 );
