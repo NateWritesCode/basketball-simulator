@@ -99,7 +99,7 @@ export const Simulation = {
         })
         .filter((player: any) => player !== null);
 
-      console.log("players", players);
+      // console.log("players", players);
 
       // const teams = [team0, team1].map(
       //   (team) =>
