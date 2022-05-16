@@ -1,6 +1,8 @@
 import { gql } from "apollo-server-express";
+import { typeDefs as scalarTypeDefs } from "graphql-scalars";
 
 const typeDefs = gql`
+  ${scalarTypeDefs}
   type Conference {
     abbrev: String!
     divisions: [Division!]
@@ -46,6 +48,24 @@ const typeDefs = gql`
     l: Int!
     nickname: String!
     w: Int!
+  }
+
+  type Team {
+    abbrev: String!
+    conferenceId: Int
+    divisionId: Int
+    facebook: String
+    homeName: String!
+    id: Int!
+    instagram: String
+    lat: Float!
+    leagueId: Int
+    lng: Float!
+    nickname: String!
+    twitter: String
+    venue: String!
+    venueCapacity: Int!
+    yearFounded: DateTime!
   }
 
   type Query {

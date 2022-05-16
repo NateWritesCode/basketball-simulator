@@ -21,7 +21,7 @@ import {
   IObserver,
 } from "../types";
 import fs from "fs";
-import { csvDbClient } from "../csvDbClient";
+import { csvDb } from "../utils/csvDb";
 
 class GameTeamState implements IObserver {
   [index: string]: any;
@@ -163,8 +163,8 @@ class GameTeamState implements IObserver {
       data[statToRecord] = value;
     });
 
-    csvDbClient.addTest(this.id.toString(), "team-game", data);
-    csvDbClient.add(this.id.toString(), "team-game", data);
+    csvDb.addTest(this.id.toString(), "team-game", data);
+    csvDb.add(this.id.toString(), "team-game", data);
   };
 
   writeToTeamGameGroup = () => {
@@ -180,7 +180,7 @@ class GameTeamState implements IObserver {
 
     console.log("Witing to team game group for team id ", this.id);
 
-    csvDbClient.incrementOneRow(
+    csvDb.incrementOneRow(
       this.id.toString(),
       "team-game-group",
       { gameGroupId: this.gameGroupId },
@@ -433,7 +433,7 @@ class GameTeamState implements IObserver {
         //   "jumpBallsWon",
         //   "pts",
         // ]);
-        this.closeTeamState();
+        // this.closeTeamState();
         break;
       }
       case "GAME_START": {

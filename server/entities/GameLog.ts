@@ -239,6 +239,7 @@ class GameLog implements IObserver {
       }
 
       case "GAME_END": {
+        return;
         this.logDanger(["Game has ended"]);
         const file = fs.createWriteStream(
           `./src/data/game-logs/${this.gameId}.txt`

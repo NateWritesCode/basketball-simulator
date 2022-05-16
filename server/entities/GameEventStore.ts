@@ -485,6 +485,7 @@ class GameEventStore implements IObserver {
   };
 
   notifyGameEvent(gameEvent: GameEventEnum, gameEventData: object): void {
+    return;
     switch (gameEvent) {
       case "2FG_ATTEMPT": {
         this.appendToFile(gameEvent, gameEventData);

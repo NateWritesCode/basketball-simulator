@@ -53,10 +53,9 @@ import {
   getStealPlayer,
   getTurnoverPlayer,
   getTurnoverType,
-} from "../utils/probabilities";
-import Socket from "../Socket";
+} from "../probabilities/general/general";
 import GameEventStore from "./GameEventStore";
-import { csvDbClient } from "../csvDbClient";
+import { csvDb } from "../utils/csvDb";
 
 class GameSim {
   private d: TeamIndex;
@@ -79,7 +78,7 @@ class GameSim {
   private possessionLengthTest: number[];
   private possessionTossupMethod: PossessionTossupMethodEnum;
   private playerStates: GameSimPlayerStat;
-  private socket: Socket;
+  private socket: undefined;
   private teams: GameSimTeams;
   private teamStates: GameSimTeamStat;
   private timeoutOptions: TimeoutOptions;
@@ -125,7 +124,7 @@ class GameSim {
     this.gameType = gameType;
     this.teamStates = {};
     this.playerStates = {};
-    this.socket = socket;
+    this.socket = undefined;
     this.timeoutOptions = timeoutOptions;
     this.teams.forEach((team, teamIndex) => {
       const teamState = new GameTeamState(
@@ -137,7 +136,7 @@ class GameSim {
       this.teamStates[team.id] = teamState;
       this.observers.push(teamState);
 
-      team.players.forEach((player) => {
+      team.players.forEach((player: any) => {
         // player.normalizePlayerData();
 
         const playerState = new GamePlayerState(
@@ -324,7 +323,7 @@ class GameSim {
         (player) => player.id
       );
       const players = team.players.filter(
-        (player) =>
+        (player: any) =>
           !playersOnCourt.includes(player.id) &&
           this.isPlayerEligibleToSub(player)
       );
@@ -1392,18 +1391,18 @@ class GameSim {
       this.teamStates[this.teams[0].id].pts >
       this.teamStates[this.teams[1].id].pts;
 
-    await csvDbClient.incrementOneRow(
-      `1`,
-      "standings",
-      { teamId: this.teams[0].id },
-      team0Won ? { w: 1 } : { l: 1 }
-    );
-    await csvDbClient.incrementOneRow(
-      `1`,
-      "standings",
-      { teamId: this.teams[1].id },
-      team0Won ? { l: 1 } : { w: 1 }
-    );
+    // await csvDb.incrementOneRow(
+    //   `1`,
+    //   "standings",
+    //   { teamId: this.teams[0].id },
+    //   team0Won ? { w: 1 } : { l: 1 }
+    // );
+    // await csvDb.incrementOneRow(
+    //   `1`,
+    //   "standings",
+    //   { teamId: this.teams[1].id },
+    //   team0Won ? { l: 1 } : { w: 1 }
+    // );
   };
 
   start = async () => {

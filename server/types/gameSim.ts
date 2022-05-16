@@ -86,7 +86,7 @@ export const GameSimInit = z.object({
   numFoulsForPlayerFoulOut: z.number().gte(1).optional(),
   possessionTossupMethod: PossessionTossupMethodEnum,
   shotClock: ShotClockLengthEnum.optional(),
-  socket: z.instanceof(Socket),
+  socket: z.instanceof(Socket).optional(),
   teams: z.tuple([z.instanceof(Team), z.instanceof(Team)]),
   timeoutOptions: TimeoutOptions,
 });

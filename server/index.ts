@@ -18,8 +18,8 @@ class ServerlessCloudApollo extends ApolloServer {
     const server = new ServerlessCloudApollo({
       typeDefs,
       resolvers,
-      context: () => {
-        return { roger: 1 };
+      context: {
+        tacos: 1,
       },
       csrfPrevention: true,
       debug: true,
@@ -35,11 +35,14 @@ class ServerlessCloudApollo extends ApolloServer {
         return err;
       },
     });
-    await server.ensureStarted();
 
-    api.use(server.getMiddleware({ path: "/graphql" }));
+    if (server) {
+      await server.ensureStarted();
+      api.use(server.getMiddleware({ path: "/graphql" }));
+    } else {
+      throw new Error("We don't have a server");
+    }
   } catch (error: any) {
-    console.log("error", error);
     throw new Error(error);
   }
 })();

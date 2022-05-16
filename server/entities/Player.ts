@@ -1,5 +1,4 @@
-import { Player as DbPlayer } from "@prisma/client";
-import { PlayerProbability, PlayerTotal } from "../types/player";
+// import { PlayerProbability, PlayerTotal } from "../types/player";
 
 class Player {
   assist: number;
@@ -92,18 +91,9 @@ class Player {
   weight: number;
 
   constructor(
-    {
-      familyName,
-      givenName,
-      height,
-      id,
-      position,
-      slug,
-      teamId,
-      weight,
-    }: DbPlayer,
-    playerProbability: PlayerProbability,
-    playerTotal: PlayerTotal
+    { familyName, givenName, height, id, position, slug, teamId, weight }: any,
+    playerProbability: any,
+    playerTotal: any
   ) {
     this.assist = playerProbability.ASSIST;
     this.block = playerProbability.BLOCK;
@@ -233,4 +223,4 @@ class Player {
   };
 }
 
-export default Player;
+export { Player };

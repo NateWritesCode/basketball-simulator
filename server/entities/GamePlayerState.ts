@@ -29,7 +29,7 @@ import {
   GameEventEjection,
 } from "../types";
 import fs from "fs";
-import { csvDbClient } from "../csvDbClient";
+import { csvDb } from "../utils/csvDb";
 
 class GamePlayerState implements IObserver {
   [index: string]: any;
@@ -195,33 +195,29 @@ class GamePlayerState implements IObserver {
   };
 
   writeToPlayerGame = () => {
-    const data: any = {};
-    this.statsToRecord.forEach((statToRecord, i) => {
-      let value = this[statToRecord];
-
-      data[statToRecord] = value;
-    });
-
-    csvDbClient.add(this.id.toString(), "player-game", data);
+    // const data: any = {};
+    // this.statsToRecord.forEach((statToRecord, i) => {
+    //   let value = this[statToRecord];
+    //   data[statToRecord] = value;
+    // });
+    // csvDb.add(this.id.toString(), "player-game", data);
   };
 
   writeToPlayerGameGroup = () => {
-    const data: any = {};
-
-    this.statsToRecord.forEach((statToRecord, i) => {
-      if (statToRecord === "gameId") {
-        data["gp"] = 1;
-      } else {
-        data[statToRecord] = this[statToRecord];
-      }
-    });
-
-    csvDbClient.incrementOneRow(
-      this.id.toString(),
-      "player-game-group",
-      { gameGroupId: this.gameGroupId },
-      data
-    );
+    // const data: any = {};
+    // this.statsToRecord.forEach((statToRecord, i) => {
+    //   if (statToRecord === "gameId") {
+    //     data["gp"] = 1;
+    //   } else {
+    //     data[statToRecord] = this[statToRecord];
+    //   }
+    // });
+    // csvDb.incrementOneRow(
+    //   this.id.toString(),
+    //   "player-game-group",
+    //   { gameGroupId: this.gameGroupId },
+    //   data
+    // );
   };
 
   gatherGameSimSegmentData = (
@@ -603,8 +599,7 @@ class GamePlayerState implements IObserver {
         //   "jumpBallsWon",
         //   "pts",
         // ]);
-        this.closePlayerState();
-        break;
+        return;
       }
       case "GAME_START": {
         break;

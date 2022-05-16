@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 interface Conference {
   abbrev: string;
   divisions?: Division[];
@@ -38,3 +40,30 @@ interface StandingsTeam {
   nickname: string;
   w: number;
 }
+
+export const Team = z.object({
+  abbrev: z.string(),
+  conferenceId: z.number().optional(),
+  divisionId: z.number().optional(),
+  facebook: z.string().optional(),
+  homeName: z.string(),
+  id: z.number(),
+  instagram: z.string().optional(),
+  lat: z.number(),
+  leagueId: z.number().optional(),
+  lng: z.number(),
+  nickname: z.string(),
+  twitter: z.string().optional(),
+  venue: z.string(),
+  venueCapacity: z.number(),
+  yearFounded: z.date(),
+});
+export type Team = z.infer<typeof Team>;
+
+export const Game = z.object({
+  date: z.date(),
+  id: z.number(),
+  team0Id: z.number(),
+  team1Id: z.number(),
+});
+export type Game = z.infer<typeof Game>;
