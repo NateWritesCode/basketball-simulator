@@ -5,7 +5,8 @@
   "main": "index.ts",
   "type": "module",
   "scripts": {
-    "dev": "cloud",
+    "cloud:dev": "ts-node-dev --no-notify --respawn --transpile-only --quiet src/index",
+    "dev": "cloud dev",
     "test": "cloud test"
   },
   "devDependencies": {
