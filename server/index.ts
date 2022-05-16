@@ -1,7 +1,7 @@
 import { api } from "@serverless/cloud";
 import { ApolloServer } from "apollo-server-express";
-import { resolvers } from "./graphql/resolvers/resolvers";
-import { typeDefs } from "./graphql/typeDefs";
+import { resolvers } from "./resolvers/resolvers";
+import { typeDefs } from "./resolvers/typeDefs";
 
 class ServerlessCloudApollo extends ApolloServer {
   serverlessFramework() {
@@ -18,8 +18,8 @@ class ServerlessCloudApollo extends ApolloServer {
     const server = new ServerlessCloudApollo({
       typeDefs,
       resolvers,
-      context: {
-        tacos: 1,
+      context: () => {
+        return { roger: 1 };
       },
       csrfPrevention: true,
       debug: true,
@@ -38,7 +38,8 @@ class ServerlessCloudApollo extends ApolloServer {
     await server.ensureStarted();
 
     api.use(server.getMiddleware({ path: "/graphql" }));
-  } catch (error) {
+  } catch (error: any) {
+    console.log("error", error);
     throw new Error(error);
   }
 })();
