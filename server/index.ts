@@ -1,5 +1,6 @@
 import { api } from "@serverless/cloud";
 import { ApolloServer } from "apollo-server-express";
+import { createContext } from "./resolvers/createContext";
 import { resolvers } from "./resolvers/resolvers";
 import { typeDefs } from "./resolvers/typeDefs";
 
@@ -18,9 +19,7 @@ class ServerlessCloudApollo extends ApolloServer {
     const server = new ServerlessCloudApollo({
       typeDefs,
       resolvers,
-      context: {
-        tacos: 1,
-      },
+      context: createContext(),
       csrfPrevention: true,
       debug: true,
       introspection: true,

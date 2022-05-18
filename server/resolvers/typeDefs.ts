@@ -76,6 +76,7 @@ const typeDefs = gql`
 
   type Mutation {
     createFoo: Boolean
+    sandbox: Boolean
     simulate: Boolean
     simulateCleanup: Boolean
     simulatePrep: Boolean

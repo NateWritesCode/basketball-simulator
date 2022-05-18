@@ -1,5 +1,9 @@
+import ordinal from "ordinal";
+import fs from "fs";
+import { GameTypeTimeSegments, GameEventEnum } from "../types/enums";
 import {
   GameEvent2FgAttempt,
+  GameEventBlock,
   GameEvent2FgMade,
   GameEvent2FgMadeFoul,
   GameEvent2FgMiss,
@@ -8,36 +12,34 @@ import {
   GameEvent3FgMade,
   GameEvent3FgMadeFoul,
   GameEvent3FgMiss,
-  GameEventBlock,
+  GameEvent3FgMissFoul,
   GameEventReboundDefensive,
-  GameEventEnum,
+  GameEventEjection,
+  GameEventFoulTechnical,
   GameEventFreeThrow,
   GameEventJumpBall,
+  GameEventFoulNonShootingDefensive,
+  GameEventFoulOffensive,
   GameEventReboundOffensive,
   GameEventSegment,
   GameEventStartingLineup,
-  GameEvent3FgMissFoul,
-  GameTypeTimeSegments,
-  GameEventFoulNonShootingDefensive,
   GameEventSteal,
-  GameEventTurnover,
-  IObserver,
-  GameEventViolation,
   GameEventSubstitution,
   GameEventTimeout,
-  GameEventFoulOffensive,
-  GameEventFoulTechnical,
-  GameEventEjection,
-} from "../types";
-import { log } from "../utils";
-import ordinal from "ordinal";
-import fs from "fs";
+  GameEventTurnover,
+  GameEventViolation,
+} from "../types/gameEvents";
+import { IObserver } from "../types/general";
+import { log } from "../utils/log";
+import { storage } from "@serverless/cloud";
 
 class GameLog implements IObserver {
+  asyncOperations: any[];
   gameId: number;
   gameLog: string[][];
 
-  constructor(gameId: number) {
+  constructor(gameId: number, asyncOperations: any[]) {
+    this.asyncOperations = asyncOperations;
     this.gameId = gameId;
     this.gameLog = [];
   }
@@ -239,14 +241,25 @@ class GameLog implements IObserver {
       }
 
       case "GAME_END": {
-        return;
         this.logDanger(["Game has ended"]);
-        const file = fs.createWriteStream(
-          `./src/data/game-logs/${this.gameId}.txt`
+        let dataString = "";
+        this.gameLog.forEach((gameLogs) =>
+          gameLogs.forEach((v) => (dataString += `${v}\r\n`))
         );
 
-        this.gameLog.forEach((v) => file.write(`${v}\r\n`));
-        file.end();
+        const writeToStorageFunc = async () => {
+          try {
+            await storage.write(
+              `/data/game-logs/${this.gameId}.txt`,
+              dataString
+            );
+          } catch (error) {
+            throw new Error(error);
+          }
+        };
+
+        this.asyncOperations.push(writeToStorageFunc);
+
         break;
       }
       case "GAME_START": {
@@ -390,4 +403,4 @@ class GameLog implements IObserver {
   }
 }
 
-export default GameLog;
+export { GameLog };

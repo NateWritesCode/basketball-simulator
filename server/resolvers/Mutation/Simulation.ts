@@ -1,75 +1,44 @@
-import {
-  Context,
-  Game as GameType,
-  // GameTotalTime,
-  // GameTypeTimeSegments,
-  // OvertimeLength,
-  // ShotClockLength,
-  Team as TeamType,
-} from "../../types";
 import { storage } from "@serverless/cloud";
 import fs from "fs";
-import { writeFileToStorage } from "../../utils";
-import { csvDb } from "../../utils/csvDb";
 // import { GameSim, Player, Team } from "../../entities";
+import { GameSim } from "../../entities/GameSim";
 import { Player } from "../../entities/Player";
+import { Team } from "../../entities/Team";
+import { Context } from "../../types/general";
+import { Game } from "../../types/resolvers";
+import {
+  OvertimeLength,
+  GameTypeTimeSegments,
+  GameTotalTime,
+  ShotClockLength,
+} from "../../types/enums";
+import { writeFileToStorage } from "../../utils/writeFileToStorage";
 
 export const Simulation = {
   simulate: async (
     _parent: undefined,
     _args: undefined,
-    context: Context
+    { csvDb }: Context
   ): Promise<boolean> => {
     console.log("Simulate STARTING");
-    // console.log("csvDb", csvDb);
     const teamsDb = await csvDb.getMany("team", "team");
-    // console.log("teamsDb", teamsDb);
-    const gamesDb: GameType[] = (await csvDb.getMany("1", "schedule")).sort(
+
+    const gamesDb: Game[] = (await csvDb.getMany("1", "schedule")).sort(
       (a, b) => a.date - b.date
     );
 
     const playersDb: any[] = await csvDb.getMany("player", "player");
 
-    for await (const game of gamesDb.slice(0, 1)) {
+    const gamesToSim = [];
+
+    for (const game of gamesDb.slice(0, 10)) {
       const team0 = teamsDb.filter((team) => team.id === game.team0Id)[0];
       const team1 = teamsDb.filter((team) => team.id === game.team1Id)[0];
-
       if (!team0 || !team1) {
         throw new Error(
           `Don't have the required teams to simulate game id ${game.id}`
         );
       }
-
-      // console.log("team0", team0);
-      // console.log("team1", team1);
-
-      console.log("__dirname", process.cwd());
-
-      console.log(fs.readdirSync(process.cwd()));
-
-      // const id = 2544;
-
-      // const playerProb = JSON.parse(
-      //   fs.readFileSync(`/tmp/task/probabilities/player/${id}.json`, "utf-8")
-      // );
-
-      // const playerTotalProb = JSON.parse(
-      //   fs.readFileSync(`/tmp/task/probabilities/player/${id}.json`, "utf-8")
-      // );
-
-      // console.log("playersDb", playersDb);
-
-      // const player = playersDb.filter(
-      //   (player: any) => player.id === id
-      //   // player.teamId === team0.id || player.teamId === team1.id
-      // )[0];
-
-      // console.log("playerProb", playerProb);
-      // console.log("playerTotalProb", playerTotalProb);
-      // console.log("player", player);
-
-      // const test = new Player(player, playerProb, playerTotalProb);
-      // console.log("test", test);
 
       const players = playersDb
         .filter(
@@ -99,45 +68,24 @@ export const Simulation = {
         })
         .filter((player: any) => player !== null);
 
-      // console.log("players", players);
+      const teams = [team0, team1].map(
+        (team) =>
+          new Team({
+            ...team,
+            players: players.filter((player: any) => player.teamId === team.id),
+          })
+      );
 
-      // const teams = [team0, team1].map(
-      //   (team) =>
-      //     new Team({
-      //       ...team,
-      //       players: players.filter((player: any) => player.teamId === team.id),
-      //     })
-      // );
+      const gameToSim = async () => {
+        await simulateGame({ game, teams });
+      };
 
-      // const gameSim = new GameSim({
-      //   foulPenaltySettings: {
-      //     doublePenaltyThreshold: 10,
-      //     penaltyThreshold: 6,
-      //   },
-      //   gameType: {
-      //     overtimeOptions: {
-      //       overtimeLength: OvertimeLength.NBA,
-      //       timeouts: 2,
-      //       type: "time",
-      //     },
-      //     segment: GameTypeTimeSegments.Quarter,
-      //     totalTime: GameTotalTime.NBA,
-      //     type: "time",
-      //   },
-      //   id: game.id,
-      //   numFoulsForPlayerFoulOut: 6,
-      //   possessionTossupMethod: "JUMP_BALL",
-      //   shotClock: ShotClockLength.NBA,
-      //   socket: undefined,
-      //   teams: [teams[0], teams[1]],
-      //   timeoutOptions: {
-      //     timeouts: 7,
-      //     timeoutRules: "NBA",
-      //   },
-      // });
-
-      // await gameSim.start();
+      gamesToSim.push(gameToSim);
     }
+
+    await Promise.all(gamesToSim.map(async (fn) => await fn()));
+
+    console.log("Simulation is complete");
 
     return true;
   },
@@ -166,4 +114,47 @@ export const Simulation = {
       throw new Error(error);
     }
   },
+};
+
+const simulateGame = async ({ game, teams }: { game: Game; teams: Team[] }) => {
+  const gameSim = new GameSim({
+    asyncOperations: [],
+    foulPenaltySettings: {
+      doublePenaltyThreshold: 10,
+      penaltyThreshold: 6,
+    },
+    gameType: {
+      overtimeOptions: {
+        overtimeLength: OvertimeLength.NBA,
+        timeouts: 2,
+        type: "time",
+      },
+      segment: GameTypeTimeSegments.Quarter,
+      totalTime: GameTotalTime.NBA,
+      type: "time",
+    },
+    id: game.id,
+    numFoulsForPlayerFoulOut: 6,
+    possessionTossupMethod: "JUMP_BALL",
+    shotClock: ShotClockLength.NBA,
+    // socket: undefined,
+    teams: [teams[0], teams[1]],
+    timeoutOptions: {
+      timeouts: 7,
+      timeoutRules: "NBA",
+    },
+  });
+
+  const asyncOperations = gameSim.start();
+
+  try {
+    await Promise.all(asyncOperations.map((fn) => fn()));
+
+    // const gameLog = await storage.read(`/data/game-logs/${game.id}.txt`);
+    // const gameEvents = await storage.read(`/data/game-events/${game.id}.txt`);
+
+    console.log(`Finished writing data for game ${game.id}`);
+  } catch (error) {
+    throw new Error(error);
+  }
 };

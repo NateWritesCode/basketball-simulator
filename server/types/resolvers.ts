@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-interface Conference {
+export interface Conference {
   abbrev: string;
   divisions?: Division[];
   id: number;
@@ -8,7 +8,7 @@ interface Conference {
   name: string;
 }
 
-interface Division {
+export interface Division {
   abbrev: string;
   conference?: Conference;
   id: number;

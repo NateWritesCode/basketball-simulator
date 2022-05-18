@@ -1,7 +1,7 @@
 import fs from "fs";
 import { storage } from "@serverless/cloud";
 
-export default async (filePath: string) => {
+export const writeFileToStorage = async (filePath: string) => {
   const data = fs.readFileSync(`.${filePath}`);
   try {
     await storage.write(filePath, data);

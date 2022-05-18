@@ -1,5 +1,8 @@
+import fs from "fs";
+import { GameEventEnum } from "../types/enums";
 import {
   GameEvent2FgAttempt,
+  GameEventBlock,
   GameEvent2FgMade,
   GameEvent2FgMadeFoul,
   GameEvent2FgMiss,
@@ -9,17 +12,15 @@ import {
   GameEvent3FgMadeFoul,
   GameEvent3FgMiss,
   GameEvent3FgMissFoul,
-  GameEventBlock,
+  GameEventReboundDefensive,
   GameEventEjection,
-  GameEventEnum,
   GameEventFoulNonShootingDefensive,
   GameEventFoulOffensive,
   GameEventFoulTechnical,
   GameEventFreeThrow,
   GameEventJumpBall,
-  GameEventPossessionArrow,
-  GameEventReboundDefensive,
   GameEventReboundOffensive,
+  GameEventPossessionArrow,
   GameEventSegment,
   GameEventStartingLineup,
   GameEventSteal,
@@ -27,15 +28,16 @@ import {
   GameEventTimeout,
   GameEventTurnover,
   GameEventViolation,
-  IObserver,
-} from "../types";
-import fs from "fs";
+} from "../types/gameEvents";
+import { IObserver } from "../types/general";
+import { storage } from "@serverless/cloud";
 
 class GameEventStore implements IObserver {
   [key: string]: any;
+  appendString: string;
+  asyncOperations: any[];
   awayTeam: number | string;
   eventIdIterator: number;
-  filePath: string;
   gameId: number;
   gameType: string;
   homeTeam: number | string;
@@ -44,12 +46,14 @@ class GameEventStore implements IObserver {
   team1: number;
 
   constructor({
+    asyncOperations,
     gameId,
     gameType,
     isNeutralFloor,
     team0,
     team1,
   }: {
+    asyncOperations: any[];
     gameId: number;
     gameType: string;
     isNeutralFloor: boolean;
@@ -57,6 +61,8 @@ class GameEventStore implements IObserver {
     team1: number;
   }) {
     // always this means the field will always be there
+    this.appendString = "";
+    this.asyncOperations = asyncOperations;
     this.awayTeam = isNeutralFloor ? "" : team1;
     this.eventIdIterator = 1;
     this.gameId = gameId;
@@ -64,7 +70,6 @@ class GameEventStore implements IObserver {
     this.homeTeam = isNeutralFloor ? "" : team0;
     this.team0 = team0; //home team if not neutral floor
     this.team1 = team1;
-    this.filePath = `./src/data/game-events/${gameId}.txt`;
     this.pipeSettings = {
       awayTeam: {},
       bool0: { getBool: true },
@@ -92,33 +97,22 @@ class GameEventStore implements IObserver {
       text0: {},
     };
 
-    //create file
-    fs.writeFileSync(this.filePath, "");
-
     //add headers
-    let headerString = "";
+    // let headerString = "";
     const pipeSettingsKeys = Object.keys(this.pipeSettings);
     pipeSettingsKeys.forEach((pipeSettingKey, i) => {
       const isLastKey = i + 1 === pipeSettingsKeys.length;
 
       const value = pipeSettingKey;
 
-      // const value = getMappedKey({
-      //   mappedKeyType: "gameEvent",
-      //   textTypeToGet: "snake",
-      //   value: pipeSettingKey,
-      // });
-
-      headerString += `${value}${isLastKey ? "" : "|"}`;
+      this.appendString += `${value}${isLastKey ? "" : "|"}`;
     });
-
-    fs.appendFileSync(this.filePath, `${headerString}\n`);
   }
 
-  appendToFile = (gameEvent: GameEventEnum, gameEventData: any) => {
+  appendToString = (gameEvent: GameEventEnum, gameEventData: any) => {
     const appendObj = this.getAppendObj(gameEvent, gameEventData);
     const pipeSettingsKeys = Object.keys(this.pipeSettings);
-    let appendString = "";
+    // let appendString = "";
     pipeSettingsKeys.forEach((pipeSettingKey, i) => {
       let value = "";
       const isLastKey = i + 1 === pipeSettingsKeys.length;
@@ -142,10 +136,10 @@ class GameEventStore implements IObserver {
         }
       }
 
-      appendString += `${value}${isLastKey ? "" : "|"}`;
+      this.appendString += `${value}${isLastKey ? "" : "|"}`;
     });
 
-    fs.appendFileSync(this.filePath, `${appendString}\n`);
+    // fs.appendFileSync(this.filePath, `${appendString}\n`);
     this.eventIdIterator++;
   };
 
@@ -394,6 +388,18 @@ class GameEventStore implements IObserver {
         break;
       }
       case "GAME_END": {
+        const writeToStorageFunc = async () => {
+          try {
+            await storage.write(
+              `/data/game-events/${this.gameId}.txt`,
+              this.appendString
+            );
+          } catch (error) {
+            throw new Error(error);
+          }
+        };
+
+        this.asyncOperations.push(writeToStorageFunc);
         break;
       }
       case "GAME_START": {
@@ -485,130 +491,129 @@ class GameEventStore implements IObserver {
   };
 
   notifyGameEvent(gameEvent: GameEventEnum, gameEventData: object): void {
-    return;
     switch (gameEvent) {
       case "2FG_ATTEMPT": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "2FG_BLOCK": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "2FG_MADE": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "2FG_MADE_FOUL": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "2FG_MISS": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "2FG_MISS_FOUL": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "3FG_ATTEMPT": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "3FG_BLOCK": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "3FG_MADE": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "3FG_MADE_FOUL": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "3FG_MISS": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "3FG_MISS_FOUL": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "DEFENSIVE_REBOUND": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "EJECTION": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "FOUL_TECHNICAL": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "FREE_THROW": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "GAME_END": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "GAME_START": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "JUMP_BALL": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "FOUL_DEFENSIVE_NON_SHOOTING": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "FOUL_OFFENSIVE": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "OFFENSIVE_REBOUND": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "POSSESSION_ARROW": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "SEGMENT_START": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "SEGMENT_END": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "STARTING_LINEUP": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "STEAL": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "SUBSTITUTION": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "TIMEOUT": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "TURNOVER": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       case "VIOLATION": {
-        this.appendToFile(gameEvent, gameEventData);
+        this.appendToString(gameEvent, gameEventData);
         break;
       }
       default:
@@ -618,4 +623,4 @@ class GameEventStore implements IObserver {
   }
 }
 
-export default GameEventStore;
+export { GameEventStore };

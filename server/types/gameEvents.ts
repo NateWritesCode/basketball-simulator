@@ -1,16 +1,15 @@
 import { z } from "zod";
-import {
-  FoulPenaltySettings,
-  ShotTypes,
-  TurnoverTypes,
-  ViolationTypes,
-} from ".";
-import { Player, Team } from "../../server-old/src/entities";
+import { Player } from "../entities/Player";
+import { Team } from "../entities/Team";
 import {
   EjectionReasons,
   FoulTypesDefensiveNonShooting,
+  ShotTypes,
   TechnicalReasons,
+  TurnoverTypes,
+  ViolationTypes,
 } from "./enums";
+import { FoulPenaltySettings } from "./gameSim";
 
 const DefaultGameEvent = z.object({
   defPlayersOnCourt: z.array(z.instanceof(Player)),

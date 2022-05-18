@@ -1,10 +1,6 @@
-import Player from "./Player";
+import { Player } from "./Player";
 import random from "random";
 import { sample } from "simple-statistics";
-import { Team as DbTeam } from "@prisma/client";
-import { groupBy } from "../utils";
-
-type TeamInit = DbTeam & { players: Player[] };
 
 class Team {
   homeName: string;
@@ -12,7 +8,7 @@ class Team {
   id: number;
   players: Player[];
 
-  constructor({ homeName, nickname, id, players }: TeamInit) {
+  constructor({ homeName, nickname, id, players }: any) {
     this.homeName = homeName;
     this.nickname = nickname;
     this.id = id;
@@ -70,4 +66,4 @@ class Team {
   };
 }
 
-export default Team;
+export { Team };

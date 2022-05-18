@@ -1,31 +1,31 @@
+import fs from "fs";
+import { GameSimStatFields, GameEventEnum } from "../types/enums";
 import {
   GameEvent2FgAttempt,
+  GameEventBlock,
   GameEvent2FgMade,
   GameEvent2FgMadeFoul,
   GameEvent3FgAttempt,
-  GameEventBlock,
-  GameEventEnum,
+  GameEventReboundDefensive,
   GameEventFreeThrow,
   GameEventJumpBall,
   GameEventFoulNonShootingDefensive,
-  GameEventReboundDefensive,
+  GameEventFoulOffensive,
   GameEventReboundOffensive,
   GameEventSteal,
-  GameEventTurnover,
-  GameSimStatFields,
-  GameSimStats,
-  GameEventFoulOffensive,
   GameEventSubstitution,
   GameEventTimeout,
+  GameEventTurnover,
   GameEventViolation,
-  IObserver,
-} from "../types";
-import fs from "fs";
+} from "../types/gameEvents";
+import { GameSimStats } from "../types/gameSim";
+import { IObserver } from "../types/general";
 import { csvDb } from "../utils/csvDb";
 
 class GameTeamState implements IObserver {
   [index: string]: any;
   andOne: number;
+  asyncOperations: any[];
   ast: number;
   blk: number;
   blkd: number;
@@ -70,8 +70,15 @@ class GameTeamState implements IObserver {
   tpa: number;
   tpm: number;
 
-  constructor(id: number, gameId: number, name: string, timeouts: number) {
+  constructor(
+    asyncOperations: any[],
+    id: number,
+    gameId: number,
+    name: string,
+    timeouts: number
+  ) {
     this.andOne = 0;
+    this.asyncOperations = asyncOperations;
     this.ast = 0;
     this.blk = 0;
     this.blkd = 0;
@@ -156,36 +163,31 @@ class GameTeamState implements IObserver {
   };
 
   writeToTeamGame = () => {
-    const data: any = {};
-    this.statsToRecord.forEach((statToRecord, i) => {
-      let value = this[statToRecord];
-
-      data[statToRecord] = value;
-    });
-
-    csvDb.addTest(this.id.toString(), "team-game", data);
-    csvDb.add(this.id.toString(), "team-game", data);
+    // const data: any = {};
+    // this.statsToRecord.forEach((statToRecord, i) => {
+    //   let value = this[statToRecord];
+    //   data[statToRecord] = value;
+    // });
+    // csvDb.addTest(this.id.toString(), "team-game", data);
+    // csvDb.add(this.id.toString(), "team-game", data);
   };
 
   writeToTeamGameGroup = () => {
-    const data: any = {};
-
-    this.statsToRecord.forEach((statToRecord, i) => {
-      if (statToRecord === "gameId") {
-        data["gp"] = 1;
-      } else {
-        data[statToRecord] = this[statToRecord];
-      }
-    });
-
-    console.log("Witing to team game group for team id ", this.id);
-
-    csvDb.incrementOneRow(
-      this.id.toString(),
-      "team-game-group",
-      { gameGroupId: this.gameGroupId },
-      data
-    );
+    // const data: any = {};
+    // this.statsToRecord.forEach((statToRecord, i) => {
+    //   if (statToRecord === "gameId") {
+    //     data["gp"] = 1;
+    //   } else {
+    //     data[statToRecord] = this[statToRecord];
+    //   }
+    // });
+    // console.log("Witing to team game group for team id ", this.id);
+    // csvDb.incrementOneRow(
+    //   this.id.toString(),
+    //   "team-game-group",
+    //   { gameGroupId: this.gameGroupId },
+    //   data
+    // );
   };
 
   gatherGameSimSegmentData = (
@@ -589,4 +591,4 @@ class GameTeamState implements IObserver {
   };
 }
 
-export default GameTeamState;
+export { GameTeamState };

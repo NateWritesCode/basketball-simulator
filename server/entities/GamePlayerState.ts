@@ -1,39 +1,39 @@
-import { Player } from ".";
-import {
-  IObserver,
-  GameSimStats,
-  GameSimStatFields,
-  GameEventEnum,
-  GameEvent2FgAttempt,
-  GameEvent3FgAttempt,
-  GameEventReboundDefensive,
-  GameEventJumpBall,
-  GameEventStartingLineup,
-  GameEventBlock,
-  GameEvent2FgMade,
-  GameEvent3FgMade,
-  GameEventFreeThrow,
-  GameEventReboundOffensive,
-  GameEventFoulNonShootingDefensive,
-  GameEvent3FgMadeFoul,
-  GameEvent3FgMissFoul,
-  GameEvent2FgMissFoul,
-  GameEvent2FgMadeFoul,
-  GameEventSteal,
-  GameEventTurnover,
-  GameEventFoulOffensive,
-  GameEventViolation,
-  GameEventSegment,
-  GameEventSubstitution,
-  GameEventFoulTechnical,
-  GameEventEjection,
-} from "../types";
+import { Player } from "./Player";
 import fs from "fs";
 import { csvDb } from "../utils/csvDb";
+import { GameSimStatFields, GameEventEnum } from "../types/enums";
+import {
+  GameEvent2FgAttempt,
+  GameEventBlock,
+  GameEvent2FgMade,
+  GameEvent2FgMadeFoul,
+  GameEvent2FgMissFoul,
+  GameEvent3FgAttempt,
+  GameEvent3FgMade,
+  GameEvent3FgMadeFoul,
+  GameEvent3FgMissFoul,
+  GameEventReboundDefensive,
+  GameEventEjection,
+  GameEventFreeThrow,
+  GameEventJumpBall,
+  GameEventFoulNonShootingDefensive,
+  GameEventFoulOffensive,
+  GameEventFoulTechnical,
+  GameEventReboundOffensive,
+  GameEventSegment,
+  GameEventStartingLineup,
+  GameEventSteal,
+  GameEventSubstitution,
+  GameEventTurnover,
+  GameEventViolation,
+} from "../types/gameEvents";
+import { GameSimStats } from "../types/gameSim";
+import { IObserver } from "../types/general";
 
 class GamePlayerState implements IObserver {
   [index: string]: any;
   andOne: number;
+  asyncOperations: any[];
   ast: number;
   blk: number;
   blkd: number; //num of times blocked
@@ -87,6 +87,7 @@ class GamePlayerState implements IObserver {
   tpm: number; //3 makes
 
   constructor(
+    asyncOperations: any[],
     id: number,
     fatigueFactor: number,
     gameId: number,
@@ -97,6 +98,7 @@ class GamePlayerState implements IObserver {
     teamIndex: number
   ) {
     this.andOne = 0;
+    this.asyncOperations = asyncOperations;
     this.ast = 0;
     this.blk = 0;
     this.blkd = 0;
@@ -599,7 +601,7 @@ class GamePlayerState implements IObserver {
         //   "jumpBallsWon",
         //   "pts",
         // ]);
-        return;
+        break;
       }
       case "GAME_START": {
         break;
@@ -857,4 +859,4 @@ class GamePlayerState implements IObserver {
   }
 }
 
-export default GamePlayerState;
+export { GamePlayerState };

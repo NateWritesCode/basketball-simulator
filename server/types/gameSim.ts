@@ -1,12 +1,10 @@
 import { z } from "zod";
-import { ShotTypes } from ".";
-import {
-  GamePlayerState,
-  GameTeamState,
-  Player,
-  Team,
-} from "../../server-old/src/entities";
-import Socket from "../../server-old/src/Socket";
+import { GamePlayerState } from "../entities/GamePlayerState";
+import { GameTeamState } from "../entities/GameTeamState";
+import { Player } from "../entities/Player";
+import { Team } from "../entities/Team";
+// import Socket from "../../server-old/src/Socket";
+
 import {
   GameTotalTimeEnum,
   GameTypeEnum,
@@ -15,6 +13,7 @@ import {
   OvertimeTypeEnum,
   PossessionTossupMethodEnum,
   ShotClockLengthEnum,
+  ShotTypes,
 } from "./enums";
 
 export const FgType = z.object({
@@ -79,6 +78,7 @@ export const FoulPenaltySettings = z.object({
 export type FoulPenaltySettings = z.infer<typeof FoulPenaltySettings>;
 
 export const GameSimInit = z.object({
+  asyncOperations: z.array(z.any()),
   foulPenaltySettings: FoulPenaltySettings,
   gameType: GameType,
   id: z.number().gte(1),
@@ -86,7 +86,7 @@ export const GameSimInit = z.object({
   numFoulsForPlayerFoulOut: z.number().gte(1).optional(),
   possessionTossupMethod: PossessionTossupMethodEnum,
   shotClock: ShotClockLengthEnum.optional(),
-  socket: z.instanceof(Socket).optional(),
+  // socket: z.instanceof(Socket).optional(),
   teams: z.tuple([z.instanceof(Team), z.instanceof(Team)]),
   timeoutOptions: TimeoutOptions,
 });

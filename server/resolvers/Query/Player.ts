@@ -1,5 +1,6 @@
 import {} from "apollo-server-express";
-import { Context, getOnePlayerArgs } from "../../types";
+import { Context } from "../../types/general";
+import { getOnePlayerArgs } from "../../types/resolverArgs";
 
 export const Player = {
   getOnePlayer: (

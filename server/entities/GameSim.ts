@@ -1,30 +1,34 @@
-import { errors, getTypeGuardSafeData, isTypeGuardSafeObj } from "../utils";
-import { GameTeamState, GamePlayerState, Player, GameLog } from ".";
-import random from "random";
+// import { errors, getTypeGuardSafeData, isTypeGuardSafeObj } from "../utils";
+// import { Player } from "./Player";
+// import { GameTeamState } from "./GameTeamState";
+// import { GamePlayerState } from "./GamePlayerState";
+// import { GameLog } from "./GameLog";
+// import { GameEventStore } from "./GameEventStore";
+// import random from "random";
+// import fs from "fs";
+// // import {
+//   EjectionReasons,
+//   FoulPenaltySettings,
+//   GameEventData,
+//   GameEventEnum,
+//   GameSimInit,
+//   GameSimPlayerFields,
+//   GameSimPlayerStat,
+//   GameSimTeams,
+//   GameSimTeamStat,
+//   GameType,
+//   GameTypePoints,
+//   GameTypeTime,
+//   IObserver,
+//   OvertimeTypeTime,
+//   PlayersOnCourt,
+//   PossessionTossupMethodEnum,
+//   TeamIndex,
+//   TechnicalReasons,
+//   TimeoutOptions,
+//   TwoPlayers,
+// } from "../types";
 import { sample } from "simple-statistics";
-import fs from "fs";
-import {
-  EjectionReasons,
-  FoulPenaltySettings,
-  GameEventData,
-  GameEventEnum,
-  GameSimInit,
-  GameSimPlayerFields,
-  GameSimPlayerStat,
-  GameSimTeams,
-  GameSimTeamStat,
-  GameType,
-  GameTypePoints,
-  GameTypeTime,
-  IObserver,
-  OvertimeTypeTime,
-  PlayersOnCourt,
-  PossessionTossupMethodEnum,
-  TeamIndex,
-  TechnicalReasons,
-  TimeoutOptions,
-  TwoPlayers,
-} from "../types";
 import {
   get2or3Pointer,
   getAssistPlayer,
@@ -54,14 +58,46 @@ import {
   getTurnoverPlayer,
   getTurnoverType,
 } from "../probabilities/general/general";
-import GameEventStore from "./GameEventStore";
-import { csvDb } from "../utils/csvDb";
+
+import random from "random";
+import {
+  TeamIndex,
+  PossessionTossupMethodEnum,
+  GameEventEnum,
+  EjectionReasons,
+  TechnicalReasons,
+} from "../types/enums";
+import {
+  FoulPenaltySettings,
+  GameType,
+  PlayersOnCourt,
+  GameSimPlayerStat,
+  GameSimTeams,
+  GameSimTeamStat,
+  TimeoutOptions,
+  GameSimInit,
+  GameTypePoints,
+  GameTypeTime,
+  TwoPlayers,
+  OvertimeTypeTime,
+} from "../types/gameSim";
+import { IObserver } from "../types/general";
+import { errors } from "../utils/errors";
+import { getTypeGuardSafeData } from "../utils/getTypeGuardSafeData";
+import { isTypeGuardSafeObj } from "../utils/isTypeGuardSafeObj";
+import { GameEventStore } from "./GameEventStore";
+import { GameLog } from "./GameLog";
+import { GamePlayerState } from "./GamePlayerState";
+import { GameTeamState } from "./GameTeamState";
+import { Player } from "./Player";
+import { GameSimPlayerFields } from "../types/playerFields";
+import { GameEventData } from "../types/gameEvents";
 
 class GameSim {
+  private asyncOperations: any[];
   private d: TeamIndex;
   private foulPenaltySettings: FoulPenaltySettings;
   private fullSegmentTime: number | undefined;
-  private gameSummaryFilePath: string;
   private gameType: GameType;
   private id: number;
   private isEndOfSegment: boolean;
@@ -92,21 +128,21 @@ class GameSim {
   private timeSegments: number[] | undefined;
 
   constructor({
+    asyncOperations,
     foulPenaltySettings,
     gameType,
     id,
     isNeutralFloor = false,
     numFoulsForPlayerFoulOut,
     possessionTossupMethod,
-    socket,
+    // socket,
     teams,
     timeoutOptions,
   }: GameSimInit) {
-    // INIT GAME STATE
-
+    //INIT GAME STATE
+    this.asyncOperations = asyncOperations;
     this.d = 1;
     this.foulPenaltySettings = foulPenaltySettings;
-    this.gameSummaryFilePath = `./src/data/game-summary/${id}.txt`;
     this.id = id;
     this.isEndOfSegment = false;
     this.isGameTied = false;
@@ -128,6 +164,7 @@ class GameSim {
     this.timeoutOptions = timeoutOptions;
     this.teams.forEach((team, teamIndex) => {
       const teamState = new GameTeamState(
+        this.asyncOperations,
         team.id,
         id,
         team.getFullName(),
@@ -135,11 +172,10 @@ class GameSim {
       );
       this.teamStates[team.id] = teamState;
       this.observers.push(teamState);
-
       team.players.forEach((player: any) => {
         // player.normalizePlayerData();
-
         const playerState = new GamePlayerState(
+          this.asyncOperations,
           player.id,
           random.int(80, 99),
           id,
@@ -153,11 +189,11 @@ class GameSim {
         this.observers.push(playerState);
       });
     });
-
     // INIT OTHER OBSERVERS
-    // this.observers.push(new GameLog(id));
+    // this.observers.push(new GameLog(id, this.asyncOperations));
     this.observers.push(
       new GameEventStore({
+        asyncOperations: this.asyncOperations,
         gameId: id,
         gameType: gameType.type,
         isNeutralFloor,
@@ -165,13 +201,10 @@ class GameSim {
         team1: teams[1].id,
       })
     );
-
     //START MANIPULATING GAME STATE
-
     //STARTERS
     this.playersOnCourt = this.pickStarters();
     this.notifyObservers("STARTING_LINEUP", {});
-
     if (isTypeGuardSafeObj(GameTypeTime, gameType)) {
       this.gameType = getTypeGuardSafeData(GameTypeTime, gameType);
     } else if (isTypeGuardSafeObj(GameTypePoints, gameType)) {
@@ -185,13 +218,10 @@ class GameSim {
       this.timeSegments = [];
       this.timeSegmentIndex = 0;
       let counter = gameType.segment;
-
       if (this.timeoutOptions.timeoutRules === "NBA") {
         this.timeoutSegments = [];
       }
-
       this.fullSegmentTime = gameType.totalTime / gameType.segment;
-
       while (counter > 0) {
         this.timeSegments.push(this.fullSegmentTime);
         if (this.timeoutSegments) {
@@ -1371,22 +1401,6 @@ class GameSim {
   };
 
   closeGameSim = async () => {
-    // //create file
-    // fs.writeFileSync(this.gameSummaryFilePath, "");
-    // //add headers
-    // let headerString = "team0Score|";
-    // fs.appendFileSync(this.filePath, `${headerString}\n`);
-    // return {
-    //   playerStats: [
-    //     this.teams[0].players.map((player) => this.playerStates[player.id]),
-    //     this.teams[1].players.map((player) => this.playerStates[player.id]),
-    //   ],
-    //   teamStats: [
-    //     this.teamStates[this.teams[0].id],
-    //     this.teamStates[this.teams[1].id],
-    //   ],
-    // };
-
     const team0Won =
       this.teamStates[this.teams[0].id].pts >
       this.teamStates[this.teams[1].id].pts;
@@ -1405,7 +1419,7 @@ class GameSim {
     // );
   };
 
-  start = async () => {
+  start = () => {
     this.notifyObservers("GAME_START");
 
     let simPossessionIsOver = false;
@@ -1440,8 +1454,10 @@ class GameSim {
 
     console.log(`GAME ${this.id} HAS ENDED`);
 
-    await this.closeGameSim();
+    this.closeGameSim();
+
+    return this.asyncOperations;
   };
 }
 
-export default GameSim;
+export { GameSim };

@@ -2,7 +2,7 @@ import { Options, parse } from "csv-parse";
 import { finished } from "stream/promises";
 import { Readable } from "stream";
 
-export default async (buffer: Buffer, parseOptions?: Options) => {
+export const parseCsv = async (buffer: Buffer, parseOptions?: Options) => {
   try {
     const records: any[] = [];
     const stream = Readable.from(buffer);

@@ -1,10 +1,11 @@
-import { Conference, Division, Game as DBGame, Team } from "@prisma/client";
+// import { Conference, Division, Game as DBGame, Team } from "";
+// import { Conference, Division, Game as DBGame, Team } from "@prisma/client";
 import { keys, range, sample, set } from "lodash";
-import commons from "../utils/commons";
-import gameDates from "../data/gameDates.json";
-import { log } from "../utils";
+import gameDates from "../data/schedule/gameDates.json";
+import { log } from "../utils/log";
 import { sample as simpleStatSample } from "simple-statistics";
 import random from "random";
+import { Conference, Division, Team } from "../types/resolvers";
 
 class Scheduler {
   commonNonDivisionOpponents: any;
@@ -479,7 +480,7 @@ class Scheduler {
   };
 }
 
-export default Scheduler;
+export { Scheduler };
 
 class Game {
   gameDate: string;

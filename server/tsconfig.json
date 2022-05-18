@@ -4,6 +4,7 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "noImplicitAny": true,
+    "resolveJsonModule": true,
     "strict": true,
     "skipLibCheck": true,
     "useUnknownInCatchVariables": false

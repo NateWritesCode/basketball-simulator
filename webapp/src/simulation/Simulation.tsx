@@ -2,9 +2,10 @@ import { useMutation } from "@apollo/client";
 import { Box, Button } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { SIMULATE, SIMULATE_CLEANUP, SIMULATE_PREP } from "../graphql";
+import { SANDBOX, SIMULATE, SIMULATE_CLEANUP, SIMULATE_PREP } from "../graphql";
 
 const Simulation = () => {
+  const [sandbox] = useMutation(SANDBOX);
   const [simulate] = useMutation(SIMULATE);
   const [simulateCleanup] = useMutation(SIMULATE_CLEANUP);
   const [simulatePrep] = useMutation(SIMULATE_PREP);
@@ -27,6 +28,9 @@ const Simulation = () => {
         mr="2"
       >
         Standings
+      </Button>
+      <Button colorScheme={"red"} onClick={() => sandbox()} mr="2">
+        Sandbox
       </Button>
     </Box>
   );
