@@ -8,8 +8,28 @@ class CsvDb {
   private model: any;
   constructor() {
     this.model = {
+      conference: {
+        filePath: "/data/conference",
+        fileType: "txt",
+      },
+      division: {
+        filePath: "/data/division",
+        fileType: "txt",
+      },
+      league: {
+        filePath: "/data/league",
+        fileType: "txt",
+      },
       player: {
         filePath: "/data/player",
+        fileType: "txt",
+      },
+      "player-game": {
+        filePath: "/data/player-game",
+        fileType: "txt",
+      },
+      "player-game-group": {
+        filePath: "/data/player-game-group",
         fileType: "txt",
       },
       schedule: {
@@ -29,6 +49,14 @@ class CsvDb {
         filePath: "/data/team",
         fileType: "txt",
       },
+      "team-game": {
+        filePath: "/data/team-game",
+        fileType: "txt",
+      },
+      "team-game-group": {
+        filePath: "/data/team-game-group",
+        fileType: "txt",
+      },
     };
   }
 
@@ -40,72 +68,19 @@ class CsvDb {
     const filePath = this.getFilePath(filename, modelType);
     const fileExists = await storage.exists(filePath);
 
-    console.log("fileExists", fileExists);
-
-    const dataObj = Array.isArray(data) ? data[0] : data;
-
-    // this.checkIfDataObjMatchesColumns(modelType, dataObj);
-
     if (fileExists) {
       const csvString = stringify(Array.isArray(data) ? data : [data], {
         header: false,
+        delimiter: "|",
       });
-      console.log("csvString", csvString);
       await this.writeTextToFile(filePath, csvString);
     } else {
       const csvString = stringify(Array.isArray(data) ? data : [data], {
+        delimiter: "|",
         header: true,
       });
-      console.log("csvString", csvString);
       await this.writeTextToFile(filePath, csvString);
     }
-  };
-
-  private buildDataString = (
-    modelType: string,
-    data: Object | Object[]
-  ): string => {
-    let dataString = "";
-    const { columns } = this.model[modelType];
-    const columnKeys = Object.keys(columns);
-
-    if (Array.isArray(data)) {
-      data.forEach((dataObj: any) => {
-        columnKeys.forEach((column: string, i) => {
-          const isLastKey = i + 1 === columnKeys.length;
-          const value = dataObj[column];
-          dataString += `${value}${isLastKey ? "" : "|"}\n`;
-        });
-      });
-    } else {
-      columnKeys.forEach((column: string, i) => {
-        const isLastKey = i + 1 === columnKeys.length;
-        //@ts-ignore
-        const value = data[column];
-        dataString += `${value}${isLastKey ? "" : "|"}\n`;
-      });
-    }
-    console.log("dataString", dataString);
-    return dataString;
-  };
-
-  private buildHeaderString = (modelType: string) => {
-    const { columns } = this.model[modelType];
-
-    if (!columns) {
-      throw new Error(`Need columns to build headers for ${modelType}`);
-    }
-
-    let headerString = "";
-    const columnKeys = Object.keys(columns);
-    columnKeys.forEach((pipeSettingKey, i) => {
-      const isLastKey = i + 1 === columnKeys.length;
-      const value = pipeSettingKey;
-      headerString += `${value}${isLastKey ? "" : "|"}\n`;
-    });
-
-    console.log("headerString", headerString);
-    return headerString;
   };
 
   private checkIfDataObjMatchesColumns = (
@@ -140,21 +115,36 @@ class CsvDb {
     return `${this.model[modelType].filePath}/${filename}.${this.model[modelType].fileType}`;
   };
 
+  public getOne = async (filename: string, modelType: string, filter: any) => {
+    const filePath = this.getFilePath(filename, modelType);
+    const dataFromExistingFile = await storage.readBuffer(filePath);
+    if (dataFromExistingFile) {
+      const filterKey = Object.keys(filter)[0];
+      const parsedData = await parseCsv(dataFromExistingFile);
+      const rowIndex = parsedData.findIndex(
+        (obj) => obj[filterKey] === filter[filterKey]
+      );
+
+      if (rowIndex >= 0) {
+        return parsedData[rowIndex];
+      }
+
+      console.log(`${modelType} ${JSON.stringify(filter)} does not exist`);
+      return null;
+    }
+  };
+
   public getMany = async (
     filename: string,
     modelType: string
   ): Promise<any[]> => {
-    try {
-      const filePath = this.getFilePath(filename, modelType);
+    const filePath = this.getFilePath(filename, modelType);
+    const buffer = await storage.readBuffer(filePath);
 
-      const stream = await storage.readBuffer(filePath);
-      if (stream) {
-        return await parseCsv(stream);
-      } else {
-        throw new Error("Could not get stream in getMany");
-      }
-    } catch (error) {
-      throw new Error(error);
+    if (buffer) {
+      return await parseCsv(buffer);
+    } else {
+      throw new Error("Could not find a file to read");
     }
   };
 
@@ -178,7 +168,7 @@ class CsvDb {
     if (rowIndex >= 0) {
       const dataKeys = Object.keys(data);
       dataKeys.forEach((key) => {
-        parsedData[rowIndex] = parsedData[rowIndex][key] + data[key];
+        parsedData[rowIndex][key] = parsedData[rowIndex][key] + data[key];
       });
     }
   };
@@ -203,9 +193,9 @@ class CsvDb {
         this.incrementRow(parsedData, filter, data);
       }
 
-      console.log("parsedData", parsedData);
+      const csvString = stringify(parsedData, { delimiter: "|", header: true });
 
-      await storage.write(filePath, stringify(parsedData, { delimiter: "|" }));
+      await storage.write(filePath, csvString);
     }
   };
 

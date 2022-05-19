@@ -92,6 +92,7 @@ import { GameTeamState } from "./GameTeamState";
 import { Player } from "./Player";
 import { GameSimPlayerFields } from "../types/playerFields";
 import { GameEventData } from "../types/gameEvents";
+import { csvDb } from "../utils/csvDb";
 
 class GameSim {
   private asyncOperations: any[];
@@ -1400,23 +1401,23 @@ class GameSim {
     console.info("Simming shootout");
   };
 
-  closeGameSim = async () => {
+  closeGameSim = () => {
     const team0Won =
       this.teamStates[this.teams[0].id].pts >
       this.teamStates[this.teams[1].id].pts;
 
-    // await csvDb.incrementOneRow(
-    //   `1`,
-    //   "standings",
-    //   { teamId: this.teams[0].id },
-    //   team0Won ? { w: 1 } : { l: 1 }
-    // );
-    // await csvDb.incrementOneRow(
-    //   `1`,
-    //   "standings",
-    //   { teamId: this.teams[1].id },
-    //   team0Won ? { l: 1 } : { w: 1 }
-    // );
+    this.asyncOperations.push(async () => {
+      await csvDb.increment("1", "standings", [
+        {
+          filter: { teamId: this.teams[0].id },
+          data: team0Won ? { w: 1 } : { l: 1 },
+        },
+        {
+          filter: { teamId: this.teams[1].id },
+          data: team0Won ? { l: 1 } : { w: 1 },
+        },
+      ]);
+    });
   };
 
   start = () => {
@@ -1451,8 +1452,6 @@ class GameSim {
     }
 
     this.notifyObservers("GAME_END");
-
-    console.log(`GAME ${this.id} HAS ENDED`);
 
     this.closeGameSim();
 

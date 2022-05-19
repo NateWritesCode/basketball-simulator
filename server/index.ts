@@ -1,8 +1,8 @@
 import { api } from "@serverless/cloud";
 import { ApolloServer } from "apollo-server-express";
-import { createContext } from "./resolvers/createContext";
-import { resolvers } from "./resolvers/resolvers";
-import { typeDefs } from "./resolvers/typeDefs";
+import { createContext } from "./graphql/createContext";
+import { resolvers } from "./graphql/resolvers";
+import { typeDefs } from "./graphql/typeDefs";
 
 class ServerlessCloudApollo extends ApolloServer {
   serverlessFramework() {

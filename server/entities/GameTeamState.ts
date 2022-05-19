@@ -61,8 +61,6 @@ class GameTeamState implements IObserver {
   statsToRecord: string[];
   stl: number;
   substitutions: number;
-  teamGameFilePath: string;
-  teamGameGroupFilePath: string;
   teamDrb: number;
   teamOrb: number;
   timeouts: number;
@@ -114,8 +112,6 @@ class GameTeamState implements IObserver {
     this.stl = 0;
     this.substitutions = 0;
     this.teamDrb = 0;
-    this.teamGameFilePath = `./src/data/team-game/${id}.txt`;
-    this.teamGameGroupFilePath = `./src/data/team-game-group/${id}.txt`;
     this.teamOrb = 0;
     this.timeouts = timeouts;
     this.tov = 0;
@@ -163,31 +159,32 @@ class GameTeamState implements IObserver {
   };
 
   writeToTeamGame = () => {
-    // const data: any = {};
-    // this.statsToRecord.forEach((statToRecord, i) => {
-    //   let value = this[statToRecord];
-    //   data[statToRecord] = value;
-    // });
-    // csvDb.addTest(this.id.toString(), "team-game", data);
-    // csvDb.add(this.id.toString(), "team-game", data);
+    const data: any = {};
+    this.statsToRecord.forEach((statToRecord, i) => {
+      let value = this[statToRecord];
+      data[statToRecord] = value;
+    });
+
+    this.asyncOperations.push(async () => {
+      await csvDb.add(this.id.toString(), "team-game", data);
+    });
   };
 
   writeToTeamGameGroup = () => {
-    // const data: any = {};
-    // this.statsToRecord.forEach((statToRecord, i) => {
-    //   if (statToRecord === "gameId") {
-    //     data["gp"] = 1;
-    //   } else {
-    //     data[statToRecord] = this[statToRecord];
-    //   }
-    // });
-    // console.log("Witing to team game group for team id ", this.id);
-    // csvDb.incrementOneRow(
-    //   this.id.toString(),
-    //   "team-game-group",
-    //   { gameGroupId: this.gameGroupId },
-    //   data
-    // );
+    const data: any = {};
+    this.statsToRecord.forEach((statToRecord, i) => {
+      if (statToRecord === "gameId") {
+        data["gp"] = 1;
+      } else {
+        data[statToRecord] = this[statToRecord];
+      }
+    });
+    this.asyncOperations.push(async () => {
+      await csvDb.increment(this.id.toString(), "team-game-group", {
+        filter: { gameGroupId: this.gameGroupId },
+        data,
+      });
+    });
   };
 
   gatherGameSimSegmentData = (

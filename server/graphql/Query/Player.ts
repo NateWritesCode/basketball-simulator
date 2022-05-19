@@ -3,11 +3,7 @@ import { Context } from "../../types/general";
 import { getOnePlayerArgs } from "../../types/resolverArgs";
 
 export const Player = {
-  getOnePlayer: (
-    parent: undefined,
-    args: getOnePlayerArgs,
-    context: Context
-  ) => {
+  getOnePlayer: (parent, args, context) => {
     console.log("parent", parent);
     console.log("context", context);
 

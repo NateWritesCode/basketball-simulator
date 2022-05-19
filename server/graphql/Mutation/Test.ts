@@ -16,12 +16,12 @@ export const Test = {
 
     await csvDb.delete("1", "standings");
     await csvDb.add("1", "standings", teams);
-    const standings = await csvDb.read("1", "standings");
-    // await csvDb.increment("1", "standings", [
-    //   { data: { w: 1 }, filter: { teamId: 1 } },
-    //   { data: { l: 1 }, filter: { teamId: 2 } },
-    // ]);
+    await csvDb.increment("1", "standings", [
+      { data: { w: 1 }, filter: { teamId: 1 } },
+      { data: { l: 1 }, filter: { teamId: 2 } },
+    ]);
 
+    const standings = await csvDb.read("1", "standings");
     console.log("standings", standings);
 
     // const standings = await csvDb.read("1", "standings");

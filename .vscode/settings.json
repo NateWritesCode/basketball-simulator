@@ -13,5 +13,14 @@
   ],
   "python.autoComplete.extraPaths": ["./python"],
   "python.analysis.extraPaths": ["./python"],
-  "python.defaultInterpreterPath": "venv/bin/python3"
+  "python.defaultInterpreterPath": "venv/bin/python3",
+  "files.watcherExclude": {
+    "**/.build": true,
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.webpack/**": true,
+    "**/node_modules/*/**": true,
+    "**/server-old/*/**": true,
+    "**/webapp-old/*/**": true
+  }
 }

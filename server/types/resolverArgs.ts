@@ -5,6 +5,11 @@ export const getOnePlayerArgs = z.object({
 });
 export type getOnePlayerArgs = z.infer<typeof getOnePlayerArgs>;
 
+export const getOneTeamArgs = z.object({
+  abbrev: z.string(),
+});
+export type getOneTeamArgs = z.infer<typeof getOneTeamArgs>;
+
 export const getLeagueStandings = z.object({
   gameGroupId: z.number(),
   leagueId: z.number(),

@@ -247,18 +247,9 @@ class GameLog implements IObserver {
           gameLogs.forEach((v) => (dataString += `${v}\r\n`))
         );
 
-        const writeToStorageFunc = async () => {
-          try {
-            await storage.write(
-              `/data/game-logs/${this.gameId}.txt`,
-              dataString
-            );
-          } catch (error) {
-            throw new Error(error);
-          }
-        };
-
-        this.asyncOperations.push(writeToStorageFunc);
+        this.asyncOperations.push(async () => {
+          await storage.write(`/data/game-logs/${this.gameId}.txt`, dataString);
+        });
 
         break;
       }

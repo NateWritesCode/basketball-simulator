@@ -24,7 +24,7 @@ const Simulation = () => {
       </Button>
       <Button
         colorScheme={"purple"}
-        onClick={() => navigate("/standings")}
+        onClick={() => navigate("/league-standings")}
         mr="2"
       >
         Standings

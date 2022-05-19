@@ -13,6 +13,7 @@ import {
   ShotClockLength,
 } from "../../types/enums";
 import { writeFileToStorage } from "../../utils/writeFileToStorage";
+import { Team as TeamType } from "../../types/resolvers";
 
 export const Simulation = {
   simulate: async (
@@ -21,17 +22,25 @@ export const Simulation = {
     { csvDb }: Context
   ): Promise<boolean> => {
     console.log("Simulate STARTING");
-    const teamsDb = await csvDb.getMany("team", "team");
+    await csvDb.delete("1", "standings");
+    const teamsDb: TeamType[] = await csvDb.getMany("team", "team");
+
+    await csvDb.add(
+      "1",
+      "standings",
+      teamsDb.map((team) => ({ teamId: team.id, w: 0, l: 0 }))
+    );
 
     const gamesDb: Game[] = (await csvDb.getMany("1", "schedule")).sort(
       (a, b) => a.date - b.date
     );
 
     const playersDb: any[] = await csvDb.getMany("player", "player");
+    let gameNumber = 1;
 
-    const gamesToSim = [];
-
-    for (const game of gamesDb.slice(0, 10)) {
+    for await (const game of gamesDb) {
+      console.log(`Starting game number ${gameNumber}`);
+      gameNumber++;
       const team0 = teamsDb.filter((team) => team.id === game.team0Id)[0];
       const team1 = teamsDb.filter((team) => team.id === game.team1Id)[0];
       if (!team0 || !team1) {
@@ -76,20 +85,25 @@ export const Simulation = {
           })
       );
 
-      const gameToSim = async () => {
-        await simulateGame({ game, teams });
-      };
-
-      gamesToSim.push(gameToSim);
+      await simulateGame({ game, teams });
     }
-
-    await Promise.all(gamesToSim.map(async (fn) => await fn()));
 
     console.log("Simulation is complete");
 
     return true;
   },
-  simulateCleanup: (): boolean => {
+  simulateCleanup: async (): Promise<boolean> => {
+    const pages = await storage.list("/", { recursive: true, pageSize: 100 });
+    const files = [];
+    for await (const page of pages) {
+      files.push(...page);
+    }
+
+    for await (const file of files) {
+      await storage.remove(file);
+    }
+
+    console.log("SIMULATE CLEANUP IS COMPLETE");
     return true;
   },
   simulatePrep: async (): Promise<boolean> => {
@@ -149,11 +163,6 @@ const simulateGame = async ({ game, teams }: { game: Game; teams: Team[] }) => {
 
   try {
     await Promise.all(asyncOperations.map((fn) => fn()));
-
-    // const gameLog = await storage.read(`/data/game-logs/${game.id}.txt`);
-    // const gameEvents = await storage.read(`/data/game-events/${game.id}.txt`);
-
-    console.log(`Finished writing data for game ${game.id}`);
   } catch (error) {
     throw new Error(error);
   }

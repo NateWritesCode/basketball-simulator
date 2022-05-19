@@ -16,7 +16,7 @@ export interface Division {
   name: string;
 }
 
-interface League {
+export interface League {
   abbrev: string;
   id: number;
   conferences?: Conference[];

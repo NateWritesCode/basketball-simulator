@@ -1,3 +1,4 @@
+import { Resolvers } from "../types/resolverTypes";
 import { Mutation } from "./Mutation";
 import { Query } from "./Query";
 import { Scalars } from "./Scalars";

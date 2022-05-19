@@ -388,18 +388,12 @@ class GameEventStore implements IObserver {
         break;
       }
       case "GAME_END": {
-        const writeToStorageFunc = async () => {
-          try {
-            await storage.write(
-              `/data/game-events/${this.gameId}.txt`,
-              this.appendString
-            );
-          } catch (error) {
-            throw new Error(error);
-          }
-        };
-
-        this.asyncOperations.push(writeToStorageFunc);
+        this.asyncOperations.push(async () => {
+          await storage.write(
+            `/data/game-events/${this.gameId}.txt`,
+            this.appendString
+          );
+        });
         break;
       }
       case "GAME_START": {
