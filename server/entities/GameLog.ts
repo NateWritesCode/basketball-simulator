@@ -248,8 +248,17 @@ class GameLog implements IObserver {
         );
 
         this.asyncOperations.push(async () => {
-          await storage.write(`/data/game-logs/${this.gameId}.txt`, dataString);
+          try {
+            await storage.write(
+              `/data/game-logs/${this.gameId}.txt`,
+              dataString
+            );
+          } catch (error) {
+            throw new Error(error);
+          }
         });
+
+        console.log("PUSHED GAME END!!!");
 
         break;
       }

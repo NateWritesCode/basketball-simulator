@@ -1,0 +1,171 @@
+scalar Date
+scalar DateTime
+
+type Conference {
+  abbrev: String!
+  divisions: [Division!]
+  id: Int!
+  league: League!
+  name: String!
+}
+
+type Division {
+  abbrev: String!
+  conference: Conference
+  id: Int!
+  league: League!
+  name: String!
+}
+
+type League {
+  abbrev: String!
+  conferences: [Conference!]
+  divisions: [Division!]
+  id: Int!
+  name: String!
+}
+
+type LeagueStandings {
+  league: League!
+  teams: [StandingsTeam!]!
+}
+
+type Player {
+  active: Boolean!
+  birthdate: DateTime!
+  country: String!
+  draftNumber: Int!
+  draftRound: Int!
+  draftYear: DateTime!
+  familyName: String!
+  fromYear: DateTime!
+  givenName: String!
+  greatest75: Boolean!
+  hasPlayedDLeague: Boolean!
+  hasPlayedGames: Boolean!
+  hasPlayedNba: Boolean!
+  height: Int!
+  id: Int!
+  jerseyNumber: Int!
+  playerCode: String!
+  position: String!
+  school: String!
+  seasonsExperience: Int!
+  slug: String!
+  teamId: Int!
+  toYear: DateTime!
+  weight: Int!
+}
+
+type PlayerStats {
+  andOne: Int!
+  ast: Int!
+  blk: Int!
+  blkd: Int!
+  drb: Int!
+  dunks: Int!
+  fga: Int!
+  fgm: Int!
+  flagrant1: Int!
+  flagrant2: Int!
+  fouls: Int!
+  foulsOffensive: Int!
+  foulsOffensiveCharge: Int!
+  foulsOffensiveOther: Int!
+  foulsShooting: Int!
+  foulsTechnical: Int!
+  fouled: Int!
+  fta: Int!
+  ftm: Int!
+  heaves: Int!
+  jumpBallsLost: Int!
+  jumpBallsWon: Int!
+  orb: Int!
+  plusMinus: Int!
+  pts: Int!
+  ptsba: Int!
+  stl: Int!
+  substitutionIn: Int!
+  substitutionOut: Int!
+  timePlayed: Int!
+  tov: Int!
+  tpa: Int!
+  tpm: Int!
+}
+
+type StandingsTeam {
+  abbrev: String!
+  conferenceId: Int
+  divisionId: Int
+  homeName: String!
+  id: Int!
+  leagueId: Int!
+  l: Int!
+  nickname: String!
+  w: Int!
+}
+
+type Team {
+  abbrev: String!
+  conferenceId: Int
+  divisionId: Int
+  facebook: String
+  homeName: String!
+  id: Int!
+  instagram: String
+  lat: Float!
+  leagueId: Int
+  lng: Float!
+  nickname: String!
+  twitter: String
+  venue: String!
+  venueCapacity: Int!
+  yearFounded: DateTime!
+}
+
+type TeamStats {
+  andOne: Int!
+  ast: Int!
+  blk: Int!
+  blkd: Int!
+  drb: Int!
+  dunks: Int!
+  ejections: Int!
+  fga: Int!
+  fgm: Int!
+  fouls: Int!
+  foulsOffensive: Int!
+  foulsOffensiveCharge: Int!
+  foulsOffensiveOther: Int!
+  foulsShooting: Int!
+  foulsTechnical: Int!
+  fta: Int!
+  ftm: Int!
+  heaves: Int!
+  jumpBallsLost: Int!
+  jumpBallsWon: Int!
+  orb: Int!
+  pf: Int!
+  pts: Int!
+  stl: Int!
+  substitutions: Int!
+  teamDrb: Int!
+  teamOrb: Int!
+  tov: Int!
+  tpa: Int!
+  tpm: Int!
+}
+
+type Query {
+  getLeagueStandings(gameGroupId: Int!, leagueId: Int!): LeagueStandings
+  getOnePlayer(id: Int!): Player
+  getServerTime: String
+}
+
+type Mutation {
+  createFoo: Boolean
+  sandbox: Boolean
+  simulate: Boolean
+  simulateCleanup: Boolean
+  simulatePrep: Boolean
+}

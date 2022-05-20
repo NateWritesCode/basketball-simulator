@@ -1,8 +1,9 @@
-schema: https://great-project-71r3i.cloud.serverless.com/graphql
+schema: graphql/schema.graphql
 generates:
   ./types/resolverTypes.ts:
     config:
-      defaultMapper: Partial<{T}>
+      contextType: ./general#Context
+      # defaultMapper: Partial<{T}>
       useIndexSignature: true
     plugins:
       - typescript

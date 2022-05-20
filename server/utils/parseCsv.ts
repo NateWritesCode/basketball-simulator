@@ -27,7 +27,7 @@ export const parseCsv = async (buffer: Buffer, parseOptions?: Options) => {
     await finished(parser);
     return records;
   } catch (error) {
-    console.log("error", error);
+    console.log("parseCsv error", error);
     throw new Error(error);
   }
 };

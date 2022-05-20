@@ -166,7 +166,11 @@ class GameTeamState implements IObserver {
     });
 
     this.asyncOperations.push(async () => {
-      await csvDb.add(this.id.toString(), "team-game", data);
+      try {
+        await csvDb.add(this.id.toString(), "team-game", data);
+      } catch (error) {
+        throw new Error(error);
+      }
     });
   };
 
@@ -180,10 +184,14 @@ class GameTeamState implements IObserver {
       }
     });
     this.asyncOperations.push(async () => {
-      await csvDb.increment(this.id.toString(), "team-game-group", {
-        filter: { gameGroupId: this.gameGroupId },
-        data,
-      });
+      try {
+        await csvDb.increment(this.id.toString(), "team-game-group", {
+          filter: { gameGroupId: this.gameGroupId },
+          data,
+        });
+      } catch (error) {
+        throw new Error(error);
+      }
     });
   };
 
@@ -427,12 +435,7 @@ class GameTeamState implements IObserver {
         break;
       }
       case "GAME_END": {
-        // this.gameSimStats = this.gatherGameSimStats([
-        //   "jumpBallsLost",
-        //   "jumpBallsWon",
-        //   "pts",
-        // ]);
-        // this.closeTeamState();
+        this.closeTeamState();
         break;
       }
       case "GAME_START": {

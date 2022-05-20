@@ -1,4 +1,6 @@
 import { resolvers as scalarResolvers } from "graphql-scalars";
 export const Scalars = {
-  ...scalarResolvers,
+  // ...scalarResolvers,
+  Date: scalarResolvers.Date,
+  DateTime: scalarResolvers.DateTime,
 };

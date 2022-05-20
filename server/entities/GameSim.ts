@@ -191,7 +191,7 @@ class GameSim {
       });
     });
     // INIT OTHER OBSERVERS
-    // this.observers.push(new GameLog(id, this.asyncOperations));
+    this.observers.push(new GameLog(id, this.asyncOperations));
     this.observers.push(
       new GameEventStore({
         asyncOperations: this.asyncOperations,
@@ -1407,16 +1407,20 @@ class GameSim {
       this.teamStates[this.teams[1].id].pts;
 
     this.asyncOperations.push(async () => {
-      await csvDb.increment("1", "standings", [
-        {
-          filter: { teamId: this.teams[0].id },
-          data: team0Won ? { w: 1 } : { l: 1 },
-        },
-        {
-          filter: { teamId: this.teams[1].id },
-          data: team0Won ? { l: 1 } : { w: 1 },
-        },
-      ]);
+      try {
+        await csvDb.increment("1", "standings", [
+          {
+            filter: { teamId: this.teams[0].id },
+            data: team0Won ? { w: 1 } : { l: 1 },
+          },
+          {
+            filter: { teamId: this.teams[1].id },
+            data: team0Won ? { l: 1 } : { w: 1 },
+          },
+        ]);
+      } catch (error) {
+        throw new Error(error);
+      }
     });
   };
 
@@ -1452,6 +1456,7 @@ class GameSim {
     }
 
     this.notifyObservers("GAME_END");
+    console.log("CALLING");
 
     this.closeGameSim();
 

@@ -199,7 +199,11 @@ class GamePlayerState implements IObserver {
       data[statToRecord] = value;
     });
     this.asyncOperations.push(async () => {
-      await csvDb.add(this.id.toString(), "player-game", data);
+      try {
+        await csvDb.add(this.id.toString(), "player-game", data);
+      } catch (error) {
+        throw new Error(error);
+      }
     });
   };
 
@@ -212,11 +216,16 @@ class GamePlayerState implements IObserver {
         data[statToRecord] = this[statToRecord];
       }
     });
+    console.log("Write player to game group", this.id);
     this.asyncOperations.push(async () => {
-      await csvDb.increment(this.id.toString(), "player-game-group", {
-        filter: { gameGroupId: this.gameGroupId },
-        data,
-      });
+      try {
+        await csvDb.increment(this.id.toString(), "player-game-group", {
+          filter: { gameGroupId: this.gameGroupId },
+          data,
+        });
+      } catch (error) {
+        throw new Error(error);
+      }
     });
   };
 

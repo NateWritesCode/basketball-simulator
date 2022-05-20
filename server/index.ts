@@ -23,15 +23,17 @@ class ServerlessCloudApollo extends ApolloServer {
       csrfPrevention: true,
       debug: true,
       introspection: true,
-      formatError: (err) => {
-        console.log("Ut oh, we've got ourselves a GraphQL here: ", err);
+      formatError: (error) => {
+        console.log("Ut oh, we've got ourselves a GraphQL here");
+        console.log(JSON.stringify(error, null, 4));
+
         // Don't give the specific errors to the client.
-        if (err.message.startsWith("Database Error: ")) {
+        if (error.message.startsWith("Database Error: ")) {
           return new Error("Internal server error");
         }
         // Otherwise return the original error. The error can also
         // be manipulated in other ways, as long as it's returned.
-        return err;
+        return error;
       },
     });
 

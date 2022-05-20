@@ -22,7 +22,8 @@ export const Simulation = {
     { csvDb }: Context
   ): Promise<boolean> => {
     console.log("Simulate STARTING");
-    await csvDb.delete("1", "standings");
+    await csvDb.deleteSimFiles();
+    await csvDb.listFiles();
     const teamsDb: TeamType[] = await csvDb.getMany("team", "team");
 
     await csvDb.add(
@@ -38,7 +39,7 @@ export const Simulation = {
     const playersDb: any[] = await csvDb.getMany("player", "player");
     let gameNumber = 1;
 
-    for await (const game of gamesDb) {
+    for await (const game of gamesDb.slice(0, 1)) {
       console.log(`Starting game number ${gameNumber}`);
       gameNumber++;
       const team0 = teamsDb.filter((team) => team.id === game.team0Id)[0];
@@ -88,6 +89,8 @@ export const Simulation = {
       await simulateGame({ game, teams });
     }
 
+    await csvDb.listFiles();
+
     console.log("Simulation is complete");
 
     return true;
@@ -100,7 +103,7 @@ export const Simulation = {
     }
 
     for await (const file of files) {
-      await storage.remove(file);
+      await storage.remove(`/${file}`);
     }
 
     console.log("SIMULATE CLEANUP IS COMPLETE");
@@ -162,7 +165,12 @@ const simulateGame = async ({ game, teams }: { game: Game; teams: Team[] }) => {
   const asyncOperations = gameSim.start();
 
   try {
-    await Promise.all(asyncOperations.map((fn) => fn()));
+    // const results = await Promise.all(promises.map(p => p.catch(e => e)));
+    const results = await Promise.all(
+      asyncOperations.map((p) => p().catch((e: any) => e))
+    );
+    const validResults = results.filter((result) => !(result instanceof Error));
+    console.log("validResults", validResults);
   } catch (error) {
     throw new Error(error);
   }

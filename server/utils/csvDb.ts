@@ -196,7 +196,57 @@ class CsvDb {
       const csvString = stringify(parsedData, { delimiter: "|", header: true });
 
       await storage.write(filePath, csvString);
+    } else {
+      const dataToWrite: any[] = Array.isArray(incrementObj)
+        ? incrementObj.map((obj) => obj.data)
+        : [incrementObj.data];
+
+      const csvString = stringify(dataToWrite, {
+        delimiter: "|",
+        header: true,
+      });
+
+      await storage.write(filePath, csvString);
     }
+  };
+
+  public deleteSimFiles = async () => {
+    const pages = await storage.list("/", { recursive: true, pageSize: 1000 });
+    let files = [];
+
+    for await (const page of pages) {
+      files.push(...page);
+    }
+
+    const filesToKeep = [
+      "data/conference/conference.txt",
+      "data/division/division.txt",
+      "data/league/league.txt",
+      "data/player/player.txt",
+      "data/schedule/1.txt",
+      "data/team/team.txt",
+    ];
+
+    files = files.filter((file) => !filesToKeep.includes(file));
+
+    console.log("deleting files", files);
+
+    for await (const file of files) {
+      try {
+        await storage.remove(`/${file}`);
+      } catch (error) {
+        throw new Error(error);
+      }
+    }
+  };
+
+  public listFiles = async () => {
+    const pages = await storage.list("/", { recursive: true, pageSize: 1000 });
+    const files = [];
+    for await (const page of pages) {
+      files.push(...page);
+    }
+    console.log("Listing files", files);
   };
 
   public read = async (filename: string, modelType: string): Promise<any> => {

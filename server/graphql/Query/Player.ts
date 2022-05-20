@@ -1,12 +1,13 @@
 import {} from "apollo-server-express";
 import { Context } from "../../types/general";
-import { getOnePlayerArgs } from "../../types/resolverArgs";
+import { QueryResolvers } from "../../types/resolverTypes";
 
-export const Player = {
-  getOnePlayer: (parent, args, context) => {
-    console.log("parent", parent);
-    console.log("context", context);
+type PlayerResolvers = {
+  getOnePlayer: QueryResolvers["getOnePlayer"];
+};
 
-    return { id: 1, familyName: "Tom", givenName: "Jones" };
+export const Player: PlayerResolvers = {
+  getOnePlayer: (parent, { id }, { csvDb }) => {
+    return null;
   },
 };

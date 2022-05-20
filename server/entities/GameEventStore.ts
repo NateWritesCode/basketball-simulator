@@ -389,10 +389,14 @@ class GameEventStore implements IObserver {
       }
       case "GAME_END": {
         this.asyncOperations.push(async () => {
-          await storage.write(
-            `/data/game-events/${this.gameId}.txt`,
-            this.appendString
-          );
+          try {
+            await storage.write(
+              `/data/game-events/${this.gameId}.txt`,
+              this.appendString
+            );
+          } catch (error) {
+            throw new Error(error);
+          }
         });
         break;
       }
