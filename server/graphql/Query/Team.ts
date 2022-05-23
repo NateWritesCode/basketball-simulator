@@ -1,12 +1,46 @@
-import { Context } from "../../types/general";
-import { getOneTeamArgs } from "../../types/resolverArgs";
+import {
+  QueryResolvers,
+  Team as TeamType,
+  TeamStats,
+} from "../../types/resolverTypes";
+import to from "await-to-js";
 
-export const Test = {
-  getOneTeamInfo: (
-    _parent: undefined,
-    { abbrev }: getOneTeamArgs,
-    { csvDb }: Context
-  ): string | null => {
-    return new Date().toISOString();
+type TeamResolvers = {
+  getTeamInfo: QueryResolvers["getTeamInfo"];
+};
+
+export const Team: TeamResolvers = {
+  getTeamInfo: async (_parent, { abbrev }, { csvDb }) => {
+    let error, teamGames, teamGameGroups, teamInfo;
+
+    [error, teamInfo] = await to<TeamType>(
+      csvDb.getOne("team", "team", { abbrev })
+    );
+
+    if (!teamInfo) {
+      throw new Error("Team does not exist");
+    }
+
+    if (error) {
+      throw new Error(error?.message);
+    }
+
+    [error, teamGames] = await to<TeamStats[]>(
+      csvDb.getAll(teamInfo.id, "team-game")
+    );
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    [error, teamGameGroups] = await to<TeamStats[]>(
+      csvDb.getAll(teamInfo.id, "team-game-group")
+    );
+
+    return {
+      teamGames,
+      teamGameGroups,
+      teamInfo,
+    };
   },
 };

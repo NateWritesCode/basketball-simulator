@@ -129,6 +129,7 @@ export type Query = {
   getLeagueStandings?: Maybe<LeagueStandings>;
   getOnePlayer?: Maybe<Player>;
   getServerTime?: Maybe<Scalars['String']>;
+  getTeamInfo?: Maybe<TeamInfo>;
 };
 
 
@@ -140,6 +141,11 @@ export type QueryGetLeagueStandingsArgs = {
 
 export type QueryGetOnePlayerArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QueryGetTeamInfoArgs = {
+  abbrev: Scalars['String'];
 };
 
 export type StandingsTeam = {
@@ -172,6 +178,13 @@ export type Team = {
   venue: Scalars['String'];
   venueCapacity: Scalars['Int'];
   yearFounded: Scalars['DateTime'];
+};
+
+export type TeamInfo = {
+  __typename?: 'TeamInfo';
+  teamGameGroups?: Maybe<Array<TeamStats>>;
+  teamGames?: Maybe<Array<TeamStats>>;
+  teamInfo: Team;
 };
 
 export type TeamStats = {
@@ -294,6 +307,7 @@ export type ResolversTypes = ResolversObject<{
   StandingsTeam: ResolverTypeWrapper<StandingsTeam>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Team: ResolverTypeWrapper<Team>;
+  TeamInfo: ResolverTypeWrapper<TeamInfo>;
   TeamStats: ResolverTypeWrapper<TeamStats>;
 }>;
 
@@ -315,6 +329,7 @@ export type ResolversParentTypes = ResolversObject<{
   StandingsTeam: StandingsTeam;
   String: Scalars['String'];
   Team: Team;
+  TeamInfo: TeamInfo;
   TeamStats: TeamStats;
 }>;
 
@@ -436,6 +451,7 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
   getLeagueStandings?: Resolver<Maybe<ResolversTypes['LeagueStandings']>, ParentType, ContextType, RequireFields<QueryGetLeagueStandingsArgs, 'gameGroupId' | 'leagueId'>>;
   getOnePlayer?: Resolver<Maybe<ResolversTypes['Player']>, ParentType, ContextType, RequireFields<QueryGetOnePlayerArgs, 'id'>>;
   getServerTime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  getTeamInfo?: Resolver<Maybe<ResolversTypes['TeamInfo']>, ParentType, ContextType, RequireFields<QueryGetTeamInfoArgs, 'abbrev'>>;
 }>;
 
 export type StandingsTeamResolvers<ContextType = Context, ParentType extends ResolversParentTypes['StandingsTeam'] = ResolversParentTypes['StandingsTeam']> = ResolversObject<{
@@ -467,6 +483,13 @@ export type TeamResolvers<ContextType = Context, ParentType extends ResolversPar
   venue?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   venueCapacity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   yearFounded?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type TeamInfoResolvers<ContextType = Context, ParentType extends ResolversParentTypes['TeamInfo'] = ResolversParentTypes['TeamInfo']> = ResolversObject<{
+  teamGameGroups?: Resolver<Maybe<Array<ResolversTypes['TeamStats']>>, ParentType, ContextType>;
+  teamGames?: Resolver<Maybe<Array<ResolversTypes['TeamStats']>>, ParentType, ContextType>;
+  teamInfo?: Resolver<ResolversTypes['Team'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -517,6 +540,7 @@ export type Resolvers<ContextType = Context> = ResolversObject<{
   Query?: QueryResolvers<ContextType>;
   StandingsTeam?: StandingsTeamResolvers<ContextType>;
   Team?: TeamResolvers<ContextType>;
+  TeamInfo?: TeamInfoResolvers<ContextType>;
   TeamStats?: TeamStatsResolvers<ContextType>;
 }>;
 

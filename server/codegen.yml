@@ -3,7 +3,6 @@ generates:
   ./types/resolverTypes.ts:
     config:
       contextType: ./general#Context
-      # defaultMapper: Partial<{T}>
       useIndexSignature: true
     plugins:
       - typescript

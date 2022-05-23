@@ -123,6 +123,12 @@ type Team {
   yearFounded: DateTime!
 }
 
+type TeamInfo {
+  teamInfo: Team!
+  teamGames: [TeamStats!]
+  teamGameGroups: [TeamStats!]
+}
+
 type TeamStats {
   andOne: Int!
   ast: Int!
@@ -159,6 +165,7 @@ type TeamStats {
 type Query {
   getLeagueStandings(gameGroupId: Int!, leagueId: Int!): LeagueStandings
   getOnePlayer(id: Int!): Player
+  getTeamInfo(abbrev: String!): TeamInfo
   getServerTime: String
 }
 

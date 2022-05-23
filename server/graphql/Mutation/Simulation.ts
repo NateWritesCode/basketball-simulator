@@ -24,7 +24,7 @@ export const Simulation = {
     console.log("Simulate STARTING");
     await csvDb.deleteSimFiles();
     await csvDb.listFiles();
-    const teamsDb: TeamType[] = await csvDb.getMany("team", "team");
+    const teamsDb: TeamType[] = await csvDb.getAll("team", "team");
 
     await csvDb.add(
       "1",
@@ -32,11 +32,11 @@ export const Simulation = {
       teamsDb.map((team) => ({ teamId: team.id, w: 0, l: 0 }))
     );
 
-    const gamesDb: Game[] = (await csvDb.getMany("1", "schedule")).sort(
+    const gamesDb: Game[] = (await csvDb.getAll("1", "schedule")).sort(
       (a, b) => a.date - b.date
     );
 
-    const playersDb: any[] = await csvDb.getMany("player", "player");
+    const playersDb: any[] = await csvDb.getAll("player", "player");
     let gameNumber = 1;
 
     for await (const game of gamesDb.slice(0, 1)) {

@@ -61,7 +61,7 @@ class CsvDb {
   }
 
   public add = async (
-    filename: string,
+    filename: string | number,
     modelType: string,
     data: Object | Object[]
   ) => {
@@ -103,7 +103,7 @@ class CsvDb {
     }
   };
 
-  public delete = async (filename: string, modelType: string) => {
+  public delete = async (filename: string | number, modelType: string) => {
     const filePath = this.getFilePath(filename, modelType);
 
     await storage.remove(filePath);
@@ -111,11 +111,15 @@ class CsvDb {
     console.log(`File is removed from ${filePath}`);
   };
 
-  private getFilePath = (filename: string, modelType: string) => {
+  private getFilePath = (filename: string | number, modelType: string) => {
     return `${this.model[modelType].filePath}/${filename}.${this.model[modelType].fileType}`;
   };
 
-  public getOne = async (filename: string, modelType: string, filter: any) => {
+  public getOne = async (
+    filename: string | number,
+    modelType: string,
+    filter: any
+  ) => {
     const filePath = this.getFilePath(filename, modelType);
     const dataFromExistingFile = await storage.readBuffer(filePath);
     if (dataFromExistingFile) {
@@ -134,10 +138,7 @@ class CsvDb {
     }
   };
 
-  public getMany = async (
-    filename: string,
-    modelType: string
-  ): Promise<any[]> => {
+  public getAll = async (filename: string | number, modelType: string) => {
     const filePath = this.getFilePath(filename, modelType);
     const buffer = await storage.readBuffer(filePath);
 
@@ -174,7 +175,7 @@ class CsvDb {
   };
 
   public increment = async (
-    filename: string,
+    filename: string | number,
     modelType: string,
     incrementObj: CsvDbDataAndFilter | CsvDbDataAndFilter[]
   ) => {
@@ -249,7 +250,10 @@ class CsvDb {
     console.log("Listing files", files);
   };
 
-  public read = async (filename: string, modelType: string): Promise<any> => {
+  public read = async (
+    filename: string | number,
+    modelType: string
+  ): Promise<any> => {
     const filePath = this.getFilePath(filename, modelType);
     const buffer = await storage.readBuffer(filePath);
 

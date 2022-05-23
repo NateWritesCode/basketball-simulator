@@ -28,6 +28,7 @@
     "@lvksh/logger": "^1.6.3",
     "apollo-server-express": "^3.7.0",
     "async": "^3.2.3",
+    "await-to-js": "^3.0.0",
     "csv-parse": "^5.0.4",
     "csv-stringify": "^6.0.5",
     "data-forge": "^1.9.5",
