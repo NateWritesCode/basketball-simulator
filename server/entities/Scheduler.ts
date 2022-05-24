@@ -1,24 +1,25 @@
 // import { Conference, Division, Game as DBGame, Team } from "";
 // import { Conference, Division, Game as DBGame, Team } from "@prisma/client";
-import { keys, range, sample, set } from "lodash";
+import lodash from "lodash";
 import gameDates from "../data/schedule/gameDates.json";
 import { log } from "../utils/log";
 import { sample as simpleStatSample } from "simple-statistics";
 import random from "random";
 import { Conference, Division, Team } from "../types/resolvers";
+const { keys, range, sample, set } = lodash;
 
 class Scheduler {
   commonNonDivisionOpponents: any;
   rareNonDivisionOpponents: any;
-  conferences: Conference[];
-  divisions: Division[];
+  conferences: any[];
+  divisions: any[];
   public homeTeam: any[];
   rareOpponents: any;
   public schedule: any[];
   public scheduleName: any[];
   public teamSchedulerObj: any;
-  teams: Team[];
-  constructor(conferences: Conference[], divisions: Division[], teams: Team[]) {
+  teams: any[];
+  constructor(conferences: any[], divisions: any[], teams: any[]) {
     this.conferences = conferences;
     this.divisions = divisions;
     this.homeTeam = [];
@@ -247,6 +248,7 @@ class Scheduler {
   };
 
   setRareNonDivisionOpponents = (team: Team) => {
+    console.log("rare opponents team.abbrev", team.abbrev);
     const { rareNonDivisionOpponents } = this.teamSchedulerObj[team.abbrev];
     const possibleRareOpponents = this.getNonDivisionOpponents(team);
     const numScheduledRareGames =
@@ -318,13 +320,17 @@ class Scheduler {
     }
   };
 
-  createNbaSchedule = () => {
+  public createNbaSchedule = () => {
     log.info("Creating NBA Schedule");
 
     this.teams.forEach((team) => {
       this.setRareNonDivisionOpponents(team);
+      console.log("setting common for", team.abbrev);
       this.setCommonNonDivisionOpponents(team);
+      console.log("!!!", this.teamSchedulerObj);
     });
+
+    console.log("Finished setting");
 
     this.teams.forEach((team) => {
       const { schedule } = this.teamSchedulerObj[team.abbrev];

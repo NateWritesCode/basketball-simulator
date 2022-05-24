@@ -1,4 +1,6 @@
+import { Scheduler } from "../../entities/Scheduler";
 import { Context } from "../../types/general";
+import { Conference } from "../../types/resolverTypes";
 
 export const Test = {
   createFoo: (): boolean => {
@@ -7,25 +9,28 @@ export const Test = {
   sandbox: async (
     _parent: undefined,
     _args: undefined,
-    { csvDb }: Context
+    { data }: Context
   ): Promise<boolean> => {
-    const teams = [
-      { teamId: 1, w: 0, l: 0 },
-      { teamId: 2, w: 0, l: 0 },
-    ];
+    console.log("SANDBOX IS STARTING");
+    const instanceId = 1;
 
-    // await csvDb.delete("1", "standings");
-    // await csvDb.add("1", "standings", teams);
-    // await csvDb.increment("1", "standings", [
-    //   { data: { w: 1 }, filter: { teamId: 1 } },
-    //   { data: { l: 1 }, filter: { teamId: 2 } },
-    // ]);
+    const dataConferences = (
+      await data.get(`conference-${instanceId}:*`)
+    ).items.map((obj) => obj.value);
 
-    // const standings = await csvDb.read("1", "standings");
-    // console.log("standings", standings);
+    const dataDivisions = (
+      await data.get(`division-${instanceId}:*`)
+    ).items.map((obj) => obj.value);
 
-    // const standings = await csvDb.read("1", "standings");
-    // console.log("standings", standings);
+    const dataTeams = (await data.get(`team-${instanceId}:*`)).items.map(
+      (obj) => obj.value
+    );
+
+    const scheduler = new Scheduler(dataConferences, dataDivisions, dataTeams);
+
+    scheduler.createNbaSchedule();
+
+    console.log(JSON.stringify(scheduler.schedule, null, 4));
 
     console.log("SANDBOX IS COMPLETE");
 

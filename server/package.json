@@ -5,7 +5,7 @@
   "main": "index.ts",
   "type": "module",
   "scripts": {
-    "dev": "cloud",
+    "dev": "cloud --reseed",
     "test": "cloud test",
     "types:graphql": "yarn graphql-codegen"
   },

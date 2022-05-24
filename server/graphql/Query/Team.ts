@@ -3,7 +3,7 @@ import {
   Team as TeamType,
   TeamStats,
 } from "../../types/resolverTypes";
-import to from "await-to-js";
+import { to } from "await-to-js";
 
 type TeamResolvers = {
   getTeamInfo: QueryResolvers["getTeamInfo"];
@@ -16,6 +16,8 @@ export const Team: TeamResolvers = {
     [error, teamInfo] = await to<TeamType>(
       csvDb.getOne("team", "team", { abbrev })
     );
+
+    console.log("teamInfo", teamInfo);
 
     if (!teamInfo) {
       throw new Error("Team does not exist");

@@ -11,8 +11,8 @@ import fs from "fs";
 (async () => {
   try {
     // await startHive();SELECT * FROM "Game";
-    const prisma = await startExpressServer();
-    await seedData();
+    // const prisma = await startExpressServer();
+    // await seedData();
     // const playersCsv = await Papa.unparse(players, { delimiter: "|" });
     // const teamsCsv = await Papa.unparse(teams, { delimiter: "|" });
     // fs.writeFileSync("./src/data/players.txt", playersCsv);

@@ -14,82 +14,82 @@ import {
 } from "../../types/enums";
 import { writeFileToStorage } from "../../utils/writeFileToStorage";
 import { Team as TeamType } from "../../types/resolvers";
+import { dataClient } from "../../utils/dataClient";
 
 export const Simulation = {
   simulate: async (
     _parent: undefined,
     _args: undefined,
-    { csvDb }: Context
+    { data }: Context
   ): Promise<boolean> => {
     console.log("Simulate STARTING");
-    await csvDb.deleteSimFiles();
-    await csvDb.listFiles();
-    const teamsDb: TeamType[] = await csvDb.getAll("team", "team");
+    const gameGroupId = 1;
+    const instanceId = 1;
+    // await csvDb.deleteSimFiles();
+    // await csvDb.listFiles();
 
-    await csvDb.add(
-      "1",
-      "standings",
-      teamsDb.map((team) => ({ teamId: team.id, w: 0, l: 0 }))
+    const dataTeams = (await data.get(`team-${instanceId}:*`)).items.map(
+      (obj) => obj.value
     );
 
-    const gamesDb: Game[] = (await csvDb.getAll("1", "schedule")).sort(
-      (a, b) => a.date - b.date
-    );
+    // const gamesDb: Game[] = (await csvDb.getAll("1", "schedule")).sort(
+    //   (a, b) => a.date - b.date
+    // );
 
-    const playersDb: any[] = await csvDb.getAll("player", "player");
-    let gameNumber = 1;
+    // const playersDb: any[] = await csvDb.getAll("player", "player");
+    // let gameNumber = 1;
 
-    for await (const game of gamesDb.slice(0, 1)) {
-      console.log(`Starting game number ${gameNumber}`);
-      gameNumber++;
-      const team0 = teamsDb.filter((team) => team.id === game.team0Id)[0];
-      const team1 = teamsDb.filter((team) => team.id === game.team1Id)[0];
-      if (!team0 || !team1) {
-        throw new Error(
-          `Don't have the required teams to simulate game id ${game.id}`
-        );
-      }
+    // for await (const game of gamesDb.slice(0, 1)) {
+    //   console.log(`Starting game number ${gameNumber}`);
+    //   gameNumber++;
+    //   const team0 = teamsDb.filter((team) => team.id === game.team0Id)[0];
+    //   const team1 = teamsDb.filter((team) => team.id === game.team1Id)[0];
+    //   if (!team0 || !team1) {
+    //     throw new Error(
+    //       `Don't have the required teams to simulate game id ${game.id}`
+    //     );
+    //   }
 
-      const players = playersDb
-        .filter(
-          (player: any) =>
-            player.teamId === team0.id || player.teamId === team1.id
-        )
-        .map((player: any) => {
-          try {
-            return new Player(
-              player,
-              JSON.parse(
-                fs.readFileSync(
-                  `/tmp/task/probabilities/player/${player.id}.json`,
-                  "utf-8"
-                )
-              ),
-              JSON.parse(
-                fs.readFileSync(
-                  `/tmp/task/probabilities/player-total/${player.id}.json`,
-                  "utf-8"
-                )
-              )
-            );
-          } catch (error) {
-            return null;
-          }
-        })
-        .filter((player: any) => player !== null);
+    //   const players = playersDb
+    //     .filter(
+    //       (player: any) =>
+    //         player.teamId === team0.id || player.teamId === team1.id
+    //     )
+    //     .map((player: any) => {
+    //       try {
+    //         return new Player(
+    //           player,
+    //           JSON.parse(
+    //             fs.readFileSync(
+    //               `/tmp/task/probabilities/player/${player.id}.json`,
+    //               "utf-8"
+    //             )
+    //           ),
+    //           JSON.parse(
+    //             fs.readFileSync(
+    //               `/tmp/task/probabilities/player-total/${player.id}.json`,
+    //               "utf-8"
+    //             )
+    //           )
+    //         );
+    //       } catch (error) {
+    //         return null;
+    //       }
+    //     })
+    //     .filter((player: any) => player !== null);
 
-      const teams = [team0, team1].map(
-        (team) =>
-          new Team({
-            ...team,
-            players: players.filter((player: any) => player.teamId === team.id),
-          })
-      );
+    //   const teams = [team0, team1].map(
+    //     (team) =>
+    //       new Team({
+    //         ...team,
+    //         players: players.filter((player: any) => player.teamId === team.id),
+    //       })
+    //   );
 
-      await simulateGame({ game, teams });
-    }
+    //   await simulateGame({ game, teams });
+    // }
 
-    await csvDb.listFiles();
+    // await csvDb.listFiles();
 
     console.log("Simulation is complete");
 
