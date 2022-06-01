@@ -15,6 +15,8 @@ import {
 import { writeFileToStorage } from "../../utils/writeFileToStorage";
 import { Team as TeamType } from "../../types/resolvers";
 import { dataClient } from "../../utils/dataClient";
+import lodash from "lodash";
+const { isEmpty } = lodash;
 
 export const Simulation = {
   simulate: async (
@@ -28,68 +30,61 @@ export const Simulation = {
     // await csvDb.deleteSimFiles();
     // await csvDb.listFiles();
 
-    const dataTeams = (await data.get(`team-${instanceId}:*`)).items.map(
+    const dataTeams: any[] = (await data.get(`team-${instanceId}:*`)).items.map(
       (obj) => obj.value
     );
 
-    // const gamesDb: Game[] = (await csvDb.getAll("1", "schedule")).sort(
-    //   (a, b) => a.date - b.date
-    // );
+    const dataGames: any[] = (
+      await data.get(`schedule-${instanceId}:<=1-1`)
+    ).items.map((obj) => obj.value);
+    // .slice(0, 5);
 
-    // const playersDb: any[] = await csvDb.getAll("player", "player");
-    // let gameNumber = 1;
+    const dataPlayers: any[] = (
+      await data.get(`player-${instanceId}:*`, { limit: 1000 })
+    ).items.map((obj) => obj.value);
 
-    // for await (const game of gamesDb.slice(0, 1)) {
-    //   console.log(`Starting game number ${gameNumber}`);
-    //   gameNumber++;
-    //   const team0 = teamsDb.filter((team) => team.id === game.team0Id)[0];
-    //   const team1 = teamsDb.filter((team) => team.id === game.team1Id)[0];
-    //   if (!team0 || !team1) {
-    //     throw new Error(
-    //       `Don't have the required teams to simulate game id ${game.id}`
-    //     );
-    //   }
+    console.log("dataPlayers.length", dataPlayers.length);
 
-    //   const players = playersDb
-    //     .filter(
-    //       (player: any) =>
-    //         player.teamId === team0.id || player.teamId === team1.id
-    //     )
-    //     .map((player: any) => {
-    //       try {
-    //         return new Player(
-    //           player,
-    //           JSON.parse(
-    //             fs.readFileSync(
-    //               `/tmp/task/probabilities/player/${player.id}.json`,
-    //               "utf-8"
-    //             )
-    //           ),
-    //           JSON.parse(
-    //             fs.readFileSync(
-    //               `/tmp/task/probabilities/player-total/${player.id}.json`,
-    //               "utf-8"
-    //             )
-    //           )
-    //         );
-    //       } catch (error) {
-    //         return null;
-    //       }
-    //     })
-    //     .filter((player: any) => player !== null);
+    let gameNumber = 1;
 
-    //   const teams = [team0, team1].map(
-    //     (team) =>
-    //       new Team({
-    //         ...team,
-    //         players: players.filter((player: any) => player.teamId === team.id),
-    //       })
-    //   );
+    for await (const game of dataGames) {
+      console.log(`Starting game number ${gameNumber}`);
+      gameNumber++;
+      const team0 = dataTeams.filter((team) => team.id === game.team0Id)[0];
+      const team1 = dataTeams.filter((team) => team.id === game.team1Id)[0];
+      if (!team0 || !team1) {
+        throw new Error(
+          `Don't have the required teams to simulate game id ${game.id}`
+        );
+      }
 
-    //   await simulateGame({ game, teams });
-    // }
+      const players = dataPlayers
+        .filter(
+          (player: any) =>
+            player.teamId === team0.id || player.teamId === team1.id
+          // !isEmpty(player.totals)
+        )
+        .map((player: any) => {
+          try {
+            return new Player(player);
+          } catch (error) {
+            return null;
+          }
+        })
+        .filter((player: any) => player !== null);
 
-    // await csvDb.listFiles();
+      console.log("players", players.length);
+
+      // const teams = [team0, team1].map(
+      //   (team) =>
+      //     new Team({
+      //       ...team,
+      //       players: players.filter((player: any) => player.teamId === team.id),
+      //     })
+      // );
+
+      // await simulateGame({ game, teams });
+    }
 
     console.log("Simulation is complete");
 

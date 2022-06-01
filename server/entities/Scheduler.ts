@@ -1,5 +1,3 @@
-// import { Conference, Division, Game as DBGame, Team } from "";
-// import { Conference, Division, Game as DBGame, Team } from "@prisma/client";
 import lodash from "lodash";
 import gameDates from "../data/schedule/gameDates.json";
 import { log } from "../utils/log";
